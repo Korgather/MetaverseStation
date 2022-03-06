@@ -6,6 +6,7 @@ import AppLayout from '@components/AppLayout';
 import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
+import Pagination from '@components/main/Pagination';
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
           <BannerItem />
           <Category />
           <Postzone />
+          <Pagination />
         </>
       </AppLayout>
     </div>

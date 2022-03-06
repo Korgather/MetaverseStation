@@ -47,8 +47,10 @@ const AppLayout = ({ children }: AuxProps) => {
             <div className="site-layout-content">{children}</div>
           </Content>
         </Layout>
+        <Footer style={{ textAlign: 'center', width: '100vw', padding: '24px 0' }}>
+          ⓒ KORGATHER All Rights Reserved.
+        </Footer>
       </LayoutWrapper>
-      <Footer style={{ textAlign: 'center' }}>ⓒ KORGATHER All Rights Reserved.</Footer>
     </>
   );
 };
