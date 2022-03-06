@@ -12,13 +12,13 @@ const AppLayout = ({ children }: AuxProps) => {
   return (
     <>
       <LayoutWrapper>
-        <Layout className="layout" style={{ width: '1440px', background: 'white', alignItems: 'center' }}>
+        <Layout className="layout" style={{ width: '75vw', background: 'white', alignItems: 'center' }}>
           <Header
             style={{
               backgroundColor: 'white',
               display: 'flex',
               borderBottom: '1px solid #f0f0f0',
-              width: '1340px',
+              width: '70vw',
               padding: '0 10px',
             }}
           >
