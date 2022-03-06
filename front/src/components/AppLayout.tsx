@@ -18,7 +18,7 @@ const AppLayout = ({ children }: AuxProps) => {
               backgroundColor: 'white',
               display: 'flex',
               borderBottom: '1px solid #f0f0f0',
-              width: '70vw',
+              width: '75vw',
               padding: '0 10px',
             }}
           >

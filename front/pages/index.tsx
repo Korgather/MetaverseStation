@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import AppLayout from '@components/AppLayout';
 import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
+import BannerItem from '@components/main/BannerItem';
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
       </Head>
       <AppLayout>
         <>
+          <BannerItem />
           <Category />
           <Postzone />
         </>
