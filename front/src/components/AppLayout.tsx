@@ -1,6 +1,6 @@
 import React, { ReactChildren, ReactChild } from 'react';
 import Link from 'next/link';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -20,6 +20,7 @@ const AppLayout = ({ children }: AuxProps) => {
               borderBottom: '1px solid #f0f0f0',
               width: '75vw',
               padding: '0 10px',
+              position: 'relative',
             }}
           >
             <div>
@@ -42,12 +43,15 @@ const AppLayout = ({ children }: AuxProps) => {
                 </Link>
               </Menu.Item>
             </Menu>
+            <div>
+              <ButtonWrapper>로그인</ButtonWrapper>
+            </div>
           </Header>
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
           </Content>
         </Layout>
-        <Footer style={{ textAlign: 'center', width: '100vw', padding: '24px 0' }}>
+        <Footer style={{ textAlign: 'center', width: '100vw', padding: '24px 0', background: '#F0F0F0' }}>
           ⓒ KORGATHER All Rights Reserved.
         </Footer>
       </LayoutWrapper>
@@ -61,4 +65,10 @@ const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const ButtonWrapper = styled(Button)`
+  position: absolute;
+  right: 10px;
+  top: 19px;
 `;

@@ -15,7 +15,7 @@ const Postzone = () => {
       >
         {Array.from({ length: 8 }, (v, i) => i).map((el, i) => (
           // <Col span={6} style={{ textAlign: 'center' }}>
-          <Col xs={24} md={12} lg={8} xl={6} style={{}}>
+          <Col key={'PostCard' + i} xs={24} md={12} lg={8} xl={6} style={{}}>
             <PostImg src="https://dummyimage.com/325x220/C4C4C4/fff" />
           </Col>
         ))}

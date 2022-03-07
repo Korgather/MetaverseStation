@@ -42,4 +42,7 @@ export default BannerFrame;
 const SlideWrapper = styled.section`
   position: relative;
   width: 75vw;
+  .slick-list {
+    border-radius: 13px;
+  }
 `;
