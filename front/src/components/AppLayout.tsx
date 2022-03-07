@@ -11,8 +11,8 @@ const { Header, Content, Footer } = Layout;
 const AppLayout = ({ children }: AuxProps) => {
   return (
     <>
-      <LayoutWrapper>
-        <Layout className="layout" style={{ width: '75vw', background: 'white', alignItems: 'center' }}>
+      <LayoutWrapper className="layout">
+        <StyledLayout>
           <Header
             style={{
               backgroundColor: 'white',
@@ -46,11 +46,11 @@ const AppLayout = ({ children }: AuxProps) => {
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
           </Content>
-        </Layout>
-        <Footer style={{ textAlign: 'center', width: '100vw', padding: '24px 0' }}>
-          ⓒ KORGATHER All Rights Reserved.
-        </Footer>
+        </StyledLayout>
       </LayoutWrapper>
+      <Footer style={{ textAlign: 'center', width: '100vw', padding: '24px 0' }}>
+        ⓒ KORGATHER All Rights Reserved.
+      </Footer>
     </>
   );
 };
@@ -61,4 +61,14 @@ const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const StyledLayout = styled(Layout)`
+  align-items: center;
+  width: 1440px;
+  background: 'white';
+
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
 `;

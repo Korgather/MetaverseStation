@@ -41,5 +41,8 @@ export default BannerFrame;
 
 const SlideWrapper = styled.section`
   position: relative;
-  width: 75vw;
+  width: 1440px;
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
 `;
