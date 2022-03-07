@@ -27,7 +27,7 @@ const Postzone = () => {
 export default Postzone;
 
 const PostImg = styled.img`
-  width: 17.5vw;
+  width: 340px;
 
   @media screen and (max-width: 1650px) {
     width: 17vw;

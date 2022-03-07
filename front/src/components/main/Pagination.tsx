@@ -14,7 +14,10 @@ const Pagination = (props: Props) => {
 export default Pagination;
 
 const PaginationWrapper = styled.div`
-  width: 75vw;
+  width: 1440px;
   text-align: center;
   padding-top: 50px;
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
 `;
