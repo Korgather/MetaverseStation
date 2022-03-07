@@ -8,15 +8,15 @@ interface itemsProps {
 
 const items: itemsProps[] = [
   {
-    item: 'https://dummyimage.com/2000x360/c4c4c4',
+    item: '/images/bannerTest.gif',
     name: '이미지01',
   },
   {
-    item: 'https://dummyimage.com/2000x360/c4c4c4',
+    item: '/images/bannerTest.gif',
     name: '이미지02',
   },
   {
-    item: 'https://dummyimage.com/2000x360/c4c4c4',
+    item: '/images/bannerTest.gif',
     name: '이미지03',
   },
 ];

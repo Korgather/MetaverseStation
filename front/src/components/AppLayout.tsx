@@ -1,6 +1,6 @@
 import React, { ReactChildren, ReactChild } from 'react';
 import Link from 'next/link';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -20,6 +20,7 @@ const AppLayout = ({ children }: AuxProps) => {
               borderBottom: '1px solid #f0f0f0',
               width: '75vw',
               padding: '0 10px',
+              position: 'relative',
             }}
           >
             <div>
@@ -42,6 +43,9 @@ const AppLayout = ({ children }: AuxProps) => {
                 </Link>
               </Menu.Item>
             </Menu>
+            <div>
+              <ButtonWrapper>로그인</ButtonWrapper>
+            </div>
           </Header>
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
@@ -71,4 +75,9 @@ const StyledLayout = styled(Layout)`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
+`;
+const ButtonWrapper = styled(Button)`
+  position: absolute;
+  right: 10px;
+  top: 19px;
 `;
