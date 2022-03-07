@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 
-const Postzone = () => {
+interface PostzoneProps {
+  setWriteModalState: Dispatch<SetStateAction<boolean>>;
+}
+
+const Postzone: React.FunctionComponent<PostzoneProps> = () => {
   return (
     <div>
-      {/* <Row gutter={[16, 16]}> */}
       <Row
         justify="start"
         gutter={[
