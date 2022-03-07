@@ -11,18 +11,9 @@ const { Header, Content, Footer } = Layout;
 const AppLayout = ({ children }: AuxProps) => {
   return (
     <>
-      <LayoutWrapper>
-        <Layout className="layout" style={{ width: '75vw', background: 'white', alignItems: 'center' }}>
-          <Header
-            style={{
-              backgroundColor: 'white',
-              display: 'flex',
-              borderBottom: '1px solid #f0f0f0',
-              width: '75vw',
-              padding: '0 10px',
-              position: 'relative',
-            }}
-          >
+      <LayoutWrapper className="layout">
+        <StyledLayout>
+          <StyledHeader>
             <div>
               <img style={{ width: '35px' }} src="/images/Logo01.png" />
             </div>
@@ -46,14 +37,12 @@ const AppLayout = ({ children }: AuxProps) => {
             <div>
               <ButtonWrapper>로그인</ButtonWrapper>
             </div>
-          </Header>
+          </StyledHeader>
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
           </Content>
-        </Layout>
-        <Footer style={{ textAlign: 'center', width: '100vw', padding: '24px 0', background: '#F0F0F0' }}>
-          ⓒ KORGATHER All Rights Reserved.
-        </Footer>
+        </StyledLayout>
+        <StyledFooter>ⓒ KORGATHER All Rights Reserved.</StyledFooter>
       </LayoutWrapper>
     </>
   );
@@ -67,6 +56,36 @@ const LayoutWrapper = styled.div`
   align-items: center;
 `;
 
+const StyledLayout = styled(Layout)`
+  align-items: center;
+  width: 1440px;
+  background: white;
+
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
+`;
+
+const StyledHeader = styled(Header)`
+  background-color: white;
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  width: 1440px;
+  padding: 0 10px;
+  position: relative;
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
+`;
+
+const StyledFooter = styled(Footer)`
+  text-align: center;
+  width: 1440px;
+  padding: '24px 0';
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
+`;
 const ButtonWrapper = styled(Button)`
   position: absolute;
   right: 10px;

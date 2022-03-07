@@ -36,6 +36,9 @@ function BannerItem() {
 export default BannerItem;
 const SliderItem = styled.div`
   img {
-    width: 75vw;
+    width: 1440px;
+    @media screen and (max-width: 1650px) {
+      width: 75vw;
+    }
   }
 `;
