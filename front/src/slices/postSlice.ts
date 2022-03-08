@@ -1,6 +1,6 @@
 import { addPost } from '@actions/post';
-import { IPostState } from '@customTypes/post';
-import { createSlice, AnyAction } from '@reduxjs/toolkit';
+import { IPost, IPostState } from '@customTypes/post';
+import { createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IPostState = {
   mainPosts: [],
@@ -18,7 +18,7 @@ export const postSlice = createSlice({
       .addCase(addPost.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addPost.fulfilled, (state, action: AnyAction) => {
+      .addCase(addPost.fulfilled, (state, action: PayloadAction<IPost>) => {
         state.done = true;
         state.loading = false;
         state.mainPosts.push(action.payload);

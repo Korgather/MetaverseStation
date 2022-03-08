@@ -1,16 +1,22 @@
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import * as U from './style';
 import { beforeUpload, uploadButton } from '@lib/ModalUtil';
 import { Modal as ImgModal } from 'antd';
+import { UploadChangeParam } from 'antd/lib/upload';
+import { UploadFile } from 'antd/lib/upload/interface';
 
-const UploadImages = () => {
-  const [fileList, setFileList] = useState([]);
+type handleChage = <T>(info: UploadChangeParam<UploadFile<T>>) => void;
+interface UploadImagesProps {
+  setFileList: Dispatch<SetStateAction<UploadFile<File>[]>>;
+  fileList: UploadFile<File>[];
+}
+
+const UploadImages: React.FunctionComponent<UploadImagesProps> = ({ fileList, setFileList }) => {
   const [uploadValidate, setUploadValidate] = useState(true);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
-
-  const handleChange = ({ fileList: newFileList }: { fileList: any }) => {
+  const handleChange: handleChage = ({ fileList: newFileList }) => {
     if (uploadValidate) setFileList(newFileList);
   };
   const handlePreview = async (file: any) => {
@@ -19,7 +25,6 @@ const UploadImages = () => {
       src = await new Promise((resolve) => {
         const reader = new FileReader();
         reader.readAsDataURL(file.originFileObj);
-        console.log(file);
         reader.onload = () => resolve(reader.result);
       });
     }

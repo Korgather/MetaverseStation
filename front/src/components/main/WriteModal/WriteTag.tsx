@@ -10,7 +10,6 @@ interface WriteTagProps {
 }
 
 const WriteTag: React.FunctionComponent<WriteTagProps> = ({ tags, setTags }) => {
-  console.log(shortid.generate());
   const [inputVisible, setInputVisible] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const handleClose = (removeTag: string) => {

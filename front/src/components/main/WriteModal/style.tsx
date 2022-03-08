@@ -118,7 +118,9 @@ export const TagInput = styled(Input)`
 `;
 
 export const SubmitBtn = styled(Button)`
-  position: absolute;
-  bottom: 0px;
-  right: 0;
+  margin-left: auto;
+`;
+
+export const TagAndBtnWrapper = styled.div`
+  display: flex;
 `;
