@@ -1,5 +1,5 @@
 import { UploadFile } from 'antd/lib/upload/interface';
-import { Upload } from 'antd';
+import { Upload, Input, Tag, Button } from 'antd';
 import styled from 'styled-components';
 
 export interface Props {
@@ -102,4 +102,23 @@ export const ExplainP = styled.p`
   display: inline-block;
   font-weight: 400;
   font-size: 14px;
+`;
+
+export const TagPlus = styled(Tag)`
+  background: #fff;
+  border-style: dashed;
+  cursor: pointer;
+`;
+
+export const TagInput = styled(Input)`
+  width: 78px;
+  margin-right: 8px;
+  vertical-align: top;
+  cursor: pointer;
+`;
+
+export const SubmitBtn = styled(Button)`
+  position: absolute;
+  bottom: 0px;
+  right: 0;
 `;
