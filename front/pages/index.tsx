@@ -14,6 +14,11 @@ import { Button } from 'antd';
 const Home: NextPage = () => {
   const [writeModalState, setWriteModalState] = useState(false);
 
+  const openWritModal = () => {
+    setWriteModalState(true);
+    document.body.style.overflow = 'hidden';
+  };
+
   return (
     <>
       <React.StrictMode>
@@ -30,7 +35,7 @@ const Home: NextPage = () => {
             <Postzone setWriteModalState={setWriteModalState} />
             <BottomWrapper>
               <Pagination />
-              <StyledButton onClick={() => setWriteModalState(true)}>글쓰기</StyledButton>
+              <StyledButton onClick={openWritModal}>글쓰기</StyledButton>
             </BottomWrapper>
           </>
         </AppLayout>

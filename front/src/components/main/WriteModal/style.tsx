@@ -97,3 +97,9 @@ export const StyledLabel = styled.label<Props>`
   margin-top: 10px;
   display: inline-block;
 `;
+
+export const ExplainP = styled.p`
+  display: inline-block;
+  font-weight: 400;
+  font-size: 14px;
+`;

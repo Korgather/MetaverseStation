@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useRef, Dispatch, SetStateAction } from 'react';
-import { Input, Modal as ImgModal } from 'antd';
+import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
+import { Tag, Input, Modal as ImgModal } from 'antd';
 import { beforeUpload, uploadButton } from '@lib/ModalUtil';
+import WriteTag from './WriteTag';
 import * as U from './style';
+import styled from 'styled-components';
 
 interface WriteModalProps {
   setWriteModalState: Dispatch<SetStateAction<boolean>>;
@@ -57,13 +59,18 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
     [gatherState, zepState],
   );
 
+  const closeWriteModal = () => {
+    setWriteModalState(false);
+    document.body.style.overflow = 'unset';
+  };
+
   return (
     <>
-      <U.Dim onClick={() => setWriteModalState(false)} />
+      <U.Dim onClick={closeWriteModal} />
       <U.ModalWrapper>
         <U.Modal>
           <U.ModalContainer>
-            <U.closeModalBtn onClick={() => setWriteModalState(false)}>x</U.closeModalBtn>
+            <U.closeModalBtn onClick={closeWriteModal}>x</U.closeModalBtn>
             <h3>카테고리</h3>
             <U.SelectBtnWrapper>
               <U.SelectBtn onClick={selectHandler} name="gather" state={gatherState}>
@@ -89,8 +96,10 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
             </U.StyledUpload>
             <U.StyledLabel htmlFor="content">내용</U.StyledLabel>
             <TextArea id="content" rows={8} placeholder="메타버스 공간을 소개해주세요." />
-            <U.StyledLabel htmlFor="tags">태그</U.StyledLabel>
-            <Input id="tags" placeholder="#gathertown #zep"></Input>
+            <U.StyledLabel htmlFor="tags">
+              태그 <U.ExplainP>(*최대 5개)</U.ExplainP>
+            </U.StyledLabel>
+            <WriteTag />
             <ImgModal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
               <img alt="example" style={{ width: '100%' }} src={previewImage} />
             </ImgModal>
