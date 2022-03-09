@@ -27,9 +27,9 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
         <StyledDownOutlined />
       </Dropdown>
       <StyledA href="https://cafe.naver.com/gathertown" target="_blank">
-        <Button type="primary" htmlType="button">
+        <EntnerButton type="primary" htmlType="button">
           입장하기
-        </Button>
+        </EntnerButton>
       </StyledA>
       <CloseModalBtn onClick={() => closeModal(setDetailModalState)}>x</CloseModalBtn>
     </HeaderWrapper>
@@ -70,7 +70,7 @@ const StyledA = styled.a`
   margin-right: 20px;
 `;
 
-export const CloseModalBtn = styled.div`
+const CloseModalBtn = styled.div`
   background-color: #dfdada;
   border-radius: 50px;
   width: 25px;
@@ -80,4 +80,8 @@ export const CloseModalBtn = styled.div`
   font-weight: 600;
   margin-bottom: 15px;
   cursor: pointer;
+`;
+
+const EntnerButton = styled(Button)`
+  border-radius: 5px;
 `;
