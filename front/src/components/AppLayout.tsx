@@ -2,7 +2,7 @@ import React, { ReactChildren, ReactChild } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
-import DetailModal from './detail/DetailModal';
+import DetailModal from './detailModal/DetailModal';
 interface AuxProps {
   children: ReactChild | ReactChildren;
 }

@@ -55,7 +55,7 @@ export const ModalWrapper = styled.div`
   justify-content: center;
 `;
 
-export const closeModalBtn = styled.div`
+export const CloseModalBtn = styled.div`
   position: absolute;
   top: -10px;
   right: -20px;

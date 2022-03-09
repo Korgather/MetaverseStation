@@ -1,12 +1,13 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
+import { openModal } from '@lib/ModalUtil';
 
 interface PostzoneProps {
-  setWriteModalState: Dispatch<SetStateAction<boolean>>;
+  setDetailModalState: Dispatch<SetStateAction<boolean>>;
 }
 
-const Postzone: React.FunctionComponent<PostzoneProps> = () => {
+const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState }) => {
   return (
     <div>
       <Row
@@ -19,7 +20,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = () => {
         {Array.from({ length: 8 }, (v, i) => i).map((el, i) => (
           // <Col span={6} style={{ textAlign: 'center' }}>
           <Col key={'PostCard' + i} xs={24} md={12} lg={8} xl={6} style={{}}>
-            <PostImg src="https://dummyimage.com/325x220/C4C4C4/fff" />
+            <PostImg onClick={() => openModal(setDetailModalState)} src="https://dummyimage.com/325x220/C4C4C4/fff" />
           </Col>
         ))}
       </Row>

@@ -17,21 +17,6 @@ export const ModalContainer = styled.div`
   position: fixed;
 `;
 
-export const closeModalBtn = styled.div`
-  position: absolute;
-  top: -10px;
-  right: -20px;
-  background-color: #dfdada;
-  border-radius: 50px;
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  font-size: 15px;
-  vertical-align: middle;
-  font-weight: 600;
-  cursor: pointer;
-`;
-
 export const ModalWrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -39,7 +24,7 @@ export const ModalWrapper = styled.div`
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 999;
+  z-index: 300;
 `;
 
 export const CommentModal = styled.div<IModal>`
@@ -77,6 +62,7 @@ export const Modal = styled.div<IModal>`
   box-sizing: border-box;
   max-height: 700px;
   max-width: 500px;
+  min-width: 325px;
   transition: right 100ms linear;
   display: flex;
   align-items: center;

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
 import { Input } from 'antd';
 import { useFormik } from 'formik';
 import UploadImages from './UploadImages';
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { addPost } from '@actions/post';
 import * as U from './style';
 import { UploadFile } from 'antd/lib/upload/interface';
+import { closeModal } from '@lib/ModalUtil';
 
 interface WriteModalProps {
   setWriteModalState: Dispatch<SetStateAction<boolean>>;
@@ -55,19 +56,15 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
     },
     [gatherState, zepState],
   );
-  const closeWriteModal = () => {
-    setWriteModalState(false);
-    document.body.style.overflow = 'unset';
-  };
 
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <U.Dim onClick={closeWriteModal} />
+        <U.Dim onClick={() => closeModal(setWriteModalState)} />
         <U.ModalWrapper>
           <U.Modal>
             <U.ModalContainer>
-              <U.closeModalBtn onClick={closeWriteModal}>x</U.closeModalBtn>
+              <U.CloseModalBtn onClick={() => closeModal(setWriteModalState)}>x</U.CloseModalBtn>
               <h3>카테고리</h3>
               <U.SelectBtnWrapper>
                 <U.SelectBtn type="button" onClick={selectHandler} name="gather" state={gatherState}>

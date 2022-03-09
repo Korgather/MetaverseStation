@@ -7,18 +7,17 @@ import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
-import WriteModal from '@components/main/WriteModal/WriteModal';
-import DetailModal from '@components/detail/DetailModal';
+import WriteModal from '@components/writeModal/WriteModal';
+import DetailModal from '@components/detailModal/DetailModal';
 import { openModal } from '@lib/ModalUtil';
 import { Button } from 'antd';
 const Home: NextPage = () => {
   const [writeModalState, setWriteModalState] = useState(false);
-  const [detailModalState, setDetailModalState] = useState(true);
+  const [detailModalState, setDetailModalState] = useState(false);
   return (
     <>
       <React.StrictMode>
-        {/* {detailModalState && <DetailModal />} */}
-        <DetailModal />
+        {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
         {writeModalState && <WriteModal setWriteModalState={setWriteModalState} />}
         <Head>
           <title>MetaverseStation</title>
@@ -29,7 +28,7 @@ const Home: NextPage = () => {
           <>
             <BannerItem />
             <Category />
-            <Postzone setWriteModalState={setWriteModalState} />
+            <Postzone setDetailModalState={setDetailModalState} />
             <BottomWrapper>
               <Pagination />
               <StyledButton onClick={() => openModal(setWriteModalState)}>글쓰기</StyledButton>
