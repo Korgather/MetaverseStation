@@ -23,4 +23,10 @@ export const uploadButton = (
 
 export const closeModal = (setFunc: setFunc) => {
   setFunc(false);
+  document.body.style.overflow = 'unset';
+};
+
+export const openModal = (setFunc: setFunc) => {
+  setFunc(true);
+  document.body.style.overflow = 'hidden';
 };

@@ -2,26 +2,23 @@ import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import styles from '../styles/Home.module.css';
 import AppLayout from '@components/AppLayout';
 import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
 import WriteModal from '@components/main/WriteModal/WriteModal';
-import { closeModal } from '@lib/ModalUtil';
+import DetailModal from '@components/detail/DetailModal';
+import { openModal } from '@lib/ModalUtil';
 import { Button } from 'antd';
 const Home: NextPage = () => {
   const [writeModalState, setWriteModalState] = useState(false);
-
-  const openWritModal = () => {
-    setWriteModalState(true);
-    document.body.style.overflow = 'hidden';
-  };
-
+  const [detailModalState, setDetailModalState] = useState(true);
   return (
     <>
       <React.StrictMode>
+        {/* {detailModalState && <DetailModal />} */}
+        <DetailModal />
         {writeModalState && <WriteModal setWriteModalState={setWriteModalState} />}
         <Head>
           <title>MetaverseStation</title>
@@ -35,7 +32,7 @@ const Home: NextPage = () => {
             <Postzone setWriteModalState={setWriteModalState} />
             <BottomWrapper>
               <Pagination />
-              <StyledButton onClick={openWritModal}>글쓰기</StyledButton>
+              <StyledButton onClick={() => openModal(setWriteModalState)}>글쓰기</StyledButton>
             </BottomWrapper>
           </>
         </AppLayout>
