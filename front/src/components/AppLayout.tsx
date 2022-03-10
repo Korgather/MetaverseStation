@@ -2,6 +2,7 @@ import React, { ReactChildren, ReactChild } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
+import DetailModal from './detailModal/DetailModal';
 interface AuxProps {
   children: ReactChild | ReactChildren;
 }
@@ -54,6 +55,7 @@ const LayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const StyledLayout = styled(Layout)`
