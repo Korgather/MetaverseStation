@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import Slider, { Settings } from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
+
+type Props = {};
 
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
@@ -17,17 +17,17 @@ interface sliderProps {
   loop?: boolean;
 }
 
-const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
+const SliderFrame = ({ loop = true, speed = 400, children }: sliderProps) => {
   const settings = useMemo<Settings>(
     () => ({
-      dots: true,
       infinite: loop,
       speed: speed,
       slidesToShow: 1,
-      autoplay: Boolean(autoplay),
-      autoplaySpeed: typeof autoplay === 'boolean' ? 5000 : autoplay,
+      slidesToScroll: 1,
+      fade: true,
+      dots: true,
     }),
-    [autoplay, loop, speed],
+    [loop, speed],
   );
 
   return (
@@ -37,19 +37,24 @@ const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: s
   );
 };
 
-export default BannerFrame;
+export default SliderFrame;
 
 const SlideWrapper = styled.section`
+  margin-top: 10px;
+  padding: 0;
   position: relative;
-  width: 1440px;
-  .slick-list {
-    border-radius: 13px;
-  }
+  width: 100%;
+  height: 47%;
   .slick-prev:before,
   .slick-next:before {
-    color: black !important;
+    color: black;
   }
-  @media screen and (max-width: 1650px) {
-    width: 75vw;
+  .slick-next {
+    right: 0px;
+    z-index: 900;
+  }
+  .slick-prev {
+    left: 0px;
+    z-index: 900;
   }
 `;

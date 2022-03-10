@@ -19,7 +19,10 @@
       "@pages/*": ["pages/*"],
       "@components/*": ["src/components/*"],
       "@slices/*": ["src/slices/*"],
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@lib/*": ["src/lib/*"],
+      "@actions/*": ["src/actions/*"],
+      "@customTypes/*": ["src/customTypes/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
