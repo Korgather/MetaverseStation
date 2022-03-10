@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -11,9 +11,21 @@ import WriteModal from '@components/writeModal/WriteModal';
 import DetailModal from '@components/detailModal/DetailModal';
 import { openModal } from '@lib/ModalUtil';
 import { Button } from 'antd';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import Router from 'next/router';
+import { loadPost } from '@actions/post';
 const Home: NextPage = () => {
   const [writeModalState, setWriteModalState] = useState(false);
   const [detailModalState, setDetailModalState] = useState(false);
+  const dispatch = useAppDispatch();
+  const me = useAppSelector((state) => state.userSlice.me);
+  const mainPosts = useAppSelector((state) => state.postSlice.mainPosts);
+  const gotoLogIn = () => {
+    Router.push('/login');
+  };
+  useEffect(() => {
+    dispatch(loadPost());
+  }, []);
   return (
     <>
       <React.StrictMode>
@@ -28,10 +40,16 @@ const Home: NextPage = () => {
           <>
             <BannerItem />
             <Category />
-            <Postzone setDetailModalState={setDetailModalState} />
+            <Postzone setDetailModalState={setDetailModalState} mainPosts={mainPosts} />
             <BottomWrapper>
               <Pagination />
-              <StyledButton onClick={() => openModal(setWriteModalState)}>글쓰기</StyledButton>
+              <StyledButton
+                onClick={() => {
+                  me ? openModal(setWriteModalState) : gotoLogIn();
+                }}
+              >
+                글쓰기
+              </StyledButton>
             </BottomWrapper>
           </>
         </AppLayout>

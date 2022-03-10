@@ -5,13 +5,13 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { logIn } from '@actions/user';
 import Router from 'next/router';
+import { generateDummyPost } from '@lib/generateDummyDate';
 
 type Props = {};
 
 const login = (props: Props) => {
   const dispatch = useAppDispatch();
   const logInLoading = useAppSelector((state) => state.userSlice.logInLoading);
-  const me = useAppSelector((state) => state.userSlice.me);
   const KakaoLoginRequest = async () => {
     try {
       await dispatch(logIn());

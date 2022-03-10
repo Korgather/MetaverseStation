@@ -1,3 +1,4 @@
+import { IPost } from '@customTypes/post';
 import React from 'react';
 import styled from 'styled-components';
 import SliderFrame from './SliderFrame';
@@ -22,14 +23,20 @@ const images: itemsProps[] = [
   },
 ];
 
-const SliderImages = () => {
+interface SliderImagesProps {
+  postData: IPost;
+}
+
+const SliderImages: React.FunctionComponent<SliderImagesProps> = ({ postData }) => {
+  console.log(postData);
   return (
     <SliderFrame>
-      {images.map((item, index) => (
-        <StyledImages key={index}>
-          <img src={item.image} alt={item.name} />
-        </StyledImages>
-      ))}
+      {postData.Images &&
+        postData.Images.map((item, index) => (
+          <StyledImages key={index}>
+            <img src={item.src} alt="" />
+          </StyledImages>
+        ))}
     </SliderFrame>
   );
 };

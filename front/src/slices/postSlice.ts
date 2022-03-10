@@ -1,32 +1,51 @@
-import { addPost } from '@actions/post';
+import { addPost, loadPost } from '@actions/post';
 import { IPost, IPostState } from '@customTypes/post';
-import { createSlice, AnyAction, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IPostState = {
   mainPosts: [],
-  loading: false,
-  done: false,
-  error: null,
+  addPostLoading: false,
+  addPostDone: false,
+  addPostError: null,
+  loadPostLoading: false,
+  loadPostError: null,
+  dataForModal: '',
 };
 
 export const postSlice = createSlice({
   name: 'posts',
   initialState,
-  reducers: {},
+  reducers: {
+    getDataForModal: (state, action) => {
+      state.dataForModal = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(addPost.pending, (state) => {
-        state.loading = true;
+        state.addPostLoading = true;
       })
       .addCase(addPost.fulfilled, (state, action) => {
-        state.done = true;
-        state.loading = false;
+        state.addPostDone = true;
+        state.addPostLoading = false;
         state.mainPosts.push(action.payload);
       })
       .addCase(addPost.rejected, (state, action: ReturnType<typeof addPost.rejected>) => {
-        state.loading = false;
-        state.error = action.error;
+        state.addPostLoading = false;
+        state.addPostError = action.error;
+      })
+      .addCase(loadPost.pending, (state) => {
+        state.loadPostLoading = true;
+      })
+      .addCase(loadPost.fulfilled, (state, action: AnyAction) => {
+        state.loadPostLoading = false;
+        state.mainPosts = action.payload;
+      })
+      .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
+        state.loadPostLoading = false;
+        state.loadPostError = action.error;
       }),
 });
 
+export const { getDataForModal } = postSlice.actions;
 export default postSlice.reducer;

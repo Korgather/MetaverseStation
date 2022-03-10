@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { closeModal } from '@lib/ModalUtil';
+import { IPost } from '@customTypes/post';
 
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
+  postData: IPost;
 }
 
-const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
+const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState, postData }) => {
   const menu = (
     <Menu>
       <Menu.Item key={'dropdownItem1'}>
@@ -22,7 +24,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   return (
     <HeaderWrapper>
       <ProfileImg src="/images/profile01.png" />
-      <NickName>스누피</NickName>
+      <NickName>{postData.User?.nickname}</NickName>
       <Dropdown overlay={menu} trigger={['click']}>
         <StyledDownOutlined />
       </Dropdown>

@@ -1,7 +1,7 @@
 import { SerializedError } from '@reduxjs/toolkit';
 
 export interface IUser {
-  nickname: string;
+  nickname?: string;
   profile_image?: string;
   email?: string;
   platform_type?: string;

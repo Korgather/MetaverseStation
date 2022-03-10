@@ -1,5 +1,6 @@
 import CommentModal from '@components/commentModal/CommentModal';
 import { closeModal } from '@lib/ModalUtil';
+import { useAppSelector } from '@store/hook';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import DetailHeader from './DetailHeader';
 import HeartAndMessage from './HeartAndMessage';
@@ -12,23 +13,21 @@ interface DetailModalProps {
 
 const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModalState }) => {
   const [commentState, setCommentState] = useState(false);
+  const postData = useAppSelector((state) => state.postSlice.dataForModal);
   return (
     <>
-      <D.ModalWrapper>
-        <D.Dim onClick={() => closeModal(setDetailModalState)} />
-        <D.Modal commentState={commentState}>
-          <DetailHeader setDetailModalState={setDetailModalState} />
-          <SliderImages />
-          <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
-          <D.Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-          </D.Content>
-        </D.Modal>
-        <CommentModal commentState={commentState} />
-      </D.ModalWrapper>
+      {postData && (
+        <D.ModalWrapper>
+          <D.Dim onClick={() => closeModal(setDetailModalState)} />
+          <D.Modal commentState={commentState}>
+            <DetailHeader postData={postData} setDetailModalState={setDetailModalState} />
+            <SliderImages postData={postData} />
+            <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
+            <D.Content>{postData.content} </D.Content>
+          </D.Modal>
+          <CommentModal commentState={commentState} />
+        </D.ModalWrapper>
+      )}
     </>
   );
 };
