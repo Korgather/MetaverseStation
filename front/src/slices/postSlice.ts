@@ -18,13 +18,12 @@ export const postSlice = createSlice({
       .addCase(addPost.pending, (state) => {
         state.loading = true;
       })
-      .addCase(addPost.fulfilled, (state, action: PayloadAction<IPost>) => {
+      .addCase(addPost.fulfilled, (state, action) => {
         state.done = true;
         state.loading = false;
         state.mainPosts.push(action.payload);
       })
       .addCase(addPost.rejected, (state, action: ReturnType<typeof addPost.rejected>) => {
-        state.done = true;
         state.loading = false;
         state.error = action.error;
       }),

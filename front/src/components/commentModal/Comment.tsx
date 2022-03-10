@@ -6,8 +6,6 @@ import Reply from './Reply';
 import ReplyInput from './ReplyInput';
 
 const Comment = () => {
-  const userId = '1';
-
   return (
     <CommentWrapper>
       {dummy.map((comment, idx) => (
