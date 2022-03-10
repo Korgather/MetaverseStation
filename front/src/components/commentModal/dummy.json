@@ -6,7 +6,15 @@
       "nickname": "스누피",
       "date": "Sun Dec 17 1995 00:00",
       "content": "안녕하세요, 댓글 테스트 중입니다.",
-      "reply": []
+      "reply": [
+        {
+          "userId": "1",
+          "profile": "images/profile01.png",
+          "nickname": "스누피",
+          "date": "Sun Dec 17 1995 00:00",
+          "content": "안녕하세요, 댓글 테스트 중입니다녕하세요, 댓글 테스트 중입니다."
+        }
+      ]
     },
     {
       "userId": "2",
@@ -16,7 +24,7 @@
       "content": "안녕하세요, 댓글 테스트 중입니다.",
       "reply": [
         {
-          "userId": "3",
+          "userId": "1",
           "profile": "images/profile01.png",
           "nickname": "스누피",
           "date": "Sun Dec 17 1995 00:00",

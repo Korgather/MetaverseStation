@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import shortid from 'shortid';
 import { dummy } from './dummy.json';
 import Reply from './Reply';
+import ReplyInput from './ReplyInput';
 
 const Comment = () => {
   const userId = '1';
@@ -18,19 +19,7 @@ const Comment = () => {
                 <NickName>{comment.nickname}</NickName>
                 <Content>{comment.content}</Content>
               </ContentWrapper>
-              <CommentBottom>
-                <CommentDate>{comment.date}</CommentDate>
-                <CommentBtnWrapper>
-                  {comment.userId === userId ? (
-                    <StyledBtn>답글 쓰기</StyledBtn>
-                  ) : (
-                    <>
-                      <StyledBtn>수정</StyledBtn>
-                      <StyledBtn>삭제</StyledBtn>
-                    </>
-                  )}
-                </CommentBtnWrapper>
-              </CommentBottom>
+              <ReplyInput comment={comment} />
             </ContentAndBottomWrapper>
           </CommentContainer>
           <Reply comment={comment} />
@@ -79,35 +68,6 @@ const ContentWrapper = styled.div`
   padding: 10px;
   width: 14vw;
   max-width: 260px;
-`;
-
-const CommentBottom = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const CommentDate = styled.div`
-  color: #abb0b5;
-  font-size: 0.7rem;
-`;
-
-const CommentBtnWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const StyledBtn = styled.div`
-  color: #abb0b5;
-  font-size: 0.7rem;
-  margin-right: 5px;
-  cursor: pointer;
-  :hover {
-    color: #1890ff;
-  }
-  + div {
-    margin-left: 5px;
-  }
 `;
 
 const ContentAndBottomWrapper = styled.div`

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import shortid from 'shortid';
-import { dummy as dum } from './dummy.json';
+import ReplyInput from './ReplyInput';
 
 type reply = {
   userId?: string;
@@ -21,12 +21,12 @@ interface comment {
 }
 
 const Reply = ({ comment }: { comment: comment }) => {
-  const userId = '1';
   const [moreCommentView, setMoreCommentView] = useState(false);
 
   const ToggleMoreCommentView = () => {
     setMoreCommentView(true);
   };
+
   return (
     <ReplyWrapper>
       {comment.reply && !moreCommentView && comment.reply.length >= 2 ? (
@@ -48,28 +48,18 @@ const Reply = ({ comment }: { comment: comment }) => {
       ) : (
         comment.reply &&
         comment.reply.map((reply) => (
-          <ReplyContainer key={shortid.generate()}>
-            <PromfileImg src={reply.profile} />
-            <ContentAndBottomWrapper>
-              <ContentWrapper>
-                <NickName>{reply.nickname}</NickName>
-                <Content>{reply.content}</Content>
-              </ContentWrapper>
-              <ReplyBottom>
-                <ReplyDate>{reply.date}</ReplyDate>
-                <ReplyBtnWrapper>
-                  {reply.userId === userId ? (
-                    <StyledBtn>답글 쓰기</StyledBtn>
-                  ) : (
-                    <>
-                      <StyledBtn>수정</StyledBtn>
-                      <StyledBtn>삭제</StyledBtn>
-                    </>
-                  )}
-                </ReplyBtnWrapper>
-              </ReplyBottom>
-            </ContentAndBottomWrapper>
-          </ReplyContainer>
+          <>
+            <ReplyContainer key={shortid.generate()}>
+              <PromfileImg src={reply.profile} />
+              <ContentAndBottomWrapper>
+                <ContentWrapper>
+                  <NickName>{reply.nickname}</NickName>
+                  <Content>{reply.content}</Content>
+                </ContentWrapper>
+                <ReplyInput reply={reply} />
+              </ContentAndBottomWrapper>
+            </ReplyContainer>
+          </>
         ))
       )}
     </ReplyWrapper>
@@ -86,6 +76,9 @@ const ReplyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 10px;
+  + div {
+    margin-top: 10px;
+  }
 `;
 
 const PromfileImg = styled.img`
@@ -96,9 +89,6 @@ const PromfileImg = styled.img`
 const ReplyContainer = styled.div<ReplyContainer>`
   display: flex;
   flex-direction: row;
-  + div {
-    margin-top: 10px;
-  }
   margin-left: auto;
 `;
 
@@ -119,35 +109,6 @@ const ContentWrapper = styled.div`
   padding: 10px;
   width: 11vw;
   max-width: 210px;
-`;
-
-const ReplyBottom = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const ReplyDate = styled.div`
-  color: #abb0b5;
-  font-size: 0.6rem;
-`;
-
-const ReplyBtnWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const StyledBtn = styled.div`
-  color: #abb0b5;
-  font-size: 0.6rem;
-  margin-right: 5px;
-  cursor: pointer;
-  :hover {
-    color: #1890ff;
-  }
-  + div {
-    margin-left: 5px;
-  }
 `;
 
 const ContentAndBottomWrapper = styled.div`

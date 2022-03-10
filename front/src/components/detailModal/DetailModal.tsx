@@ -1,6 +1,6 @@
+import CommentModal from '@components/commentModal/CommentModal';
 import { closeModal } from '@lib/ModalUtil';
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import CommentModal from './CommentModal';
 import DetailHeader from './DetailHeader';
 import HeartAndMessage from './HeartAndMessage';
 import SliderImages from './SliderImages';
