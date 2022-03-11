@@ -1,4 +1,5 @@
 import { SerializedError } from '@reduxjs/toolkit';
+import { IPost } from './post';
 
 export interface IUser {
   nickname?: string;
@@ -6,6 +7,7 @@ export interface IUser {
   email?: string;
   platform_type?: string;
   id?: string;
+  myPosts?: IPost[];
 }
 
 export interface IUserState {

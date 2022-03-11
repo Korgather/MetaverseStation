@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IPost } from '@customTypes/post';
-import { generateDummyPost } from '@lib/generateDummyDate';
+import { generateDummyPost } from '@lib/generateDummyData';
 
 const delay = (time: number, value: any) =>
   new Promise((resolve, reject) => {

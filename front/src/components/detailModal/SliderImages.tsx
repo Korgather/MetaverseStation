@@ -22,7 +22,6 @@ const images: itemsProps[] = [
     name: '이미지03',
   },
 ];
-
 interface SliderImagesProps {
   postData: IPost;
 }

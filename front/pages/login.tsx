@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { logIn } from '@actions/user';
 import Router from 'next/router';
-import { generateDummyPost } from '@lib/generateDummyDate';
+import { generateDummyPost } from '@lib/generateDummyData';
 
 type Props = {};
 
