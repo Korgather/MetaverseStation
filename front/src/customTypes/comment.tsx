@@ -2,9 +2,10 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { IUser } from './user';
 
 export interface reply {
-  content: string;
+  content?: string;
   user_id?: string;
-  created_at: string;
+  created_at?: string;
+  User?: IUser;
 }
 
 export interface IComment {

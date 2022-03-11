@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const dummyUser: IUser = {
   nickname: 'eungwang',
-  id: '1',
+  id: 'eungwang',
   profile_image: '/images/profile01.png',
 };
 

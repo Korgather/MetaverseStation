@@ -1,117 +1,99 @@
+import { IComment, reply } from '@customTypes/comment';
+import { useAppSelector } from '@store/hook';
 import TextArea from 'antd/lib/input/TextArea';
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-
-type reply = {
-  userId?: string;
-  profile?: string;
-  nickname?: string;
-  date?: string;
-  content?: string;
-};
-
-interface comment {
-  userId: string;
-  profile: string;
-  nickname: string;
-  date: string;
-  content: string;
-  reply?: reply[];
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import * as S from './style';
+interface ReplyInputProps {
+  setAmendInputState?: Dispatch<SetStateAction<boolean>>;
+  reply?: reply;
+  comment?: IComment;
 }
 
-const ReplyInput = ({ reply, comment }: { reply?: reply; comment?: comment }) => {
-  const userId = '1';
+const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }) => {
+  const [amendInputState, setAmendInputState] = useState(false);
+  const me = useAppSelector((state) => state.userSlice.me);
   const [replyInputState, setReplyInputState] = useState(false);
   const CloseReplyInput = () => {
     setReplyInputState(false);
   };
-
   const OpenReplyInput = () => {
     setReplyInputState(true);
   };
+  const CloseAmendInput = () => {
+    setAmendInputState(false);
+  };
+  const OpenAemdInput = () => {
+    setAmendInputState(true);
+  };
   return (
     <div>
-      <ReplyInputWrapper>
-        <ReplyBottom>
-          <ReplyDate>{reply ? reply.date : comment ? comment.date : ''}</ReplyDate>
-          <ReplyBtnWrapper>
-            {(reply ? reply.userId === userId : comment ? comment.userId === userId : false) ? (
-              <StyledBtn onClick={OpenReplyInput}>답글 쓰기</StyledBtn>
-            ) : (
-              <>
-                <StyledBtn>수정</StyledBtn>
-                <StyledBtn>삭제</StyledBtn>
-              </>
-            )}
-          </ReplyBtnWrapper>
-        </ReplyBottom>
+      <S.ReplyInputWrapper>
+        {comment &&
+          (amendInputState ? (
+            <S.ContentWrapper large>
+              <S.NickName large>{comment.User?.nickname}</S.NickName>
+              <S.Content large>
+                <TextArea />
+              </S.Content>
+            </S.ContentWrapper>
+          ) : (
+            <S.ContentWrapper large>
+              <S.NickName large>{comment.User?.nickname}</S.NickName>
+              <S.Content large>{comment.content}</S.Content>
+            </S.ContentWrapper>
+          ))}
+        {reply &&
+          (amendInputState ? (
+            <S.ContentWrapper>
+              <S.NickName>{reply.User?.nickname}</S.NickName>
+              <S.Content>
+                <TextArea />
+              </S.Content>
+            </S.ContentWrapper>
+          ) : (
+            <S.ContentWrapper>
+              <S.NickName>{reply.User?.nickname}</S.NickName>
+              <S.Content>{reply.content}</S.Content>
+            </S.ContentWrapper>
+          ))}
+
+        <S.ReplyBottom>
+          <S.ReplyDate>{reply ? reply.created_at : comment ? comment.created_at : ''}</S.ReplyDate>
+          <S.ReplyBtnWrapper>
+            {me &&
+              !amendInputState &&
+              ((reply ? reply.User?.id === me.id : comment ? comment.User?.id === me.id : false) ? (
+                <>
+                  <S.StyledBtn onClick={OpenAemdInput}>수정</S.StyledBtn>
+                  <S.StyledBtn>삭제</S.StyledBtn>
+                </>
+              ) : (
+                <S.StyledBtn onClick={OpenReplyInput}>답글 쓰기</S.StyledBtn>
+              ))}
+
+            {me &&
+              amendInputState &&
+              (reply ? reply.User?.id === me.id : comment ? comment.User?.id === me.id : false) && (
+                <>
+                  <S.StyledBtn onClick={OpenAemdInput}>수정</S.StyledBtn>
+                  <S.StyledBtn onClick={CloseAmendInput}>취소</S.StyledBtn>
+                </>
+              )}
+          </S.ReplyBtnWrapper>
+        </S.ReplyBottom>
+
         {replyInputState && (
           <>
-            <StyledTextArea large={reply ? false : comment ? true : false} />
-            <MoreRelpyBtnWrapper>
-              <StyledBtn onClick={CloseReplyInput}>취소</StyledBtn>
-              <StyledBtn>등록</StyledBtn>
-            </MoreRelpyBtnWrapper>
+            <S.StyledTextArea large={reply ? false : comment ? true : false} />
+            <S.MoreRelpyBtnWrapper>
+              <S.StyledBtn onClick={CloseReplyInput}>취소</S.StyledBtn>
+              <S.StyledBtn>등록</S.StyledBtn>
+            </S.MoreRelpyBtnWrapper>
           </>
         )}
-      </ReplyInputWrapper>
+      </S.ReplyInputWrapper>
     </div>
   );
 };
 
 export default ReplyInput;
-
-interface StyledTextArea {
-  large?: boolean;
-}
-
-const ReplyInputWrapper = styled.div``;
-const StyledTextArea = styled(TextArea)<StyledTextArea>`
-  position: relative;
-  width: 11vw;
-  max-width: 210px !important;
-  margin-left: auto;
-  ${(props) =>
-    props.large &&
-    css`
-      width: 13.5vw;
-      max-width: 260px !important;
-    `}
-`;
-
-const StyledBtn = styled.div`
-  color: #abb0b5;
-  font-size: 0.6rem;
-  margin-right: 5px;
-  cursor: pointer;
-  :hover {
-    color: #1890ff;
-  }
-  + div {
-    margin-left: 5px;
-  }
-`;
-
-const MoreRelpyBtnWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-left: auto;
-  justify-content: flex-end;
-`;
-
-const ReplyBottom = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const ReplyDate = styled.div`
-  color: #abb0b5;
-  font-size: 0.6rem;
-`;
-
-const ReplyBtnWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-`;

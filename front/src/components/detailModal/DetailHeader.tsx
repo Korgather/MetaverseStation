@@ -23,7 +23,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   );
   return (
     <HeaderWrapper>
-      <ProfileImg src="/images/profile01.png" />
+      <ProfileImg src={postData.User?.profile_image} />
       <NickName>{postData.User?.nickname}</NickName>
       <Dropdown overlay={menu} trigger={['click']}>
         <StyledDownOutlined />
@@ -52,6 +52,7 @@ const HeaderWrapper = styled.div`
 const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
+  border-radius: 200px;
 `;
 
 const NickName = styled.div`

@@ -9,6 +9,7 @@ export const generateDummyPost = (number: number) =>
       User: {
         id: shortId.generate(),
         nickname: faker.name.findName(),
+        profile_image: faker.image.cats(),
       },
       content: faker.lorem.paragraph(),
       Images: [
@@ -28,10 +29,110 @@ export const generateDummyPost = (number: number) =>
       Comments: [
         {
           User: {
-            id: shortId.generate(),
+            id: 'eungwang',
             nickname: faker.name.findName(),
+            profile_image: faker.image.cats(),
           },
           content: faker.lorem.sentence(),
+          created_at: '2022-03-11',
+          replies: [
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: shortId.generate(),
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: shortId.generate(),
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+          ],
+        },
+        {
+          User: {
+            id: shortId.generate(),
+            nickname: faker.name.findName(),
+            profile_image: faker.image.cats(),
+          },
+          content: faker.lorem.sentence(),
+          created_at: '2022-03-11',
+          replies: [
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: 'eungwang',
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: shortId.generate(),
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+          ],
+        },
+        {
+          User: {
+            id: shortId.generate(),
+            nickname: faker.name.findName(),
+            profile_image: faker.image.cats(),
+          },
+          content: faker.lorem.sentence(),
+          created_at: '2022-03-11',
+          replies: [
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: shortId.generate(),
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: shortId.generate(),
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+          ],
+        },
+        {
+          User: {
+            id: shortId.generate(),
+            nickname: faker.name.findName(),
+            profile_image: faker.image.cats(),
+          },
+          content: faker.lorem.sentence(),
+          created_at: '2022-03-11',
+          replies: [
+            {
+              content: faker.lorem.sentence(),
+              created_at: '2022-03-11',
+              User: {
+                id: shortId.generate(),
+                nickname: faker.name.findName(),
+                profile_image: faker.image.cats(),
+              },
+            },
+          ],
         },
       ],
     }));

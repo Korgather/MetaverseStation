@@ -14,7 +14,10 @@ import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
 import { loadPost } from '@actions/post';
+import { generateDummyPost } from '@lib/generateDummyDate';
 const Home: NextPage = () => {
+  console.log(generateDummyPost(20));
+
   const [writeModalState, setWriteModalState] = useState(false);
   const [detailModalState, setDetailModalState] = useState(false);
   const dispatch = useAppDispatch();
