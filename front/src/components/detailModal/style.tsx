@@ -28,12 +28,13 @@ export const ModalWrapper = styled.div`
 `;
 
 export const CommentModal = styled.div<IModal>`
+  display: flex;
   z-index: 300;
   background-color: white;
-  width: ${(popos) => (popos.commentState ? '20vw' : '0px')};
+  width: ${(popos) => (popos.commentState ? '22vw' : '0px')};
   height: 78vh;
   border-radius: 10px;
-  padding: 28px 0px;
+  padding: 20px 0px;
   h3 {
     font-weight: 600;
     margin-top: 10px;
@@ -41,10 +42,12 @@ export const CommentModal = styled.div<IModal>`
   overflow: auto;
   box-sizing: border-box;
   max-height: 700px;
-  max-width: 300px;
+  max-width: 350px;
   transition: all 100ms linear;
   animation-direction: reverse;
   margin-left: 10px;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Modal = styled.div<IModal>`
@@ -67,4 +70,10 @@ export const Modal = styled.div<IModal>`
   display: flex;
   align-items: center;
   flex-direction: column;
+`;
+
+export const Content = styled.div`
+  padding: 15px 30px;
+  overflow-y: auto;
+  height: 40%;
 `;

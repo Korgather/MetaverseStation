@@ -1,16 +1,22 @@
 import postSlice from './postSlice';
 import counterSlice from './counterSlice';
+import userSlice from './userSlice';
 import { CombinedState, combineReducers, PayloadAction } from '@reduxjs/toolkit';
 import { ICounterState } from '@customTypes/counter';
 import { IPostState } from '@customTypes/post';
+import { IUserState } from '@customTypes/user';
 import { HYDRATE } from 'next-redux-wrapper';
+import commentSlice from './commentSlice';
+import { ICommentState } from '@customTypes/comment';
 
 export interface IRootState {
   postSlice: IPostState;
   counterSlice: ICounterState;
+  userSlice: IUserState;
+  commentSlice: ICommentState;
 }
 
-type TCombinedState = CombinedState<{ postSlice: IPostState; counterSlice: ICounterState }> | undefined;
+type TCombinedState = CombinedState<IRootState> | undefined;
 
 const rootReducer = (state: TCombinedState, action: PayloadAction<IRootState>): IRootState => {
   switch (action.type) {
@@ -18,10 +24,13 @@ const rootReducer = (state: TCombinedState, action: PayloadAction<IRootState>): 
       return action.payload;
     }
     default: {
-      return combineReducers({
+      const combineReducer = combineReducers({
         postSlice,
         counterSlice,
-      })(state, action);
+        userSlice,
+        commentSlice,
+      });
+      return combineReducer(state, action);
     }
   }
 };

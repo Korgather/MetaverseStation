@@ -3,12 +3,14 @@ import styled from 'styled-components';
 import { Menu, Dropdown, Button } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { closeModal } from '@lib/ModalUtil';
+import { IPost } from '@customTypes/post';
 
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
+  postData: IPost;
 }
 
-const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
+const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState, postData }) => {
   const menu = (
     <Menu>
       <Menu.Item key={'dropdownItem1'}>
@@ -21,15 +23,15 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   );
   return (
     <HeaderWrapper>
-      <ProfileImg src="/images/profile01.png" />
-      <NickName>스누피</NickName>
+      <ProfileImg src={postData.User?.profile_image} />
+      <NickName>{postData.User?.nickname}</NickName>
       <Dropdown overlay={menu} trigger={['click']}>
         <StyledDownOutlined />
       </Dropdown>
       <StyledA href="https://cafe.naver.com/gathertown" target="_blank">
-        <Button type="primary" htmlType="button">
+        <EntnerButton type="primary" htmlType="button">
           입장하기
-        </Button>
+        </EntnerButton>
       </StyledA>
       <CloseModalBtn onClick={() => closeModal(setDetailModalState)}>x</CloseModalBtn>
     </HeaderWrapper>
@@ -50,6 +52,7 @@ const HeaderWrapper = styled.div`
 const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
+  border-radius: 200px;
 `;
 
 const NickName = styled.div`
@@ -70,7 +73,7 @@ const StyledA = styled.a`
   margin-right: 20px;
 `;
 
-export const CloseModalBtn = styled.div`
+const CloseModalBtn = styled.div`
   background-color: #dfdada;
   border-radius: 50px;
   width: 25px;
@@ -80,4 +83,8 @@ export const CloseModalBtn = styled.div`
   font-weight: 600;
   margin-bottom: 15px;
   cursor: pointer;
+`;
+
+const EntnerButton = styled(Button)`
+  border-radius: 5px;
 `;
