@@ -1,10 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import styled from 'styled-components';
 import { Menu, Dropdown, Button } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { closeModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
-
+import * as S from './style';
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
   postData: IPost;
@@ -22,69 +20,20 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
     </Menu>
   );
   return (
-    <HeaderWrapper>
-      <ProfileImg src={postData.User?.profile_image} />
-      <NickName>{postData.User?.nickname}</NickName>
+    <S.HeaderWrapper>
+      <S.ProfileImg src={postData.User?.profile_image} />
+      <S.NickName>{postData.User?.nickname}</S.NickName>
       <Dropdown overlay={menu} trigger={['click']}>
-        <StyledDownOutlined />
+        <S.StyledDownOutlined />
       </Dropdown>
-      <StyledA href="https://cafe.naver.com/gathertown" target="_blank">
-        <EntnerButton type="primary" htmlType="button">
+      <S.StyledA href="https://cafe.naver.com/gathertown" target="_blank">
+        <S.EntnerButton type="primary" htmlType="button">
           입장하기
-        </EntnerButton>
-      </StyledA>
-      <CloseModalBtn onClick={() => closeModal(setDetailModalState)}>x</CloseModalBtn>
-    </HeaderWrapper>
+        </S.EntnerButton>
+      </S.StyledA>
+      <S.CloseModalBtn onClick={() => closeModal(setDetailModalState)}>x</S.CloseModalBtn>
+    </S.HeaderWrapper>
   );
 };
 
 export default DetailHeader;
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 8%;
-  width: 100%;
-  padding: 10px;
-  align-items: center;
-`;
-
-const ProfileImg = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 200px;
-`;
-
-const NickName = styled.div`
-  vertical-align: middle;
-  margin-left: 10px;
-  font-weight: 600;
-`;
-
-const StyledDownOutlined = styled(DownOutlined)`
-  width: 18px;
-  svg {
-    width: 10px;
-  }
-`;
-
-const StyledA = styled.a`
-  margin-left: auto;
-  margin-right: 20px;
-`;
-
-const CloseModalBtn = styled.div`
-  background-color: #dfdada;
-  border-radius: 50px;
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  cursor: pointer;
-`;
-
-const EntnerButton = styled(Button)`
-  border-radius: 5px;
-`;

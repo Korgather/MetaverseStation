@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import Slider, { Settings } from 'react-slick';
-import styled from 'styled-components';
-
+import * as S from './style';
 type Props = {};
 
 interface sliderProps {
@@ -31,30 +30,10 @@ const SliderFrame = ({ loop = true, speed = 400, children }: sliderProps) => {
   );
 
   return (
-    <SlideWrapper>
+    <S.SlideWrapper>
       <Slider {...settings}>{children}</Slider>
-    </SlideWrapper>
+    </S.SlideWrapper>
   );
 };
 
 export default SliderFrame;
-
-const SlideWrapper = styled.section`
-  margin-top: 10px;
-  padding: 0;
-  position: relative;
-  width: 100%;
-  height: 47%;
-  .slick-prev:before,
-  .slick-next:before {
-    color: black;
-  }
-  .slick-next {
-    right: 0px;
-    z-index: 900;
-  }
-  .slick-prev {
-    left: 0px;
-    z-index: 900;
-  }
-`;
