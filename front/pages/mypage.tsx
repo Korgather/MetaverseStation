@@ -1,22 +1,37 @@
 import AppLayout from '@components/AppLayout';
-import MyPost from '@components/mypage/myPost';
+import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
+import ProfileEditModal from '@components/profileEditModal/profileEditModal';
 import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
-import React from 'react';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 type Props = {};
 
 const mypage = (props: Props) => {
   const myPosts = useAppSelector((state) => state.userSlice.me?.myPosts);
+  const me = useAppSelector((state) => state.userSlice.me);
+  const [editModalState, setEditModalState] = useState(false);
+  useEffect(() => {
+    if (!me) Router.push('/');
+  }, []);
+
   return (
-    <AppLayout>
-      <StyledLayout>
-        <Profile />
-        <MyPost myPosts={myPosts} />
-      </StyledLayout>
-    </AppLayout>
+    <>
+      {editModalState && <ProfileEditModal me={me} setEditModalState={setEditModalState} />}
+      <AppLayout>
+        <>
+          {me && (
+            <StyledLayout>
+              <Profile me={me} setEditModalState={setEditModalState} />
+              <MyPost myPosts={myPosts} />
+            </StyledLayout>
+          )}
+        </>
+      </AppLayout>
+    </>
   );
 };
 

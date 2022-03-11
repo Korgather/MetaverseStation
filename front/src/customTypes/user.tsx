@@ -7,6 +7,7 @@ export interface IUser {
   email?: string;
   platform_type?: string;
   id?: string;
+  introduce?: string;
   myPosts?: IPost[];
 }
 
