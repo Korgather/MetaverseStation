@@ -2,7 +2,9 @@ import React, { ReactChildren, ReactChild } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
-import DetailModal from './detailModal/DetailModal';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { logOut } from '@actions/user';
+
 interface AuxProps {
   children: ReactChild | ReactChildren;
 }
@@ -10,6 +12,18 @@ interface AuxProps {
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }: AuxProps) => {
+  const dispatch = useAppDispatch();
+  const me = useAppSelector((state) => state.userSlice.me);
+  const logOutLoading = useAppSelector((state) => state.userSlice.logOutLoading);
+  const logOutRequest = async () => {
+    try {
+      await dispatch(logOut());
+    } catch (e) {
+      console.error(e);
+      alert('실패');
+    }
+  };
+
   return (
     <>
       <LayoutWrapper className="layout">
@@ -35,9 +49,17 @@ const AppLayout = ({ children }: AuxProps) => {
                 </Link>
               </Menu.Item>
             </Menu>
-            <div>
-              <ButtonWrapper>로그인</ButtonWrapper>
-            </div>
+            <BtnWrapper>
+              {me ? (
+                <StyledBtn htmlType="button" onClick={logOutRequest} loading={logOutLoading}>
+                  로그아웃
+                </StyledBtn>
+              ) : (
+                <Link href="/login">
+                  <StyledBtn>로그인</StyledBtn>
+                </Link>
+              )}
+            </BtnWrapper>
           </StyledHeader>
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
@@ -88,8 +110,13 @@ const StyledFooter = styled(Footer)`
     width: 75vw;
   }
 `;
-const ButtonWrapper = styled(Button)`
-  position: absolute;
-  right: 10px;
-  top: 19px;
+const StyledBtn = styled(Button)`
+  margin-left: auto;
+`;
+
+const BtnWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 `;

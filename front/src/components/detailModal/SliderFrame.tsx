@@ -25,7 +25,7 @@ const SliderFrame = ({ loop = true, speed = 400, children }: sliderProps) => {
       slidesToShow: 1,
       slidesToScroll: 1,
       fade: true,
-      dots: true,
+      // dots: true,
     }),
     [loop, speed],
   );
