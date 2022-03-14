@@ -21,5 +21,8 @@ export interface IPostState {
   addPostError?: SerializedError | null;
   loadPostLoading: boolean;
   loadPostError?: SerializedError | null;
-  dataForModal?: IPost;
+  dataForModal?: IPost | null;
+  addCommentLoading: boolean;
+  addCommentDone: boolean;
+  addCommentError: SerializedError | null;
 }

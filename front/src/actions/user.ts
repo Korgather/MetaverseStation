@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import faker from 'faker';
 
 const dummyUser: IUser = {
-  nickname: faker.name.findName(),
+  nickname: 'eungwang',
   id: 'eungwang',
   profile_image: faker.image.cats(),
   myPosts: generateDummyPost(8),
@@ -20,10 +20,20 @@ const delay = (time: number, value?: any) =>
   });
 
 export const logIn = createAsyncThunk('user/logIn', async () => {
-  const res = await delay(1500);
+  await delay(1000);
+  localStorage.setItem('me', JSON.stringify(dummyUser));
+  console.log('로그인');
   return dummyUser;
 });
 
 export const logOut = createAsyncThunk('user/logOut', async () => {
   await delay(1500);
+  localStorage.setItem('me', '');
+});
+
+export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async () => {
+  await delay(1000);
+  const data = JSON.parse(localStorage.getItem('me') || '');
+  console.log(data);
+  return data;
 });

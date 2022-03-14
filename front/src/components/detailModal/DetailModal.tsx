@@ -25,7 +25,7 @@ const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModal
             <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
             <D.Content>{postData.content} </D.Content>
           </D.Modal>
-          <CommentModal commentState={commentState} />
+          <CommentModal commentState={commentState} postData={postData} />
         </D.ModalWrapper>
       )}
     </>

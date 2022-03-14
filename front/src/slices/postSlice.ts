@@ -1,4 +1,4 @@
-import { addPost, loadPost } from '@actions/post';
+import { addComment, addPost, loadPost } from '@actions/post';
 import { IPost, IPostState } from '@customTypes/post';
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -9,7 +9,10 @@ const initialState: IPostState = {
   addPostError: null,
   loadPostLoading: false,
   loadPostError: null,
-  dataForModal: '',
+  addCommentLoading: false,
+  addCommentDone: false,
+  addCommentError: null,
+  dataForModal: null,
 };
 
 export const postSlice = createSlice({
@@ -44,6 +47,19 @@ export const postSlice = createSlice({
       .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
         state.loadPostLoading = false;
         state.loadPostError = action.error;
+      })
+      .addCase(addComment.pending, (state) => {
+        state.addCommentLoading = true;
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        state.addCommentDone = true;
+        state.addCommentLoading = false;
+        const post = state.mainPosts.find((post) => post.id === action.payload.postid);
+        post?.Comments?.push(action.payload);
+      })
+      .addCase(addComment.rejected, (state, action: ReturnType<typeof addComment.rejected>) => {
+        state.addCommentLoading = false;
+        state.addCommentError = action.error;
       }),
 });
 

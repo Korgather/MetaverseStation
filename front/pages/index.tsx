@@ -16,6 +16,7 @@ import Router from 'next/router';
 import { loadPost } from '@actions/post';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
+import { loadMyInfo } from '@actions/user';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -26,9 +27,9 @@ const Home: NextPage = () => {
   const gotoLogIn = () => {
     Router.push('/login');
   };
-  // useEffect(() => {
-  //   dispatch(loadPost());
-  // }, []);
+  useEffect(() => {
+    dispatch(loadMyInfo());
+  }, []);
   return (
     <>
       <React.StrictMode>

@@ -14,6 +14,7 @@ export interface IComment {
   id?: string;
   replies?: reply[];
   User?: IUser;
+  postid?: string;
 }
 
 export interface ICommentState {
