@@ -1,7 +1,7 @@
 import AppLayout from '@components/AppLayout';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
-import ProfileEditModal from '@components/profileEditModal/profileEditModal';
+import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
 import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import Router from 'next/router';
