@@ -1,4 +1,4 @@
-import { addReply, removeComment, updateComment } from '@actions/post';
+import { addReply, removeComment, removeReply, updateComment } from '@actions/post';
 import { IComment, IReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
 import TextArea from 'antd/lib/input/TextArea';
@@ -47,7 +47,7 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
         loading: removeCommentLoading && !removeCommentDone,
       },
       onOk: function () {
-        dispatch(removeComment(comment));
+        comment ? dispatch(removeComment(comment)) : reply && dispatch(removeReply(reply));
       },
     });
   };

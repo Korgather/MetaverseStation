@@ -18,6 +18,10 @@ const CommentModal = ({ commentState, postData }: CommentModalProps) => {
   const removeCommentLoading = useAppSelector((state) => state.postSlice.removeCommentLoading);
   const updateCommentDone = useAppSelector((state) => state.postSlice.updateCommentDone);
   const updateCommentLoading = useAppSelector((state) => state.postSlice.updateCommentLoading);
+  const addReplyDone = useAppSelector((state) => state.postSlice.addReplyDone);
+  const addReplyLoading = useAppSelector((state) => state.postSlice.addReplyLoading);
+  const removeReplyDone = useAppSelector((state) => state.postSlice.removeReplyDone);
+  const removeReplyLoading = useAppSelector((state) => state.postSlice.removeReplyLoading);
   const UpdateCommentsDataFunc: IComment[] | undefined = useAppSelector((state) => {
     const post = state.postSlice.mainPosts.find((v) => v.id === postData.id);
     return post?.Comments;
@@ -27,7 +31,10 @@ const CommentModal = ({ commentState, postData }: CommentModalProps) => {
     if (
       (addCommentDone && !addCommentLoading) ||
       (removeCommentDone && !removeCommentLoading) ||
-      (updateCommentDone && !updateCommentLoading)
+      (updateCommentDone && !updateCommentLoading) ||
+      (removeCommentDone && !removeCommentLoading) ||
+      (addReplyDone && !addReplyLoading) ||
+      (removeReplyDone && !removeReplyLoading)
     ) {
       setUpdateCommentsData(UpdateCommentsDataFunc);
     }
@@ -39,6 +46,10 @@ const CommentModal = ({ commentState, postData }: CommentModalProps) => {
     removeCommentLoading,
     updateCommentDone,
     updateCommentLoading,
+    addReplyDone,
+    addReplyLoading,
+    removeReplyDone,
+    removeReplyLoading,
   ]);
   return (
     <>

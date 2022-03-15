@@ -1,4 +1,4 @@
-import { addComment, addPost, addReply, loadPost, removeComment, updateComment } from '@actions/post';
+import { addComment, addPost, addReply, loadPost, removeComment, removeReply, updateComment } from '@actions/post';
 import { IComment } from '@customTypes/comment';
 import { IPost, IPostState } from '@customTypes/post';
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -22,6 +22,9 @@ const initialState: IPostState = {
   addReplyLoading: false,
   addReplyDone: false,
   addReplyError: null,
+  removeReplyLoading: false,
+  removeReplyDone: false,
+  removeReplyError: null,
   dataForModal: null,
 };
 
@@ -115,6 +118,28 @@ export const postSlice = createSlice({
       .addCase(addReply.rejected, (state, action: ReturnType<typeof addReply.rejected>) => {
         state.addReplyLoading = false;
         state.addReplyError = action.error;
+      })
+      .addCase(removeReply.pending, (state) => {
+        state.removeReplyLoading = true;
+      })
+      .addCase(removeReply.fulfilled, (state, action) => {
+        state.removeReplyDone = true;
+        state.removeReplyLoading = false;
+        const postIdx = state.mainPosts.findIndex((post) => post.id === action.payload.postid);
+        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+          (comment) => comment.id === action.payload?.commentid,
+        );
+        const ReplyIdx = state.mainPosts[postIdx].Comments[commentIdx].replies?.findIndex(
+          (reply) => reply.id === action.payload.id,
+        );
+        if (state.mainPosts[postIdx])
+          state.mainPosts[postIdx].Comments[commentIdx].replies = state.mainPosts[postIdx].Comments[
+            commentIdx
+          ].replies?.filter((reply, idx) => idx !== ReplyIdx);
+      })
+      .addCase(removeReply.rejected, (state, action: ReturnType<typeof removeReply.rejected>) => {
+        state.removeReplyLoading = false;
+        state.removeReplyError = action.error;
       }),
 });
 

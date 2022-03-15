@@ -42,3 +42,7 @@ export const addReply = createAsyncThunk('reply/add', async (data: IReply, thunk
   const res = await delay(1000, data);
   return data;
 });
+export const removeReply = createAsyncThunk('reply/remove', async (data: IReply, thunkAPI) => {
+  const res = await delay(1000, data);
+  return data;
+});

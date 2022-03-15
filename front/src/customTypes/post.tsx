@@ -34,4 +34,7 @@ export interface IPostState {
   addReplyLoading: boolean;
   addReplyDone: boolean;
   addReplyError: SerializedError | null;
+  removeReplyLoading: boolean;
+  removeReplyDone: boolean;
+  removeReplyError: SerializedError | null;
 }
