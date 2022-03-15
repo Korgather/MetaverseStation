@@ -4,9 +4,16 @@ import Reply from './Reply';
 import ReplyInput from './ReplyInput';
 import { useAppSelector } from '@store/hook';
 import * as S from './style';
+import { IPost } from '@customTypes/post';
+import { IComment } from '@customTypes/comment';
 
-const Comment = () => {
-  const Comments = useAppSelector((state) => state.postSlice.dataForModal?.Comments);
+interface CommentProps {
+  updateCommentsData: IComment[] | null | undefined;
+}
+
+const Comment = ({ updateCommentsData }: CommentProps) => {
+  const initialComments = useAppSelector((state) => state.postSlice.dataForModal?.Comments);
+  const Comments = updateCommentsData ? updateCommentsData : initialComments;
   return (
     <S.CommentWrapper>
       {Comments?.map((comment, idx) => (

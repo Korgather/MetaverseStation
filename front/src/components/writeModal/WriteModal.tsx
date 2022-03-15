@@ -22,7 +22,7 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
   const [zepState, setZepState] = useState(false);
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState<string[]>([]);
-  const postLoading = useAppSelector((state) => state.postSlice.loading);
+  const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
   const formData = new FormData();
   const formik = useFormik({
     initialValues: { title: '', content: '', link: '', tags: [], category: '' },

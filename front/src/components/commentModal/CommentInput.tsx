@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { Input, Button } from 'antd';
 import styled from 'styled-components';
-
+import { addComment } from '@actions/post';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { IPost } from '@customTypes/post';
+import { useFormik } from 'formik';
+import shortid from 'shortid';
 const { TextArea } = Input;
-const CommentInput = () => {
+
+interface CommentInputProps {
+  postData: IPost;
+}
+
+const CommentInput: React.FunctionComponent<CommentInputProps> = ({ postData }) => {
+  const dispatch = useAppDispatch();
+  const me = useAppSelector((state) => state.userSlice.me);
+  const addCommentLoading = useAppSelector((state) => state.postSlice.addCommentLoading);
+  const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
+
+  const formik = useFormik({
+    initialValues: { content: '', postid: postData.id, User: me, id: shortid.generate() },
+    onSubmit: (values: { content: string }) => {
+      formik.setValues((values) => ({ ...values, id: shortid.generate() }));
+      me ? dispatch(addComment(values)) : alert('로그인하고와');
+    },
+  });
+  useEffect(() => {
+    if (addCommentDone && !addCommentLoading) {
+      formik.setValues((values) => ({ ...values, content: '' }));
+    }
+  }, [addCommentDone, addCommentLoading]);
+
   return (
     <CommentInputWrapper>
-      <TextArea rows={6} />
-      <StyledButton type="primary">댓글입력</StyledButton>
+      <form onSubmit={formik.handleSubmit}>
+        <TextArea rows={4} onChange={formik.handleChange} value={formik.values.content} name="content" id="content" />
+        <StyledButton type="primary" htmlType="submit" loading={addCommentLoading}>
+          댓글입력
+        </StyledButton>
+      </form>
     </CommentInputWrapper>
   );
 };

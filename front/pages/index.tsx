@@ -14,20 +14,21 @@ import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
 import { loadPost } from '@actions/post';
-import { generateDummyPost } from '@lib/generateDummyDate';
-const Home: NextPage = () => {
-  console.log(generateDummyPost(20));
+import wrapper from '@store/configureStore';
+import axios from 'axios';
+import { loadMyInfo } from '@actions/user';
 
+const Home: NextPage = () => {
+  const dispatch = useAppDispatch();
   const [writeModalState, setWriteModalState] = useState(false);
   const [detailModalState, setDetailModalState] = useState(false);
-  const dispatch = useAppDispatch();
   const me = useAppSelector((state) => state.userSlice.me);
   const mainPosts = useAppSelector((state) => state.postSlice.mainPosts);
   const gotoLogIn = () => {
     Router.push('/login');
   };
   useEffect(() => {
-    dispatch(loadPost());
+    dispatch(loadMyInfo());
   }, []);
   return (
     <>
@@ -62,6 +63,17 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  // SSR에서 쿠키 받아오는 방법.
+  const cookies = ctx.req?.headers?.cookie;
+  // 쿠키 공유 방지,
+  axios.defaults.headers.Cookie = '';
+  if (ctx.req && cookies) axios.defaults.headers.Cookie = cookies;
+
+  await store.dispatch(loadPost());
+  return { props: {} };
+});
 
 const BottomWrapper = styled.div`
   position: relative;

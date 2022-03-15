@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import styled, { css } from 'styled-components';
 
@@ -49,7 +50,9 @@ export const StyledTextArea = styled(TextArea)<large>`
     `}
 `;
 
-export const StyledBtn = styled.div`
+export const StyledBtn = styled(Button)`
+  border: none;
+  padding: 0 4px;
   color: #abb0b5;
   font-size: 0.6rem;
   margin-right: 5px;

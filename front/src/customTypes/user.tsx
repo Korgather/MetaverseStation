@@ -1,4 +1,5 @@
 import { SerializedError } from '@reduxjs/toolkit';
+import { IPost } from './post';
 
 export interface IUser {
   nickname?: string;
@@ -6,6 +7,8 @@ export interface IUser {
   email?: string;
   platform_type?: string;
   id?: string;
+  introduce?: string;
+  myPosts?: IPost[];
 }
 
 export interface IUserState {
@@ -14,4 +17,7 @@ export interface IUserState {
   logInError: SerializedError | null;
   logOutLoading: boolean;
   logOutError: SerializedError | null;
+  loadMyInfoLoading: boolean;
+  loadMyInfoDone: boolean;
+  loadMyInfoError: SerializedError | null;
 }

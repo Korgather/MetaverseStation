@@ -10,7 +10,7 @@ export interface IPost {
   tags?: string[];
   Images?: { src: string }[];
   User?: IUser;
-  Comments?: IComment[];
+  Comments: IComment[];
 }
 
 export interface IPostState {
@@ -21,5 +21,20 @@ export interface IPostState {
   addPostError?: SerializedError | null;
   loadPostLoading: boolean;
   loadPostError?: SerializedError | null;
-  dataForModal?: IPost;
+  dataForModal?: IPost | null;
+  addCommentLoading: boolean;
+  addCommentDone: boolean;
+  addCommentError: SerializedError | null;
+  removeCommentLoading: boolean;
+  removeCommentDone: boolean;
+  removeCommentError: SerializedError | null;
+  updateCommentLoading: boolean;
+  updateCommentDone: boolean;
+  updateCommentError: SerializedError | null;
+  addReplyLoading: boolean;
+  addReplyDone: boolean;
+  addReplyError: SerializedError | null;
+  removeReplyLoading: boolean;
+  removeReplyDone: boolean;
+  removeReplyError: SerializedError | null;
 }
