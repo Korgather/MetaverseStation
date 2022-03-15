@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IPost } from '@customTypes/post';
 import { generateDummyPost } from '@lib/generateDummyData';
 import axios from 'axios';
-import { IComment, IReply } from '@customTypes/comment';
+import { IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
 
 const delay = (time: number, value?: any) =>
   new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ export const removeComment = createAsyncThunk('comment/remove', async (data: ICo
   await delay(1000, data);
   return data;
 });
-export const updateComment = createAsyncThunk('comment/update', async (data: IComment | undefined, thunkAPI) => {
+export const updateComment = createAsyncThunk('comment/update', async (data: IUpdateComment | undefined, thunkAPI) => {
   await delay(1000, data);
   return data;
 });
@@ -43,6 +43,14 @@ export const addReply = createAsyncThunk('reply/add', async (data: IReply, thunk
   return data;
 });
 export const removeReply = createAsyncThunk('reply/remove', async (data: IReply, thunkAPI) => {
+  const res = await delay(1000, data);
+  return data;
+});
+export const updateReply = createAsyncThunk('reply/update', async (data: IUpdateReply, thunkAPI) => {
+  const res = await delay(1000, data);
+  return data;
+});
+export const addNestedReply = createAsyncThunk('Nestedreply/add', async (data: IReply, thunkAPI) => {
   const res = await delay(1000, data);
   return data;
 });
