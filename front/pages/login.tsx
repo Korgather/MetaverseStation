@@ -1,17 +1,29 @@
 import { Button } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { logIn } from '@actions/user';
+import { loadMyInfo, logIn } from '@actions/user';
 import Router from 'next/router';
-import { generateDummyPost } from '@lib/generateDummyDate';
 
 type Props = {};
 
 const login = (props: Props) => {
   const dispatch = useAppDispatch();
   const logInLoading = useAppSelector((state) => state.userSlice.logInLoading);
+  const me = useAppSelector((state) => state.userSlice.me);
+
+  useEffect(() => {
+    async function dispatchData() {
+      await dispatch(loadMyInfo());
+    }
+    dispatchData();
+  }, []);
+
+  useEffect(() => {
+    if (me) Router.push('/');
+  }, [me]);
+
   const KakaoLoginRequest = async () => {
     try {
       await dispatch(logIn());
@@ -33,18 +45,24 @@ const login = (props: Props) => {
           </Link>
           <TitleP>로그인</TitleP>
         </LoginHeader>
-        <StyledButton htmlType="button" onClick={KakaoLoginRequest} loading={logInLoading}>
-          <Styledimg src="/images/KakaoIcon.png" />
-          <StyledP>카카오 로그인하기</StyledP>
-        </StyledButton>
-        <StyledButton htmlType="button" onClick={NaverLoginRequest} loading={logInLoading}>
-          <Styledimg src="/images/NaverIcon.png" />
-          <StyledP>네이버 로그인하기</StyledP>
-        </StyledButton>
-        <StyledButton htmlType="button" onClick={GoogleLoginRequest} loading={logInLoading}>
-          <Styledimg src="/images/GoogleIcon.png" />
-          <StyledP>구글로 로그인하기</StyledP>
-        </StyledButton>
+        {!me ? (
+          <>
+            <StyledButton htmlType="button" onClick={KakaoLoginRequest} loading={logInLoading}>
+              <Styledimg src="/images/KakaoIcon.png" />
+              <StyledP>카카오 로그인하기</StyledP>
+            </StyledButton>
+            <StyledButton htmlType="button" onClick={NaverLoginRequest} loading={logInLoading}>
+              <Styledimg src="/images/NaverIcon.png" />
+              <StyledP>네이버 로그인하기</StyledP>
+            </StyledButton>
+            <StyledButton htmlType="button" onClick={GoogleLoginRequest} loading={logInLoading}>
+              <Styledimg src="/images/GoogleIcon.png" />
+              <StyledP>구글로 로그인하기</StyledP>
+            </StyledButton>
+          </>
+        ) : (
+          <>이미로그인중</>
+        )}
       </LoginContainer>
     </LoginWrapper>
   );

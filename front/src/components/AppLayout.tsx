@@ -43,11 +43,13 @@ const AppLayout = ({ children }: AuxProps) => {
                   <a>Zep</a>
                 </Link>
               </Menu.Item>
-              <Menu.Item>
-                <Link href="/">
-                  <a>자유게시판</a>
-                </Link>
-              </Menu.Item>
+              {me && (
+                <Menu.Item>
+                  <Link href="/mypage">
+                    <a>MyPage</a>
+                  </Link>
+                </Menu.Item>
+              )}
             </Menu>
             <BtnWrapper>
               {me ? (
