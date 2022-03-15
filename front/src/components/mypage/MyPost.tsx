@@ -1,23 +1,26 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import styled from 'styled-components';
 import { openModal } from '@lib/ModalUtil';
-import faker from 'faker';
 import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
 import { getDataForModal } from '@slices/postSlice';
-interface PostzoneProps {
-  setDetailModalState: Dispatch<SetStateAction<boolean>>;
-  mainPosts: IPost[];
+interface MyPostProps {
+  myPosts?: IPost[];
+  // setDetailModalState?: Dispatch<SetStateAction<boolean>>;
 }
 
-const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState, mainPosts }) => {
+const MyPost: React.FunctionComponent<MyPostProps> = ({ myPosts }) => {
   const dispatch = useAppDispatch();
   const getPostId = (data: IPost) => {
     dispatch(getDataForModal(data));
   };
   return (
-    <div>
+    <MyPostWrapper>
+      <ButtonWrapper>
+        <StyledBtn>내가 쓴 글</StyledBtn>
+        <StyledBtn>북마크</StyledBtn>
+      </ButtonWrapper>
       <Row
         justify="start"
         gutter={[
@@ -25,24 +28,35 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
           { xs: 4, sm: 8, md: 16, lg: 24 },
         ]}
       >
-        {mainPosts &&
-          mainPosts.map((post, i) => (
-            <Col key={'PostCard' + i} xs={24} md={12} lg={8} xl={6} style={{}}>
+        {myPosts &&
+          myPosts.map((post, i) => (
+            <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
               <PostImg
                 onClick={() => {
                   post && getPostId(post);
-                  openModal(setDetailModalState);
+                  // openModal(setDetailModalState);
                 }}
                 src={post.Images && post.Images[0].src}
               />
             </Col>
           ))}
       </Row>
-    </div>
+    </MyPostWrapper>
   );
 };
 
-export default Postzone;
+export default MyPost;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+`;
+const StyledBtn = styled(Button)`
+  + button {
+    margin-left: 10px;
+  }
+`;
 
 const PostImg = styled.img`
   transform: scale(1);
@@ -65,4 +79,9 @@ const PostImg = styled.img`
   :hover {
     transform: scale(1.1);
   }
+`;
+
+const MyPostWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -11,9 +11,25 @@ import WriteModal from '@components/writeModal/WriteModal';
 import DetailModal from '@components/detailModal/DetailModal';
 import { openModal } from '@lib/ModalUtil';
 import { Button } from 'antd';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import Router from 'next/router';
+import { loadPost } from '@actions/post';
+import wrapper from '@store/configureStore';
+import axios from 'axios';
+import { loadMyInfo } from '@actions/user';
+
 const Home: NextPage = () => {
+  const dispatch = useAppDispatch();
   const [writeModalState, setWriteModalState] = useState(false);
   const [detailModalState, setDetailModalState] = useState(false);
+  const me = useAppSelector((state) => state.userSlice.me);
+  const mainPosts = useAppSelector((state) => state.postSlice.mainPosts);
+  const gotoLogIn = () => {
+    Router.push('/login');
+  };
+  useEffect(() => {
+    dispatch(loadMyInfo());
+  }, []);
   return (
     <>
       <React.StrictMode>
@@ -28,10 +44,16 @@ const Home: NextPage = () => {
           <>
             <BannerItem />
             <Category />
-            <Postzone setDetailModalState={setDetailModalState} />
+            <Postzone setDetailModalState={setDetailModalState} mainPosts={mainPosts} />
             <BottomWrapper>
               <Pagination />
-              <StyledButton onClick={() => openModal(setWriteModalState)}>글쓰기</StyledButton>
+              <StyledButton
+                onClick={() => {
+                  me ? openModal(setWriteModalState) : gotoLogIn();
+                }}
+              >
+                글쓰기
+              </StyledButton>
             </BottomWrapper>
           </>
         </AppLayout>
@@ -41,6 +63,17 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  // SSR에서 쿠키 받아오는 방법.
+  const cookies = ctx.req?.headers?.cookie;
+  // 쿠키 공유 방지,
+  axios.defaults.headers.Cookie = '';
+  if (ctx.req && cookies) axios.defaults.headers.Cookie = cookies;
+
+  await store.dispatch(loadPost());
+  return { props: {} };
+});
 
 const BottomWrapper = styled.div`
   position: relative;
