@@ -8,7 +8,7 @@ import { IPost } from '@customTypes/post';
 import { IComment } from '@customTypes/comment';
 
 interface CommentProps {
-  updateCommentsData: IComment[] | null;
+  updateCommentsData: IComment[] | null | undefined;
 }
 
 const Comment = ({ updateCommentsData }: CommentProps) => {

@@ -1,4 +1,5 @@
-import { addComment, addPost, loadPost } from '@actions/post';
+import { addComment, addPost, loadPost, removeComment, updateComment } from '@actions/post';
+import { IComment } from '@customTypes/comment';
 import { IPost, IPostState } from '@customTypes/post';
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -12,6 +13,12 @@ const initialState: IPostState = {
   addCommentLoading: false,
   addCommentDone: false,
   addCommentError: null,
+  removeCommentLoading: false,
+  removeCommentDone: false,
+  removeCommentError: null,
+  updateCommentLoading: false,
+  updateCommentDone: false,
+  updateCommentError: null,
   dataForModal: null,
 };
 
@@ -60,6 +67,35 @@ export const postSlice = createSlice({
       .addCase(addComment.rejected, (state, action: ReturnType<typeof addComment.rejected>) => {
         state.addCommentLoading = false;
         state.addCommentError = action.error;
+      })
+      .addCase(removeComment.pending, (state) => {
+        state.removeCommentLoading = true;
+      })
+      .addCase(removeComment.fulfilled, (state, action: PayloadAction<IComment | undefined>) => {
+        state.removeCommentDone = true;
+        state.removeCommentLoading = false;
+        const postIdx = state.mainPosts.findIndex((post) => action.payload && post.id === action.payload.postid);
+        state.mainPosts[postIdx].Comments = state.mainPosts[postIdx].Comments?.filter(
+          (comment) => comment.id !== action.payload?.id,
+        );
+      })
+      .addCase(removeComment.rejected, (state, action: ReturnType<typeof removeComment.rejected>) => {
+        state.removeCommentLoading = false;
+        state.removeCommentError = action.error;
+      })
+      .addCase(updateComment.pending, (state) => {
+        state.updateCommentLoading = true;
+      })
+      .addCase(updateComment.fulfilled, (state, action: PayloadAction<IComment | undefined>) => {
+        state.updateCommentDone = true;
+        state.updateCommentLoading = false;
+        const postIdx = state.mainPosts.findIndex((post) => action.payload && post.id === action.payload.postid);
+        const commentIdx = state.mainPosts[postIdx].Comments.findIndex((comment) => comment.id === action.payload?.id);
+        if (state.mainPosts[postIdx]) state.mainPosts[postIdx].Comments[commentIdx].content = action.payload?.content;
+      })
+      .addCase(updateComment.rejected, (state, action: ReturnType<typeof updateComment.rejected>) => {
+        state.updateCommentLoading = false;
+        state.updateCommentError = action.error;
       }),
 });
 

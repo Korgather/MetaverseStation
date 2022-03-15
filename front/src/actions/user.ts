@@ -20,7 +20,7 @@ const delay = (time: number, value?: any) =>
   });
 
 export const logIn = createAsyncThunk('user/logIn', async () => {
-  await delay(1000);
+  await delay(3000);
   localStorage.setItem('me', JSON.stringify(dummyUser));
   console.log('로그인');
   return dummyUser;
