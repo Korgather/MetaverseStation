@@ -7,7 +7,7 @@ const dummyUser: IUser = {
   nickname: 'eungwang',
   id: 'eungwang',
   profile_image: faker.image.cats(),
-  myPosts: generateDummyPost(8),
+  myPosts: generateDummyPost(8, 5),
   introduce: faker.lorem.paragraph(),
 };
 

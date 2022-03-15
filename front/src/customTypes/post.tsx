@@ -31,4 +31,7 @@ export interface IPostState {
   updateCommentLoading: boolean;
   updateCommentDone: boolean;
   updateCommentError: SerializedError | null;
+  addReplyLoading: boolean;
+  addReplyDone: boolean;
+  addReplyError: SerializedError | null;
 }

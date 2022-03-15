@@ -1,4 +1,4 @@
-import { addComment, addPost, loadPost, removeComment, updateComment } from '@actions/post';
+import { addComment, addPost, addReply, loadPost, removeComment, updateComment } from '@actions/post';
 import { IComment } from '@customTypes/comment';
 import { IPost, IPostState } from '@customTypes/post';
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -19,6 +19,9 @@ const initialState: IPostState = {
   updateCommentLoading: false,
   updateCommentDone: false,
   updateCommentError: null,
+  addReplyLoading: false,
+  addReplyDone: false,
+  addReplyError: null,
   dataForModal: null,
 };
 
@@ -96,6 +99,22 @@ export const postSlice = createSlice({
       .addCase(updateComment.rejected, (state, action: ReturnType<typeof updateComment.rejected>) => {
         state.updateCommentLoading = false;
         state.updateCommentError = action.error;
+      })
+      .addCase(addReply.pending, (state) => {
+        state.addReplyLoading = true;
+      })
+      .addCase(addReply.fulfilled, (state, action) => {
+        state.addReplyDone = true;
+        state.addReplyLoading = false;
+        const postIdx = state.mainPosts.findIndex((post) => post.id === action.payload.postid);
+        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+          (comment) => comment.id === action.payload?.commentid,
+        );
+        if (state.mainPosts[postIdx]) state.mainPosts[postIdx].Comments[commentIdx].replies?.push(action.payload);
+      })
+      .addCase(addReply.rejected, (state, action: ReturnType<typeof addReply.rejected>) => {
+        state.addReplyLoading = false;
+        state.addReplyError = action.error;
       }),
 });
 

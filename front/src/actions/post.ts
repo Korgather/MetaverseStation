@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IPost } from '@customTypes/post';
 import { generateDummyPost } from '@lib/generateDummyData';
 import axios from 'axios';
-import { IComment } from '@customTypes/comment';
+import { IComment, IReply } from '@customTypes/comment';
 
 const delay = (time: number, value?: any) =>
   new Promise((resolve, reject) => {
@@ -12,7 +12,7 @@ const delay = (time: number, value?: any) =>
     }, time);
   });
 
-const dummy = generateDummyPost(8);
+const dummy = generateDummyPost(8, 5);
 
 export const addPost = createAsyncThunk('post/add', async (data: IPost, thunkAPI) => {
   const res = await delay(1000, data);
@@ -36,5 +36,9 @@ export const removeComment = createAsyncThunk('comment/remove', async (data: ICo
 });
 export const updateComment = createAsyncThunk('comment/update', async (data: IComment | undefined, thunkAPI) => {
   await delay(1000, data);
+  return data;
+});
+export const addReply = createAsyncThunk('reply/add', async (data: IReply, thunkAPI) => {
+  const res = await delay(1000, data);
   return data;
 });
