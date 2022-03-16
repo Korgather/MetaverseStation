@@ -37,6 +37,9 @@ const initialState: IPostState = {
   updateReplyLoading: false,
   updateReplyDone: false,
   updateReplyError: null,
+  addNestedReplyLoading: false,
+  addNestedReplyDone: false,
+  addNestedReplyError: null,
   dataForModal: null,
 };
 
@@ -166,7 +169,7 @@ export const postSlice = createSlice({
         const ReplyIdx = state.mainPosts[postIdx].Comments[commentIdx].replies?.findIndex(
           (reply) => reply.id === action.payload.id,
         );
-        if (ReplyIdx) state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content = action.payload.content;
+        if (ReplyIdx !== undefined) state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content = action.payload.content;
       })
       .addCase(updateReply.rejected, (state, action: ReturnType<typeof updateReply.rejected>) => {
         state.updateReplyLoading = false;

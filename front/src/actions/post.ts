@@ -25,7 +25,7 @@ export const loadPost = createAsyncThunk('post/load', async () => {
   return data;
 });
 
-export const addComment = createAsyncThunk('comment/add', async (data: IComment, thunkAPI) => {
+export const addComment = createAsyncThunk('comment/add', async (data: IUpdateComment, thunkAPI) => {
   const res = await delay(1000, data);
   return data;
 });

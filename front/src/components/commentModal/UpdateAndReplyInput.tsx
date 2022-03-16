@@ -8,13 +8,13 @@ import { Modal, Button, Space } from 'antd';
 import { useFormik } from 'formik';
 import shortid from 'shortid';
 import * as S from './style';
-interface ReplyInputProps {
+interface UpdateAndReplyInputProps {
   setUpdateInputState?: Dispatch<SetStateAction<boolean>>;
   reply?: IReply;
   comment?: IComment;
 }
 
-const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }) => {
+const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = ({ reply, comment }) => {
   const dispatch = useDispatch();
   const removeCommentLoading = useAppSelector((state) => state.postSlice.removeCommentLoading);
   const removeCommentDone = useAppSelector((state) => state.postSlice.removeCommentDone);
@@ -175,4 +175,4 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
   );
 };
 
-export default ReplyInput;
+export default UpdateAndReplyInput;
