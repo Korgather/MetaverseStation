@@ -1,15 +1,12 @@
 import postSlice from './postSlice';
-import counterSlice from './counterSlice';
 import userSlice from './userSlice';
 import { CombinedState, combineReducers, PayloadAction } from '@reduxjs/toolkit';
-import { ICounterState } from '@customTypes/counter';
 import { IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';
 import { HYDRATE } from 'next-redux-wrapper';
 
 export interface IRootState {
   postSlice: IPostState;
-  counterSlice: ICounterState;
   userSlice: IUserState;
 }
 
@@ -24,7 +21,6 @@ const rootReducer = (state: TCombinedState, action: PayloadAction<IRootState>): 
     default: {
       const combineReducer = combineReducers({
         postSlice,
-        counterSlice,
         userSlice,
       });
       return combineReducer(state, action);
