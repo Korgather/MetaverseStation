@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import shortid from 'shortid';
-import ReplyInput from './ReplyInput';
+import UpdateAndReplyInput from './UpdateAndReplyInput';
 import { IComment } from '@customTypes/comment';
 import * as S from './style';
 const Reply = ({ comment }: { comment: IComment }) => {
@@ -34,7 +34,7 @@ const Reply = ({ comment }: { comment: IComment }) => {
             <S.ReplyContainer key={shortid.generate()}>
               <S.PromfileImg src={reply.User?.profile_image} />
               <S.ContentAndBottomWrapper>
-                <ReplyInput reply={reply} />
+                <UpdateAndReplyInput reply={reply} />
               </S.ContentAndBottomWrapper>
             </S.ReplyContainer>
           </>

@@ -5,43 +5,47 @@ import { openModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
 import { getDataForModal } from '@slices/postSlice';
+import DetailModal from '@components/detailModal/DetailModal';
 interface MyPostProps {
   myPosts?: IPost[];
-  // setDetailModalState?: Dispatch<SetStateAction<boolean>>;
+  setDetailModalState: Dispatch<SetStateAction<boolean>>;
 }
 
-const MyPost: React.FunctionComponent<MyPostProps> = ({ myPosts }) => {
+const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState, myPosts }) => {
   const dispatch = useAppDispatch();
+
   const getPostId = (data: IPost) => {
     dispatch(getDataForModal(data));
   };
   return (
-    <MyPostWrapper>
-      <ButtonWrapper>
-        <StyledBtn>내가 쓴 글</StyledBtn>
-        <StyledBtn>북마크</StyledBtn>
-      </ButtonWrapper>
-      <Row
-        justify="start"
-        gutter={[
-          { xs: 4, sm: 18, md: 16, lg: 24 },
-          { xs: 4, sm: 8, md: 16, lg: 24 },
-        ]}
-      >
-        {myPosts &&
-          myPosts.map((post, i) => (
-            <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
-              <PostImg
-                onClick={() => {
-                  post && getPostId(post);
-                  // openModal(setDetailModalState);
-                }}
-                src={post.Images && post.Images[0].src}
-              />
-            </Col>
-          ))}
-      </Row>
-    </MyPostWrapper>
+    <>
+      <MyPostWrapper>
+        <ButtonWrapper>
+          <StyledBtn>내가 쓴 글</StyledBtn>
+          <StyledBtn>북마크</StyledBtn>
+        </ButtonWrapper>
+        <Row
+          justify="start"
+          gutter={[
+            { xs: 4, sm: 18, md: 16, lg: 24 },
+            { xs: 4, sm: 8, md: 16, lg: 24 },
+          ]}
+        >
+          {myPosts &&
+            myPosts.map((post, i) => (
+              <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
+                <PostImg
+                  onClick={() => {
+                    post && getPostId(post);
+                    openModal(setDetailModalState);
+                  }}
+                  src={post.Images && post.Images[0].src}
+                />
+              </Col>
+            ))}
+        </Row>
+      </MyPostWrapper>
+    </>
   );
 };
 

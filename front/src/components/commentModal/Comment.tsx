@@ -1,7 +1,7 @@
 import React from 'react';
 import shortid from 'shortid';
 import Reply from './Reply';
-import ReplyInput from './ReplyInput';
+import UpdateAndReplyInput from './UpdateAndReplyInput';
 import { useAppSelector } from '@store/hook';
 import * as S from './style';
 import { IPost } from '@customTypes/post';
@@ -21,7 +21,7 @@ const Comment = ({ updateCommentsData }: CommentProps) => {
           <S.CommentContainer key={shortid.generate()}>
             <S.PromfileImg large src={comment.User?.profile_image} />
             <S.ContentAndBottomWrapper>
-              <ReplyInput comment={comment} />
+              <UpdateAndReplyInput comment={comment} />
             </S.ContentAndBottomWrapper>
           </S.CommentContainer>
           <Reply comment={comment} />

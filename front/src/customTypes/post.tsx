@@ -15,13 +15,12 @@ export interface IPost {
 
 export interface IPostState {
   mainPosts: IPost[];
-  comments?: IComment[];
   addPostLoading: boolean;
   addPostDone: boolean;
-  addPostError?: SerializedError | null;
+  addPostError: SerializedError | null;
   loadPostLoading: boolean;
-  loadPostError?: SerializedError | null;
-  dataForModal?: IPost | null;
+  loadPostError: SerializedError | null;
+  dataForModal: IPost | null;
   addCommentLoading: boolean;
   addCommentDone: boolean;
   addCommentError: SerializedError | null;
@@ -37,4 +36,10 @@ export interface IPostState {
   removeReplyLoading: boolean;
   removeReplyDone: boolean;
   removeReplyError: SerializedError | null;
+  updateReplyLoading: boolean;
+  updateReplyDone: boolean;
+  updateReplyError: SerializedError | null;
+  addNestedReplyLoading: boolean;
+  addNestedReplyDone: boolean;
+  addNestedReplyError: SerializedError | null;
 }

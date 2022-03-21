@@ -1,5 +1,5 @@
-import { addReply, removeComment, removeReply, updateComment } from '@actions/post';
-import { IComment, IReply } from '@customTypes/comment';
+import { addReply, removeComment, removeReply, updateComment, updateReply } from '@actions/post';
+import { IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { Dispatch, SetStateAction, useState } from 'react';
@@ -8,13 +8,13 @@ import { Modal, Button, Space } from 'antd';
 import { useFormik } from 'formik';
 import shortid from 'shortid';
 import * as S from './style';
-interface ReplyInputProps {
+interface UpdateAndReplyInputProps {
   setUpdateInputState?: Dispatch<SetStateAction<boolean>>;
   reply?: IReply;
   comment?: IComment;
 }
 
-const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }) => {
+const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = ({ reply, comment }) => {
   const dispatch = useDispatch();
   const removeCommentLoading = useAppSelector((state) => state.postSlice.removeCommentLoading);
   const removeCommentDone = useAppSelector((state) => state.postSlice.removeCommentDone);
@@ -22,12 +22,7 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
   const [updateInputState, setUpdateInputState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [replyInputState, setReplyInputState] = useState(false);
-  const AddReply = () => {
-    const { commentid, postid, replyContent } = formik.values;
-    dispatch(
-      addReply({ commentid: commentid, postid: postid, content: replyContent, id: shortid.generate(), User: me }),
-    );
-  };
+
   const CloseReplyInput = () => {
     setReplyInputState(false);
   };
@@ -40,7 +35,26 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
   const OpenUpdateInput = () => {
     setUpdateInputState(true);
   };
-  const RemoveComment = () => {
+  const AddReply = () => {
+    const { commentid, postid, replyContent } = formik.values;
+    const commentData = {
+      commentid: commentid,
+      postid: postid,
+      content: replyContent,
+      id: shortid.generate(),
+      User: me,
+    };
+    const replyData = {
+      commentid: reply?.commentid,
+      postid: reply?.postid,
+      content: replyContent,
+      id: shortid.generate(),
+      User: me,
+    };
+    comment && dispatch(addReply(commentData));
+    reply && dispatch(addReply(replyData));
+  };
+  const RemoveCommentAndReply = () => {
     modal.confirm({
       title: '댓글을 삭제하시겠습니까?',
       okButtonProps: {
@@ -51,20 +65,35 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
       },
     });
   };
+  const UpdateCommentAndReply = () => {
+    const { content, postid, commentid, replyContent, replyid } = formik.values;
+    const commentdata: IUpdateComment = { content: content, postid: postid, id: commentid };
+    const replydata: IUpdateReply = {
+      commentid: reply?.commentid,
+      content: content,
+      postid: reply?.postid,
+      id: replyid,
+    };
+    console.log(commentdata);
+    console.log(replydata);
+    comment ? dispatch(updateComment(commentdata)) : reply && dispatch(updateReply(replydata));
+  };
 
   const formik = useFormik({
-    initialValues: { content: '', postid: comment?.postid, commentid: comment?.id, replyContent: '' },
+    initialValues: {
+      content: '',
+      postid: comment?.postid,
+      commentid: comment?.id,
+      replyContent: '',
+      replyid: reply?.id,
+    },
     onSubmit: (values: {
       content: string;
       postid: string | undefined;
       commentid: string | undefined;
       replyContent: string | undefined;
-    }) => {
-      console.log(values);
-      me
-        ? dispatch(updateComment({ content: values.content, postid: values.postid, id: values.commentid }))
-        : alert('로그인하고와');
-    },
+      replyid: string | undefined;
+    }) => {},
   });
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -106,7 +135,7 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
               ((reply ? reply.User?.id === me.id : comment ? comment.User?.id === me.id : false) ? (
                 <>
                   <S.StyledBtn onClick={OpenUpdateInput}>수정</S.StyledBtn>
-                  <S.StyledBtn onClick={RemoveComment}>삭제</S.StyledBtn>
+                  <S.StyledBtn onClick={RemoveCommentAndReply}>삭제</S.StyledBtn>
                 </>
               ) : (
                 <S.StyledBtn onClick={OpenReplyInput}>답글 쓰기</S.StyledBtn>
@@ -116,7 +145,9 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
               updateInputState &&
               (reply ? reply.User?.id === me.id : comment ? comment.User?.id === me.id : false) && (
                 <>
-                  <S.StyledBtn htmlType="submit">수정</S.StyledBtn>
+                  <S.StyledBtn onClick={UpdateCommentAndReply} htmlType="button">
+                    수정
+                  </S.StyledBtn>
                   <S.StyledBtn onClick={CloseUpdateInput}>취소</S.StyledBtn>
                 </>
               )}
@@ -144,4 +175,4 @@ const ReplyInput: React.FunctionComponent<ReplyInputProps> = ({ reply, comment }
   );
 };
 
-export default ReplyInput;
+export default UpdateAndReplyInput;

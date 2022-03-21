@@ -1,4 +1,5 @@
 import AppLayout from '@components/AppLayout';
+import DetailModal from '@components/detailModal/DetailModal';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
@@ -12,6 +13,7 @@ type Props = {};
 
 const mypage = (props: Props) => {
   const myPosts = useAppSelector((state) => state.userSlice.me?.myPosts);
+  const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [editModalState, setEditModalState] = useState(false);
   useEffect(() => {
@@ -20,13 +22,14 @@ const mypage = (props: Props) => {
 
   return (
     <>
+      {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
       {editModalState && <ProfileEditModal me={me} setEditModalState={setEditModalState} />}
       <AppLayout>
         <>
           {me && (
             <StyledLayout>
               <Profile me={me} setEditModalState={setEditModalState} />
-              <MyPost myPosts={myPosts} />
+              <MyPost myPosts={myPosts} setDetailModalState={setDetailModalState} />
             </StyledLayout>
           )}
         </>
