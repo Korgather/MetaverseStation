@@ -25,7 +25,7 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
   const formData = new FormData();
   const formik = useFormik({
-    initialValues: { title: '', content: '', link: '', tags: [], category: '' },
+    initialValues: { title: '', content: '', link: '', tags: [], category: '', Comments: [] },
     onSubmit: (values: IPost) => {
       fileList.map((el: any, idx) => {
         if (el) {
