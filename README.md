@@ -10,7 +10,7 @@
   - MetaverseStation은 회원들이 서로 자신의 메타버스 공간을 공유할 수 있는 커뮤니티입니다.
 
 
-## 2. 주요 기능
+## 2. 주요 기능 (구현예정)
 - OAUTH로그인 (카카오,네이버,구글)
 - 글쓰기, 수정, 삭제 
 - 댓글, 대댓글 쓰기, 수정, 삭제
@@ -35,5 +35,4 @@
 | ![image](https://user-images.githubusercontent.com/86244477/159429099-3ac31970-61c9-4601-8cbb-9a43bf694cf2.png) |
 | PostModal |
 
-## 3. 배포링크
-https://metaverse-station.vercel.app/
+
