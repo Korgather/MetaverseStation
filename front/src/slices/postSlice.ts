@@ -79,7 +79,7 @@ export const postSlice = createSlice({
       .addCase(addComment.pending, (state) => {
         state.addCommentLoading = true;
       })
-      .addCase(addComment.fulfilled, (state, action) => {
+      .addCase(addComment.fulfilled, (state, action: AnyAction) => {
         state.addCommentDone = true;
         state.addCommentLoading = false;
         const post = state.mainPosts.find((post) => post.id === action.payload.postid);
@@ -169,7 +169,8 @@ export const postSlice = createSlice({
         const ReplyIdx = state.mainPosts[postIdx].Comments[commentIdx].replies?.findIndex(
           (reply) => reply.id === action.payload.id,
         );
-        if (ReplyIdx !== undefined) state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content = action.payload.content;
+        if (ReplyIdx !== undefined)
+          state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content = action.payload.content;
       })
       .addCase(updateReply.rejected, (state, action: ReturnType<typeof updateReply.rejected>) => {
         state.updateReplyLoading = false;
