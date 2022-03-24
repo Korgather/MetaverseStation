@@ -13,9 +13,15 @@ const delay = (time: number, value?: any) =>
   });
 
 const dummy = generateDummyPost(8, 5);
+const fetchUrl = "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/api/v1"
 
 export const addPost = createAsyncThunk('post/add', async (data: IPost, thunkAPI) => {
-  const res = await delay(1000, data);
+  const res = await axios.post(`${fetchUrl}/posts`, {
+    title : data.title,
+    content : data.content,
+    link : data.link,
+  } )
+  console.log(res.data)
   return data;
 });
 

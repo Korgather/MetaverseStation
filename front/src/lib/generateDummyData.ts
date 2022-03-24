@@ -1,18 +1,18 @@
-import shortId from 'shortid';
-import faker from 'faker';
+import shortId from "shortid";
+import faker from "faker";
 
 export const generateReply = (number: number, postid: string, commentid: string) =>
   Array(number)
-    .fill('')
+    .fill("")
     .map(() => {
       const rand_0_1 = Math.floor(Math.random() * 2);
-      const UserId = ['eungwang', shortId.generate()][rand_0_1];
+      const UserId = ["eungwang", shortId.generate()][rand_0_1];
       return {
         postid: postid,
         commentid: commentid,
         id: shortId.generate(),
         content: faker.lorem.sentence(),
-        created_at: '2022-03-11',
+        created_at: "2022-03-11",
         User: {
           id: UserId,
           nickname: faker.name.findName(),
@@ -23,12 +23,12 @@ export const generateReply = (number: number, postid: string, commentid: string)
 
 export const generateComment = (number: number, postid: string) =>
   Array(number)
-    .fill('')
+    .fill("")
     .map(() => {
       const rand_0_1 = Math.floor(Math.random() * 2);
       const rand_1_3 = 1 + Math.floor(Math.random() * 3);
       let commentid = shortId.generate();
-      const UserId = ['eungwang', shortId.generate()][rand_0_1];
+      const UserId = ["eungwang", shortId.generate()][rand_0_1];
       return {
         postid: postid,
         id: commentid,
@@ -38,14 +38,14 @@ export const generateComment = (number: number, postid: string) =>
           profile_image: faker.image.cats(),
         },
         content: faker.lorem.sentence(),
-        created_at: '2022-03-11',
+        created_at: "2022-03-11",
         replies: generateReply(rand_1_3, postid, commentid),
       };
     });
 
 export const generateDummyPost = (postCount: number, commentCount: number) =>
   Array(postCount)
-    .fill('')
+    .fill("")
     .map(() => {
       let postid = shortId.generate();
       return {
@@ -55,6 +55,7 @@ export const generateDummyPost = (postCount: number, commentCount: number) =>
           nickname: faker.name.findName(),
           profile_image: faker.image.cats(),
         },
+        title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         Images: [
           {
@@ -76,7 +77,7 @@ export const generateDummyPost = (postCount: number, commentCount: number) =>
 
 export const test = (number: number) =>
   Array(number)
-    .fill('')
+    .fill("")
     .map(() => {
       let postid = shortId.generate();
       let commentid = shortId.generate();
@@ -107,19 +108,19 @@ export const test = (number: number) =>
             postid: postid,
             id: commentid,
             User: {
-              id: 'eungwang',
+              id: "eungwang",
               nickname: faker.name.findName(),
               profile_image: faker.image.cats(),
             },
             content: faker.lorem.sentence(),
-            created_at: '2022-03-11',
+            created_at: "2022-03-11",
             replies: [
               {
                 postid: postid,
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
                   id: shortId.generate(),
                   nickname: faker.name.findName(),
@@ -131,7 +132,7 @@ export const test = (number: number) =>
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
                   id: shortId.generate(),
                   nickname: faker.name.findName(),
@@ -149,16 +150,16 @@ export const test = (number: number) =>
               profile_image: faker.image.cats(),
             },
             content: faker.lorem.sentence(),
-            created_at: '2022-03-11',
+            created_at: "2022-03-11",
             replies: [
               {
                 postid: postid,
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
-                  id: 'eungwang',
+                  id: "eungwang",
                   nickname: faker.name.findName(),
                   profile_image: faker.image.cats(),
                 },
@@ -168,7 +169,7 @@ export const test = (number: number) =>
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
                   id: shortId.generate(),
                   nickname: faker.name.findName(),
@@ -186,14 +187,14 @@ export const test = (number: number) =>
               profile_image: faker.image.cats(),
             },
             content: faker.lorem.sentence(),
-            created_at: '2022-03-11',
+            created_at: "2022-03-11",
             replies: [
               {
                 postid: postid,
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
                   id: shortId.generate(),
                   nickname: faker.name.findName(),
@@ -205,7 +206,7 @@ export const test = (number: number) =>
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
                   id: shortId.generate(),
                   nickname: faker.name.findName(),
@@ -223,14 +224,14 @@ export const test = (number: number) =>
               profile_image: faker.image.cats(),
             },
             content: faker.lorem.sentence(),
-            created_at: '2022-03-11',
+            created_at: "2022-03-11",
             replies: [
               {
                 postid: postid,
                 commentid: commentid,
                 id: shortId.generate(),
                 content: faker.lorem.sentence(),
-                created_at: '2022-03-11',
+                created_at: "2022-03-11",
                 User: {
                   id: shortId.generate(),
                   nickname: faker.name.findName(),
