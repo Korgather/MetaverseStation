@@ -1,14 +1,14 @@
-import React, { useState, useCallback, Dispatch, SetStateAction } from 'react';
-import { Input } from 'antd';
-import { useFormik } from 'formik';
-import UploadImages from './UploadImages';
-import { IPost } from '@customTypes/post';
-import WriteTag from './WriteTag';
-import { useAppDispatch, useAppSelector } from '@store/hook';
-import { addPost } from '@actions/post';
-import * as U from './style';
-import { UploadFile } from 'antd/lib/upload/interface';
-import { closeModal } from '@lib/ModalUtil';
+import React, { useState, useCallback, Dispatch, SetStateAction } from "react";
+import { Input } from "antd";
+import { useFormik } from "formik";
+import UploadImages from "./UploadImages";
+import { IPost } from "@customTypes/post";
+import WriteTag from "./WriteTag";
+import { useAppDispatch, useAppSelector } from "@store/hook";
+import { addPost } from "@actions/post";
+import * as U from "./style";
+import { UploadFile } from "antd/lib/upload/interface";
+import { closeModal } from "@lib/ModalUtil";
 
 interface WriteModalProps {
   setWriteModalState: Dispatch<SetStateAction<boolean>>;
@@ -17,41 +17,33 @@ interface WriteModalProps {
 const { TextArea } = Input;
 const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalState }) => {
   const dispatch = useAppDispatch();
-  const [fileList, setFileList] = useState<UploadFile<File>[]>([]);
   const [gatherState, setGatherState] = useState(false);
   const [zepState, setZepState] = useState(false);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
   const formData = new FormData();
   const formik = useFormik({
-    initialValues: { title: '', content: '', link: '', tags: [], category: '', Comments: [] },
+    initialValues: { title: "", content: "", link: "", tags: [], category: "", Comments: [] },
     onSubmit: (values: IPost) => {
-      fileList.map((el: any, idx) => {
-        if (el) {
-          return formData.append(`img${idx}`, el.originFileObj);
-        }
-      });
-      console.log(fileList);
       values.tags = tags;
       values.category = category;
       dispatch(addPost(values));
-      // alert(JSON.stringify(values, null, 2));
     },
   });
 
   const selectHandler = useCallback(
     (e) => {
       const { name } = e.target;
-      if (name === 'gather') {
+      if (name === "gather") {
         setGatherState(true);
         setZepState(false);
-        setCategory('gathertown');
+        setCategory("gathertown");
       }
-      if (name === 'zep') {
+      if (name === "zep") {
         setGatherState(false);
         setZepState(true);
-        setCategory('zep');
+        setCategory("zep");
       }
     },
     [gatherState, zepState],
@@ -67,7 +59,12 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
               <U.CloseModalBtn onClick={() => closeModal(setWriteModalState)}>x</U.CloseModalBtn>
               <h3>카테고리</h3>
               <U.SelectBtnWrapper>
-                <U.SelectBtn type="button" onClick={selectHandler} name="gather" state={gatherState}>
+                <U.SelectBtn
+                  type="button"
+                  onClick={selectHandler}
+                  name="gather"
+                  state={gatherState}
+                >
                   Gathertown
                 </U.SelectBtn>
                 <U.SelectBtn type="button" onClick={selectHandler} name="zep" state={zepState}>
@@ -90,7 +87,7 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
                 value={formik.values.link}
                 placeholder="접속링크를 입력해주세요."
               ></Input>
-              <UploadImages fileList={fileList} setFileList={setFileList} />
+              <UploadImages />
               <U.StyledLabel htmlFor="content">내용</U.StyledLabel>
               <TextArea
                 id="content"

@@ -1,38 +1,58 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import * as U from './style';
-import { beforeUpload, uploadButton } from '@lib/ModalUtil';
-import { Modal as ImgModal } from 'antd';
-import { UploadChangeParam } from 'antd/lib/upload';
-import { UploadFile } from 'antd/lib/upload/interface';
+import React, { useState } from "react";
+import * as U from "./style";
+import { beforeUploadValidation, uploadButton } from "@lib/ModalUtil";
+import { Modal as ImgModal } from "antd";
+import { UploadFile } from "antd/lib/upload/interface";
+import { useAppDispatch } from "@store/hook";
+import Axios from "axios";
 
-type handleChage = <T>(info: UploadChangeParam<UploadFile<T>>) => void;
-interface UploadImagesProps {
-  setFileList: Dispatch<SetStateAction<UploadFile<File>[]>>;
-  fileList: UploadFile<File>[];
-}
-
-const UploadImages: React.FunctionComponent<UploadImagesProps> = ({ fileList, setFileList }) => {
+const UploadImages = () => {
+  const [imageList, setImageList] = useState<UploadFile[]>([]);
   const [uploadValidate, setUploadValidate] = useState(true);
   const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
-  const handleChange: handleChage = ({ fileList: newFileList }) => {
-    if (uploadValidate) setFileList(newFileList);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+
+  const RequestUploadImage = async (file: File) => {
+    console.log(file);
+    const fd = new FormData();
+    fd.append("data", file);
+    await Axios.post(
+      "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/api/v1/upload",
+      fd,
+    );
+    return "";
   };
-  const handlePreview = async (file: any) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
+
+  const handlePreviewFile = async (file: File | Blob): Promise<string> =>
+    await new Promise((resolve) => {
+      if (uploadValidate) {
         const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+      } else {
+        resolve("");
+      }
+    });
+
+  const handleOnPreview = async (file: UploadFile) => {
+    if (file) {
+      let src = file.url;
+      if (!src) {
+        src = await new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file.originFileObj as Blob);
+          reader.onload = () => resolve(reader.result as string);
+        });
+      }
+      if (src !== undefined) {
+        setPreviewTitle(file.name);
+        setPreviewVisible(true);
+        setPreviewImage(src);
+        const image = new Image();
+        image.src = src;
+      }
     }
-    setPreviewTitle(file.name);
-    setPreviewVisible(true);
-    setPreviewImage(src);
-    const image = new Image();
-    image.src = src;
   };
 
   const handleCancel = () => setPreviewVisible(false);
@@ -40,16 +60,24 @@ const UploadImages: React.FunctionComponent<UploadImagesProps> = ({ fileList, se
     <>
       <U.StyledLabel htmlFor="mainImg">메인이미지</U.StyledLabel>
       <U.StyledUpload
-        beforeUpload={(File) => setUploadValidate(beforeUpload(File))}
+        beforeUpload={(file, fileList) => {
+          const result = beforeUploadValidation(file);
+          setUploadValidate(result);
+          if (result === false) {
+            fileList.pop();
+          }
+          return result;
+        }}
+        action={RequestUploadImage}
         listType="picture-card"
-        fileList={fileList}
-        onPreview={handlePreview}
-        onChange={handleChange}
+        onPreview={handleOnPreview}
+        previewFile={handlePreviewFile}
+        onChange={({ fileList }) => setImageList(fileList)}
       >
-        {fileList.length >= 5 ? null : uploadButton}
+        {imageList.length >= 5 ? null : uploadButton}
       </U.StyledUpload>
       <ImgModal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
-        <img alt="example" style={{ width: '100%' }} src={previewImage} />
+        <img alt="example" style={{ width: "100%" }} src={previewImage} />
       </ImgModal>
     </>
   );
