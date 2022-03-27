@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import shortid from 'shortid';
-import UpdateAndReplyInput from './UpdateAndReplyInput';
-import { IComment } from '@customTypes/comment';
-import * as S from './style';
+import React, { useState } from "react";
+import shortid from "shortid";
+import UpdateAndReplyInput from "./UpdateAndReplyInput";
+import { IComment } from "@customTypes/comment";
+import * as S from "./style";
 const Reply = ({ comment }: { comment: IComment }) => {
   const [moreCommentView, setMoreCommentView] = useState(false);
   const ToggleMoreCommentView = () => {
@@ -25,7 +25,9 @@ const Reply = ({ comment }: { comment: IComment }) => {
               </S.ContentWrapper>
             </S.ContentAndBottomWrapper>
           </S.ReplyContainer>
-          <S.MoreViewBtn onClick={ToggleMoreCommentView}>답글 {comment.replies.length - 1}개 더 보기...</S.MoreViewBtn>
+          <S.MoreViewBtn onClick={ToggleMoreCommentView}>
+            답글 {comment.replies.length - 1}개 더 보기...
+          </S.MoreViewBtn>
         </>
       ) : (
         comment.replies &&

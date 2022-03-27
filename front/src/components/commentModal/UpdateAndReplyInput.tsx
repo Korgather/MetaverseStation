@@ -1,20 +1,20 @@
-import { addReply, removeComment, removeReply, updateComment, updateReply } from '@actions/post';
-import { IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
-import { useAppSelector } from '@store/hook';
-import TextArea from 'antd/lib/input/TextArea';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Modal, Button, Space } from 'antd';
-import { useFormik } from 'formik';
-import shortid from 'shortid';
-import * as S from './style';
+import { addReply, removeComment, removeReply, updateComment, updateReply } from "@actions/post";
+import { IComment, IReply, IUpdateComment, IUpdateReply } from "@customTypes/comment";
+import { useAppSelector } from "@store/hook";
+import TextArea from "antd/lib/input/TextArea";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Modal, Button, Space } from "antd";
+import { useFormik } from "formik";
+import shortid from "shortid";
+import * as S from "./style";
 interface UpdateAndReplyInputProps {
   setUpdateInputState?: Dispatch<SetStateAction<boolean>>;
   reply?: IReply;
   comment?: IComment;
 }
 
-const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = ({ reply, comment }) => {
+const UpdateAndReplyInput: React.FC<UpdateAndReplyInputProps> = ({ reply, comment }) => {
   const dispatch = useDispatch();
   const removeCommentLoading = useAppSelector((state) => state.postSlice.removeCommentLoading);
   const removeCommentDone = useAppSelector((state) => state.postSlice.removeCommentDone);
@@ -56,7 +56,7 @@ const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = (
   };
   const RemoveCommentAndReply = () => {
     modal.confirm({
-      title: '댓글을 삭제하시겠습니까?',
+      title: "댓글을 삭제하시겠습니까?",
       okButtonProps: {
         loading: removeCommentLoading && !removeCommentDone,
       },
@@ -81,10 +81,10 @@ const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = (
 
   const formik = useFormik({
     initialValues: {
-      content: '',
+      content: "",
       postid: comment?.postid,
       commentid: comment?.id,
-      replyContent: '',
+      replyContent: "",
       replyid: reply?.id,
     },
     onSubmit: (values: {
@@ -103,7 +103,12 @@ const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = (
             <S.ContentWrapper large>
               <S.NickName large>{comment.User?.nickname}</S.NickName>
               <S.Content large>
-                <TextArea name="content" id="content" onChange={formik.handleChange} value={formik.values.content} />
+                <TextArea
+                  name="content"
+                  id="content"
+                  onChange={formik.handleChange}
+                  value={formik.values.content}
+                />
               </S.Content>
             </S.ContentWrapper>
           ) : (
@@ -117,7 +122,12 @@ const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = (
             <S.ContentWrapper>
               <S.NickName>{reply.User?.nickname}</S.NickName>
               <S.Content>
-                <TextArea name="content" id="content" onChange={formik.handleChange} value={formik.values.content} />
+                <TextArea
+                  name="content"
+                  id="content"
+                  onChange={formik.handleChange}
+                  value={formik.values.content}
+                />
               </S.Content>
             </S.ContentWrapper>
           ) : (
@@ -128,7 +138,7 @@ const UpdateAndReplyInput: React.FunctionComponent<UpdateAndReplyInputProps> = (
           ))}
 
         <S.ReplyBottom>
-          <S.ReplyDate>{reply ? reply.created_at : comment ? comment.created_at : ''}</S.ReplyDate>
+          <S.ReplyDate>{reply ? reply.created_at : comment ? comment.created_at : ""}</S.ReplyDate>
           <S.ReplyBtnWrapper>
             {me &&
               !updateInputState &&

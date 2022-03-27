@@ -3,7 +3,6 @@ import * as U from "./style";
 import { beforeUploadValidation, uploadButton } from "@lib/ModalUtil";
 import { Modal as ImgModal } from "antd";
 import { UploadFile } from "antd/lib/upload/interface";
-import { useAppDispatch } from "@store/hook";
 import Axios from "axios";
 
 const UploadImages = () => {

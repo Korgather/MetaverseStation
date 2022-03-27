@@ -1,6 +1,6 @@
-import { DownOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import styled from 'styled-components';
+import { DownOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+import styled from "styled-components";
 
 interface IModal {
   commentState: boolean;
@@ -33,7 +33,7 @@ export const CommentModal = styled.div<IModal>`
   display: flex;
   z-index: 300;
   background-color: white;
-  width: ${(popos) => (popos.commentState ? '22vw' : '0px')};
+  width: ${(popos) => (popos.commentState ? "22vw" : "0px")};
   height: 78vh;
   border-radius: 10px;
   padding: 20px 0px;
@@ -77,7 +77,20 @@ export const Modal = styled.div<IModal>`
 export const Content = styled.div`
   padding: 15px 30px;
   overflow-y: auto;
-  height: 40%;
+  height: 30%;
+`;
+
+export const TagsWrapper = styled.div`
+  padding: 15px 30px;
+  height: 10%;
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  span {
+    + span {
+      margin-left: 10px;
+    }
+  }
 `;
 
 export const HeaderWrapper = styled.div`
