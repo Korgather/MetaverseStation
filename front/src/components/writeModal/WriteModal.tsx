@@ -3,7 +3,7 @@ import { Input } from "antd";
 import { useFormik } from "formik";
 import UploadImages from "./UploadImages";
 import * as Yup from "yup";
-import { IPost } from "@customTypes/post";
+import { CustomFile, IPost } from "@customTypes/post";
 import WriteTag from "./WriteTag";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { addPost } from "@actions/post";
@@ -14,14 +14,10 @@ interface WriteModalProps {
   setWriteModalState: Dispatch<SetStateAction<boolean>>;
 }
 
-export interface CustomFile {
-  file: File;
-  url: string;
-}
-
 const { TextArea } = Input;
 interface IforFormik extends IPost {
-  imagesUrl: string[];
+  images: Omit<CustomFile, "file">[] | void[];
+  author: string;
 }
 const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const dispatch = useAppDispatch();
@@ -31,7 +27,7 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
-
+  const userId = useAppSelector((state) => state.userSlice.me?.id);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, "2글자 이상 입력해주세요")
@@ -39,8 +35,9 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       .required("제목은 필수입니다."),
     link: Yup.string().url("올바른 링크를 입력해주세요").required("링크는 필수입니다."),
     content: Yup.string().min(2, "10글자 이상 입력해주세요").required("내용은 필수입니다."),
-    imagesUrl: Yup.array().min(1, "이미지를 1개 이상 등록해주세요."),
+    images: Yup.array().min(1, "이미지를 1개 이상 등록해주세요."),
   });
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -49,20 +46,34 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       tags: [],
       category: "",
       Comments: [],
-      imagesUrl: [],
+      images: [],
+      author: userId as string,
     },
     onSubmit: (values: IforFormik) => {
       values.tags = tags;
       values.category = category;
-      values.imagesUrl = imageList.map((el) => el.url);
-      console.log(values.imagesUrl);
-      // dispatch(addPost(values));
+      values.images = imageList.map(({ imagePath, origFileName, fileSize }) => ({
+        imagePath,
+        origFileName,
+        fileSize,
+      }));
+      console.log(values.images);
+      const { images, link, title, author, content } = values;
+
+      dispatch(addPost({ images, link, title, author, content }));
     },
     validationSchema: PostSchema,
     validateOnChange: true,
   });
   useEffect(() => {
-    formik.setValues((value) => ({ ...value, imagesUrl: imageList.map((el) => el.url) }));
+    formik.setValues((value) => ({
+      ...value,
+      images: imageList.map(({ imagePath, origFileName, fileSize }) => ({
+        imagePath,
+        origFileName,
+        fileSize,
+      })),
+    }));
   }, [imageList]);
 
   const selectHandler = useCallback(
@@ -123,9 +134,7 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
               />
               {formik.errors.link && formik.touched && <S.Error>{formik.errors.link}</S.Error>}
               <UploadImages imageList={imageList} setImageList={setImageList} />
-              {formik.errors.imagesUrl && formik.touched && (
-                <S.Error>{formik.errors.imagesUrl}</S.Error>
-              )}
+              {formik.errors.images && formik.touched && <S.Error>{formik.errors.images}</S.Error>}
               <S.StyledLabel htmlFor="content">내용</S.StyledLabel>
               <TextArea
                 id="content"
