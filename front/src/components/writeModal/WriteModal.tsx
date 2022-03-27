@@ -1,12 +1,13 @@
-import React, { useState, useCallback, Dispatch, SetStateAction } from "react";
+import React, { useState, useCallback, Dispatch, SetStateAction, useEffect } from "react";
 import { Input } from "antd";
 import { useFormik } from "formik";
 import UploadImages from "./UploadImages";
+import * as Yup from "yup";
 import { IPost } from "@customTypes/post";
 import WriteTag from "./WriteTag";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { addPost } from "@actions/post";
-import * as U from "./style";
+import * as S from "./style";
 import { closeModal } from "@lib/ModalUtil";
 
 interface WriteModalProps {
@@ -30,6 +31,16 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
+
+  const PostSchema = Yup.object().shape({
+    title: Yup.string()
+      .min(2, "2글자 이상 입력해주세요")
+      .max(50, "제목이 너무 길어요")
+      .required("제목은 필수입니다."),
+    link: Yup.string().url("올바른 링크를 입력해주세요").required("링크는 필수입니다."),
+    content: Yup.string().min(2, "10글자 이상 입력해주세요").required("내용은 필수입니다."),
+    imagesUrl: Yup.array().min(1, "이미지를 1개 이상 등록해주세요."),
+  });
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -47,7 +58,12 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       console.log(values.imagesUrl);
       // dispatch(addPost(values));
     },
+    validationSchema: PostSchema,
+    validateOnChange: true,
   });
+  useEffect(() => {
+    formik.setValues((value) => ({ ...value, imagesUrl: imageList.map((el) => el.url) }));
+  }, [imageList]);
 
   const selectHandler = useCallback(
     (e) => {
@@ -69,43 +85,48 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <U.Dim onClick={() => closeModal(setWriteModalState)} />
-        <U.ModalWrapper>
-          <U.Modal>
-            <U.ModalContainer>
-              <U.CloseModalBtn onClick={() => closeModal(setWriteModalState)}>x</U.CloseModalBtn>
+        <S.Dim onClick={() => closeModal(setWriteModalState)} />
+        <S.ModalWrapper>
+          <S.Modal>
+            <S.ModalContainer>
+              <S.CloseModalBtn onClick={() => closeModal(setWriteModalState)}>x</S.CloseModalBtn>
               <h3>카테고리</h3>
-              <U.SelectBtnWrapper>
-                <U.SelectBtn
+              <S.SelectBtnWrapper>
+                <S.SelectBtn
                   type="button"
                   onClick={selectHandler}
                   name="gather"
                   state={gatherState}
                 >
                   Gathertown
-                </U.SelectBtn>
-                <U.SelectBtn type="button" onClick={selectHandler} name="zep" state={zepState}>
+                </S.SelectBtn>
+                <S.SelectBtn type="button" onClick={selectHandler} name="zep" state={zepState}>
                   Zep
-                </U.SelectBtn>
-              </U.SelectBtnWrapper>
-              <U.StyledLabel htmlFor="title">제목</U.StyledLabel>
+                </S.SelectBtn>
+              </S.SelectBtnWrapper>
+              <S.StyledLabel htmlFor="title">제목</S.StyledLabel>
               <Input
                 id="title"
                 name="title"
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 placeholder="제목을 입력해주세요."
-              ></Input>
-              <U.StyledLabel htmlFor="link">접속링크</U.StyledLabel>
+              />
+              {formik.errors.title && formik.touched && <S.Error>{formik.errors.title}</S.Error>}
+              <S.StyledLabel htmlFor="link">접속링크</S.StyledLabel>
               <Input
                 id="link"
                 name="link"
                 onChange={formik.handleChange}
                 value={formik.values.link}
                 placeholder="접속링크를 입력해주세요."
-              ></Input>
+              />
+              {formik.errors.link && formik.touched && <S.Error>{formik.errors.link}</S.Error>}
               <UploadImages imageList={imageList} setImageList={setImageList} />
-              <U.StyledLabel htmlFor="content">내용</U.StyledLabel>
+              {formik.errors.imagesUrl && formik.touched && (
+                <S.Error>{formik.errors.imagesUrl}</S.Error>
+              )}
+              <S.StyledLabel htmlFor="content">내용</S.StyledLabel>
               <TextArea
                 id="content"
                 name="content"
@@ -114,18 +135,21 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
                 rows={8}
                 placeholder="메타버스 공간을 소개해주세요."
               />
-              <U.StyledLabel htmlFor="tags">
-                태그 <U.ExplainP>(*최대 5개)</U.ExplainP>
-              </U.StyledLabel>
-              <U.TagAndBtnWrapper>
+              {formik.errors.content && formik.touched && (
+                <S.Error>{formik.errors.content}</S.Error>
+              )}
+              <S.StyledLabel htmlFor="tags">
+                태그 <S.ExplainP>(*최대 5개)</S.ExplainP>
+              </S.StyledLabel>
+              <S.TagAndBtnWrapper>
                 <WriteTag setTags={setTags} tags={tags} />
-                <U.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
+                <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
                   등록하기
-                </U.SubmitBtn>
-              </U.TagAndBtnWrapper>
-            </U.ModalContainer>
-          </U.Modal>
-        </U.ModalWrapper>
+                </S.SubmitBtn>
+              </S.TagAndBtnWrapper>
+            </S.ModalContainer>
+          </S.Modal>
+        </S.ModalWrapper>
       </form>
     </>
   );
