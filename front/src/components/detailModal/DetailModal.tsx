@@ -1,11 +1,11 @@
-import CommentModal from '@components/commentModal/CommentModal';
-import { closeModal } from '@lib/ModalUtil';
-import { useAppSelector } from '@store/hook';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import DetailHeader from './DetailHeader';
-import HeartAndMessage from './HeartAndMessage';
-import SliderImages from './SliderImages';
-import * as D from './style';
+import CommentModal from "@components/commentModal/CommentModal";
+import { closeModal } from "@lib/ModalUtil";
+import { useAppSelector } from "@store/hook";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import DetailHeader from "./DetailHeader";
+import HeartAndMessage from "./HeartAndMessage";
+import SliderImages from "./SliderImages";
+import * as S from "./style";
 
 interface DetailModalProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -17,16 +17,21 @@ const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModal
   return (
     <>
       {postData && (
-        <D.ModalWrapper>
-          <D.Dim onClick={() => closeModal(setDetailModalState)} />
-          <D.Modal commentState={commentState}>
+        <S.ModalWrapper>
+          <S.Dim onClick={() => closeModal(setDetailModalState)} />
+          <S.Modal commentState={commentState}>
             <DetailHeader postData={postData} setDetailModalState={setDetailModalState} />
             <SliderImages postData={postData} />
             <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
-            <D.Content>{postData.content} </D.Content>
-          </D.Modal>
+            <S.Content>{postData.content} </S.Content>
+            <S.TagsWrapper>
+              {postData.tags?.map((tag) => (
+                <span># {tag}</span>
+              ))}
+            </S.TagsWrapper>
+          </S.Modal>
           <CommentModal commentState={commentState} postData={postData} />
-        </D.ModalWrapper>
+        </S.ModalWrapper>
       )}
     </>
   );

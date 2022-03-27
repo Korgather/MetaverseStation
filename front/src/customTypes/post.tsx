@@ -1,6 +1,6 @@
-import { SerializedError } from '@reduxjs/toolkit';
-import { IComment } from './comment';
-import { IUser } from './user';
+import { SerializedError } from "@reduxjs/toolkit";
+import { IComment } from "./comment";
+import { IUser } from "./user";
 export interface IPost {
   title?: string;
   content?: string;
@@ -18,6 +18,9 @@ export interface IPostState {
   addPostLoading: boolean;
   addPostDone: boolean;
   addPostError: SerializedError | null;
+  addImageLoading: boolean;
+  addImageDone: boolean;
+  addImageError: SerializedError | null;
   loadPostLoading: boolean;
   loadPostError: SerializedError | null;
   dataForModal: IPost | null;

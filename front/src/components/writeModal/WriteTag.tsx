@@ -1,8 +1,8 @@
-import React, { useState, SetStateAction, Dispatch } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Tag } from 'antd';
-import shortid from 'shortid';
-import * as U from './style';
+import React, { useState, SetStateAction, Dispatch } from "react";
+import { PlusOutlined } from "@ant-design/icons";
+import { Tag } from "antd";
+import shortid from "shortid";
+import * as U from "./style";
 
 interface WriteTagProps {
   setTags: Dispatch<SetStateAction<string[]>>;
@@ -11,7 +11,7 @@ interface WriteTagProps {
 
 const WriteTag: React.FunctionComponent<WriteTagProps> = ({ tags, setTags }) => {
   const [inputVisible, setInputVisible] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>("");
   const handleClose = (removeTag: string) => {
     const filteredTags: SetStateAction<string[]> = tags.filter((tag) => tag !== removeTag);
     setTags(filteredTags);
@@ -28,7 +28,7 @@ const WriteTag: React.FunctionComponent<WriteTagProps> = ({ tags, setTags }) => 
       setTags([...tags, inputValue]);
     }
     setInputVisible(false);
-    setInputValue('');
+    setInputValue("");
   };
 
   return (
