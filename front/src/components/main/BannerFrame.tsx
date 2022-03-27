@@ -17,7 +17,7 @@ interface sliderProps {
   loop?: boolean;
 }
 
-const BannerFrame = ({ children, className, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
+const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
   const settings = useMemo<Settings>(
     () => ({
       dots: true,
@@ -31,7 +31,7 @@ const BannerFrame = ({ children, className, autoplay = true, speed = 1000, loop 
   );
 
   return (
-    <SlideWrapper className={className}>
+    <SlideWrapper>
       <Slider {...settings}>{children}</Slider>
     </SlideWrapper>
   );
@@ -44,6 +44,10 @@ const SlideWrapper = styled.section`
   width: 1440px;
   .slick-list {
     border-radius: 13px;
+  }
+  .slick-prev:before,
+  .slick-next:before {
+    color: black !important;
   }
   @media screen and (max-width: 1650px) {
     width: 75vw;
