@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import shortid from "shortid";
-import UpdateAndReplyInput from "./UpdateAndReplyInput";
+import CommentFactory from "./CommentFactory";
 import { IComment } from "@customTypes/comment";
 import * as S from "./style";
 const Reply = ({ comment }: { comment: IComment }) => {
   const [moreCommentView, setMoreCommentView] = useState(false);
-  const ToggleMoreCommentView = () => {
-    setMoreCommentView(true);
-  };
+  const ToggleMoreCommentView = () => setMoreCommentView(true);
 
   return (
     <S.ReplyWrapper>
@@ -36,7 +34,7 @@ const Reply = ({ comment }: { comment: IComment }) => {
             <S.ReplyContainer key={shortid.generate()}>
               <S.PromfileImg src={reply.User?.profile_image} />
               <S.ContentAndBottomWrapper>
-                <UpdateAndReplyInput reply={reply} />
+                <CommentFactory reply={reply} />
               </S.ContentAndBottomWrapper>
             </S.ReplyContainer>
           </>
