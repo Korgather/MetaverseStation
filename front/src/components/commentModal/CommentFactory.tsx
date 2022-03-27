@@ -1,5 +1,4 @@
 import { IComment, IReply } from "@customTypes/comment";
-import TextArea from "antd/lib/input/TextArea";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { Modal } from "antd";
 import { useFormik } from "formik";

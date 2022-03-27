@@ -7,28 +7,45 @@ import WriteTag from "./WriteTag";
 import { useAppDispatch, useAppSelector } from "@store/hook";
 import { addPost } from "@actions/post";
 import * as U from "./style";
-import { UploadFile } from "antd/lib/upload/interface";
 import { closeModal } from "@lib/ModalUtil";
 
 interface WriteModalProps {
   setWriteModalState: Dispatch<SetStateAction<boolean>>;
 }
 
+export interface CustomFile {
+  file: File;
+  url: string;
+}
+
 const { TextArea } = Input;
-const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalState }) => {
+interface IforFormik extends IPost {
+  imagesUrl: string[];
+}
+const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const dispatch = useAppDispatch();
   const [gatherState, setGatherState] = useState(false);
   const [zepState, setZepState] = useState(false);
   const [category, setCategory] = useState("");
+  const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
-  const formData = new FormData();
   const formik = useFormik({
-    initialValues: { title: "", content: "", link: "", tags: [], category: "", Comments: [] },
-    onSubmit: (values: IPost) => {
+    initialValues: {
+      title: "",
+      content: "",
+      link: "",
+      tags: [],
+      category: "",
+      Comments: [],
+      imagesUrl: [],
+    },
+    onSubmit: (values: IforFormik) => {
       values.tags = tags;
       values.category = category;
-      dispatch(addPost(values));
+      values.imagesUrl = imageList.map((el) => el.url);
+      console.log(values.imagesUrl);
+      // dispatch(addPost(values));
     },
   });
 
@@ -87,7 +104,7 @@ const WriteModal: React.FunctionComponent<WriteModalProps> = ({ setWriteModalSta
                 value={formik.values.link}
                 placeholder="접속링크를 입력해주세요."
               ></Input>
-              <UploadImages />
+              <UploadImages imageList={imageList} setImageList={setImageList} />
               <U.StyledLabel htmlFor="content">내용</U.StyledLabel>
               <TextArea
                 id="content"

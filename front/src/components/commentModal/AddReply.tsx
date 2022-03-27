@@ -1,8 +1,8 @@
 import { addReply } from "@actions/post";
 import { IComment, IReply } from "@customTypes/comment";
 import { useAppSelector } from "@store/hook";
-import { FormikConfig, FormikValues } from "formik";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { FormikValues } from "formik";
+import Reactfrom from "react";
 import { useDispatch } from "react-redux";
 import shortid from "shortid";
 import * as S from "./style";

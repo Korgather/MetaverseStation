@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import * as U from "./style";
 import { beforeUploadValidation, uploadButton } from "@lib/ModalUtil";
 import { Modal as ImgModal } from "antd";
 import { UploadFile } from "antd/lib/upload/interface";
 import Axios from "axios";
+import { CustomFile } from "./WriteModal";
 
-const UploadImages = () => {
-  const [imageList, setImageList] = useState<UploadFile[]>([]);
+interface UploadImagesProps {
+  setImageList: Dispatch<SetStateAction<CustomFile[]>>;
+  imageList: CustomFile[];
+}
+
+const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) => {
   const [uploadValidate, setUploadValidate] = useState(true);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -16,10 +21,12 @@ const UploadImages = () => {
     console.log(file);
     const fd = new FormData();
     fd.append("data", file);
-    await Axios.post(
+    const res = await Axios.post(
       "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/api/v1/upload",
       fd,
     );
+    console.log(res.data[0]);
+    setImageList([...imageList, { file, url: res.data[0] }]);
     return "";
   };
 
@@ -54,6 +61,11 @@ const UploadImages = () => {
     }
   };
 
+  const onRemove = (file: File) => {
+    const RemoveIdx = imageList.findIndex((el) => el.file === file);
+    console.log(RemoveIdx);
+    setImageList(() => imageList.filter((el, idx) => idx !== RemoveIdx));
+  };
   const handleCancel = () => setPreviewVisible(false);
   return (
     <>
@@ -62,16 +74,16 @@ const UploadImages = () => {
         beforeUpload={(file, fileList) => {
           const result = beforeUploadValidation(file);
           setUploadValidate(result);
-          if (result === false) {
-            fileList.pop();
-          }
           return result;
         }}
         action={RequestUploadImage}
         listType="picture-card"
         onPreview={handleOnPreview}
         previewFile={handlePreviewFile}
-        onChange={({ fileList }) => setImageList(fileList)}
+        // onChange={({ file }) => onChangeImageList(file)}
+        onRemove={(file) => {
+          onRemove(file.originFileObj as File);
+        }}
       >
         {imageList.length >= 5 ? null : uploadButton}
       </U.StyledUpload>
