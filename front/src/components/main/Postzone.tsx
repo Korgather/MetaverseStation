@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { Row, Col } from 'antd';
-import styled from 'styled-components';
-import { openModal } from '@lib/ModalUtil';
-import faker from 'faker';
-import { IPost } from '@customTypes/post';
-import { useAppDispatch } from '@store/hook';
-import { getDataForModal } from '@slices/postSlice';
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { Row, Col } from "antd";
+import styled from "styled-components";
+import { openModal } from "@lib/ModalUtil";
+import faker from "faker";
+import { IPost } from "@customTypes/post";
+import { useAppDispatch } from "@store/hook";
+import { getDataForModal } from "@slices/postSlice";
 interface PostzoneProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
   mainPosts: IPost[];
@@ -27,14 +27,17 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
       >
         {mainPosts &&
           mainPosts.map((post, i) => (
-            <Col key={'PostCard' + i} xs={24} md={12} lg={8} xl={6} style={{}}>
-              <PostImg
-                onClick={() => {
-                  post && getPostId(post);
-                  openModal(setDetailModalState);
-                }}
-                src={post.Images && post.Images[0].src}
-              />
+            <Col key={"PostCard" + i} xs={24} md={12} lg={8} xl={6} style={{}}>
+              <ImgWrapper>
+                <PostImg
+                  onClick={() => {
+                    post && getPostId(post);
+                    openModal(setDetailModalState);
+                  }}
+                  src={post.Images && post.Images[0].src}
+                />
+              </ImgWrapper>
+              <Title>{post.title}</Title>
             </Col>
           ))}
       </Row>
@@ -44,12 +47,15 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
 
 export default Postzone;
 
-const PostImg = styled.img`
-  transform: scale(1);
-  transition: all 0.3s ease-in-out;
+const Title = styled.div`
+  font-size: 1rem;
+  font-weight: 600;
+`;
+
+const ImgWrapper = styled.div`
   width: 340px;
-  cursor: pointer;
   border-radius: 10px;
+  overflow: hidden;
   @media screen and (max-width: 1650px) {
     width: 17vw;
   }
@@ -62,6 +68,14 @@ const PostImg = styled.img`
   @media screen and (max-width: 768px) {
     width: 70vw;
   }
+`;
+
+const PostImg = styled.img`
+  border-radius: 10px;
+  transform: scale(1);
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  cursor: pointer;
   :hover {
     transform: scale(1.1);
   }

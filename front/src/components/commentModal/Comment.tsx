@@ -1,11 +1,10 @@
-import React from 'react';
-import shortid from 'shortid';
-import Reply from './Reply';
-import UpdateAndReplyInput from './UpdateAndReplyInput';
-import { useAppSelector } from '@store/hook';
-import * as S from './style';
-import { IPost } from '@customTypes/post';
-import { IComment } from '@customTypes/comment';
+import React from "react";
+import shortid from "shortid";
+import Reply from "./Reply";
+import CommentFactory from "./CommentFactory";
+import { useAppSelector } from "@store/hook";
+import * as S from "./style";
+import { IComment } from "@customTypes/comment";
 
 interface CommentProps {
   updateCommentsData: IComment[] | null | undefined;
@@ -21,10 +20,10 @@ const Comment = ({ updateCommentsData }: CommentProps) => {
           <S.CommentContainer key={shortid.generate()}>
             <S.PromfileImg large src={comment.User?.profile_image} />
             <S.ContentAndBottomWrapper>
-              <UpdateAndReplyInput comment={comment} />
+              <CommentFactory comment={comment} />
             </S.ContentAndBottomWrapper>
           </S.CommentContainer>
-          <Reply comment={comment} />
+          <Reply key={shortid.generate()} comment={comment} />
         </>
       ))}
     </S.CommentWrapper>

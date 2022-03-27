@@ -1,5 +1,6 @@
 import {
   addComment,
+  addImage,
   addPost,
   addReply,
   loadPost,
@@ -7,16 +8,19 @@ import {
   removeReply,
   updateComment,
   updateReply,
-} from '@actions/post';
-import { IComment } from '@customTypes/comment';
-import { IPost, IPostState } from '@customTypes/post';
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+} from "@actions/post";
+import { IComment } from "@customTypes/comment";
+import { IPost, IPostState } from "@customTypes/post";
+import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: IPostState = {
   mainPosts: [],
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
+  addImageLoading: false,
+  addImageDone: false,
+  addImageError: null,
   loadPostLoading: false,
   loadPostError: null,
   addCommentLoading: false,
@@ -44,7 +48,7 @@ const initialState: IPostState = {
 };
 
 export const postSlice = createSlice({
-  name: 'posts',
+  name: "posts",
   initialState,
   reducers: {
     getDataForModal: (state, action) => {
@@ -76,6 +80,16 @@ export const postSlice = createSlice({
         state.loadPostLoading = false;
         state.loadPostError = action.error;
       })
+      .addCase(addImage.pending, (state) => {
+        state.addImageLoading = true;
+      })
+      .addCase(addImage.fulfilled, (state, action: AnyAction) => {
+        state.addImageLoading = false;
+      })
+      .addCase(addImage.rejected, (state, action: ReturnType<typeof addImage.rejected>) => {
+        state.addImageLoading = false;
+        state.addImageError = action.error;
+      })
       .addCase(addComment.pending, (state) => {
         state.addCommentLoading = true;
       })
@@ -95,29 +109,42 @@ export const postSlice = createSlice({
       .addCase(removeComment.fulfilled, (state, action: PayloadAction<IComment | undefined>) => {
         state.removeCommentDone = true;
         state.removeCommentLoading = false;
-        const postIdx = state.mainPosts.findIndex((post) => action.payload && post.id === action.payload.postid);
+        const postIdx = state.mainPosts.findIndex(
+          (post) => action.payload && post.id === action.payload.postid,
+        );
         state.mainPosts[postIdx].Comments = state.mainPosts[postIdx].Comments?.filter(
           (comment) => comment.id !== action.payload?.id,
         );
       })
-      .addCase(removeComment.rejected, (state, action: ReturnType<typeof removeComment.rejected>) => {
-        state.removeCommentLoading = false;
-        state.removeCommentError = action.error;
-      })
+      .addCase(
+        removeComment.rejected,
+        (state, action: ReturnType<typeof removeComment.rejected>) => {
+          state.removeCommentLoading = false;
+          state.removeCommentError = action.error;
+        },
+      )
       .addCase(updateComment.pending, (state) => {
         state.updateCommentLoading = true;
       })
       .addCase(updateComment.fulfilled, (state, action) => {
         state.updateCommentDone = true;
         state.updateCommentLoading = false;
-        const postIdx = state.mainPosts.findIndex((post) => action.payload && post.id === action.payload.postid);
-        const commentIdx = state.mainPosts[postIdx].Comments.findIndex((comment) => comment.id === action.payload?.id);
-        if (state.mainPosts[postIdx]) state.mainPosts[postIdx].Comments[commentIdx].content = action.payload?.content;
+        const postIdx = state.mainPosts.findIndex(
+          (post) => action.payload && post.id === action.payload.postid,
+        );
+        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+          (comment) => comment.id === action.payload?.id,
+        );
+        if (state.mainPosts[postIdx])
+          state.mainPosts[postIdx].Comments[commentIdx].content = action.payload?.content;
       })
-      .addCase(updateComment.rejected, (state, action: ReturnType<typeof updateComment.rejected>) => {
-        state.updateCommentLoading = false;
-        state.updateCommentError = action.error;
-      })
+      .addCase(
+        updateComment.rejected,
+        (state, action: ReturnType<typeof updateComment.rejected>) => {
+          state.updateCommentLoading = false;
+          state.updateCommentError = action.error;
+        },
+      )
       .addCase(addReply.pending, (state) => {
         state.addReplyLoading = true;
       })
@@ -128,7 +155,8 @@ export const postSlice = createSlice({
         const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
           (comment) => comment.id === action.payload?.commentid,
         );
-        if (state.mainPosts[postIdx]) state.mainPosts[postIdx].Comments[commentIdx].replies?.push(action.payload);
+        if (state.mainPosts[postIdx])
+          state.mainPosts[postIdx].Comments[commentIdx].replies?.push(action.payload);
       })
       .addCase(addReply.rejected, (state, action: ReturnType<typeof addReply.rejected>) => {
         state.addReplyLoading = false;
@@ -170,7 +198,8 @@ export const postSlice = createSlice({
           (reply) => reply.id === action.payload.id,
         );
         if (ReplyIdx !== undefined)
-          state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content = action.payload.content;
+          state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content =
+            action.payload.content;
       })
       .addCase(updateReply.rejected, (state, action: ReturnType<typeof updateReply.rejected>) => {
         state.updateReplyLoading = false;
