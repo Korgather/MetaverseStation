@@ -13,10 +13,9 @@ const delay = (time: number, value?: any) =>
   });
 
 const dummy = generateDummyPost(8, 5);
-const fetchUrl = "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/api/v1";
 
 export const addPost = createAsyncThunk("post/add", async (data: AddPost, thunkAPI) => {
-  const res = await axios.post(`${fetchUrl}/posts`, data);
+  const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data);
   console.log(res.data);
   return data;
 });
@@ -26,12 +25,6 @@ export const loadPost = createAsyncThunk("post/load", async () => {
   const data: IPost[] = dummy;
   return data;
 });
-
-const onDebounceAddImage = debounce(async (data: FormData, thunkAPI) => {
-  // const res = await axios.post(`${fetchUrl}/upload`, data);
-  // console.log(res);
-}, 3000);
-export const addImage = createAsyncThunk("image/add", onDebounceAddImage);
 
 export const addComment = createAsyncThunk(
   "comment/add",

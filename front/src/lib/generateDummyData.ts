@@ -15,8 +15,8 @@ export const generateReply = (number: number, postid: string, commentid: string)
         created_at: "2022-03-11",
         User: {
           id: UserId,
-          nickname: faker.name.findName(),
-          profile_image: faker.image.cats(),
+          username: faker.name.findName(),
+          profileImageUrl: faker.image.cats(),
         },
       };
     });
@@ -28,14 +28,14 @@ export const generateComment = (number: number, postid: string) =>
       const rand_0_1 = Math.floor(Math.random() * 2);
       const rand_1_3 = 1 + Math.floor(Math.random() * 3);
       let commentid = shortId.generate();
-      const UserId = ["eungwang", shortId.generate()][rand_0_1];
+      const userId = ["eungwang", shortId.generate()][rand_0_1];
       return {
         postid: postid,
         id: commentid,
         User: {
-          id: UserId,
-          nickname: faker.name.findName(),
-          profile_image: faker.image.cats(),
+          id: userId,
+          username: faker.name.findName(),
+          profileImageUrl: faker.image.cats(),
         },
         content: faker.lorem.sentence(),
         created_at: "2022-03-11",
@@ -51,9 +51,9 @@ export const generateDummyPost = (postCount: number, commentCount: number) =>
       return {
         id: postid,
         User: {
-          id: shortId.generate(),
-          nickname: faker.name.findName(),
-          profile_image: faker.image.cats(),
+          userId: shortId.generate(),
+          username: faker.name.findName(),
+          profileImageUrl: faker.image.cats(),
         },
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),

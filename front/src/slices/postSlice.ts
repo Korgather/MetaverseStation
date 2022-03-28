@@ -1,6 +1,5 @@
 import {
   addComment,
-  addImage,
   addPost,
   addReply,
   loadPost,
@@ -79,16 +78,6 @@ export const postSlice = createSlice({
       .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
         state.loadPostLoading = false;
         state.loadPostError = action.error;
-      })
-      .addCase(addImage.pending, (state) => {
-        state.addImageLoading = true;
-      })
-      .addCase(addImage.fulfilled, (state, action: AnyAction) => {
-        state.addImageLoading = false;
-      })
-      .addCase(addImage.rejected, (state, action: ReturnType<typeof addImage.rejected>) => {
-        state.addImageLoading = false;
-        state.addImageError = action.error;
       })
       .addCase(addComment.pending, (state) => {
         state.addCommentLoading = true;

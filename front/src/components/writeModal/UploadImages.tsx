@@ -3,7 +3,7 @@ import * as U from "./style";
 import { beforeUploadValidation, uploadButton } from "@lib/ModalUtil";
 import { Modal as ImgModal } from "antd";
 import { UploadFile } from "antd/lib/upload/interface";
-import Axios from "axios";
+import axios from "axios";
 import { CustomFile } from "@customTypes/post";
 
 interface UploadImagesProps {
@@ -21,10 +21,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
     console.log(file);
     const fd = new FormData();
     fd.append("data", file);
-    const res = await Axios.post(
-      "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/api/v1/upload",
-      fd,
-    );
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd);
     console.log(file);
     setImageList([
       ...imageList,

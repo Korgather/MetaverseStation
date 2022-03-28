@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import type { NextPage } from 'next';
-import Head from 'next/head';
-import styled from 'styled-components';
-import AppLayout from '@components/AppLayout';
-import Postzone from '@components/main/Postzone';
-import Category from '@components/main/Category';
-import BannerItem from '@components/main/BannerItem';
-import Pagination from '@components/main/Pagination';
-import WriteModal from '@components/writeModal/WriteModal';
-import DetailModal from '@components/detailModal/DetailModal';
-import { openModal } from '@lib/ModalUtil';
-import { Button } from 'antd';
-import { useAppDispatch, useAppSelector } from '@store/hook';
-import Router from 'next/router';
-import { loadPost } from '@actions/post';
-import wrapper from '@store/configureStore';
-import axios from 'axios';
-import { loadMyInfo } from '@actions/user';
+import React, { useEffect, useState } from "react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import styled from "styled-components";
+import AppLayout from "@components/AppLayout";
+import Postzone from "@components/main/Postzone";
+import Category from "@components/main/Category";
+import BannerItem from "@components/main/BannerItem";
+import Pagination from "@components/main/Pagination";
+import WriteModal from "@components/writeModal/WriteModal";
+import DetailModal from "@components/detailModal/DetailModal";
+import { openModal } from "@lib/ModalUtil";
+import { Button } from "antd";
+import { useAppDispatch, useAppSelector } from "@store/hook";
+import Router from "next/router";
+import { loadPost } from "@actions/post";
+import wrapper from "@store/configureStore";
+import axios from "axios";
+import { loadMyInfo, logIn } from "@actions/user";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -25,11 +25,12 @@ const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const mainPosts = useAppSelector((state) => state.postSlice.mainPosts);
   const gotoLogIn = () => {
-    Router.push('/login');
+    Router.push("/login");
   };
   useEffect(() => {
     dispatch(loadMyInfo());
   }, []);
+
   return (
     <>
       <React.StrictMode>
@@ -68,10 +69,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   // SSR에서 쿠키 받아오는 방법.
   const cookies = ctx.req?.headers?.cookie;
   // 쿠키 공유 방지,
-  axios.defaults.headers.Cookie = '';
+  axios.defaults.headers.Cookie = "";
   if (ctx.req && cookies) axios.defaults.headers.Cookie = cookies;
-
   await store.dispatch(loadPost());
+  await store.dispatch(loadMyInfo());
   return { props: {} };
 });
 

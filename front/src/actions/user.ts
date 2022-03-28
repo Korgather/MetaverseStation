@@ -1,12 +1,13 @@
-import { IUser } from '@customTypes/user';
-import { generateDummyPost } from '@lib/generateDummyData';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import faker from 'faker';
+import { IUser } from "@customTypes/user";
+import { generateDummyPost } from "@lib/generateDummyData";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+import faker from "faker";
 
 const dummyUser: IUser = {
-  nickname: 'eungwang',
-  id: 'eungwang',
-  profile_image: faker.image.cats(),
+  username: "eungwang",
+  userId: "eungwang",
+  profileImageUrl: faker.image.cats(),
   myPosts: generateDummyPost(8, 5),
   introduce: faker.lorem.paragraph(),
 };
@@ -15,25 +16,24 @@ const delay = (time: number, value?: any) =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
       // resolve(value);
-      resolve('test');
+      resolve("test");
     }, time);
   });
 
-export const logIn = createAsyncThunk('user/logIn', async () => {
-  await delay(3000);
-  localStorage.setItem('me', JSON.stringify(dummyUser));
-  console.log('로그인');
-  return dummyUser;
+export const logIn = createAsyncThunk("user/logIn", async (data, thunkAPI) => {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  localStorage.setItem("me", JSON.stringify(res.data.body.user));
+  return res.data.body.user;
 });
 
-export const logOut = createAsyncThunk('user/logOut', async () => {
+export const logOut = createAsyncThunk("user/logOut", async () => {
   await delay(1500);
-  localStorage.setItem('me', '');
+  // localStorage.setItem("me", "");
 });
 
-export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async () => {
+export const loadMyInfo = createAsyncThunk("user/loadMyInfo", async () => {
   await delay(1000);
-  const data = JSON.parse(localStorage.getItem('me') || '');
+  const data = JSON.parse(localStorage.getItem("me") as string);
   console.log(data);
   return data;
 });

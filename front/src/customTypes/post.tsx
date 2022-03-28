@@ -1,6 +1,13 @@
 import { SerializedError } from "@reduxjs/toolkit";
 import { IComment } from "./comment";
 import { IUser } from "./user";
+
+export interface CustomFile {
+  file: File;
+  imagePath: string;
+  fileSize: number;
+  origFileName: string;
+}
 export interface IPost {
   title?: string;
   content?: string;
@@ -11,6 +18,11 @@ export interface IPost {
   Images?: { src: string }[];
   User?: IUser;
   Comments: IComment[];
+}
+
+export interface AddPost extends Pick<IPost, "title" | "link" | "content"> {
+  images: Omit<CustomFile, "file">[];
+  author: string;
 }
 
 export interface IPostState {

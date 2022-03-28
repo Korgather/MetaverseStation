@@ -27,7 +27,7 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
-  const userId = useAppSelector((state) => state.userSlice.me?.id);
+  const userId = useAppSelector((state) => state.userSlice.me?.userId);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, "2글자 이상 입력해주세요")
@@ -74,6 +74,8 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
         fileSize,
       })),
     }));
+
+    return () => console.log("모달창나갈때, 이미지삭제요청 보낼예정입니다.");
   }, [imageList]);
 
   const selectHandler = useCallback(
