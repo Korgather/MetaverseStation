@@ -16,7 +16,8 @@ import Router from "next/router";
 import { loadPost } from "@actions/post";
 import wrapper from "@store/configureStore";
 import axios from "axios";
-import { loadMyInfo, logIn } from "@actions/user";
+import { loadMyInfo } from "@actions/user";
+import cookies from "next-cookies";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -27,9 +28,6 @@ const Home: NextPage = () => {
   const gotoLogIn = () => {
     Router.push("/login");
   };
-  useEffect(() => {
-    dispatch(loadMyInfo());
-  }, []);
 
   return (
     <>
@@ -66,11 +64,6 @@ const Home: NextPage = () => {
 export default Home;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  // SSR에서 쿠키 받아오는 방법.
-  const cookies = ctx.req?.headers?.cookie;
-  // 쿠키 공유 방지,
-  axios.defaults.headers.Cookie = "";
-  if (ctx.req && cookies) axios.defaults.headers.Cookie = cookies;
   await store.dispatch(loadPost());
   await store.dispatch(loadMyInfo());
   return { props: {} };
