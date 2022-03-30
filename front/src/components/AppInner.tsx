@@ -17,12 +17,6 @@ const AppInner = ({ pageProps, Component }: Props) => {
   if (typeof window !== "undefined") {
     token = localStorage.getItem("jwtToken") as string;
   }
-  // useEffect(() => {
-  //   axios.interceptors.request.use(function (config) {
-  //     config.headers.Authorization = token ? `Bearer ${token}` : "";
-  //     return config;
-  //   });
-  // }, []);
   return <Component {...pageProps} />;
 };
 
