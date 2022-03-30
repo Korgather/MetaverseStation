@@ -7,11 +7,15 @@ import { logIn } from "@actions/user";
 import Router from "next/router";
 
 type Props = {};
+const redirectUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://metaverse-station-hzetmxtep-eungwang1.vercel.app";
+console.log(redirectUrl);
 
 const GoogleUrl =
-  "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=https://metaverse-station-hzetmxtep-eungwang1.vercel.app/oauth/redirect";
-  // "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect";
-
+  `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=${redirectUrl}/oauth/redirect`;
+  
 const login = (props: Props) => {
   const dispatch = useAppDispatch();
   const logInLoading = useAppSelector((state) => state.userSlice.logInLoading);
