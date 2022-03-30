@@ -1,25 +1,28 @@
-import { IUser } from '@customTypes/user';
-import { closeModal } from '@lib/ModalUtil';
-import { Button, Input } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
-import React, { Dispatch, SetStateAction } from 'react';
-import styled from 'styled-components';
+import { IUser } from "@customTypes/user";
+import { closeModal } from "@lib/ModalUtil";
+import { Button, Input } from "antd";
+import TextArea from "antd/lib/input/TextArea";
+import React, { Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 
 interface ProfileEditModalProps {
   me?: IUser | null;
   setEditModalState: Dispatch<SetStateAction<boolean>>;
 }
 
-const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({ me, setEditModalState }) => {
+const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
+  me,
+  setEditModalState,
+}) => {
   return (
     <ModalWrapper>
       <Dim onClick={() => closeModal(setEditModalState)} />
       <Modal>
         <ImgWrapper>
-          <StyledImg src={me?.profile_image} />
+          <StyledImg src={me?.profileImageUrl} />
         </ImgWrapper>
         <StyledP>닉네임</StyledP>
-        <StyledInput defaultValue={me?.nickname}></StyledInput>
+        <StyledInput defaultValue={me?.username}></StyledInput>
         <StyledP>자기소개</StyledP>
         <StyledTextArea rows={8} defaultValue={me?.introduce}></StyledTextArea>
         <StyledButton type="primary">수정하기</StyledButton>

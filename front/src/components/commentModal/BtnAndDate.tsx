@@ -59,7 +59,13 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
       <S.ReplyBtnWrapper>
         {me &&
           !updateInputState &&
-          ((reply ? reply.User?.id === me.id : comment ? comment.User?.id === me.id : false) ? (
+          ((
+            reply
+              ? reply.User?.userId === me.userId
+              : comment
+              ? comment.User?.userId === me.userId
+              : false
+          ) ? (
             <>
               <S.StyledBtn onClick={ToggleUpdateInput}>수정</S.StyledBtn>
               <S.StyledBtn onClick={RemoveCommentAndReply}>삭제</S.StyledBtn>
@@ -70,7 +76,11 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
 
         {me &&
           updateInputState &&
-          (reply ? reply.User?.id === me.id : comment ? comment.User?.id === me.id : false) && (
+          (reply
+            ? reply.User?.userId === me.userId
+            : comment
+            ? comment.User?.userId === me.userId
+            : false) && (
             <>
               <S.StyledBtn onClick={UpdateCommentAndReply} htmlType="button">
                 수정
