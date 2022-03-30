@@ -11,18 +11,7 @@ import axios from "axios";
 import AppInner from "@components/AppInner";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const dispatch = useDispatch();
-  let token = "";
-  if (typeof window !== "undefined") {
-    token = localStorage.getItem("jwtToken") as string;
-  }
-  useEffect(() => {
-    axios.interceptors.request.use(function (config) {
-      config.headers.Authorization = token ? `Bearer ${token}` : "";
-      return config;
-    });
-    dispatch(logIn());
-  }, []);
+  
 
   return (
     <Provider store={store}>

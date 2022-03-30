@@ -21,8 +21,8 @@ export interface IPost {
 }
 
 export interface AddPost extends Pick<IPost, "title" | "link" | "content"> {
-  images: Omit<CustomFile, "file">[];
-  author: string;
+  images?: Omit<CustomFile, "file">[];
+  author?: string;
 }
 
 export interface IPostState {

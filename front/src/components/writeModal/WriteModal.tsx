@@ -60,7 +60,7 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       console.log(values.images);
       const { images, link, title, author, content } = values;
 
-      dispatch(addPost({ images, link, title, author, content }));
+      dispatch(addPost({ link, title, content, images }));
     },
     validationSchema: PostSchema,
     validateOnChange: true,
