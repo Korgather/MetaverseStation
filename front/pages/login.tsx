@@ -1,12 +1,15 @@
-import { Button } from 'antd';
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '@store/hook';
-import { loadMyInfo, logIn } from '@actions/user';
-import Router from 'next/router';
+import { Button } from "antd";
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@store/hook";
+import { logIn } from "@actions/user";
+import Router from "next/router";
 
 type Props = {};
+
+const GoogleUrl =
+  "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect";
 
 const login = (props: Props) => {
   const dispatch = useAppDispatch();
@@ -14,23 +17,16 @@ const login = (props: Props) => {
   const me = useAppSelector((state) => state.userSlice.me);
 
   useEffect(() => {
-    async function dispatchData() {
-      await dispatch(loadMyInfo());
-    }
-    dispatchData();
-  }, []);
-
-  useEffect(() => {
-    if (me) Router.push('/');
+    if (me) Router.push("/");
   }, [me]);
 
   const KakaoLoginRequest = async () => {
     try {
       await dispatch(logIn());
-      Router.push('/');
+      Router.push("/");
     } catch (e) {
       console.error(e);
-      alert('로그인실패');
+      alert("로그인실패");
     }
   };
   const NaverLoginRequest = () => {};
@@ -57,7 +53,9 @@ const login = (props: Props) => {
             </StyledButton>
             <StyledButton htmlType="button" onClick={GoogleLoginRequest} loading={logInLoading}>
               <Styledimg src="/images/GoogleIcon.png" />
-              <StyledP>구글로 로그인하기</StyledP>
+              <StyledP as="a" href={GoogleUrl}>
+                구글로 로그인하기
+              </StyledP>
             </StyledButton>
           </>
         ) : (

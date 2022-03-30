@@ -12,7 +12,7 @@ const Reply = ({ comment }: { comment: IComment }) => {
       {comment.replies && !moreCommentView && comment.replies.length >= 2 ? (
         <>
           <S.ReplyContainer small={true} key={shortid.generate()}>
-            <S.PromfileImg src={comment.replies[0].User?.profile_image} />
+            <S.PromfileImg src={comment.replies[0].User?.profileImageUrl} />
             <S.ContentAndBottomWrapper>
               <S.ContentWrapper>
                 <S.Content>
@@ -32,7 +32,7 @@ const Reply = ({ comment }: { comment: IComment }) => {
         comment.replies.map((reply) => (
           <>
             <S.ReplyContainer key={shortid.generate()}>
-              <S.PromfileImg src={reply.User?.profile_image} />
+              <S.PromfileImg src={reply.User?.profileImageUrl} />
               <S.ContentAndBottomWrapper>
                 <CommentFactory reply={reply} />
               </S.ContentAndBottomWrapper>

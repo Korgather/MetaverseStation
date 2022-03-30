@@ -1,6 +1,6 @@
-import { loadMyInfo, logIn, logOut } from '@actions/user';
-import { IUserState } from '@customTypes/user';
-import { createSlice } from '@reduxjs/toolkit';
+import { loadMyInfo, logIn, logOut } from "@actions/user";
+import { IUserState } from "@customTypes/user";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState: IUserState = {
   me: null,
@@ -14,7 +14,7 @@ export const initialState: IUserState = {
 };
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) =>

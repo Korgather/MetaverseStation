@@ -1,8 +1,8 @@
-import { IUser } from '@customTypes/user';
-import { openModal } from '@lib/ModalUtil';
-import { Button } from 'antd';
-import React, { Dispatch, SetStateAction } from 'react';
-import styled from 'styled-components';
+import { IUser } from "@customTypes/user";
+import { openModal } from "@lib/ModalUtil";
+import { Button } from "antd";
+import React, { Dispatch, SetStateAction } from "react";
+import styled from "styled-components";
 
 interface ProfileProps {
   me?: IUser | null;
@@ -13,9 +13,9 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState 
   return (
     <>
       <ProfileWrapper>
-        <ImgWrapper src={me?.profile_image} />
+        <ImgWrapper src={me?.profileImageUrl} />
         <ContentWrapper>
-          <Title>{me?.nickname}</Title>
+          <Title>{me?.username}</Title>
           <Content>{me?.introduce}</Content>
         </ContentWrapper>
         <ButtonWrapper>

@@ -18,7 +18,7 @@ const Comment = ({ updateCommentsData }: CommentProps) => {
       {Comments?.map((comment, idx) => (
         <>
           <S.CommentContainer key={shortid.generate()}>
-            <S.PromfileImg large src={comment.User?.profile_image} />
+            <S.PromfileImg large src={comment.User?.profileImageUrl} />
             <S.ContentAndBottomWrapper>
               <CommentFactory comment={comment} />
             </S.ContentAndBottomWrapper>
