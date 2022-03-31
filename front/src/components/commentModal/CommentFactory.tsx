@@ -33,7 +33,9 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
       commentid: string | undefined;
       replyContent: string | undefined;
       replyid: string | undefined;
-    }) => {},
+    }) => {
+      console.log('구현예정');
+    },
   });
   return (
     <form onSubmit={formik.handleSubmit}>
