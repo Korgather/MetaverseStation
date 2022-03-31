@@ -2,22 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch } from "@store/hook";
 import { useCookies } from "react-cookie";
+import SetNickname from "@components/redirect/SetNickname";
+import styled from "styled-components";
 
 type Props = {};
 
 function redirect({}: Props) {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const token = router.query.token;
-  const setCookie = useCookies(["Token"])[1];
-  useEffect(() => {
-    if (token) {
-      // localStorage.setItem("jwtToken", token as string);
-      setCookie("Token", token, { path: "/" });
-    }
-    router.push("/");
-  }, [token]);
-  return <div>redirect</div>;
+  return (
+    <Layout>
+      <SetNickname />
+    </Layout>
+  );
 }
 
 export default redirect;
+const Layout = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
