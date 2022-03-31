@@ -1,5 +1,5 @@
-import { SerializedError } from "@reduxjs/toolkit";
-import { IPost } from "./post";
+import { SerializedError } from '@reduxjs/toolkit';
+import { IPost } from './post';
 
 export interface IUser {
   username?: string;
@@ -22,4 +22,5 @@ export interface IUserState {
   loadMyInfoLoading: boolean;
   loadMyInfoDone: boolean;
   loadMyInfoError: SerializedError | null;
+  AccessToken: string;
 }

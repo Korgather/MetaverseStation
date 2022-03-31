@@ -7,10 +7,10 @@ import {
   removeReply,
   updateComment,
   updateReply,
-} from "@actions/post";
-import { IComment } from "@customTypes/comment";
-import { IPost, IPostState } from "@customTypes/post";
-import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+} from '@actions/post';
+import { IComment } from '@customTypes/comment';
+import { IPost, IPostState } from '@customTypes/post';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IPostState = {
   mainPosts: [],
@@ -47,7 +47,7 @@ const initialState: IPostState = {
 };
 
 export const postSlice = createSlice({
-  name: "posts",
+  name: 'posts',
   initialState,
   reducers: {
     getDataForModal: (state, action) => {

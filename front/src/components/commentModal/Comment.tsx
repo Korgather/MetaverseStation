@@ -1,10 +1,10 @@
-import React from "react";
-import shortid from "shortid";
-import Reply from "./Reply";
-import CommentFactory from "./CommentFactory";
-import { useAppSelector } from "@store/hook";
-import * as S from "./style";
-import { IComment } from "@customTypes/comment";
+import React from 'react';
+import shortid from 'shortid';
+import Reply from './Reply';
+import CommentFactory from './CommentFactory';
+import { useAppSelector } from '@store/hook';
+import * as S from './style';
+import { IComment } from '@customTypes/comment';
 
 interface CommentProps {
   updateCommentsData: IComment[] | null | undefined;

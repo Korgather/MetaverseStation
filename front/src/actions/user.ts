@@ -1,8 +1,8 @@
-import { IUser } from "@customTypes/user";
-import { generateDummyPost } from "@lib/generateDummyData";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import faker from "faker";
+import { IUser } from '@customTypes/user';
+import { generateDummyPost } from '@lib/generateDummyData';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import faker from 'faker';
 
 // const dummyUser: IUser = {
 //   username: "eungwang",
@@ -12,12 +12,11 @@ import faker from "faker";
 //   introduce: faker.lorem.paragraph(),
 // };
 
-export const logOut = createAsyncThunk("user/logOut", async () => {
-  localStorage.setItem("me", "");
+export const logOut = createAsyncThunk('user/logOut', async () => {
+  localStorage.setItem('me', '');
 });
 
-export const loadMyInfo = createAsyncThunk("user/loadMyInfo", async () => {
+export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async () => {
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-  console.log(res.data);
   return res.data;
 });

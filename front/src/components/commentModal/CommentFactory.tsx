@@ -1,11 +1,11 @@
-import { IComment, IReply } from "@customTypes/comment";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { Modal } from "antd";
-import { useFormik } from "formik";
-import * as S from "./style";
-import AddReply from "./AddReply";
-import BtnAndDate from "./BtnAndDate";
-import UpdateInput from "./UpdateInput";
+import { IComment, IReply } from '@customTypes/comment';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Modal } from 'antd';
+import { useFormik } from 'formik';
+import * as S from './style';
+import AddReply from './AddReply';
+import BtnAndDate from './BtnAndDate';
+import UpdateInput from './UpdateInput';
 interface CommentFactoryProps {
   setUpdateInputState?: Dispatch<SetStateAction<boolean>>;
   reply?: IReply;
@@ -21,10 +21,10 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
 
   const formik = useFormik({
     initialValues: {
-      content: "",
+      content: '',
       postid: comment?.postid,
       commentid: comment?.id,
-      replyContent: "",
+      replyContent: '',
       replyid: reply?.id,
     },
     onSubmit: (values: {

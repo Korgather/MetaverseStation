@@ -2,14 +2,15 @@ import React from 'react';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import styled, { css } from 'styled-components';
+import shortid from 'shortid';
 
 function Category() {
   const menu = (
     <Menu>
-      <Menu.Item key={'dropdownItem1'}>
+      <Menu.Item key={shortid.generate()}>
         <a>최신순</a>
       </Menu.Item>
-      <Menu.Item key={'dropdownItem2'}>
+      <Menu.Item key={shortid.generate()}>
         <a>인기순</a>
       </Menu.Item>
     </Menu>
@@ -17,16 +18,16 @@ function Category() {
   return (
     <MenuWrapper>
       <Menu mode="horizontal" style={{ border: 'none', margin: '20px 0' }}>
-        <Menu.Item key={'menuItem1'}>
+        <Menu.Item key={shortid.generate()}>
           <a>행사</a>
         </Menu.Item>
-        <Menu.Item key={'menuItem2'}>
+        <Menu.Item key={shortid.generate()}>
           <a>스터디</a>
         </Menu.Item>
-        <Menu.Item key={'menuItem3'}>
+        <Menu.Item key={shortid.generate()}>
           <a>소모임</a>
         </Menu.Item>
-        <Menu.Item key={'menuItem4'}>
+        <Menu.Item key={shortid.generate()}>
           <a>기타</a>
         </Menu.Item>
       </Menu>

@@ -9,10 +9,8 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-type Props = {};
-
-const mypage = (props: Props) => {
-  const myPosts = useAppSelector((state) => state.userSlice.me?.myPosts);
+const mypage = () => {
+  const myPosts = useAppSelector((state) => state.userSlice.me?.postList);
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [editModalState, setEditModalState] = useState(false);

@@ -6,6 +6,7 @@ import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
 import { getDataForModal } from '@slices/postSlice';
 import DetailModal from '@components/detailModal/DetailModal';
+import shortid from 'shortid';
 interface MyPostProps {
   myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -33,7 +34,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState, myP
         >
           {myPosts &&
             myPosts.map((post, i) => (
-              <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
+              <Col key={shortid.generate()} xs={24} md={12} lg={8} xl={6} style={{}}>
                 <PostImg
                   onClick={() => {
                     post && getPostId(post);

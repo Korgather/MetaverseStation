@@ -1,8 +1,8 @@
-import { IUser } from "@customTypes/user";
-import { openModal } from "@lib/ModalUtil";
-import { Button } from "antd";
-import React, { Dispatch, SetStateAction } from "react";
-import styled from "styled-components";
+import { IUser } from '@customTypes/user';
+import { openModal } from '@lib/ModalUtil';
+import { Button } from 'antd';
+import React, { Dispatch, SetStateAction } from 'react';
+import styled from 'styled-components';
 
 interface ProfileProps {
   me?: IUser | null;

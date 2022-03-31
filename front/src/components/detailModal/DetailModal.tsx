@@ -1,11 +1,12 @@
-import CommentModal from "@components/commentModal/CommentModal";
-import { closeModal } from "@lib/ModalUtil";
-import { useAppSelector } from "@store/hook";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import DetailHeader from "./DetailHeader";
-import HeartAndMessage from "./HeartAndMessage";
-import SliderImages from "./SliderImages";
-import * as S from "./style";
+import CommentModal from '@components/commentModal/CommentModal';
+import { closeModal } from '@lib/ModalUtil';
+import { useAppSelector } from '@store/hook';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import shortid from 'shortid';
+import DetailHeader from './DetailHeader';
+import HeartAndMessage from './HeartAndMessage';
+import SliderImages from './SliderImages';
+import * as S from './style';
 
 interface DetailModalProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +27,7 @@ const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModal
             <S.Content>{postData.content} </S.Content>
             <S.TagsWrapper>
               {postData.tags?.map((tag) => (
-                <span># {tag}</span>
+                <span key={shortid.generate()}># {tag}</span>
               ))}
             </S.TagsWrapper>
           </S.Modal>

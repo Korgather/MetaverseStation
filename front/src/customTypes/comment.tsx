@@ -1,4 +1,3 @@
-import { SerializedError } from '@reduxjs/toolkit';
 import { IUser } from './user';
 
 export interface IReply {

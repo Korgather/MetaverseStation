@@ -1,6 +1,6 @@
-import { UploadFile } from "antd/lib/upload/interface";
-import { Upload, Input, Tag, Button } from "antd";
-import styled from "styled-components";
+import { UploadFile } from 'antd/lib/upload/interface';
+import { Upload, Input, Tag, Button } from 'antd';
+import styled from 'styled-components';
 
 export interface Props {
   state?: boolean;
@@ -86,8 +86,8 @@ export const SelectBtn = styled.button<Props>`
   width: 120px;
   text-align: center;
   font-weight: 600;
-  color: ${(props) => (props.state ? "white" : "#575757")};
-  background-color: ${(props) => (props.state ? "#428BCA" : "white")};
+  color: ${(props) => (props.state ? 'white' : '#575757')};
+  background-color: ${(props) => (props.state ? '#428BCA' : 'white')};
   cursor: pointer;
 `;
 

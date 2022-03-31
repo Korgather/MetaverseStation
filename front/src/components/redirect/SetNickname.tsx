@@ -1,21 +1,19 @@
-import { Button, Input } from "antd";
-import Router, { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useCookies } from "react-cookie";
-import styled from "styled-components";
+import { Button, Input } from 'antd';
+import Router, { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import styled from 'styled-components';
 
-type Props = {};
-
-function SetNickname({}: Props) {
+function SetNickname() {
   const [secondStep, setSecondStep] = useState(false);
-  const [nickname, setNickName] = useState("");
+  const [nickname, setNickName] = useState('');
   const [inValid, setInValid] = useState(false);
   const router = useRouter();
   const token = router.query.token;
-  const setCookie = useCookies(["Token"])[1];
+  const setCookie = useCookies(['Token'])[1];
   const goback = () => setSecondStep(false);
   const goNext = () => setSecondStep(true);
-  const goMain = () => token && Router.push("/");
+  const goMain = () => token && Router.push('/');
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -25,7 +23,7 @@ function SetNickname({}: Props) {
   };
   if (secondStep) {
     if (token) {
-      setCookie("Token", token, { path: "/" });
+      setCookie('Token', token, { path: '/' });
       console.log(token);
     }
   }

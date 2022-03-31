@@ -1,6 +1,6 @@
-import { loadMyInfo, logOut } from "@actions/user";
-import { IUserState } from "@customTypes/user";
-import { createSlice } from "@reduxjs/toolkit";
+import { loadMyInfo, logOut } from '@actions/user';
+import { IUserState } from '@customTypes/user';
+import { createSlice } from '@reduxjs/toolkit';
 
 export const initialState: IUserState = {
   me: null,
@@ -9,12 +9,17 @@ export const initialState: IUserState = {
   loadMyInfoLoading: false, // 유저 정보 가져오기 시도중
   loadMyInfoDone: false,
   loadMyInfoError: null,
+  AccessToken: '',
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    saveAccessToken: (state, action) => {
+      state.AccessToken = action.payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(logOut.pending, (state) => {
@@ -40,5 +45,5 @@ export const userSlice = createSlice({
         state.loadMyInfoError = action.error;
       }),
 });
-
+export const { saveAccessToken } = userSlice.actions;
 export default userSlice.reducer;
