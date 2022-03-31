@@ -1,9 +1,9 @@
+import React from 'react';
 import { removeComment, removeReply, updateComment, updateReply } from '@actions/post';
 import { IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
 import modal from 'antd/lib/modal';
 import { FormikValues } from 'formik';
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as S from './style';
 

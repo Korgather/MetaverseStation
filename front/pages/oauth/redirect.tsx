@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAppDispatch } from '@store/hook';
-import { useCookies} from 'react-cookie';
+import React from 'react';
 import SetNickname from '@components/redirect/SetNickname';
 import styled from 'styled-components';
 
-type Props = {};
-
-function redirect({}: Props) {
+function redirect() {
   return (
     <Layout>
       <SetNickname />

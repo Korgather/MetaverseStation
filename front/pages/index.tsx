@@ -19,7 +19,6 @@ import axios from 'axios';
 import { loadMyInfo } from '@actions/user';
 import cookies from 'next-cookies';
 const Home: NextPage = () => {
-  const dispatch = useAppDispatch();
   const [writeModalState, setWriteModalState] = useState(false);
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
