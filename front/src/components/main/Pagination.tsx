@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
 
-const Pagination = (props: Props) => {
+const Pagination = () => {
   return (
     <PaginationWrapper>
       <AntdPagination
