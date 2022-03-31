@@ -1,14 +1,14 @@
-import React, { useState, useCallback, Dispatch, SetStateAction, useEffect } from "react";
-import { Input } from "antd";
-import { useFormik } from "formik";
-import UploadImages from "./UploadImages";
-import * as Yup from "yup";
-import { CustomFile, IPost } from "@customTypes/post";
-import WriteTag from "./WriteTag";
-import { useAppDispatch, useAppSelector } from "@store/hook";
-import { addPost } from "@actions/post";
-import * as S from "./style";
-import { closeModal } from "@lib/ModalUtil";
+import React, { useState, useCallback, Dispatch, SetStateAction, useEffect } from 'react';
+import { Input } from 'antd';
+import { useFormik } from 'formik';
+import UploadImages from './UploadImages';
+import * as Yup from 'yup';
+import { CustomFile, IPost } from '@customTypes/post';
+import WriteTag from './WriteTag';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { addPost } from '@actions/post';
+import * as S from './style';
+import { closeModal } from '@lib/ModalUtil';
 
 interface WriteModalProps {
   setWriteModalState: Dispatch<SetStateAction<boolean>>;
@@ -16,35 +16,35 @@ interface WriteModalProps {
 
 const { TextArea } = Input;
 interface IforFormik extends IPost {
-  images: Omit<CustomFile, "file">[] | void[];
+  images: Omit<CustomFile, 'file'>[] | void[];
   author: string;
 }
 const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const dispatch = useAppDispatch();
   const [gatherState, setGatherState] = useState(false);
   const [zepState, setZepState] = useState(false);
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState('');
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
   const userId = useAppSelector((state) => state.userSlice.me?.userId);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
-      .min(2, "2글자 이상 입력해주세요")
-      .max(50, "제목이 너무 길어요")
-      .required("제목은 필수입니다."),
-    link: Yup.string().url("올바른 링크를 입력해주세요").required("링크는 필수입니다."),
-    content: Yup.string().min(2, "10글자 이상 입력해주세요").required("내용은 필수입니다."),
-    images: Yup.array().min(1, "이미지를 1개 이상 등록해주세요."),
+      .min(2, '2글자 이상 입력해주세요')
+      .max(50, '제목이 너무 길어요')
+      .required('제목은 필수입니다.'),
+    link: Yup.string().url('올바른 링크를 입력해주세요').required('링크는 필수입니다.'),
+    content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
+    images: Yup.array().min(1, '이미지를 1개 이상 등록해주세요.'),
   });
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      content: "",
-      link: "",
+      title: '',
+      content: '',
+      link: '',
       tags: [],
-      category: "",
+      category: '',
       Comments: [],
       images: [],
       author: userId as string,
@@ -75,21 +75,21 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       })),
     }));
 
-    return () => console.log("모달창나갈때, 이미지삭제요청 보낼예정입니다.");
+    return () => console.log('모달창나갈때, 이미지삭제요청 보낼예정입니다.');
   }, [imageList]);
 
   const selectHandler = useCallback(
     (e) => {
       const { name } = e.target;
-      if (name === "gather") {
+      if (name === 'gather') {
         setGatherState(true);
         setZepState(false);
-        setCategory("gathertown");
+        setCategory('gathertown');
       }
-      if (name === "zep") {
+      if (name === 'zep') {
         setGatherState(false);
         setZepState(true);
-        setCategory("zep");
+        setCategory('zep');
       }
     },
     [gatherState, zepState],

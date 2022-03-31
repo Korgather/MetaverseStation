@@ -1,11 +1,11 @@
-import { addReply } from "@actions/post";
-import { IComment, IReply } from "@customTypes/comment";
-import { useAppSelector } from "@store/hook";
-import { FormikValues } from "formik";
-import Reactfrom from "react";
-import { useDispatch } from "react-redux";
-import shortid from "shortid";
-import * as S from "./style";
+import React from 'react';
+import { addReply } from '@actions/post';
+import { IComment, IReply } from '@customTypes/comment';
+import { useAppSelector } from '@store/hook';
+import { FormikValues } from 'formik';
+import { useDispatch } from 'react-redux';
+import shortid from 'shortid';
+import * as S from './style';
 
 interface AddReplyProrp {
   reply?: IReply;

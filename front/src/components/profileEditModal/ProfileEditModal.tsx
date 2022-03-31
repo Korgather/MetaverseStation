@@ -1,9 +1,9 @@
-import { IUser } from "@customTypes/user";
-import { closeModal } from "@lib/ModalUtil";
-import { Button, Input } from "antd";
-import TextArea from "antd/lib/input/TextArea";
-import React, { Dispatch, SetStateAction } from "react";
-import styled from "styled-components";
+import { IUser } from '@customTypes/user';
+import { closeModal } from '@lib/ModalUtil';
+import { Button, Input } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
+import React, { Dispatch, SetStateAction } from 'react';
+import styled from 'styled-components';
 
 interface ProfileEditModalProps {
   me?: IUser | null;

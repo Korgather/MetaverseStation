@@ -1,8 +1,8 @@
-import { IComment, IReply } from "@customTypes/comment";
-import TextArea from "antd/lib/input/TextArea";
-import { FormikValues } from "formik";
-import React from "react";
-import * as S from "./style";
+import { IComment, IReply } from '@customTypes/comment';
+import TextArea from 'antd/lib/input/TextArea';
+import { FormikValues } from 'formik';
+import React from 'react';
+import * as S from './style';
 
 interface AddReplyProrp {
   reply?: IReply;

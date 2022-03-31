@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import Slider, { Settings } from 'react-slick';
 import * as S from './style';
-type Props = {};
 
 interface sliderProps {
   /** 슬라이더 아이템 요소 */

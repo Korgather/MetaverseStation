@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Input, Button } from "antd";
-import styled from "styled-components";
-import { addComment } from "@actions/post";
-import { useAppDispatch, useAppSelector } from "@store/hook";
-import { IPost } from "@customTypes/post";
-import { useFormik } from "formik";
-import shortid from "shortid";
+import React, { useEffect } from 'react';
+import { Input, Button } from 'antd';
+import styled from 'styled-components';
+import { addComment } from '@actions/post';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { IPost } from '@customTypes/post';
+import { useFormik } from 'formik';
+import shortid from 'shortid';
 const { TextArea } = Input;
 
 interface CommentInputProps {
@@ -19,15 +19,15 @@ const CommentInput: React.FunctionComponent<CommentInputProps> = ({ postData }) 
   const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
 
   const formik = useFormik({
-    initialValues: { content: "", postid: postData.id, User: me, id: shortid.generate() },
+    initialValues: { content: '', postid: postData.id, User: me, id: shortid.generate() },
     onSubmit: (values: { content: string }) => {
       formik.setValues((values) => ({ ...values, id: shortid.generate() }));
-      me ? dispatch(addComment(values)) : alert("로그인하고와");
+      me ? dispatch(addComment(values)) : alert('로그인이 필요합니다.');
     },
   });
   useEffect(() => {
     if (addCommentDone && !addCommentLoading) {
-      formik.setValues((values) => ({ ...values, content: "" }));
+      formik.setValues((values) => ({ ...values, content: '' }));
     }
   }, [addCommentDone, addCommentLoading]);
 

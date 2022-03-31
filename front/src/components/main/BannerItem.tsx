@@ -1,3 +1,5 @@
+import React from 'react';
+import shortid from 'shortid';
 import styled from 'styled-components';
 import BannerFrame from './BannerFrame';
 
@@ -29,8 +31,8 @@ function BannerItem() {
   return (
     <BannerFrame>
       {items.map((item, index) => (
-        <SliderItem key={index}>
-          <a href={item.link} target="_blank">
+        <SliderItem key={shortid.generate()}>
+          <a href={item.link} target="_blank" rel="noreferrer">
             <img src={item.item} alt={item.name} />
           </a>
         </SliderItem>

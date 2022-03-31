@@ -1,6 +1,6 @@
-import { SerializedError } from "@reduxjs/toolkit";
-import { IComment } from "./comment";
-import { IUser } from "./user";
+import { SerializedError } from '@reduxjs/toolkit';
+import { IComment } from './comment';
+import { IUser } from './user';
 
 export interface CustomFile {
   file: File;
@@ -20,8 +20,8 @@ export interface IPost {
   Comments: IComment[];
 }
 
-export interface AddPost extends Pick<IPost, "title" | "link" | "content"> {
-  images?: Omit<CustomFile, "file">[];
+export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
+  images?: Omit<CustomFile, 'file'>[];
   author?: string;
 }
 

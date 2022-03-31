@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import { Row, Col } from "antd";
-import styled from "styled-components";
-import { openModal } from "@lib/ModalUtil";
-import faker from "faker";
-import { IPost } from "@customTypes/post";
-import { useAppDispatch } from "@store/hook";
-import { getDataForModal } from "@slices/postSlice";
+import React, { Dispatch, SetStateAction } from 'react';
+import { Row, Col } from 'antd';
+import styled from 'styled-components';
+import { openModal } from '@lib/ModalUtil';
+import { IPost } from '@customTypes/post';
+import { useAppDispatch } from '@store/hook';
+import { getDataForModal } from '@slices/postSlice';
+import shortid from 'shortid';
 interface PostzoneProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
   mainPosts: IPost[];
@@ -27,7 +27,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
       >
         {mainPosts &&
           mainPosts.map((post, i) => (
-            <Col key={"PostCard" + i} xs={24} md={12} lg={8} xl={6} style={{}}>
+            <Col key={shortid.generate()} xs={24} md={12} lg={8} xl={6} style={{}}>
               <ImgWrapper>
                 <PostImg
                   onClick={() => {

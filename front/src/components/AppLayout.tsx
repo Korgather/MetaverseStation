@@ -1,9 +1,10 @@
-import React, { ReactChildren, ReactChild } from "react";
-import Link from "next/link";
-import { Layout, Menu, Button } from "antd";
-import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "@store/hook";
-import { logOut } from "@actions/user";
+import React, { ReactChildren, ReactChild } from 'react';
+import Link from 'next/link';
+import { Layout, Menu, Button } from 'antd';
+import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { logOut } from '@actions/user';
+import shortid from 'shortid';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -20,7 +21,7 @@ const AppLayout = ({ children }: AuxProps) => {
       await dispatch(logOut());
     } catch (e) {
       console.error(e);
-      alert("실패");
+      alert('실패');
     }
   };
 
@@ -30,21 +31,16 @@ const AppLayout = ({ children }: AuxProps) => {
         <StyledLayout>
           <StyledHeader>
             <div>
-              <img style={{ width: "35px" }} src="/images/Logo01.png" />
+              <img style={{ width: '35px' }} src="/images/Logo01.png" />
             </div>
-            <MenuWrapper mode="horizontal" style={{ border: "none", margin: "5px 0 0 30px" }}>
-              <Menu.Item>
+            <MenuWrapper mode="horizontal" style={{ border: 'none', margin: '5px 0 0 30px' }}>
+              <Menu.Item key={shortid.generate()}>
                 <Link href="/">
                   <a>GatherTown</a>
                 </Link>
               </Menu.Item>
-              {/* <Menu.Item>
-                <Link href="/">
-                  <a>Zep</a>
-                </Link>
-              </Menu.Item> */}
               {me && (
-                <Menu.Item>
+                <Menu.Item key={shortid.generate()}>
                   <Link href="/mypage">
                     <a>MyPage</a>
                   </Link>
@@ -63,7 +59,7 @@ const AppLayout = ({ children }: AuxProps) => {
               )}
             </BtnWrapper>
           </StyledHeader>
-          <Content style={{ background: "white", padding: "50px" }}>
+          <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
           </Content>
         </StyledLayout>
@@ -111,7 +107,7 @@ const StyledHeader = styled(Header)`
 const StyledFooter = styled(Footer)`
   text-align: center;
   width: 1440px;
-  padding: "24px 0";
+  padding: '24px 0';
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }

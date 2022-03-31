@@ -6,7 +6,10 @@ interface HeartAndMessage {
   commentState: boolean;
 }
 
-const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({ commentState, setCommentState }) => {
+const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
+  commentState,
+  setCommentState,
+}) => {
   const [likeState, setLikeState] = useState(false);
 
   const onToggleLike = () => {
@@ -20,7 +23,11 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({ commentStat
   return (
     <S.HeartAndMessageWrapper>
       {likeState ? (
-        <HeartTwoTone twoToneColor="#eb3f96" onClick={onToggleLike} style={{ fontSize: '1.3rem' }} />
+        <HeartTwoTone
+          twoToneColor="#eb3f96"
+          onClick={onToggleLike}
+          style={{ fontSize: '1.3rem' }}
+        />
       ) : (
         <HeartOutlined onClick={onToggleLike} style={{ fontSize: '1.3rem' }} />
       )}
