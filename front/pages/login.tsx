@@ -1,37 +1,28 @@
-import { Button } from "antd";
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import Link from "next/link";
-import { useAppDispatch, useAppSelector } from "@store/hook";
-import { logIn } from "@actions/user";
-import Router from "next/router";
+import { Button } from 'antd';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import Router from 'next/router';
 
-type Props = {};
+const redirectUrl =
+  process.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://metaverse-station-hzetmxtep-eungwang1.vercel.app';
+console.log(redirectUrl);
 
-const GoogleUrl =
-  "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=https://metaverse-station-hzetmxtep-eungwang1.vercel.app//oauth/redirect";
-  // "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect";
+const GoogleUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=${redirectUrl}/oauth/redirect`;
 
-const login = (props: Props) => {
-  const dispatch = useAppDispatch();
-  const logInLoading = useAppSelector((state) => state.userSlice.logInLoading);
+const NaverUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/naver?redirect_uri=${redirectUrl}/oauth/redirect`;
+
+const KakaoUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/kakao?redirect_uri=${redirectUrl}/oauth/redirect`;
+
+const login = () => {
   const me = useAppSelector((state) => state.userSlice.me);
 
   useEffect(() => {
-    if (me) Router.push("/");
+    if (me) Router.push('/');
   }, [me]);
-
-  const KakaoLoginRequest = async () => {
-    try {
-      await dispatch(logIn());
-      Router.push("/");
-    } catch (e) {
-      console.error(e);
-      alert("로그인실패");
-    }
-  };
-  const NaverLoginRequest = () => {};
-  const GoogleLoginRequest = () => {};
 
   return (
     <LoginWrapper>
@@ -44,20 +35,25 @@ const login = (props: Props) => {
         </LoginHeader>
         {!me ? (
           <>
-            <StyledButton htmlType="button" onClick={KakaoLoginRequest} loading={logInLoading}>
-              <Styledimg src="/images/KakaoIcon.png" />
-              <StyledP>카카오 로그인하기</StyledP>
-            </StyledButton>
-            <StyledButton htmlType="button" onClick={NaverLoginRequest} loading={logInLoading}>
-              <Styledimg src="/images/NaverIcon.png" />
-              <StyledP>네이버 로그인하기</StyledP>
-            </StyledButton>
-            <StyledButton htmlType="button" onClick={GoogleLoginRequest} loading={logInLoading}>
-              <Styledimg src="/images/GoogleIcon.png" />
-              <StyledP as="a" href={GoogleUrl}>
-                구글로 로그인하기
-              </StyledP>
-            </StyledButton>
+            <StyledA href={KakaoUrl}>
+              <StyledButton>
+                <Styledimg src="/images/KakaoIcon.png" />
+                <StyledP>카카오 로그인하기</StyledP>
+              </StyledButton>
+            </StyledA>
+            <StyledA href={NaverUrl}>
+              <StyledButton>
+                <Styledimg src="/images/NaverIcon.png" />
+                <StyledP>네이버 로그인하기</StyledP>
+              </StyledButton>
+            </StyledA>
+
+            <StyledA href={GoogleUrl}>
+              <StyledButton>
+                <Styledimg src="/images/GoogleIcon.png" />
+                <StyledP>구글로 로그인하기</StyledP>
+              </StyledButton>
+            </StyledA>
           </>
         ) : (
           <>이미로그인중</>
@@ -87,13 +83,17 @@ const LoginContainer = styled.div`
   min-width: 380px;
   min-height: 395px;
 `;
+const StyledA = styled.a`
+  width: 100%;
+  text-align: center;
+  + a {
+    margin-top: 15px;
+  }
+`;
 
 const StyledButton = styled(Button)`
   height: 6.5vh;
   border-radius: 5px;
-  + button {
-    margin-top: 15px;
-  }
   width: 60%;
   min-height: 55px;
 `;

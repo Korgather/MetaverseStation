@@ -1,39 +1,19 @@
 import { IPost } from '@customTypes/post';
+import { useAppSelector } from '@store/hook';
 import React from 'react';
-import styled from 'styled-components';
+import shortid from 'shortid';
 import SliderFrame from './SliderFrame';
 import * as S from './style';
-interface itemsProps {
-  image: string;
-  name: string;
-}
 
-const images: itemsProps[] = [
-  {
-    image: '/images/thumbnail01.png',
-    name: '이미지01',
-  },
-  {
-    image: '/images/thumbnail02.png',
-    name: '이미지02',
-  },
-  {
-    image: '/images/thumbnail03.png',
-    name: '이미지03',
-  },
-];
-interface SliderImagesProps {
-  postData: IPost;
-}
+const SliderImages = () => {
+  const postData = useAppSelector((state) => state.postSlice.dataForModal);
 
-const SliderImages: React.FunctionComponent<SliderImagesProps> = ({ postData }) => {
-  console.log(postData);
   return (
     <SliderFrame>
-      {postData.Images &&
-        postData.Images.map((item, index) => (
-          <S.StyledImages key={index}>
-            <img src={item.src} alt="" />
+      {postData?.imageList &&
+        postData?.imageList.map((item) => (
+          <S.StyledImages key={shortid.generate()}>
+            <img src={item} alt="" />
           </S.StyledImages>
         ))}
     </SliderFrame>

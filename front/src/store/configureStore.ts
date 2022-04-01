@@ -1,4 +1,4 @@
-import { configureStore, createStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '@slices/index';
 import { createWrapper } from 'next-redux-wrapper';
 

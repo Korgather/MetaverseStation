@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
-type Props = {};
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { getPageNum } from '@slices/postSlice';
+import { loadPost } from '@actions/post';
 
-const Pagination = (props: Props) => {
+const Pagination = () => {
+  const dispatch = useAppDispatch();
+  const totalPages = useAppSelector((state) => state.postSlice.totalPages);
+  const onPageChange = (page: number, pageSize: number) => {
+    dispatch(getPageNum(page - 1));
+    dispatch(loadPost());
+  };
   return (
     <PaginationWrapper>
-      <AntdPagination size="small" responsive={true} pageSizeOptions={[10, 20, 50, 100]} total={50} />
+      <AntdPagination
+        size="small"
+        responsive={true}
+        pageSizeOptions={[10, 20, 50, 100]}
+        onChange={onPageChange}
+        defaultPageSize={8}
+        total={totalPages * 8}
+      />
     </PaginationWrapper>
   );
 };

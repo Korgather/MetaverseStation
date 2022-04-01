@@ -1,11 +1,12 @@
-import { removeComment, removeReply, updateComment, updateReply } from "@actions/post";
-import { IComment, IReply, IUpdateComment, IUpdateReply } from "@customTypes/comment";
-import { useAppSelector } from "@store/hook";
-import modal from "antd/lib/modal";
-import { FormikValues } from "formik";
-import React from "react";
-import { useDispatch } from "react-redux";
-import * as S from "./style";
+import React from 'react';
+import { removeComment, removeReply, updateComment, updateReply } from '@actions/post';
+import { IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
+import { useAppSelector } from '@store/hook';
+import modal from 'antd/lib/modal';
+import { FormikValues } from 'formik';
+import { useDispatch } from 'react-redux';
+import * as S from './style';
+import { generateBetweenTime } from '@lib/generateBetweenTime';
 
 interface BtnAndDate {
   reply?: IReply;
@@ -30,7 +31,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   const dispatch = useDispatch();
   const RemoveCommentAndReply = () => {
     modal.confirm({
-      title: "댓글을 삭제하시겠습니까?",
+      title: '댓글을 삭제하시겠습니까?',
       okButtonProps: {
         loading: removeCommentLoading && !removeCommentDone,
       },
@@ -53,9 +54,12 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
     console.log(replydata);
     comment ? dispatch(updateComment(commentdata)) : reply && dispatch(updateReply(replydata));
   };
+
   return (
     <S.ReplyBottom>
-      <S.ReplyDate>{reply ? reply.created_at : comment ? comment.created_at : ""}</S.ReplyDate>
+      <S.ReplyDate>
+        {reply ? reply.created_at : comment && generateBetweenTime(comment)}
+      </S.ReplyDate>
       <S.ReplyBtnWrapper>
         {me &&
           !updateInputState &&
@@ -63,7 +67,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
             reply
               ? reply.User?.userId === me.userId
               : comment
-              ? comment.User?.userId === me.userId
+              ? comment.userId === me.userId
               : false
           ) ? (
             <>
@@ -79,7 +83,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
           (reply
             ? reply.User?.userId === me.userId
             : comment
-            ? comment.User?.userId === me.userId
+            ? comment.userId === me.userId
             : false) && (
             <>
               <S.StyledBtn onClick={UpdateCommentAndReply} htmlType="button">

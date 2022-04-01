@@ -1,39 +1,50 @@
-import { IUser } from "@customTypes/user";
-import { generateDummyPost } from "@lib/generateDummyData";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-import faker from "faker";
+import { IUser, IUserState } from '@customTypes/user';
+import { generateDummyPost } from '@lib/generateDummyData';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import userSlice, { saveAccessToken } from '@slices/userSlice';
+import axios from 'axios';
+import faker from 'faker';
 
-const dummyUser: IUser = {
-  username: "eungwang",
-  userId: "eungwang",
-  profileImageUrl: faker.image.cats(),
-  myPosts: generateDummyPost(8, 5),
-  introduce: faker.lorem.paragraph(),
-};
+// const dummyUser: IUser = {
+//   username: "eungwang",
+//   userId: "eungwang",
+//   profileImageUrl: faker.image.cats(),
+//   postList: generateDummyPost(8, 5),
+//   introduce: faker.lorem.paragraph(),
+// };
 
-const delay = (time: number, value?: any) =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // resolve(value);
-      resolve("test");
-    }, time);
+export const logOut = createAsyncThunk('user/logOut', async () => {
+  localStorage.setItem('me', '');
+});
+
+export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}}`,
+    },
   });
-
-export const logIn = createAsyncThunk("user/logIn", async (data, thunkAPI) => {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-  localStorage.setItem("me", JSON.stringify(res.data.body.user));
-  return res.data.body.user;
+  return res.data;
 });
 
-export const logOut = createAsyncThunk("user/logOut", async () => {
-  await delay(1500);
-  // localStorage.setItem("me", "");
-});
+export const changeNickName = createAsyncThunk(
+  'user/changeNickName',
+  async (data: string, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
+      params: {
+        userName: data,
+      },
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
 
-export const loadMyInfo = createAsyncThunk("user/loadMyInfo", async () => {
-  await delay(1000);
-  const data = JSON.parse(localStorage.getItem("me") as string);
-  console.log(data);
-  return data;
-});
+    console.log(res);
+    return data;
+  },
+);

@@ -1,10 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import * as U from "./style";
-import { beforeUploadValidation, uploadButton } from "@lib/ModalUtil";
-import { Modal as ImgModal } from "antd";
-import { UploadFile } from "antd/lib/upload/interface";
-import axios from "axios";
-import { CustomFile } from "@customTypes/post";
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import * as U from './style';
+import { beforeUploadValidation, uploadButton } from '@lib/ModalUtil';
+import { Modal as ImgModal } from 'antd';
+import { UploadFile } from 'antd/lib/upload/interface';
+import axios from 'axios';
+import { CustomFile } from '@customTypes/post';
+import { useAppSelector } from '@store/hook';
 
 interface UploadImagesProps {
   setImageList: Dispatch<SetStateAction<CustomFile[]>>;
@@ -14,20 +15,25 @@ interface UploadImagesProps {
 const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) => {
   const [uploadValidate, setUploadValidate] = useState(true);
   const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
-  const [previewTitle, setPreviewTitle] = useState("");
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
 
   const RequestUploadImage = async (file: File) => {
     console.log(file);
     const fd = new FormData();
-    fd.append("data", file);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd);
+    fd.append('data', file);
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+    });
     console.log(file);
     setImageList([
       ...imageList,
       { file, imagePath: res.data[0], fileSize: file.size, origFileName: file.name },
     ]);
-    return "";
+    return '';
   };
 
   const handlePreviewFile = async (file: File | Blob): Promise<string> =>
@@ -37,7 +43,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result as string);
       } else {
-        resolve("");
+        resolve('');
       }
     });
 
@@ -71,7 +77,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
     <>
       <U.StyledLabel htmlFor="mainImg">메인이미지</U.StyledLabel>
       <U.StyledUpload
-        beforeUpload={(file, fileList) => {
+        beforeUpload={(file) => {
           const result = beforeUploadValidation(file);
           setUploadValidate(result);
           return result;
@@ -88,7 +94,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
         {imageList.length >= 5 ? null : uploadButton}
       </U.StyledUpload>
       <ImgModal visible={previewVisible} title={previewTitle} footer={null} onCancel={handleCancel}>
-        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        <img alt="example" style={{ width: '100%' }} src={previewImage} />
       </ImgModal>
     </>
   );

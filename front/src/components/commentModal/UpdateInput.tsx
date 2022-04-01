@@ -1,8 +1,8 @@
-import { IComment, IReply } from "@customTypes/comment";
-import TextArea from "antd/lib/input/TextArea";
-import { FormikValues } from "formik";
-import React from "react";
-import * as S from "./style";
+import { IComment, IReply } from '@customTypes/comment';
+import TextArea from 'antd/lib/input/TextArea';
+import { FormikValues } from 'formik';
+import React from 'react';
+import * as S from './style';
 
 interface AddReplyProrp {
   reply?: IReply;
@@ -17,7 +17,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
       {comment &&
         (updateInputState ? (
           <S.ContentWrapper large>
-            <S.NickName large>{comment.User?.username}</S.NickName>
+            <S.NickName large>{comment.User?.userName}</S.NickName>
             <S.Content large>
               <TextArea
                 name="content"
@@ -29,14 +29,14 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
           </S.ContentWrapper>
         ) : (
           <S.ContentWrapper large>
-            <S.NickName large>{comment.User?.username}</S.NickName>
+            <S.NickName large>{comment.User?.userName}</S.NickName>
             <S.Content large>{comment.content}</S.Content>
           </S.ContentWrapper>
         ))}
       {reply &&
         (updateInputState ? (
           <S.ContentWrapper>
-            <S.NickName>{reply.User?.username}</S.NickName>
+            <S.NickName>{reply.User?.userName}</S.NickName>
             <S.Content>
               <TextArea
                 name="content"
@@ -48,7 +48,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
           </S.ContentWrapper>
         ) : (
           <S.ContentWrapper>
-            <S.NickName>{reply.User?.username}</S.NickName>
+            <S.NickName>{reply.User?.userName}</S.NickName>
             <S.Content>{reply.content}</S.Content>
           </S.ContentWrapper>
         ))}

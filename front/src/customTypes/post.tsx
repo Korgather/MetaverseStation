@@ -1,6 +1,6 @@
-import { SerializedError } from "@reduxjs/toolkit";
-import { IComment } from "./comment";
-import { IUser } from "./user";
+import { SerializedError } from '@reduxjs/toolkit';
+import { IComment } from './comment';
+import { IPostUser, IUser } from './user';
 
 export interface CustomFile {
   file: File;
@@ -15,14 +15,15 @@ export interface IPost {
   category?: string;
   id?: string;
   tags?: string[];
-  Images?: { src: string }[];
-  User?: IUser;
-  Comments: IComment[];
+  imageList: string[];
+  postUser?: IPostUser;
+  postCommentList: IComment[];
 }
 
-export interface AddPost extends Pick<IPost, "title" | "link" | "content"> {
-  images?: Omit<CustomFile, "file">[];
+export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
+  images?: Omit<CustomFile, 'file'>[];
   author?: string;
+  AccessToken: string | null;
 }
 
 export interface IPostState {
@@ -57,4 +58,6 @@ export interface IPostState {
   addNestedReplyLoading: boolean;
   addNestedReplyDone: boolean;
   addNestedReplyError: SerializedError | null;
+  pageNum: number;
+  totalPages: number;
 }

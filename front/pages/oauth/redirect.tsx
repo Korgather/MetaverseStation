@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { useAppDispatch } from "@store/hook";
-import { logIn } from "@actions/user";
+import React from 'react';
+import SetNickname from '@components/redirect/SetNickname';
+import styled from 'styled-components';
 
-type Props = {};
-
-function redirect({}: Props) {
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const token = router.query.token;
-  // const RequestAction = async (tokenData: string) =>
-  //   await axios.get(
-  //     "http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/api/v1/users",
-  //     {
-  //       headers: { Authorization: `Bearer ${tokenData}` },
-  //     },
-  //   );
-  useEffect(() => {
-    if (token) {
-      localStorage.setItem("jwtToken", token as string);
-    }
-    router.push("/");
-  }, [token]);
-  return <div>redirect</div>;
+function redirect() {
+  return (
+    <Layout>
+      <SetNickname />
+    </Layout>
+  );
 }
 
 export default redirect;
+const Layout = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
