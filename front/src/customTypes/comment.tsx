@@ -11,12 +11,21 @@ export interface IReply {
 }
 
 export interface IComment {
-  created_at?: string;
+  createdDate?: string | Date;
   content?: string;
   id?: string;
   replies: IReply[];
-  User?: IUser;
+  userId: string;
+  profileImageUrl: string;
   postid?: string;
+}
+
+export interface AddReply {
+  content: string;
+  postid: string | undefined;
+  User: IUser | null;
+  id: string;
+  AccessToken: string | null;
 }
 
 export type IUpdateReply = Omit<IReply, 'User'>;

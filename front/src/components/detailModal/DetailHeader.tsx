@@ -4,15 +4,14 @@ import { closeModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
+import { useAppSelector } from '@store/hook';
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
-  postData: IPost;
 }
 
-const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({
-  setDetailModalState,
-  postData,
-}) => {
+const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
+  const postData = useAppSelector((state) => state.postSlice.dataForModal);
+
   const menu = (
     <Menu>
       <Menu.Item key={shortid.generate()}>
@@ -25,8 +24,8 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({
   );
   return (
     <S.HeaderWrapper>
-      <S.ProfileImg src={postData.User?.profileImageUrl} />
-      <S.NickName>{postData.User?.username}</S.NickName>
+      <S.ProfileImg src={postData?.postUser?.profileImageUrl} />
+      <S.NickName>{postData?.postUser?.username}</S.NickName>
       <Dropdown overlay={menu} trigger={['click']}>
         <S.StyledDownOutlined />
       </Dropdown>

@@ -5,6 +5,7 @@ import { Modal as ImgModal } from 'antd';
 import { UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
 import { CustomFile } from '@customTypes/post';
+import { useAppSelector } from '@store/hook';
 
 interface UploadImagesProps {
   setImageList: Dispatch<SetStateAction<CustomFile[]>>;
@@ -16,12 +17,17 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
+  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
 
   const RequestUploadImage = async (file: File) => {
     console.log(file);
     const fd = new FormData();
     fd.append('data', file);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd);
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+    });
     console.log(file);
     setImageList([
       ...imageList,

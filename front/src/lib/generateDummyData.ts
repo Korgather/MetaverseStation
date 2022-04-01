@@ -58,20 +58,7 @@ export const generateDummyPost = (postCount: number, commentCount: number) =>
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
         tags: [faker.lorem.word(), faker.lorem.word(), faker.lorem.word(), faker.lorem.word()],
-        Images: [
-          {
-            src: faker.image.image(),
-          },
-          {
-            src: faker.image.image(),
-          },
-          {
-            src: faker.image.image(),
-          },
-          {
-            src: faker.image.image(),
-          },
-        ],
+        imageList: [faker.image.image(), faker.image.image(), faker.image.image()],
         Comments: generateComment(commentCount, postid),
       };
     });

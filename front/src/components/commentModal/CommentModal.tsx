@@ -26,7 +26,7 @@ const CommentModal = ({ commentState, postData }: CommentModalProps) => {
   const updateReplyLoading = useAppSelector((state) => state.postSlice.updateReplyLoading);
   const UpdateCommentsDataFunc: IComment[] | undefined = useAppSelector((state) => {
     const post = state.postSlice.mainPosts.find((v) => v.id === postData.id);
-    return post?.Comments;
+    return post?.postCommentList;
   });
   const [updateCommentsData, setUpdateCommentsData] = useState<IComment[] | null | undefined>(null);
   useEffect(() => {

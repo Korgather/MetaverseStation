@@ -4,6 +4,7 @@ import wrapper from '@store/configureStore';
 import axios from 'axios';
 import { NextComponentType, NextPageContext } from 'next';
 import cookies from 'next-cookies';
+import { saveAccessToken } from '@slices/userSlice';
 
 type Props = {
   pageProps: any;
@@ -18,10 +19,10 @@ export default AppInner;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   const token = cookies(ctx).Token;
-  axios.interceptors.request.use(function (config) {
-    config.headers.Authorization = token ? `Bearer ${token}` : '';
-    return config;
-  });
+  token
+    ? (axios.defaults.headers.common['Authorization'] = `Bearer ${token}`)
+    : (axios.defaults.headers.common['Authorization'] = '');
+  store.dispatch(saveAccessToken(token));
   await store.dispatch(loadMyInfo());
   return { props: {} };
 });

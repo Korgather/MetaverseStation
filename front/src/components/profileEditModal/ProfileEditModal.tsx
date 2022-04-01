@@ -22,7 +22,7 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
           <StyledImg src={me?.profileImageUrl} />
         </ImgWrapper>
         <StyledP>닉네임</StyledP>
-        <StyledInput defaultValue={me?.username}></StyledInput>
+        <StyledInput defaultValue={me?.userName}></StyledInput>
         <StyledP>자기소개</StyledP>
         <StyledTextArea rows={8} defaultValue={me?.introduce}></StyledTextArea>
         <StyledButton type="primary">수정하기</StyledButton>
