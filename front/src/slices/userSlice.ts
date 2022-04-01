@@ -1,4 +1,4 @@
-import { loadMyInfo, logOut } from '@actions/user';
+import { changeNickName, loadMyInfo, logOut } from '@actions/user';
 import { IUserState } from '@customTypes/user';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -6,9 +6,12 @@ export const initialState: IUserState = {
   me: null,
   logOutLoading: false,
   logOutError: null,
-  loadMyInfoLoading: false, // 유저 정보 가져오기 시도중
+  loadMyInfoLoading: false,
   loadMyInfoDone: false,
   loadMyInfoError: null,
+  changeNickNameLoading: false,
+  changeNickNameDone: false,
+  changeNickNameError: null,
   AccessToken: '',
 };
 
@@ -43,7 +46,23 @@ export const userSlice = createSlice({
       .addCase(loadMyInfo.rejected, (state, action: ReturnType<typeof loadMyInfo.rejected>) => {
         state.loadMyInfoLoading = false;
         state.loadMyInfoError = action.error;
-      }),
+      })
+      .addCase(changeNickName.pending, (state) => {
+        state.changeNickNameLoading = true;
+      })
+      .addCase(changeNickName.fulfilled, (state, action) => {
+        state.changeNickNameLoading = false;
+        if (state.me !== null) {
+          state.me.userName = action.payload;
+        }
+      })
+      .addCase(
+        changeNickName.rejected,
+        (state, action: ReturnType<typeof changeNickName.rejected>) => {
+          state.changeNickNameLoading = false;
+          state.changeNickNameError = action.error;
+        },
+      ),
 });
 export const { saveAccessToken } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,6 +1,9 @@
+import { changeNickName, loadMyInfo } from '@actions/user';
+import { saveAccessToken } from '@slices/userSlice';
+import { useAppDispatch } from '@store/hook';
 import { Button, Input } from 'antd';
 import Router, { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 
@@ -10,10 +13,14 @@ function SetNickname() {
   const [inValid, setInValid] = useState(false);
   const router = useRouter();
   const token = router.query.token;
+  const dispatch = useAppDispatch();
   const setCookie = useCookies(['Token'])[1];
   const goback = () => setSecondStep(false);
   const goNext = () => setSecondStep(true);
-  const goMain = () => token && Router.push('/');
+  const goMain = () => {
+    dispatch(changeNickName(nickname));
+    token && Router.push('/');
+  };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value },
@@ -21,12 +28,13 @@ function SetNickname() {
     setNickName(value);
     value.length <= 2 ? setInValid(true) : setInValid(false);
   };
-  if (secondStep) {
+  useEffect(() => {
     if (token) {
       setCookie('Token', token, { path: '/' });
-      console.log(token);
+      dispatch(saveAccessToken(token));
+      dispatch(loadMyInfo());
     }
-  }
+  }, [token]);
   return (
     <Container>
       <Header>
