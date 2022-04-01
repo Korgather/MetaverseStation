@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 import { CustomFile, IPost } from '@customTypes/post';
 import WriteTag from './WriteTag';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { addPost } from '@actions/post';
+import { addPost, loadPost } from '@actions/post';
 import * as S from './style';
 import { closeModal } from '@lib/ModalUtil';
 
@@ -15,19 +15,19 @@ interface WriteModalProps {
 }
 
 const { TextArea } = Input;
-interface IforFormik extends IPost {
+interface IforFormik extends Omit<IPost, 'imageList'> {
   images: Omit<CustomFile, 'file'>[] | void[];
-  author: string;
+  AccessToken: string | null;
 }
 const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const dispatch = useAppDispatch();
+  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
   const [gatherState, setGatherState] = useState(false);
   const [zepState, setZepState] = useState(false);
   const [category, setCategory] = useState('');
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
-  const userId = useAppSelector((state) => state.userSlice.me?.userId);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, '2글자 이상 입력해주세요')
@@ -43,11 +43,9 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       title: '',
       content: '',
       link: '',
-      tags: [],
-      category: '',
-      Comments: [],
+      postCommentList: [],
       images: [],
-      author: userId as string,
+      AccessToken,
     },
     onSubmit: (values: IforFormik) => {
       values.tags = tags;
@@ -58,9 +56,10 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
         fileSize,
       }));
       console.log(values.images);
-      const { images, link, title, author, content } = values;
+      const { images, link, title, content } = values;
 
-      dispatch(addPost({ link, title, content, images }));
+      dispatch(addPost({ link, title, content, images, AccessToken }));
+      // dispatch(loadPost({ AccessToken }));
     },
     validationSchema: PostSchema,
     validateOnChange: true,
