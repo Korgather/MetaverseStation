@@ -2,7 +2,7 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { IPost } from './post';
 
 export interface IUser {
-  username?: string;
+  userName?: string;
   profileImageUrl?: string;
   email?: string;
   providerType?: string;
@@ -15,6 +15,10 @@ export interface IUser {
   emailVerifiedYn?: string;
 }
 
+export interface IPostUser extends Pick<IUser, 'profileImageUrl' | 'email' | 'roleType'> {
+  username: string;
+}
+
 export interface IUserState {
   me: IUser | null;
   logOutLoading: boolean;
@@ -22,5 +26,8 @@ export interface IUserState {
   loadMyInfoLoading: boolean;
   loadMyInfoDone: boolean;
   loadMyInfoError: SerializedError | null;
-  AccessToken: string;
+  changeNickNameLoading: boolean;
+  changeNickNameDone: boolean;
+  changeNickNameError: SerializedError | null;
+  AccessToken: string | null;
 }

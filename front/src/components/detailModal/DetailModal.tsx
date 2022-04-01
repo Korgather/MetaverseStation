@@ -21,8 +21,8 @@ const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModal
         <S.ModalWrapper>
           <S.Dim onClick={() => closeModal(setDetailModalState)} />
           <S.Modal commentState={commentState}>
-            <DetailHeader postData={postData} setDetailModalState={setDetailModalState} />
-            <SliderImages postData={postData} />
+            <DetailHeader setDetailModalState={setDetailModalState} />
+            <SliderImages />
             <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
             <S.Content>{postData.content} </S.Content>
             <S.TagsWrapper>

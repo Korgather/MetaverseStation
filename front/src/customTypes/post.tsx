@@ -59,4 +59,5 @@ export interface IPostState {
   addNestedReplyDone: boolean;
   addNestedReplyError: SerializedError | null;
   pageNum: number;
+  totalPages: number;
 }

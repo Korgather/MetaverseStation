@@ -73,6 +73,7 @@ export default AppLayout;
 
 const MenuWrapper = styled(Menu)`
   width: 50%;
+  font-size: 0.9rem;
 `;
 
 const LayoutWrapper = styled.div`

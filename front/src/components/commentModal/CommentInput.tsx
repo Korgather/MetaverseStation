@@ -17,10 +17,17 @@ const CommentInput: React.FunctionComponent<CommentInputProps> = ({ postData }) 
   const me = useAppSelector((state) => state.userSlice.me);
   const addCommentLoading = useAppSelector((state) => state.postSlice.addCommentLoading);
   const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
+  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
 
   const formik = useFormik({
-    initialValues: { content: '', postid: postData.id, User: me, id: shortid.generate() },
-    onSubmit: (values: { content: string }) => {
+    initialValues: {
+      content: '',
+      postid: postData.id,
+      User: me,
+      id: shortid.generate(),
+      AccessToken,
+    },
+    onSubmit: (values) => {
       formik.setValues((values) => ({ ...values, id: shortid.generate() }));
       me ? dispatch(addComment(values)) : alert('로그인이 필요합니다.');
     },

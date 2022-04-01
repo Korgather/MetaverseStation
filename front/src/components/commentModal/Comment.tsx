@@ -11,14 +11,14 @@ interface CommentProps {
 }
 
 const Comment = ({ updateCommentsData }: CommentProps) => {
-  const initialComments = useAppSelector((state) => state.postSlice.dataForModal?.Comments);
+  const initialComments = useAppSelector((state) => state.postSlice.dataForModal?.postCommentList);
   const Comments = updateCommentsData ? updateCommentsData : initialComments;
   return (
     <S.CommentWrapper>
       {Comments?.map((comment, idx) => (
         <>
           <S.CommentContainer key={shortid.generate()}>
-            <S.PromfileImg large src={comment.User?.profileImageUrl} />
+            <S.PromfileImg large src={comment.profileImageUrl} />
             <S.ContentAndBottomWrapper>
               <CommentFactory comment={comment} />
             </S.ContentAndBottomWrapper>
