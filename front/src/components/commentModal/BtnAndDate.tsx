@@ -50,8 +50,6 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
       postid: reply?.postid,
       id: replyid,
     };
-    console.log(commentdata);
-    console.log(replydata);
     comment ? dispatch(updateComment(commentdata)) : reply && dispatch(updateReply(replydata));
   };
 

@@ -18,6 +18,7 @@ export interface IComment {
   userId: string;
   profileImageUrl: string;
   postid?: string;
+  username: string;
 }
 
 export interface AddReply {
@@ -29,4 +30,4 @@ export interface AddReply {
 }
 
 export type IUpdateReply = Omit<IReply, 'User'>;
-export type IUpdateComment = Omit<IComment, 'replies'>;
+export type IUpdateComment = Omit<IComment, 'replies' | 'userId' | 'profileImageUrl' | 'username'>;

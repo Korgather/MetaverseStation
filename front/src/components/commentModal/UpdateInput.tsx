@@ -17,7 +17,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
       {comment &&
         (updateInputState ? (
           <S.ContentWrapper large>
-            <S.NickName large>{comment.User?.userName}</S.NickName>
+            <S.NickName large>{comment.username}</S.NickName>
             <S.Content large>
               <TextArea
                 name="content"
@@ -29,7 +29,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
           </S.ContentWrapper>
         ) : (
           <S.ContentWrapper large>
-            <S.NickName large>{comment.User?.userName}</S.NickName>
+            <S.NickName large>{comment.username}</S.NickName>
             <S.Content large>{comment.content}</S.Content>
           </S.ContentWrapper>
         ))}
