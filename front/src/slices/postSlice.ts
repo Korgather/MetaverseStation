@@ -44,6 +44,8 @@ const initialState: IPostState = {
   addNestedReplyDone: false,
   addNestedReplyError: null,
   dataForModal: null,
+  pageNum: 0,
+  totalPages: 1,
 };
 
 export const postSlice = createSlice({
@@ -52,6 +54,12 @@ export const postSlice = createSlice({
   reducers: {
     getDataForModal: (state, action) => {
       state.dataForModal = action.payload;
+    },
+    getPageNum: (state, action) => {
+      state.pageNum = action.payload;
+    },
+    getTotalPage: (state, action) => {
+      state.totalPages = action.payload;
     },
   },
   extraReducers: (builder) =>
@@ -62,7 +70,7 @@ export const postSlice = createSlice({
       .addCase(addPost.fulfilled, (state, action) => {
         state.addPostDone = true;
         state.addPostLoading = false;
-        // state.mainPosts.push(action.payload);
+        state.mainPosts.push(action.payload);
       })
       .addCase(addPost.rejected, (state, action: ReturnType<typeof addPost.rejected>) => {
         state.addPostLoading = false;
@@ -73,7 +81,8 @@ export const postSlice = createSlice({
       })
       .addCase(loadPost.fulfilled, (state, action: AnyAction) => {
         state.loadPostLoading = false;
-        state.mainPosts = action.payload;
+        // state.mainPosts.push(action.payload);
+        state.mainPosts = action.payload.content;
       })
       .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
         state.loadPostLoading = false;
@@ -86,7 +95,7 @@ export const postSlice = createSlice({
         state.addCommentDone = true;
         state.addCommentLoading = false;
         const post = state.mainPosts.find((post) => post.id === action.payload.postid);
-        post?.Comments?.push(action.payload);
+        post?.postCommentList?.push(action.payload);
       })
       .addCase(addComment.rejected, (state, action: ReturnType<typeof addComment.rejected>) => {
         state.addCommentLoading = false;
@@ -101,7 +110,7 @@ export const postSlice = createSlice({
         const postIdx = state.mainPosts.findIndex(
           (post) => action.payload && post.id === action.payload.postid,
         );
-        state.mainPosts[postIdx].Comments = state.mainPosts[postIdx].Comments?.filter(
+        state.mainPosts[postIdx].postCommentList = state.mainPosts[postIdx].postCommentList?.filter(
           (comment) => comment.id !== action.payload?.id,
         );
       })
@@ -121,11 +130,11 @@ export const postSlice = createSlice({
         const postIdx = state.mainPosts.findIndex(
           (post) => action.payload && post.id === action.payload.postid,
         );
-        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+        const commentIdx = state.mainPosts[postIdx].postCommentList.findIndex(
           (comment) => comment.id === action.payload?.id,
         );
         if (state.mainPosts[postIdx])
-          state.mainPosts[postIdx].Comments[commentIdx].content = action.payload?.content;
+          state.mainPosts[postIdx].postCommentList[commentIdx].content = action.payload?.content;
       })
       .addCase(
         updateComment.rejected,
@@ -141,11 +150,11 @@ export const postSlice = createSlice({
         state.addReplyDone = true;
         state.addReplyLoading = false;
         const postIdx = state.mainPosts.findIndex((post) => post.id === action.payload.postid);
-        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+        const commentIdx = state.mainPosts[postIdx].postCommentList.findIndex(
           (comment) => comment.id === action.payload?.commentid,
         );
         if (state.mainPosts[postIdx])
-          state.mainPosts[postIdx].Comments[commentIdx].replies?.push(action.payload);
+          state.mainPosts[postIdx].postCommentList[commentIdx].replies?.push(action.payload);
       })
       .addCase(addReply.rejected, (state, action: ReturnType<typeof addReply.rejected>) => {
         state.addReplyLoading = false;
@@ -158,16 +167,16 @@ export const postSlice = createSlice({
         state.removeReplyDone = true;
         state.removeReplyLoading = false;
         const postIdx = state.mainPosts.findIndex((post) => post.id === action.payload.postid);
-        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+        const commentIdx = state.mainPosts[postIdx].postCommentList.findIndex(
           (comment) => comment.id === action.payload?.commentid,
         );
-        const ReplyIdx = state.mainPosts[postIdx].Comments[commentIdx].replies?.findIndex(
+        const ReplyIdx = state.mainPosts[postIdx].postCommentList[commentIdx].replies?.findIndex(
           (reply) => reply.id === action.payload.id,
         );
         if (state.mainPosts[postIdx])
-          state.mainPosts[postIdx].Comments[commentIdx].replies = state.mainPosts[postIdx].Comments[
-            commentIdx
-          ].replies?.filter((reply, idx) => idx !== ReplyIdx);
+          state.mainPosts[postIdx].postCommentList[commentIdx].replies = state.mainPosts[
+            postIdx
+          ].postCommentList[commentIdx].replies?.filter((reply, idx) => idx !== ReplyIdx);
       })
       .addCase(removeReply.rejected, (state, action: ReturnType<typeof removeReply.rejected>) => {
         state.removeReplyLoading = false;
@@ -180,14 +189,14 @@ export const postSlice = createSlice({
         state.updateReplyDone = true;
         state.updateReplyLoading = false;
         const postIdx = state.mainPosts.findIndex((post) => post.id === action.payload.postid);
-        const commentIdx = state.mainPosts[postIdx].Comments.findIndex(
+        const commentIdx = state.mainPosts[postIdx].postCommentList.findIndex(
           (comment) => comment.id === action.payload?.commentid,
         );
-        const ReplyIdx = state.mainPosts[postIdx].Comments[commentIdx].replies?.findIndex(
+        const ReplyIdx = state.mainPosts[postIdx].postCommentList[commentIdx].replies?.findIndex(
           (reply) => reply.id === action.payload.id,
         );
         if (ReplyIdx !== undefined)
-          state.mainPosts[postIdx].Comments[commentIdx].replies[ReplyIdx].content =
+          state.mainPosts[postIdx].postCommentList[commentIdx].replies[ReplyIdx].content =
             action.payload.content;
       })
       .addCase(updateReply.rejected, (state, action: ReturnType<typeof updateReply.rejected>) => {
@@ -196,5 +205,5 @@ export const postSlice = createSlice({
       }),
 });
 
-export const { getDataForModal } = postSlice.actions;
+export const { getDataForModal, getPageNum, getTotalPage } = postSlice.actions;
 export default postSlice.reducer;

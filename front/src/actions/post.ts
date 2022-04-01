@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AddReply, IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
 import { AddPost, IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';
+import { getTotalPage } from '@slices/postSlice';
 
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
   const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
@@ -30,7 +31,7 @@ export const loadPost = createAsyncThunk('post/load', async (data, thunkAPI) => 
       page: pageNum,
     },
   });
-  console.log(res.data);
+  thunkAPI.dispatch(getTotalPage(res.data.totalPages));
   return res.data;
 });
 
