@@ -6,7 +6,6 @@ import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
 import { getDataForModal } from '@slices/postSlice';
 import shortid from 'shortid';
-import faker from 'faker';
 import { HeartTwoTone } from '@ant-design/icons';
 interface PostzoneProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -28,7 +27,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
         ]}
       >
         {mainPosts.length >= 1 &&
-          mainPosts.map((post, i) => (
+          mainPosts.map((post) => (
             <Col key={shortid.generate()} xs={24} md={12} lg={8} xl={6} style={{}}>
               <ImgWrapper>
                 <div
