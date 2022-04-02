@@ -13,6 +13,7 @@ export interface IUser {
   modifiedAt?: string;
   roleType?: string;
   emailVerifiedYn?: string;
+  userNameModifiedYn: string;
 }
 
 export interface IPostUser extends Pick<IUser, 'profileImageUrl' | 'email' | 'roleType'> {

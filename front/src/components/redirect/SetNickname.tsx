@@ -1,20 +1,19 @@
-import { changeNickName, loadMyInfo } from '@actions/user';
-import { saveAccessToken } from '@slices/userSlice';
+import { changeNickName } from '@actions/user';
 import { useAppDispatch } from '@store/hook';
 import { Button, Input } from 'antd';
-import Router, { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
+import Router from 'next/router';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function SetNickname() {
+interface ISetNickname {
+  token: string | string[] | undefined;
+}
+
+function SetNickname({ token }: ISetNickname) {
   const [secondStep, setSecondStep] = useState(false);
   const [nickname, setNickName] = useState('');
   const [inValid, setInValid] = useState(false);
-  const router = useRouter();
-  const token = router.query.token;
   const dispatch = useAppDispatch();
-  const setCookie = useCookies(['Token'])[1];
   const goback = () => setSecondStep(false);
   const goNext = () => setSecondStep(true);
   const goMain = () => {
@@ -28,13 +27,7 @@ function SetNickname() {
     setNickName(value);
     value.length <= 2 ? setInValid(true) : setInValid(false);
   };
-  useEffect(() => {
-    if (token) {
-      setCookie('Token', token, { path: '/' });
-      dispatch(saveAccessToken(token));
-      dispatch(loadMyInfo());
-    }
-  }, [token]);
+
   return (
     <Container>
       <Header>
