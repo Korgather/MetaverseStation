@@ -17,7 +17,6 @@ interface WriteModalProps {
 const { TextArea } = Input;
 interface IforFormik extends Omit<IPost, 'imageList'> {
   images: Omit<CustomFile, 'file'>[] | void[];
-  AccessToken: string | null;
 }
 const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   const dispatch = useAppDispatch();
@@ -45,7 +44,6 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       link: '',
       postCommentList: [],
       images: [],
-      AccessToken,
     },
     onSubmit: (values: IforFormik) => {
       values.tags = tags;
@@ -58,8 +56,8 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       console.log(values.images);
       const { images, link, title, content } = values;
 
-      dispatch(addPost({ link, title, content, images, AccessToken }));
-      // dispatch(loadPost({ AccessToken }));
+      dispatch(addPost({ link, title, content, images }));
+      dispatch(loadPost());
     },
     validationSchema: PostSchema,
     validateOnChange: true,
@@ -148,11 +146,11 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
               {formik.errors.content && formik.touched && (
                 <S.Error>{formik.errors.content}</S.Error>
               )}
-              <S.StyledLabel htmlFor="tags">
+              {/* <S.StyledLabel htmlFor="tags">
                 태그 <S.ExplainP>(*최대 5개)</S.ExplainP>
-              </S.StyledLabel>
+              </S.StyledLabel> */}
               <S.TagAndBtnWrapper>
-                <WriteTag setTags={setTags} tags={tags} />
+                {/* <WriteTag setTags={setTags} tags={tags} /> */}
                 <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
                   등록하기
                 </S.SubmitBtn>

@@ -46,6 +46,7 @@ const initialState: IPostState = {
   dataForModal: null,
   pageNum: 0,
   totalPages: 1,
+  updateModalState: false,
 };
 
 export const postSlice = createSlice({
@@ -61,6 +62,9 @@ export const postSlice = createSlice({
     getTotalPage: (state, action) => {
       state.totalPages = action.payload;
     },
+    changeUpdateModalState: (state, action) => {
+      state.updateModalState = action.payload;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -70,7 +74,6 @@ export const postSlice = createSlice({
       .addCase(addPost.fulfilled, (state, action) => {
         state.addPostDone = true;
         state.addPostLoading = false;
-        state.mainPosts.push(action.payload);
       })
       .addCase(addPost.rejected, (state, action: ReturnType<typeof addPost.rejected>) => {
         state.addPostLoading = false;
@@ -81,7 +84,6 @@ export const postSlice = createSlice({
       })
       .addCase(loadPost.fulfilled, (state, action: AnyAction) => {
         state.loadPostLoading = false;
-        // state.mainPosts.push(action.payload);
         state.mainPosts = action.payload.content;
       })
       .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
@@ -205,5 +207,6 @@ export const postSlice = createSlice({
       }),
 });
 
-export const { getDataForModal, getPageNum, getTotalPage } = postSlice.actions;
+export const { getDataForModal, getPageNum, getTotalPage, changeUpdateModalState } =
+  postSlice.actions;
 export default postSlice.reducer;

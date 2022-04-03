@@ -23,7 +23,6 @@ export interface IPost {
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
   images?: Omit<CustomFile, 'file'>[];
   author?: string;
-  AccessToken: string | null;
 }
 
 export interface IPostState {
@@ -60,4 +59,5 @@ export interface IPostState {
   addNestedReplyError: SerializedError | null;
   pageNum: number;
   totalPages: number;
+  updateModalState: boolean;
 }

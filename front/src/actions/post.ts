@@ -6,9 +6,12 @@ import { IUserState } from '@customTypes/user';
 import { getTotalPage } from '@slices/postSlice';
 
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
   const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
     headers: {
-      Authorization: `Bearer ${data.AccessToken}}`,
+      Authorization: `Bearer ${AccessToken}}`,
     },
   });
   console.log(res.data);
