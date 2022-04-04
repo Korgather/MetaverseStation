@@ -5,13 +5,14 @@ import UploadImages from './UploadImages';
 import * as Yup from 'yup';
 import { CustomFile, IPost } from '@customTypes/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { addPost, loadPosts } from '@actions/post';
+import { addPost, loadPosts, updatePost } from '@actions/post';
 import * as S from './style';
 import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 
 const { TextArea } = Input;
 interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCommentList'> {
   images: Omit<CustomFile, 'file'>[] | void[];
+  id?: string;
 }
 const WriteModal = () => {
   const dispatch = useAppDispatch();
@@ -19,7 +20,6 @@ const WriteModal = () => {
   const [zepState, setZepState] = useState(false);
   const [category, setCategory] = useState('');
   const [imageList, setImageList] = useState<CustomFile[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
   const prevPostData = useAppSelector((state) => state.postSlice.prevPostData);
   const PostSchema = Yup.object().shape({
@@ -42,6 +42,7 @@ const WriteModal = () => {
       link: `${prevPostData ? prevPostData.link : ''}`,
       postCommentList: [],
       images: prevPostData?.images ? prevPostData.images : [],
+      id: prevPostData?.id,
     },
     onSubmit: async (values: IforFormik) => {
       values.images = imageList.map(({ imagePath, origFileName, fileSize }) => ({
@@ -50,11 +51,14 @@ const WriteModal = () => {
         fileSize,
       }));
       console.log(values.images);
-      const { images, link, title, content } = values;
+      const { images, link, title, content, id } = values;
 
-      await dispatch(addPost({ link, title, content, images }));
+      prevPostData
+        ? await dispatch(updatePost({ link, title, content, images, id }))
+        : await dispatch(addPost({ link, title, content, images }));
       await dispatch(loadPosts());
       dispatch(ToggleWriteModalState(false));
+      dispatch(getPrevPostData(null));
     },
     validationSchema: PostSchema,
     validateOnChange: true,
@@ -68,8 +72,6 @@ const WriteModal = () => {
         fileSize,
       })),
     }));
-
-    return () => console.log('모달창나갈때, 이미지삭제요청 보낼예정입니다.');
   }, [imageList]);
 
   const selectHandler = useCallback(
@@ -146,7 +148,7 @@ const WriteModal = () => {
 
               <S.TagAndBtnWrapper>
                 <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
-                  등록하기
+                  {prevPostData ? '수정하기' : '등록하기'}
                 </S.SubmitBtn>
               </S.TagAndBtnWrapper>
             </S.ModalContainer>

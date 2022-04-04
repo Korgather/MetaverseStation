@@ -19,18 +19,12 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
   const dispatch = useAppDispatch();
   const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
   const me = useAppSelector((state) => state.userSlice.me);
-  let test;
-  if (me) {
-    test = Object.keys(dataForModal?.likeUserList as object).indexOf(me?.userId.toString());
-  }
   useEffect(() => {
     me && Object.keys(dataForModal?.likeUserList as object).indexOf(me?.userId.toString()) > -1
       ? setLikeState(true)
       : setLikeState(false);
   }, []);
-  console.log(dataForModal);
-  console.log(test);
-  console.log(me?.userId);
+
   const onToggleLike = async () => {
     setLikeState(!likeState);
     if (dataForModal?.id) {

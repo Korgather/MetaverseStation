@@ -15,6 +15,8 @@ interface PostzoneProps {
 const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState, mainPosts }) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
+    console.log(data);
+    console.log(data.id);
     await dispatch(viewPost(data.id));
     await dispatch(loadPost(data.id));
   };
@@ -29,7 +31,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
       >
         {mainPosts.length >= 1 &&
           mainPosts.map((post) => (
-            <Col key={shortid.generate()} xs={24} md={12} lg={8} xl={6} style={{}}>
+            <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
               <ImgWrapper>
                 <div
                   onClick={(e) => {
@@ -38,8 +40,8 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                     openModal(setDetailModalState);
                   }}
                 >
-                  {post.imageList[0] && post.imageList[0].length >= 20 ? (
-                    <PostImg src={post.imageList[0]} />
+                  {post.imageList[0] ? (
+                    <PostImg src={post.imageList[0].imagePath} />
                   ) : (
                     <PostImg src="images/thumbnail02.png" />
                   )}

@@ -9,30 +9,33 @@ const Reply = ({ comment }: { comment: IComment }) => {
 
   return (
     <S.ReplyWrapper>
-      {comment.replies && !moreCommentView && comment.replies.length >= 2 ? (
+      {comment.postCommentReplyList &&
+      !moreCommentView &&
+      comment.postCommentReplyList.length >= 2 ? (
         <>
           <S.ReplyContainer small={true} key={shortid.generate()}>
-            <S.PromfileImg src={comment.replies[0].User?.profileImageUrl} />
+            <S.PromfileImg src={comment.postCommentReplyList[0].profileImageUrl} />
             <S.ContentAndBottomWrapper>
               <S.ContentWrapper>
                 <S.Content>
-                  {comment.replies[0].content && comment.replies[0].content.length >= 19
-                    ? `${comment.replies[0].content?.slice(0, 18)}...`
-                    : comment.replies[0].content}
+                  {comment.postCommentReplyList[0].content &&
+                  comment.postCommentReplyList[0].content.length >= 19
+                    ? `${comment.postCommentReplyList[0].content?.slice(0, 18)}...`
+                    : comment.postCommentReplyList[0].content}
                 </S.Content>
               </S.ContentWrapper>
             </S.ContentAndBottomWrapper>
           </S.ReplyContainer>
           <S.MoreViewBtn onClick={ToggleMoreCommentView}>
-            답글 {comment.replies.length - 1}개 더 보기...
+            답글 {comment.postCommentReplyList.length - 1}개 더 보기...
           </S.MoreViewBtn>
         </>
       ) : (
-        comment.replies &&
-        comment.replies.map((reply) => (
+        comment.postCommentReplyList &&
+        comment.postCommentReplyList.map((reply) => (
           <>
             <S.ReplyContainer key={shortid.generate()}>
-              <S.PromfileImg src={reply.User?.profileImageUrl} />
+              <S.PromfileImg src={reply.profileImageUrl} />
               <S.ContentAndBottomWrapper>
                 <CommentFactory reply={reply} />
               </S.ContentAndBottomWrapper>
