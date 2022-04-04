@@ -4,29 +4,24 @@ import { useFormik } from 'formik';
 import UploadImages from './UploadImages';
 import * as Yup from 'yup';
 import { CustomFile, IPost } from '@customTypes/post';
-import WriteTag from './WriteTag';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { addPost, loadPost } from '@actions/post';
+import { addPost, loadPosts } from '@actions/post';
 import * as S from './style';
-import { closeModal } from '@lib/ModalUtil';
-
-interface WriteModalProps {
-  setWriteModalState: Dispatch<SetStateAction<boolean>>;
-}
+import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 
 const { TextArea } = Input;
-interface IforFormik extends Omit<IPost, 'imageList'> {
+interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCommentList'> {
   images: Omit<CustomFile, 'file'>[] | void[];
 }
-const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
+const WriteModal = () => {
   const dispatch = useAppDispatch();
-  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
   const [gatherState, setGatherState] = useState(false);
   const [zepState, setZepState] = useState(false);
   const [category, setCategory] = useState('');
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const [tags, setTags] = useState<string[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
+  const prevPostData = useAppSelector((state) => state.postSlice.prevPostData);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
       .min(2, '2글자 이상 입력해주세요')
@@ -36,18 +31,19 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
     content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
     images: Yup.array().min(1, '이미지를 1개 이상 등록해주세요.'),
   });
-
+  const closeModal = () => {
+    dispatch(ToggleWriteModalState(false));
+    dispatch(getPrevPostData(null));
+  };
   const formik = useFormik({
     initialValues: {
-      title: '',
-      content: '',
-      link: '',
+      title: `${prevPostData ? prevPostData.title : ''}`,
+      content: `${prevPostData ? prevPostData.content : ''}`,
+      link: `${prevPostData ? prevPostData.link : ''}`,
       postCommentList: [],
-      images: [],
+      images: prevPostData?.images ? prevPostData.images : [],
     },
-    onSubmit: (values: IforFormik) => {
-      values.tags = tags;
-      values.category = category;
+    onSubmit: async (values: IforFormik) => {
       values.images = imageList.map(({ imagePath, origFileName, fileSize }) => ({
         imagePath,
         origFileName,
@@ -56,8 +52,9 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
       console.log(values.images);
       const { images, link, title, content } = values;
 
-      dispatch(addPost({ link, title, content, images }));
-      dispatch(loadPost());
+      await dispatch(addPost({ link, title, content, images }));
+      await dispatch(loadPosts());
+      dispatch(ToggleWriteModalState(false));
     },
     validationSchema: PostSchema,
     validateOnChange: true,
@@ -95,11 +92,11 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <S.Dim onClick={() => closeModal(setWriteModalState)} />
+        <S.Dim onClick={closeModal} />
         <S.ModalWrapper>
           <S.Modal>
             <S.ModalContainer>
-              <S.CloseModalBtn onClick={() => closeModal(setWriteModalState)}>x</S.CloseModalBtn>
+              <S.CloseModalBtn onClick={closeModal}>x</S.CloseModalBtn>
               <h3>카테고리</h3>
               <S.SelectBtnWrapper>
                 <S.SelectBtn
@@ -146,11 +143,8 @@ const WriteModal: React.FC<WriteModalProps> = ({ setWriteModalState }) => {
               {formik.errors.content && formik.touched && (
                 <S.Error>{formik.errors.content}</S.Error>
               )}
-              {/* <S.StyledLabel htmlFor="tags">
-                태그 <S.ExplainP>(*최대 5개)</S.ExplainP>
-              </S.StyledLabel> */}
+
               <S.TagAndBtnWrapper>
-                {/* <WriteTag setTags={setTags} tags={tags} /> */}
                 <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
                   등록하기
                 </S.SubmitBtn>
