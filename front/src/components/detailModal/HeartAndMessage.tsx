@@ -1,5 +1,9 @@
-import { HeartOutlined, HeartTwoTone } from '@ant-design/icons';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import { heartPost, loadPost } from '@actions/post';
+import { HeartFilled, HeartOutlined, HeartTwoTone } from '@ant-design/icons';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import ColumnGroup from 'antd/lib/table/ColumnGroup';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { number } from 'yup';
 import * as S from './style';
 interface HeartAndMessage {
   setCommentState: Dispatch<SetStateAction<boolean>>;
@@ -12,8 +16,27 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
 }) => {
   const [likeState, setLikeState] = useState(false);
 
-  const onToggleLike = () => {
+  const dispatch = useAppDispatch();
+  const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
+  const me = useAppSelector((state) => state.userSlice.me);
+  let test;
+  if (me) {
+    test = Object.keys(dataForModal?.likeUserList as object).indexOf(me?.userId.toString());
+  }
+  useEffect(() => {
+    me && Object.keys(dataForModal?.likeUserList as object).indexOf(me?.userId.toString()) > -1
+      ? setLikeState(true)
+      : setLikeState(false);
+  }, []);
+  console.log(dataForModal);
+  console.log(test);
+  console.log(me?.userId);
+  const onToggleLike = async () => {
     setLikeState(!likeState);
+    if (dataForModal?.id) {
+      await dispatch(heartPost(dataForModal.id));
+      await dispatch(loadPost(dataForModal.id));
+    }
   };
 
   const onToggleComment = () => {
@@ -23,15 +46,13 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
   return (
     <S.HeartAndMessageWrapper>
       {likeState ? (
-        <HeartTwoTone
-          twoToneColor="#eb3f96"
-          onClick={onToggleLike}
-          style={{ fontSize: '1.3rem' }}
-        />
+        <HeartFilled onClick={onToggleLike} style={{ fontSize: '1.3rem', color: '#eb3f96' }} />
       ) : (
-        <HeartOutlined onClick={onToggleLike} style={{ fontSize: '1.3rem' }} />
+        <HeartOutlined onClick={onToggleLike} style={{ fontSize: '1.3rem', color: '#eb3f96' }} />
       )}
-      <S.StyledSpan>100명이 좋아합니다.</S.StyledSpan>
+      <S.StyledSpan>
+        {Object.keys(dataForModal?.likeUserList as object).length}명이 좋아합니다.
+      </S.StyledSpan>
       {commentState ? (
         <S.CommentImg onClick={onToggleComment} src="images/activeCommentIcon.png" />
       ) : (

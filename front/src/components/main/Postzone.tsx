@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { openModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
-import { getDataForModal } from '@slices/postSlice';
 import shortid from 'shortid';
-import { HeartTwoTone } from '@ant-design/icons';
+import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
+import { loadPost, viewPost } from '@actions/post';
 interface PostzoneProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
   mainPosts: IPost[];
@@ -14,8 +14,9 @@ interface PostzoneProps {
 
 const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState, mainPosts }) => {
   const dispatch = useAppDispatch();
-  const getPostId = (data: IPost) => {
-    dispatch(getDataForModal(data));
+  const loadPostId = async (data: IPost) => {
+    await dispatch(viewPost(data.id));
+    await dispatch(loadPost(data.id));
   };
   return (
     <div>
@@ -33,7 +34,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                 <div
                   onClick={(e) => {
                     e.preventDefault();
-                    post && getPostId(post);
+                    post && loadPostId(post);
                     openModal(setDetailModalState);
                   }}
                 >
@@ -45,11 +46,17 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                 </div>
               </ImgWrapper>
               <Summary>
-                <Title>{post.title}</Title>
+                <Title>
+                  {post.title && post.title?.length >= 15
+                    ? `${post.title?.slice(0, 15)}...`
+                    : post.title}
+                </Title>
                 <StyledHeartTwoTone twoToneColor="#eb3f96" />
-                <Count>100</Count>
+                <Count>{Object.keys(post.likeUserList).length}</Count>
                 <CommentImg src="images/commentIcon.png" />
-                <Count>100</Count>
+                <Count>{post.postCommentList.length}</Count>
+                <StyledEyeOutlined />
+                <Count>{post.view}</Count>
               </Summary>
             </Col>
           ))}
@@ -68,6 +75,11 @@ const Title = styled.div`
   margin: 2px;
 `;
 
+const StyledEyeOutlined = styled(EyeOutlined)`
+  font-size: 1.1rem;
+  margin-top: 2px;
+`;
+
 const StyledHeartTwoTone = styled(HeartTwoTone)`
   margin-left: auto;
   font-size: 1.1rem;
@@ -77,8 +89,8 @@ const StyledHeartTwoTone = styled(HeartTwoTone)`
 const Count = styled.div`
   font-size: 0.8rem;
   font-weight: 600;
-  margin-right: 1rem;
-  margin-left: 5px;
+  margin-right: 0.5rem;
+  margin-left: 2px;
 `;
 
 const CommentImg = styled.img`
