@@ -3,8 +3,6 @@ import CommentInput from './CommentInput';
 import Comment from './Comment';
 import * as C from './style';
 import { IPost } from '@customTypes/post';
-import { useAppSelector } from '@store/hook';
-import { IComment } from '@customTypes/comment';
 import shortid from 'shortid';
 
 interface CommentModalProps {
