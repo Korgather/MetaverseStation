@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { openModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
-import { getDataForModal } from '@slices/postSlice';
 import shortid from 'shortid';
+import { loadPost } from '@actions/post';
 interface MyPostProps {
   myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -14,8 +14,8 @@ interface MyPostProps {
 const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState, myPosts }) => {
   const dispatch = useAppDispatch();
 
-  const getPostId = (data: IPost) => {
-    dispatch(getDataForModal(data));
+  const loadPostId = (data: IPost) => {
+    dispatch(loadPost(data.id));
   };
   return (
     <>
@@ -36,10 +36,10 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState, myP
               <Col key={shortid.generate()} xs={24} md={12} lg={8} xl={6} style={{}}>
                 <PostImg
                   onClick={() => {
-                    post && getPostId(post);
+                    post && loadPostId(post);
                     openModal(setDetailModalState);
                   }}
-                  src={post.imageList && post.imageList[0]}
+                  src={post.imageList && post.imageList[0].imagePath}
                 />
               </Col>
             ))}

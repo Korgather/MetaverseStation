@@ -1,6 +1,7 @@
 import CommentModal from '@components/commentModal/CommentModal';
 import { closeModal } from '@lib/ModalUtil';
-import { useAppSelector } from '@store/hook';
+import { clearDataForModal } from '@slices/postSlice';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import shortid from 'shortid';
 import DetailHeader from './DetailHeader';
@@ -15,11 +16,17 @@ interface DetailModalProps {
 const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModalState }) => {
   const [commentState, setCommentState] = useState(false);
   const postData = useAppSelector((state) => state.postSlice.dataForModal);
+  const dispatch = useAppDispatch();
   return (
     <>
       {postData && (
         <S.ModalWrapper>
-          <S.Dim onClick={() => closeModal(setDetailModalState)} />
+          <S.Dim
+            onClick={() => {
+              closeModal(setDetailModalState);
+              dispatch(clearDataForModal());
+            }}
+          />
           <S.Modal commentState={commentState}>
             <DetailHeader setDetailModalState={setDetailModalState} />
             <SliderImages />

@@ -1,35 +1,25 @@
 import React, { useEffect } from 'react';
 import { Input, Button } from 'antd';
 import styled from 'styled-components';
-import { addComment } from '@actions/post';
+import { addComment, loadPost } from '@actions/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { IPost } from '@customTypes/post';
 import { useFormik } from 'formik';
-import shortid from 'shortid';
 const { TextArea } = Input;
 
-interface CommentInputProps {
-  postData: IPost;
-}
-
-const CommentInput: React.FunctionComponent<CommentInputProps> = ({ postData }) => {
+const CommentInput = () => {
   const dispatch = useAppDispatch();
-  const me = useAppSelector((state) => state.userSlice.me);
   const addCommentLoading = useAppSelector((state) => state.postSlice.addCommentLoading);
   const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
-  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
+  const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
 
   const formik = useFormik({
     initialValues: {
       content: '',
-      postid: postData.id,
-      User: me,
-      id: shortid.generate(),
-      AccessToken,
+      postid: dataForModal?.id,
     },
-    onSubmit: (values) => {
-      formik.setValues((values) => ({ ...values, id: shortid.generate() }));
-      me ? dispatch(addComment(values)) : alert('로그인이 필요합니다.');
+    onSubmit: async (values) => {
+      await dispatch(addComment(values));
+      dataForModal && (await dispatch(loadPost(dataForModal.id)));
     },
   });
   useEffect(() => {

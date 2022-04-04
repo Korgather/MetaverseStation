@@ -1,7 +1,7 @@
 import shortId from 'shortid';
 import faker from 'faker';
 
-export const generateReply = (number: number, postid: string, commentid: string) =>
+export const generateReply = (number: number, postid: string, commentId: string) =>
   Array(number)
     .fill('')
     .map(() => {
@@ -9,7 +9,7 @@ export const generateReply = (number: number, postid: string, commentid: string)
       const UserId = ['eungwang', shortId.generate()][rand_0_1];
       return {
         postid: postid,
-        commentid: commentid,
+        commentId: commentId,
         id: shortId.generate(),
         content: faker.lorem.sentence(),
         created_at: '2022-03-11',
@@ -27,11 +27,11 @@ export const generateComment = (number: number, postid: string) =>
     .map(() => {
       const rand_0_1 = Math.floor(Math.random() * 2);
       const rand_1_3 = 1 + Math.floor(Math.random() * 3);
-      const commentid = shortId.generate();
+      const commentId = shortId.generate();
       const userId = ['eungwang', shortId.generate()][rand_0_1];
       return {
         postid: postid,
-        id: commentid,
+        id: commentId,
         User: {
           id: userId,
           username: faker.name.findName(),
@@ -39,7 +39,7 @@ export const generateComment = (number: number, postid: string) =>
         },
         content: faker.lorem.sentence(),
         created_at: '2022-03-11',
-        replies: generateReply(rand_1_3, postid, commentid),
+        postCommentReplyList: generateReply(rand_1_3, postid, commentId),
       };
     });
 

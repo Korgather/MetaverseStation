@@ -1,0 +1,33 @@
+diff --git a/node_modules/antd/lib/upload/interface.d.ts b/node_modules/antd/lib/upload/interface.d.ts
+index 15d5c31..dab9e8f 100644
+--- a/node_modules/antd/lib/upload/interface.d.ts
++++ b/node_modules/antd/lib/upload/interface.d.ts
+@@ -63,10 +63,18 @@ export declare type ItemRender<T = any> = (originNode: React.ReactElement, file:
+ declare type PreviewFileHandler = (file: File | Blob) => PromiseLike<string>;
+ declare type TransformFileHandler = (file: RcFile) => string | Blob | File | PromiseLike<string | Blob | File>;
+ declare type BeforeUploadValueType = void | boolean | string | Blob | File;
++
++export interface CustomDefaultFileList{
++    imagePath : string;
++    origFileName : string;
++    fileSize : number;
++    url? : string;
++}
++
+ export interface UploadProps<T = any> extends Pick<RcUploadProps, 'capture'> {
+     type?: UploadType;
+     name?: string;
+-    defaultFileList?: Array<UploadFile<T>>;
++    defaultFileList?: CustomDefaultFileList[] | Array<UploadFile<T>> ;
+     fileList?: Array<UploadFile<T>>;
+     action?: string | ((file: RcFile) => string) | ((file: RcFile) => PromiseLike<string>);
+     directory?: boolean;
+@@ -83,7 +91,7 @@ export interface UploadProps<T = any> extends Pick<RcUploadProps, 'capture'> {
+     className?: string;
+     onPreview?: (file: UploadFile<T>) => void;
+     onDownload?: (file: UploadFile<T>) => void;
+-    onRemove?: (file: UploadFile<T>) => void | boolean | Promise<void | boolean>;
++    onRemove?: (file: UploadFile<T> | CustomDefaultFileList) => void | boolean | Promise<void | boolean>;
+     supportServerRender?: boolean;
+     style?: React.CSSProperties;
+     disabled?: boolean;
