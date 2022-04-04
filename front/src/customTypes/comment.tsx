@@ -2,32 +2,36 @@ import { IUser } from './user';
 
 export interface IReply {
   content?: string;
-  user_id?: string;
-  created_at?: string;
-  User: IUser | null;
-  postid: string | undefined;
-  commentid: string | undefined;
-  id?: string;
+  postid: number | undefined;
+  commentId: number | undefined;
+  id?: number;
+  replyId: number;
+  userId: number;
+  username: string;
+  profileImageUrl?: string;
+  createdDate?: string;
+  modifiedDate?: string;
 }
 
 export interface IComment {
   createdDate?: string | Date;
   content?: string;
-  id?: string;
-  replies: IReply[];
-  userId: string;
+  id?: number;
+  postCommentReplyList: IReply[];
+  userId: number;
   profileImageUrl: string;
-  postid?: string;
+  postid?: number;
   username: string;
+  commentId: number | undefined;
 }
 
 export interface AddReply {
   content: string;
-  postid: string | undefined;
+  postid: number | undefined;
   User: IUser | null;
-  id: string;
+  id: number;
   AccessToken: string | null;
 }
-
-export type IUpdateReply = Omit<IReply, 'User'>;
-export type IUpdateComment = Omit<IComment, 'replies' | 'userId' | 'profileImageUrl' | 'username'>;
+export type TAddComment = Pick<IComment, 'postid' | 'content'>;
+export type TUpdateReply = Pick<IReply, 'replyId' | 'content'>;
+export type TUpdateComment = Pick<IComment, 'commentId' | 'content'>;

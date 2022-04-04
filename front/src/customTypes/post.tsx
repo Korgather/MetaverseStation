@@ -7,15 +7,24 @@ export interface CustomFile {
   imagePath: string;
   fileSize: number;
   origFileName: string;
+  url?: string;
+  preview?: string;
+  thumbUrl?: string;
+}
+
+export interface IImageList {
+  origFileName: string;
+  imagePath: string;
+  fileSize: number;
 }
 export interface IPost {
   title?: string;
   content?: string;
   link?: string;
   category?: string;
-  id: string;
+  id: number;
   tags?: string[];
-  imageList: string[];
+  imageList: IImageList[];
   postUser?: IPostUser;
   postCommentList: IComment[];
   likeUserList: object;
@@ -24,10 +33,12 @@ export interface IPost {
 
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
   images?: Omit<CustomFile, 'file'>[];
+  id?: string;
 }
 
-export interface IPostDataForUpdate extends AddPost {
-  state: boolean;
+export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
+  images: CustomFile[];
+  id?: string;
 }
 
 export interface IPostState {
@@ -35,6 +46,12 @@ export interface IPostState {
   addPostLoading: boolean;
   addPostDone: boolean;
   addPostError: SerializedError | null;
+  removePostLoading: boolean;
+  removePostDone: boolean;
+  removePostError: SerializedError | null;
+  updatePostLoading: boolean;
+  updatePostDone: boolean;
+  updatePostError: SerializedError | null;
   loadPostsLoading: boolean;
   loadPostsError: SerializedError | null;
   dataForModal: IPost | null;
@@ -56,9 +73,6 @@ export interface IPostState {
   updateReplyLoading: boolean;
   updateReplyDone: boolean;
   updateReplyError: SerializedError | null;
-  addNestedReplyLoading: boolean;
-  addNestedReplyDone: boolean;
-  addNestedReplyError: SerializedError | null;
   loadPostLoading: boolean;
   loadPostDone: boolean;
   loadPostError: SerializedError | null;
