@@ -1,18 +1,22 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { Menu, Dropdown, Button } from 'antd';
+import { Menu, Dropdown } from 'antd';
 import { closeModal } from '@lib/ModalUtil';
-import { IPost, IPostDataForUpdate } from '@customTypes/post';
+import { IPost } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { clearDataForModal, getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import modal from 'antd/lib/modal';
 import { loadPosts, removePost } from '@actions/post';
+import { useRouter } from 'next/router';
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
 }
 
 const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
+  const router = useRouter();
+  const { id: pageNum } = router.query;
+
   const dispatch = useAppDispatch();
   const postData = useAppSelector((state) => state.postSlice.dataForModal);
   const dataForUpdate = {
@@ -31,9 +35,9 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   };
   const openUpdateModal = () => {
     dispatch(getPrevPostData(dataForUpdate));
-    closeModal(setDetailModalState);
     dispatch(ToggleWriteModalState(true));
     dispatch(clearDataForModal());
+    closeModal(setDetailModalState);
   };
 
   const onRemovePost = () => {
@@ -42,7 +46,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
         title: '게시글을 삭제하시겠습니까?',
         onOk: async function async() {
           await dispatch(removePost(postData?.id));
-          await dispatch(loadPosts());
+          pageNum ? router.push(`/${pageNum}`) : router.push('/');
         },
       });
   };

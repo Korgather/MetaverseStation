@@ -8,7 +8,7 @@ import * as S from './style';
 const Comment = () => {
   const Comments = useAppSelector((state) => state.postSlice.dataForModal?.postCommentList);
   return (
-    <S.CommentWrapper>
+    <S.CommentWrapper key={shortid.generate()}>
       {Comments?.map((comment) => (
         <div key={comment.id}>
           <S.CommentContainer key={shortid.generate()}>

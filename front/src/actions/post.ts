@@ -21,7 +21,7 @@ export const removePost = createAsyncThunk('post/remove', async (postId: number,
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+  await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     headers: {
       Authorization: `Bearer ${AccessToken}}`,
     },

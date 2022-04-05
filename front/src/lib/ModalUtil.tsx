@@ -23,11 +23,11 @@ export const uploadButton = (
 );
 
 export const closeModal = (setFunc: setFunc) => {
+  // document.body.style.overflow = 'unset';
   setFunc(false);
-  document.body.style.overflow = 'unset';
 };
 
 export const openModal = (setFunc: setFunc) => {
   setFunc(true);
-  document.body.style.overflow = 'hidden';
+  // document.body.style.overflow = 'hidden';
 };
