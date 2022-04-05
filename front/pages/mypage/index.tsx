@@ -2,8 +2,6 @@ import { loadLikedPosts, loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout';
 import DetailModal from '@components/detailModal/DetailModal';
 import MyPost from '@components/mypage/MyPost';
-import MyPagination from '@components/mypage/MyPagination';
-// import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
 import { saveAccessToken } from '@slices/userSlice';
@@ -27,7 +25,7 @@ const mypage = () => {
   return (
     <>
       {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
-      {editModalState && <ProfileEditModal me={me} setEditModalState={setEditModalState} />}
+      {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
         <>
           {me && (

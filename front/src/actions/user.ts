@@ -1,4 +1,4 @@
-import { IUserState } from '@customTypes/user';
+import { IupdateProfile, IUserState } from '@customTypes/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getlikedPostTotalPages, getmyPostTotalPages } from '@slices/userSlice';
 import axios from 'axios';
@@ -36,6 +36,21 @@ export const changeNickName = createAsyncThunk(
 
     console.log(res);
     return data;
+  },
+);
+
+export const updateProfile = createAsyncThunk(
+  'user/updateProfile',
+  async (data: IupdateProfile, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/profile`, data, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+    return res.data;
   },
 );
 

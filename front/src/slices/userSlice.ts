@@ -1,4 +1,11 @@
-import { changeNickName, loadLikedPosts, loadMyInfo, loadMyPosts, logOut } from '@actions/user';
+import {
+  changeNickName,
+  loadLikedPosts,
+  loadMyInfo,
+  loadMyPosts,
+  logOut,
+  updateProfile,
+} from '@actions/user';
 import { IUserState } from '@customTypes/user';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -12,6 +19,9 @@ export const initialState: IUserState = {
   changeNickNameLoading: false,
   changeNickNameDone: false,
   changeNickNameError: null,
+  updateProfileLoading: false,
+  updateProfileDone: false,
+  updateProfileError: null,
   loadLikedPostsLoading: false,
   loadLikedPostsDone: false,
   loadLikedPostsError: null,
@@ -85,6 +95,19 @@ export const userSlice = createSlice({
         (state, action: ReturnType<typeof changeNickName.rejected>) => {
           state.changeNickNameLoading = false;
           state.changeNickNameError = action.error;
+        },
+      )
+      .addCase(updateProfile.pending, (state) => {
+        state.updateProfileLoading = true;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.updateProfileLoading = false;
+      })
+      .addCase(
+        updateProfile.rejected,
+        (state, action: ReturnType<typeof updateProfile.rejected>) => {
+          state.updateProfileLoading = false;
+          state.updateProfileError = action.error;
         },
       )
       .addCase(loadLikedPosts.pending, (state) => {
