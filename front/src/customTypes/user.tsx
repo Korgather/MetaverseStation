@@ -30,5 +30,17 @@ export interface IUserState {
   changeNickNameLoading: boolean;
   changeNickNameDone: boolean;
   changeNickNameError: SerializedError | null;
+  loadLikedPostsLoading: boolean;
+  loadLikedPostsDone: boolean;
+  loadLikedPostsError: SerializedError | null;
+  loadMyPostsLoading: boolean;
+  loadMyPostsDone: boolean;
+  loadMyPostsError: SerializedError | null;
   AccessToken: string | null;
+  myLikedPosts: IPost[] | null;
+  myPosts: IPost[] | null;
+  likedPostPageNum: number;
+  likedPostTotalPages: number;
+  myPostPageNum: number;
+  myPostTotalPages: number;
 }
