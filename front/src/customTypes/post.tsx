@@ -76,6 +76,9 @@ export interface IPostState {
   loadPostLoading: boolean;
   loadPostDone: boolean;
   loadPostError: SerializedError | null;
+  searchPostsLoading: boolean;
+  searchPostsDone: boolean;
+  searchPostsError: SerializedError | null;
   heartPostLoading: boolean;
   heartPostDone: boolean;
   heartPostError: SerializedError | null;
@@ -84,6 +87,9 @@ export interface IPostState {
   viewPostError: SerializedError | null;
   pageNum: number;
   totalPages: number;
+  searchPageNum: number;
+  searchTotalPages: number;
   prevPostData: IPostDataForUpdate | null;
+  searchKeyword: string;
   updateModalState: boolean;
 }
