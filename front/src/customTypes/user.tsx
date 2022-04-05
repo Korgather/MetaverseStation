@@ -6,13 +6,14 @@ export interface IUser {
   profileImageUrl?: string;
   email?: string;
   providerType?: string;
-  userId?: string;
+  userId: number;
   introduce?: string;
   postList?: IPost[];
   createdAt?: string;
   modifiedAt?: string;
   roleType?: string;
   emailVerifiedYn?: string;
+  userNameModifiedYn: string;
 }
 
 export interface IPostUser extends Pick<IUser, 'profileImageUrl' | 'email' | 'roleType'> {

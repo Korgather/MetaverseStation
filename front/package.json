@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
@@ -21,9 +22,12 @@
     "next": "12.1.0",
     "next-cookies": "^2.0.3",
     "next-redux-wrapper": "^7.0.5",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.2",
     "react-cookie": "^4.1.1",
     "react-dom": "17.0.2",
+    "react-loader-spinner": "^6.0.0-0",
     "react-redux": "^7.2.6",
     "react-slick": "^0.28.1",
     "shortid": "^2.2.16",
@@ -43,6 +47,7 @@
     "@types/styled-components": "^5.1.24",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "babel-plugin-styled-components": "^2.0.6",
+    "concurrently": "^7.1.0",
     "eslint": "8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",

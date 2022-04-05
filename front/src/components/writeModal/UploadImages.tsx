@@ -1,8 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import * as U from './style';
 import { beforeUploadValidation, uploadButton } from '@lib/ModalUtil';
-import { Modal as ImgModal } from 'antd';
-import { UploadFile } from 'antd/lib/upload/interface';
+import { Modal as ImgModal, Upload } from 'antd';
+import { CustomDefaultFileList, UploadFile } from 'antd/lib/upload/interface';
 import axios from 'axios';
 import { CustomFile } from '@customTypes/post';
 import { useAppSelector } from '@store/hook';
@@ -13,35 +13,49 @@ interface UploadImagesProps {
 }
 
 const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) => {
+  const [uploadSuccess, setUploadSuccess] = useState('');
   const [uploadValidate, setUploadValidate] = useState(true);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
+  const [currentImageUrl, setCurrentImageUrl] = useState('');
   const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
+  const prevPostData = useAppSelector((state) => state.postSlice.prevPostData);
+
+  useEffect(() => {
+    prevPostData && setImageList(prevPostData.images);
+  }, []);
 
   const RequestUploadImage = async (file: File) => {
-    console.log(file);
     const fd = new FormData();
     fd.append('data', file);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}}`,
-      },
-    });
-    console.log(file);
-    setImageList([
-      ...imageList,
-      { file, imagePath: res.data[0], fileSize: file.size, origFileName: file.name },
-    ]);
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}}`,
+        },
+      });
+      setCurrentImageUrl(res.data[0]);
+      setImageList([
+        ...imageList,
+        { file, imagePath: res.data[0], fileSize: file.size, origFileName: file.name },
+      ]);
+      setUploadSuccess('ok');
+    } catch (e) {
+      console.log(e);
+      setUploadSuccess('error');
+    }
     return '';
   };
+  const uploadImage = async (options: any) => {
+    const { onSuccess, onError } = options;
+    uploadSuccess ? onSuccess('Ok') : onError('error');
+  };
 
-  const handlePreviewFile = async (file: File | Blob): Promise<string> =>
+  const handlePreviewFile = async (): Promise<string> =>
     await new Promise((resolve) => {
       if (uploadValidate) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result as string);
+        resolve(currentImageUrl);
       } else {
         resolve('');
       }
@@ -51,11 +65,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
     if (file) {
       let src = file.url;
       if (!src) {
-        src = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file.originFileObj as Blob);
-          reader.onload = () => resolve(reader.result as string);
-        });
+        src = currentImageUrl;
       }
       if (src !== undefined) {
         setPreviewTitle(file.name);
@@ -67,11 +77,18 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
     }
   };
 
-  const onRemove = (file: File) => {
-    const RemoveIdx = imageList.findIndex((el) => el.file === file);
-    console.log(RemoveIdx);
+  const onRemove = (file: UploadFile<unknown> | CustomDefaultFileList) => {
+    let RemoveIdx = imageList.findIndex(
+      (el) => el.imagePath === (file as CustomDefaultFileList).imagePath,
+    );
+    if (RemoveIdx === -1) {
+      RemoveIdx = imageList.findIndex(
+        (el) => el.imagePath === (file as UploadFile<unknown>).thumbUrl,
+      );
+    }
     setImageList(() => imageList.filter((el, idx) => idx !== RemoveIdx));
   };
+
   const handleCancel = () => setPreviewVisible(false);
   return (
     <>
@@ -80,15 +97,16 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
         beforeUpload={(file) => {
           const result = beforeUploadValidation(file);
           setUploadValidate(result);
-          return result;
+          return result === false ? Upload.LIST_IGNORE : true;
         }}
+        customRequest={uploadImage}
         action={RequestUploadImage}
         listType="picture-card"
         onPreview={handleOnPreview}
         previewFile={handlePreviewFile}
-        // onChange={({ file }) => onChangeImageList(file)}
+        defaultFileList={prevPostData?.images}
         onRemove={(file) => {
-          onRemove(file.originFileObj as File);
+          onRemove(file);
         }}
       >
         {imageList.length >= 5 ? null : uploadButton}

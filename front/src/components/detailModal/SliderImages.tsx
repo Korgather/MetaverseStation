@@ -13,7 +13,7 @@ const SliderImages = () => {
       {postData?.imageList &&
         postData?.imageList.map((item) => (
           <S.StyledImages key={shortid.generate()}>
-            <img src={item} alt="" />
+            <img src={item.imagePath} alt="" />
           </S.StyledImages>
         ))}
     </SliderFrame>

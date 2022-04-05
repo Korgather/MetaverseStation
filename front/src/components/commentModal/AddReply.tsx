@@ -1,10 +1,9 @@
 import React from 'react';
-import { addReply } from '@actions/post';
+import { addReply, loadPost } from '@actions/post';
 import { IComment, IReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
 import { FormikValues } from 'formik';
 import { useDispatch } from 'react-redux';
-import shortid from 'shortid';
 import * as S from './style';
 
 interface AddReplyProrp {
@@ -16,26 +15,20 @@ interface AddReplyProrp {
 
 const AddReply: React.FC<AddReplyProrp> = ({ formik, reply, comment, ToggleReplyInput }) => {
   const dispatch = useDispatch();
-  const me = useAppSelector((state) => state.userSlice.me);
-  console.log(formik);
-  const AddReplyFunc = () => {
-    const { commentid, postid, replyContent } = formik.values;
+  const postId = useAppSelector((state) => state.postSlice.dataForModal?.id);
+  const AddReplyFunc = async () => {
+    const { replyContent } = formik.values;
     const commentData = {
-      commentid: commentid,
-      postid: postid,
+      commentId: comment?.commentId,
       content: replyContent,
-      id: shortid.generate(),
-      User: me,
     };
     const replyData = {
-      commentid: reply?.commentid,
-      postid: reply?.postid,
+      commentId: reply?.commentId,
       content: replyContent,
-      id: shortid.generate(),
-      User: me,
     };
-    comment && dispatch(addReply(commentData));
-    reply && dispatch(addReply(replyData));
+    const data = comment ? commentData : reply && replyData;
+    data && (await dispatch(addReply(data)));
+    postId && (await dispatch(loadPost(postId)));
   };
 
   return (

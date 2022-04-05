@@ -3,27 +3,42 @@ import { IComment } from './comment';
 import { IPostUser, IUser } from './user';
 
 export interface CustomFile {
-  file: File;
+  file?: File;
   imagePath: string;
   fileSize: number;
   origFileName: string;
+  url?: string;
+  preview?: string;
+  thumbUrl?: string;
+}
+
+export interface IImageList {
+  origFileName: string;
+  imagePath: string;
+  fileSize: number;
 }
 export interface IPost {
   title?: string;
   content?: string;
   link?: string;
   category?: string;
-  id?: string;
+  id: number;
   tags?: string[];
-  imageList: string[];
+  imageList: IImageList[];
   postUser?: IPostUser;
   postCommentList: IComment[];
+  likeUserList: object;
+  view: number;
 }
 
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
   images?: Omit<CustomFile, 'file'>[];
-  author?: string;
-  AccessToken: string | null;
+  id?: string;
+}
+
+export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
+  images: CustomFile[];
+  id?: string;
 }
 
 export interface IPostState {
@@ -31,11 +46,14 @@ export interface IPostState {
   addPostLoading: boolean;
   addPostDone: boolean;
   addPostError: SerializedError | null;
-  addImageLoading: boolean;
-  addImageDone: boolean;
-  addImageError: SerializedError | null;
-  loadPostLoading: boolean;
-  loadPostError: SerializedError | null;
+  removePostLoading: boolean;
+  removePostDone: boolean;
+  removePostError: SerializedError | null;
+  updatePostLoading: boolean;
+  updatePostDone: boolean;
+  updatePostError: SerializedError | null;
+  loadPostsLoading: boolean;
+  loadPostsError: SerializedError | null;
   dataForModal: IPost | null;
   addCommentLoading: boolean;
   addCommentDone: boolean;
@@ -55,9 +73,17 @@ export interface IPostState {
   updateReplyLoading: boolean;
   updateReplyDone: boolean;
   updateReplyError: SerializedError | null;
-  addNestedReplyLoading: boolean;
-  addNestedReplyDone: boolean;
-  addNestedReplyError: SerializedError | null;
+  loadPostLoading: boolean;
+  loadPostDone: boolean;
+  loadPostError: SerializedError | null;
+  heartPostLoading: boolean;
+  heartPostDone: boolean;
+  heartPostError: SerializedError | null;
+  viewPostLoading: boolean;
+  viewPostDone: boolean;
+  viewPostError: SerializedError | null;
   pageNum: number;
   totalPages: number;
+  prevPostData: IPostDataForUpdate | null;
+  updateModalState: boolean;
 }

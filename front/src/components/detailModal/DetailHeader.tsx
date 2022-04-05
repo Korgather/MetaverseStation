@@ -1,24 +1,59 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { Menu, Dropdown, Button } from 'antd';
 import { closeModal } from '@lib/ModalUtil';
-import { IPost } from '@customTypes/post';
+import { IPost, IPostDataForUpdate } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
-import { useAppSelector } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { clearDataForModal, getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
+import modal from 'antd/lib/modal';
+import { loadPosts, removePost } from '@actions/post';
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
 }
 
 const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
+  const dispatch = useAppDispatch();
   const postData = useAppSelector((state) => state.postSlice.dataForModal);
+  const dataForUpdate = {
+    images: (postData as IPost).imageList.map((image) => ({
+      imagePath: image.imagePath,
+      origFileName: image.origFileName,
+      fileSize: image.fileSize,
+      url: image.imagePath,
+      uid: image.imagePath,
+    })),
+    link: postData?.link,
+    title: postData?.title,
+    content: postData?.content,
+    state: true,
+    id: postData?.id,
+  };
+  const openUpdateModal = () => {
+    dispatch(getPrevPostData(dataForUpdate));
+    closeModal(setDetailModalState);
+    dispatch(ToggleWriteModalState(true));
+    dispatch(clearDataForModal());
+  };
+
+  const onRemovePost = () => {
+    postData &&
+      modal.confirm({
+        title: '게시글을 삭제하시겠습니까?',
+        onOk: async function async() {
+          await dispatch(removePost(postData?.id));
+          await dispatch(loadPosts());
+        },
+      });
+  };
 
   const menu = (
     <Menu>
       <Menu.Item key={shortid.generate()}>
-        <a onClick={() => alert('수정하기 구현예정')}>수정하기</a>
+        <a onClick={openUpdateModal}>수정하기</a>
       </Menu.Item>
       <Menu.Item key={shortid.generate()}>
-        <a onClick={() => alert('삭제하기 구현예정')}>삭제하기</a>
+        <a onClick={onRemovePost}>삭제하기</a>
       </Menu.Item>
     </Menu>
   );
@@ -34,7 +69,14 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
           입장하기
         </S.EntnerButton>
       </S.StyledA>
-      <S.CloseModalBtn onClick={() => closeModal(setDetailModalState)}>x</S.CloseModalBtn>
+      <S.CloseModalBtn
+        onClick={() => {
+          dispatch(clearDataForModal());
+          closeModal(setDetailModalState);
+        }}
+      >
+        x
+      </S.CloseModalBtn>
     </S.HeaderWrapper>
   );
 };

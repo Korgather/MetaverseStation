@@ -1,6 +1,6 @@
 import React from 'react';
-import { removeComment, removeReply, updateComment, updateReply } from '@actions/post';
-import { IComment, IReply, IUpdateComment, IUpdateReply } from '@customTypes/comment';
+import { loadPost, removeComment, removeReply, updateComment, updateReply } from '@actions/post';
+import { IComment, IReply, TUpdateComment, TUpdateReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
 import modal from 'antd/lib/modal';
 import { FormikValues } from 'formik';
@@ -25,51 +25,45 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   formik,
   updateInputState,
 }) => {
-  const removeCommentLoading = useAppSelector((state) => state.postSlice.removeCommentLoading);
-  const removeCommentDone = useAppSelector((state) => state.postSlice.removeCommentDone);
   const me = useAppSelector((state) => state.userSlice.me);
+  const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
   const dispatch = useDispatch();
-  const RemoveCommentAndReply = () => {
-    modal.confirm({
-      title: '댓글을 삭제하시겠습니까?',
-      okButtonProps: {
-        loading: removeCommentLoading && !removeCommentDone,
-      },
-      onOk: function () {
-        comment ? dispatch(removeComment(comment)) : reply && dispatch(removeReply(reply));
-      },
-    });
+  const RemoveCommentAndReply = async () => {
+    dataForModal &&
+      modal.confirm({
+        title: '댓글을 삭제하시겠습니까?',
+        onOk: async function () {
+          comment
+            ? await dispatch(removeComment(comment))
+            : reply && (await dispatch(removeReply(reply.replyId)));
+          await dispatch(loadPost(dataForModal.id));
+        },
+      });
   };
 
-  const UpdateCommentAndReply = () => {
-    const { content, postid, commentid, replyid } = formik.values;
-    const commentdata: IUpdateComment = { content, postid, id: commentid };
-    const replydata: IUpdateReply = {
-      commentid: reply?.commentid,
+  const UpdateCommentAndReply = async () => {
+    const { content } = formik.values;
+    const commentdata: TUpdateComment = { content, commentId: comment?.commentId };
+    const replydata: TUpdateReply = {
+      replyId: reply?.replyId as number,
       content,
-      postid: reply?.postid,
-      id: replyid,
     };
-    console.log(commentdata);
-    console.log(replydata);
-    comment ? dispatch(updateComment(commentdata)) : reply && dispatch(updateReply(replydata));
+    comment
+      ? await dispatch(updateComment(commentdata))
+      : reply && (await dispatch(updateReply(replydata)));
+
+    dataForModal && dispatch(loadPost(dataForModal.id));
   };
 
   return (
     <S.ReplyBottom>
       <S.ReplyDate>
-        {reply ? reply.created_at : comment && generateBetweenTime(comment)}
+        {reply ? generateBetweenTime(reply) : comment && generateBetweenTime(comment)}
       </S.ReplyDate>
       <S.ReplyBtnWrapper>
         {me &&
           !updateInputState &&
-          ((
-            reply
-              ? reply.User?.userId === me.userId
-              : comment
-              ? comment.userId === me.userId
-              : false
-          ) ? (
+          ((reply ? reply.userId === me.userId : comment ? comment.userId === me.userId : false) ? (
             <>
               <S.StyledBtn onClick={ToggleUpdateInput}>수정</S.StyledBtn>
               <S.StyledBtn onClick={RemoveCommentAndReply}>삭제</S.StyledBtn>
@@ -80,11 +74,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
 
         {me &&
           updateInputState &&
-          (reply
-            ? reply.User?.userId === me.userId
-            : comment
-            ? comment.userId === me.userId
-            : false) && (
+          (reply ? reply.userId === me.userId : comment ? comment.userId === me.userId : false) && (
             <>
               <S.StyledBtn onClick={UpdateCommentAndReply} htmlType="button">
                 수정

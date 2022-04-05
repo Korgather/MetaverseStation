@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { getPageNum } from '@slices/postSlice';
-import { loadPost } from '@actions/post';
+import { loadPosts } from '@actions/post';
 
 const Pagination = () => {
   const dispatch = useAppDispatch();
   const totalPages = useAppSelector((state) => state.postSlice.totalPages);
   const onPageChange = (page: number, pageSize: number) => {
     dispatch(getPageNum(page - 1));
-    dispatch(loadPost());
+    dispatch(loadPosts());
   };
   return (
     <PaginationWrapper>

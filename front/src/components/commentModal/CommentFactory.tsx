@@ -23,16 +23,16 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
     initialValues: {
       content: '',
       postid: comment?.postid,
-      commentid: comment?.id,
+      commentId: comment?.id,
       replyContent: '',
       replyid: reply?.id,
     },
     onSubmit: (values: {
       content: string;
-      postid: string | undefined;
-      commentid: string | undefined;
+      postid: number | undefined;
+      commentId: number | undefined;
       replyContent: string | undefined;
-      replyid: string | undefined;
+      replyid: number | undefined;
     }) => {
       console.log('구현예정');
     },
