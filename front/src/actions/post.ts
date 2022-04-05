@@ -53,10 +53,7 @@ export const loadPost = createAsyncThunk('post/load', async (data: number, thunk
   return res.data;
 });
 
-export const loadPosts = createAsyncThunk('posts/load', async (data, thunkAPI) => {
-  const {
-    postSlice: { pageNum },
-  } = thunkAPI.getState() as { postSlice: IPostState };
+export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
@@ -66,7 +63,7 @@ export const loadPosts = createAsyncThunk('posts/load', async (data, thunkAPI) =
     },
     params: {
       size: 8,
-      page: pageNum,
+      page: Number(pageNum) - 1,
     },
   });
   thunkAPI.dispatch(getTotalPage(res.data.totalPages));
