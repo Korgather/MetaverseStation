@@ -1,4 +1,11 @@
-import { changeNickName, loadMyInfo, logOut } from '@actions/user';
+import {
+  changeNickName,
+  loadLikedPosts,
+  loadMyInfo,
+  loadMyPosts,
+  logOut,
+  updateProfile,
+} from '@actions/user';
 import { IUserState } from '@customTypes/user';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -12,7 +19,22 @@ export const initialState: IUserState = {
   changeNickNameLoading: false,
   changeNickNameDone: false,
   changeNickNameError: null,
+  updateProfileLoading: false,
+  updateProfileDone: false,
+  updateProfileError: null,
+  loadLikedPostsLoading: false,
+  loadLikedPostsDone: false,
+  loadLikedPostsError: null,
+  loadMyPostsLoading: false,
+  loadMyPostsDone: false,
+  loadMyPostsError: null,
   AccessToken: '',
+  myLikedPosts: null,
+  myPosts: null,
+  likedPostPageNum: 1,
+  likedPostTotalPages: 1,
+  myPostPageNum: 1,
+  myPostTotalPages: 1,
 };
 
 export const userSlice = createSlice({
@@ -21,6 +43,18 @@ export const userSlice = createSlice({
   reducers: {
     saveAccessToken: (state, action) => {
       state.AccessToken = action.payload;
+    },
+    getlikedPostPageNum: (state, action) => {
+      state.likedPostPageNum = action.payload;
+    },
+    getlikedPostTotalPages: (state, action) => {
+      state.likedPostTotalPages = action.payload;
+    },
+    getmyPostPageNum: (state, action) => {
+      state.myPostPageNum = action.payload;
+    },
+    getmyPostTotalPages: (state, action) => {
+      state.myPostTotalPages = action.payload;
     },
   },
   extraReducers: (builder) =>
@@ -62,7 +96,55 @@ export const userSlice = createSlice({
           state.changeNickNameLoading = false;
           state.changeNickNameError = action.error;
         },
-      ),
+      )
+      .addCase(updateProfile.pending, (state) => {
+        state.updateProfileLoading = true;
+      })
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.updateProfileLoading = false;
+      })
+      .addCase(
+        updateProfile.rejected,
+        (state, action: ReturnType<typeof updateProfile.rejected>) => {
+          state.updateProfileLoading = false;
+          state.updateProfileError = action.error;
+        },
+      )
+      .addCase(loadLikedPosts.pending, (state) => {
+        state.loadLikedPostsLoading = true;
+      })
+      .addCase(loadLikedPosts.fulfilled, (state, action) => {
+        state.loadLikedPostsLoading = false;
+        if (state.me !== null) {
+          state.myLikedPosts = action.payload;
+        }
+      })
+      .addCase(
+        loadLikedPosts.rejected,
+        (state, action: ReturnType<typeof loadLikedPosts.rejected>) => {
+          state.loadLikedPostsLoading = false;
+          state.loadLikedPostsError = action.error;
+        },
+      )
+      .addCase(loadMyPosts.pending, (state) => {
+        state.loadMyPostsLoading = true;
+      })
+      .addCase(loadMyPosts.fulfilled, (state, action) => {
+        state.loadMyPostsLoading = false;
+        if (state.me !== null) {
+          state.myPosts = action.payload;
+        }
+      })
+      .addCase(loadMyPosts.rejected, (state, action: ReturnType<typeof loadMyPosts.rejected>) => {
+        state.loadMyPostsLoading = false;
+        state.loadMyPostsError = action.error;
+      }),
 });
-export const { saveAccessToken } = userSlice.actions;
+export const {
+  saveAccessToken,
+  getlikedPostPageNum,
+  getlikedPostTotalPages,
+  getmyPostPageNum,
+  getmyPostTotalPages,
+} = userSlice.actions;
 export default userSlice.reducer;

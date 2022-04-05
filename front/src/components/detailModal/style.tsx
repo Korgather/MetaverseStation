@@ -1,5 +1,6 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { Bookmark } from 'src/svg';
 import styled from 'styled-components';
 
 interface IModal {
@@ -70,7 +71,6 @@ export const Modal = styled.div<IModal>`
   min-width: 325px;
   transition: right 100ms linear;
   display: flex;
-  align-items: center;
   flex-direction: column;
 `;
 
@@ -152,16 +152,11 @@ export const HeartAndMessageWrapper = styled.div`
 `;
 
 export const StyledSpan = styled.span`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  margin-left: 10px;
+  margin-right: auto;
+  margin-left: 8px;
   padding-bottom: 1px;
-`;
-
-export const CommentImg = styled.img`
-  margin-left: auto;
-  width: 1.5rem;
-  cursor: pointer;
 `;
 
 export const SlideWrapper = styled.section`
@@ -190,4 +185,14 @@ export const StyledImages = styled.div`
     height: 309px;
     object-fit: cover;
   }
+`;
+
+export const CommentImg = styled.img`
+  margin-left: auto;
+  width: 1.5rem;
+  cursor: pointer;
+`;
+
+export const StyledBookmark = styled(Bookmark)`
+  margin-left: auto;
 `;

@@ -1,43 +1,126 @@
+import { loadMyInfo, updateProfile } from '@actions/user';
 import { IUser } from '@customTypes/user';
-import { closeModal } from '@lib/ModalUtil';
-import { Button, Input } from 'antd';
+import { beforeUploadValidation, closeModal, uploadButton } from '@lib/ModalUtil';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { Button, Input, Upload } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import React, { Dispatch, SetStateAction } from 'react';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+
 import styled from 'styled-components';
 
 interface ProfileEditModalProps {
-  me?: IUser | null;
   setEditModalState: Dispatch<SetStateAction<boolean>>;
 }
 
 const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
-  me,
   setEditModalState,
 }) => {
+  const dispatch = useAppDispatch();
+  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
+  const me = useAppSelector((state) => state.userSlice.me);
+  const [uploadSuccess, setUploadSuccess] = useState('');
+  const [currentImg, setCurrentImg] = useState(me?.profileImageUrl);
+  const uploadImage = async (options: any) => {
+    const { onSuccess, onError } = options;
+    uploadSuccess ? onSuccess('Ok') : onError('error');
+  };
+  const RequestUploadImage = async (file: File) => {
+    const fd = new FormData();
+    fd.append('data', file);
+    try {
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/profileimage`, fd, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}}`,
+        },
+      });
+      setCurrentImg(res.data[0]);
+      setUploadSuccess('ok');
+    } catch (e) {
+      setUploadSuccess('error');
+    }
+    return '';
+  };
+  useEffect(() => {
+    formik.setValues((values) => ({ ...values, profileImageUrl: currentImg }));
+  }, [currentImg]);
+  const formik = useFormik({
+    initialValues: {
+      username: me?.userName,
+      bio: me?.bio,
+      profileImageUrl: me?.profileImageUrl,
+    },
+    onSubmit: async (values) => {
+      console.log(values);
+      await dispatch(updateProfile(values));
+      await dispatch(loadMyInfo());
+      setEditModalState(false);
+    },
+  });
+
   return (
-    <ModalWrapper>
-      <Dim onClick={() => closeModal(setEditModalState)} />
-      <Modal>
-        <ImgWrapper>
-          <StyledImg src={me?.profileImageUrl} />
-        </ImgWrapper>
-        <StyledP>닉네임</StyledP>
-        <StyledInput defaultValue={me?.userName}></StyledInput>
-        <StyledP>자기소개</StyledP>
-        <StyledTextArea rows={8} defaultValue={me?.introduce}></StyledTextArea>
-        <StyledButton type="primary">수정하기</StyledButton>
-      </Modal>
-    </ModalWrapper>
+    <form onSubmit={formik.handleSubmit}>
+      <ModalWrapper>
+        <Dim onClick={() => closeModal(setEditModalState)} />
+        <Modal>
+          <ImgWrapper>
+            <StyledUpload
+              customRequest={uploadImage}
+              action={RequestUploadImage}
+              name="avatar"
+              listType="picture-card"
+              className="avatar-uploader"
+              showUploadList={false}
+              beforeUpload={beforeUploadValidation}
+            >
+              {me?.profileImageUrl ? (
+                <img
+                  src={currentImg ? currentImg : me?.profileImageUrl}
+                  alt="avatar"
+                  style={{ width: '100%' }}
+                />
+              ) : (
+                uploadButton
+              )}
+            </StyledUpload>
+          </ImgWrapper>
+          <StyledP>닉네임</StyledP>
+          <StyledInput
+            id="username"
+            name="username"
+            onChange={formik.handleChange}
+            value={formik.values.username}
+          ></StyledInput>
+          <StyledP>자기소개</StyledP>
+          <StyledTextArea
+            rows={8}
+            id="bio"
+            name="bio"
+            onChange={formik.handleChange}
+            value={formik.values.bio}
+          ></StyledTextArea>
+          <StyledButton type="primary" htmlType="submit">
+            수정하기
+          </StyledButton>
+        </Modal>
+      </ModalWrapper>
+    </form>
   );
 };
 
 export default ProfileEditModal;
 
 const ImgWrapper = styled.div``;
-const StyledImg = styled.img`
-  border-radius: 50px;
-  width: 120px;
-  height: 120px;
+const StyledUpload = styled(Upload)`
+  img,
+  .ant-upload.ant-upload-select-picture-card {
+    border-radius: 500px !important;
+  }
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 const StyledP = styled.p`
   margin-right: auto;

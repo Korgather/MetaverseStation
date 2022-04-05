@@ -11,7 +11,7 @@ import WriteModal from '@components/writeModal/WriteModal';
 import DetailModal from '@components/detailModal/DetailModal';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
@@ -20,7 +20,9 @@ import cookies from 'next-cookies';
 import { saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
 const Home: NextPage = () => {
+  const router = useRouter();
   const [detailModalState, setDetailModalState] = useState(false);
+  const { id } = router.query;
   const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
@@ -44,7 +46,7 @@ const Home: NextPage = () => {
           <Category />
           <Postzone setDetailModalState={setDetailModalState} mainPosts={mainPosts} />
           <BottomWrapper>
-            <Pagination />
+            <Pagination pageNum={id as string} />
             <StyledButton onClick={openModal}>글쓰기</StyledButton>
           </BottomWrapper>
         </>
@@ -75,7 +77,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   }
   await store.dispatch(loadMyInfo());
   if (store.getState().userSlice.AccessToken !== null) {
-    await store.dispatch(loadPosts('1'));
+    if (ctx.params?.id != '1') {
+      await store.dispatch(loadPosts(ctx.params?.id as string));
+    }
   }
   return { props: {} };
 });

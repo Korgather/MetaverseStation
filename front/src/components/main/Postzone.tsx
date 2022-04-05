@@ -40,7 +40,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                     openModal(setDetailModalState);
                   }}
                 >
-                  {post.imageList[0] ? (
+                  {post.imageList[0].imagePath.length >= 20 ? (
                     <PostImg src={post.imageList[0].imagePath} />
                   ) : (
                     <PostImg src="images/thumbnail02.png" />

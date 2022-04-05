@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { getPageNum } from '@slices/postSlice';
-import { loadPosts } from '@actions/post';
+import Router from 'next/router';
 
-const Pagination = () => {
+const Pagination = ({ pageNum }: { pageNum?: string }) => {
   const dispatch = useAppDispatch();
   const totalPages = useAppSelector((state) => state.postSlice.totalPages);
-  const onPageChange = (page: number, pageSize: number) => {
+  const onPageChange = (page: number) => {
+    if (page === 1) {
+      return Router.push('/');
+    }
+    Router.push(`/${page}`);
     dispatch(getPageNum(page - 1));
-    dispatch(loadPosts());
   };
   return (
     <PaginationWrapper>
@@ -21,6 +24,7 @@ const Pagination = () => {
         onChange={onPageChange}
         defaultPageSize={8}
         total={totalPages * 8}
+        current={pageNum ? Number(pageNum) : 1}
       />
     </PaginationWrapper>
   );
