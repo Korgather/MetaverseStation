@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Head from 'next/head';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
@@ -10,6 +11,17 @@ import AppInner from '@components/AppInner';
 import { CookiesProvider } from 'react-cookie';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    async function loadCrate() {
+      const result = await import('@widgetbot/crate');
+      const Crate = await result.cdn();
+      new Crate({
+        server: '960814143588401152',
+        channel: '960814144045613068',
+      });
+    }
+    loadCrate();
+  }, []);
   return (
     <CookiesProvider>
       <Provider store={store}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { loadPost, removeComment, removeReply, updateComment, updateReply } from '@actions/post';
 import { IComment, IReply, TUpdateComment, TUpdateReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
@@ -15,6 +15,7 @@ interface BtnAndDate {
   ToggleUpdateInput: () => void;
   ToggleReplyInput: () => void;
   updateInputState: boolean;
+  setReplyInputState: Dispatch<SetStateAction<boolean>>;
 }
 
 const BtnAndDate: React.FC<BtnAndDate> = ({
@@ -24,10 +25,13 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   ToggleReplyInput,
   formik,
   updateInputState,
+  setReplyInputState,
 }) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
+  const updateCommentDone = useAppSelector((state) => state.postSlice.updateCommentDone);
   const dispatch = useDispatch();
+
   const RemoveCommentAndReply = async () => {
     dataForModal &&
       modal.confirm({
@@ -48,13 +52,22 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
       replyId: reply?.replyId as number,
       content,
     };
-    comment
-      ? await dispatch(updateComment(commentdata))
-      : reply && (await dispatch(updateReply(replydata)));
+    try {
+      comment
+        ? await dispatch(updateComment(commentdata))
+        : reply && (await dispatch(updateReply(replydata)));
 
-    dataForModal && dispatch(loadPost(dataForModal.id));
+      dataForModal && (await dispatch(loadPost(dataForModal.id)));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      ToggleUpdateInput();
+    }
   };
 
+  useEffect(() => {
+    updateCommentDone && setReplyInputState(false);
+  }, [updateCommentDone]);
   return (
     <S.ReplyBottom>
       <S.ReplyDate>

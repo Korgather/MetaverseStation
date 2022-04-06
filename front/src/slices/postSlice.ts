@@ -11,6 +11,7 @@ import {
   updateComment,
   updateReply,
   removePost,
+  searchPosts,
 } from '@actions/post';
 import { IComment } from '@customTypes/comment';
 import { IPost, IPostState } from '@customTypes/post';
@@ -61,6 +62,10 @@ const initialState: IPostState = {
   loadPostDone: false,
   loadPostError: null,
 
+  searchPostsLoading: false,
+  searchPostsDone: false,
+  searchPostsError: null,
+
   heartPostLoading: false,
   heartPostDone: false,
   heartPostError: null,
@@ -72,8 +77,11 @@ const initialState: IPostState = {
   dataForModal: null,
   pageNum: 0,
   totalPages: 1,
+  searchPageNum: 0,
+  searchTotalPages: 1,
   prevPostData: null,
   updateModalState: false,
+  searchKeyword: '',
 };
 
 export const postSlice = createSlice({
@@ -86,8 +94,17 @@ export const postSlice = createSlice({
     getTotalPage: (state, action) => {
       state.totalPages = action.payload;
     },
+    getSearchPageNum: (state, action) => {
+      state.searchPageNum = action.payload;
+    },
+    getSearchTotalPage: (state, action) => {
+      state.searchTotalPages = action.payload;
+    },
     getPrevPostData: (state, action) => {
       state.prevPostData = action.payload;
+    },
+    getSearchKeyword: (state, action) => {
+      state.searchKeyword = action.payload;
     },
     ToggleWriteModalState: (state, action) => {
       state.updateModalState = action.payload;
@@ -157,6 +174,17 @@ export const postSlice = createSlice({
       .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
         state.loadPostLoading = false;
         state.loadPostError = action.error;
+      })
+      .addCase(searchPosts.pending, (state) => {
+        state.searchPostsLoading = true;
+      })
+      .addCase(searchPosts.fulfilled, (state, action) => {
+        state.searchPostsLoading = false;
+        state.mainPosts = action.payload.content;
+      })
+      .addCase(searchPosts.rejected, (state, action: ReturnType<typeof searchPosts.rejected>) => {
+        state.searchPostsLoading = false;
+        state.searchPostsError = action.error;
       })
       .addCase(heartPost.pending, (state) => {
         state.heartPostLoading = true;
@@ -248,5 +276,8 @@ export const {
   getPrevPostData,
   ToggleWriteModalState,
   clearDataForModal,
+  getSearchPageNum,
+  getSearchTotalPage,
+  getSearchKeyword,
 } = postSlice.actions;
 export default postSlice.reducer;

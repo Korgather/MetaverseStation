@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import shortid from 'shortid';
 import CommentFactory from './CommentFactory';
 import { IComment } from '@customTypes/comment';
 import * as S from './style';
 const Reply = ({ comment }: { comment: IComment }) => {
   const [moreCommentView, setMoreCommentView] = useState(false);
-  const ToggleMoreCommentView = () => setMoreCommentView(true);
+  const ToggleMoreCommentView = () => {
+    setMoreCommentView(!moreCommentView);
+    console.log(moreCommentView);
+  };
 
   return (
     <S.ReplyWrapper>
@@ -42,6 +45,10 @@ const Reply = ({ comment }: { comment: IComment }) => {
             </S.ReplyContainer>
           </>
         ))
+      )}
+
+      {moreCommentView && (
+        <S.CloseMoreViewBtn onClick={ToggleMoreCommentView}>접기 ▲ </S.CloseMoreViewBtn>
       )}
     </S.ReplyWrapper>
   );

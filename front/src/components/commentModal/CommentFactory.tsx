@@ -7,7 +7,6 @@ import AddReply from './AddReply';
 import BtnAndDate from './BtnAndDate';
 import UpdateInput from './UpdateInput';
 interface CommentFactoryProps {
-  setUpdateInputState?: Dispatch<SetStateAction<boolean>>;
   reply?: IReply;
   comment?: IComment;
 }
@@ -22,23 +21,13 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
   const formik = useFormik({
     initialValues: {
       content: '',
-      postid: comment?.postid,
-      commentId: comment?.id,
-      replyContent: '',
-      replyid: reply?.id,
     },
-    onSubmit: (values: {
-      content: string;
-      postid: number | undefined;
-      commentId: number | undefined;
-      replyContent: string | undefined;
-      replyid: number | undefined;
-    }) => {
+    onSubmit: () => {
       console.log('구현예정');
     },
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <div>
       <S.ReplyInputWrapper>
         <UpdateInput
           formik={formik}
@@ -53,18 +42,15 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
           ToggleUpdateInput={ToggleUpdateInput}
           formik={formik}
           updateInputState={updateInputState}
+          setReplyInputState={setReplyInputState}
+          moreCommentView={moreCommentView}
         />
         {replyInputState && (
-          <AddReply
-            formik={formik}
-            reply={reply}
-            comment={comment}
-            ToggleReplyInput={ToggleReplyInput}
-          />
+          <AddReply reply={reply} comment={comment} ToggleReplyInput={ToggleReplyInput} />
         )}
       </S.ReplyInputWrapper>
       {contextHolder}
-    </form>
+    </div>
   );
 };
 

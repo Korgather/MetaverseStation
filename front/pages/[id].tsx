@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import AppLayout from '@components/AppLayout';
+import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';

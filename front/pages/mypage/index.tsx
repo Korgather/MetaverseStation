@@ -1,5 +1,5 @@
 import { loadLikedPosts, loadMyInfo, loadMyPosts } from '@actions/user';
-import AppLayout from '@components/AppLayout';
+import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModal from '@components/detailModal/DetailModal';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';

@@ -1,10 +1,11 @@
-import React, { ReactChildren, ReactChild } from 'react';
+import React, { ReactChildren, ReactChild, useState, useLayoutEffect, useEffect } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { logOut } from '@actions/user';
-import shortid from 'shortid';
+import { useRouter } from 'next/router';
+import ProfileDropdown from './ProfileDropdown';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -13,8 +14,10 @@ interface AuxProps {
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }: AuxProps) => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const me = useAppSelector((state) => state.userSlice.me);
+  const [selectedKeys, setSelectedKeys] = useState(['']);
   const logOutLoading = useAppSelector((state) => state.userSlice.logOutLoading);
   const logOutRequest = async () => {
     try {
@@ -24,34 +27,53 @@ const AppLayout = ({ children }: AuxProps) => {
       alert('실패');
     }
   };
-
+  const onSelect = ({ key }: { key: string }) => {
+    if (key === 'nav_gathertown') {
+      router.push('/');
+    }
+    if (key === 'nav_mypage') {
+      router.push('/mypage');
+    }
+  };
+  useLayoutEffect(() => {
+    if (router.pathname === '/') {
+      setSelectedKeys(['nav_gathertown']);
+    }
+    if (router.pathname === '/mypage') {
+      setSelectedKeys(['nav_mypage']);
+    }
+  }, []);
   return (
     <>
       <LayoutWrapper className="layout">
         <StyledLayout>
           <StyledHeader>
-            <div>
-              <img style={{ width: '35px' }} src="/images/Logo01.png" />
+            <div onClick={() => router.push('/')}>
+              <img style={{ width: '35px', cursor: 'pointer' }} src="/images/Logo01.png" />
             </div>
-            <MenuWrapper mode="horizontal" style={{ border: 'none', margin: '5px 0 0 30px' }}>
-              <Menu.Item key={shortid.generate()}>
-                <Link href="/">
-                  <a>GatherTown</a>
-                </Link>
-              </Menu.Item>
-              {me && (
-                <Menu.Item key={shortid.generate()}>
-                  <Link href="/mypage">
-                    <a>MyPage</a>
-                  </Link>
-                </Menu.Item>
-              )}
+            <MenuWrapper
+              selectedKeys={selectedKeys}
+              onSelect={({ key }) => onSelect({ key })}
+              mode="horizontal"
+              style={{ border: 'none', margin: '5px 0 0 30px' }}
+            >
+              <Menu.Item key="nav_gathertown">GatherTown</Menu.Item>
+              {me && <Menu.Item key="nav_mypage">MyPage</Menu.Item>}
             </MenuWrapper>
             <BtnWrapper>
               {me ? (
-                <StyledBtn htmlType="button" onClick={logOutRequest} loading={logOutLoading}>
-                  로그아웃
-                </StyledBtn>
+                // <StyledBtn htmlType="button" onClick={logOutRequest} loading={logOutLoading}>
+                //   로그아웃
+                // </StyledBtn>
+                <>
+                  {/* <Link href="/mypage">
+                    <UserName>{me.userName}</UserName>
+                  </Link> */}
+                  <ProfileDropdown />
+                  <Link href="/mypage">
+                    <ProfileImg src={me.profileImageUrl} alt="" />
+                  </Link>
+                </>
               ) : (
                 <Link href="/login">
                   <StyledBtn>로그인</StyledBtn>
@@ -70,6 +92,24 @@ const AppLayout = ({ children }: AuxProps) => {
 };
 
 export default AppLayout;
+
+const UserName = styled.div`
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  :hover {
+    color: #1890ff;
+  }
+  transition: color 0.2s ease-in;
+`;
+
+const ProfileImg = styled.img`
+  border-radius: 1000px;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  margin-left: 15px;
+`;
 
 const MenuWrapper = styled(Menu)`
   width: 50%;

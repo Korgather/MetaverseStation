@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -12,13 +12,13 @@ import DetailModal from '@components/detailModal/DetailModal';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
-import { loadPosts } from '@actions/post';
+import { loadPosts, searchPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
 import { loadMyInfo } from '@actions/user';
 import cookies from 'next-cookies';
 import { saveAccessToken } from '@slices/userSlice';
-import { ToggleWriteModalState } from '@slices/postSlice';
+import { getSearchKeyword, ToggleWriteModalState } from '@slices/postSlice';
 const Home: NextPage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
@@ -28,6 +28,7 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : Router.push('/login');
   };
+
   return (
     <>
       <Head>
@@ -75,7 +76,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   }
   await store.dispatch(loadMyInfo());
   if (store.getState().userSlice.AccessToken !== null) {
-    await store.dispatch(loadPosts('1'));
+    await store.dispatch(getSearchKeyword(ctx.params?.id as string));
+    await store.dispatch(searchPosts());
   }
   return { props: {} };
 });
