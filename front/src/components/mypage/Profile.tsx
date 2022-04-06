@@ -16,6 +16,7 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState 
         <ImgWrapper src={me?.profileImageUrl} />
         <ContentWrapper>
           <Title>{me?.userName}</Title>
+
           <Content>{me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
         </ContentWrapper>
         <ButtonWrapper>

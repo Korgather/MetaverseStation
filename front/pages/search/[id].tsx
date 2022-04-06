@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
-import AppLayout from '@components/AppLayout';
+import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
@@ -78,7 +78,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   if (store.getState().userSlice.AccessToken !== null) {
     await store.dispatch(getSearchKeyword(ctx.params?.id as string));
     await store.dispatch(searchPosts());
-    // await store.dispatch(searchPosts(ctx.params?.id as string));
   }
   return { props: {} };
 });

@@ -2,49 +2,60 @@ import React from 'react';
 import { addReply, loadPost } from '@actions/post';
 import { IComment, IReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
-import { FormikValues } from 'formik';
+import { FormikValues, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import * as S from './style';
 
 interface AddReplyProrp {
   reply?: IReply;
   comment?: IComment;
-  formik: FormikValues;
   ToggleReplyInput: () => void;
 }
 
-const AddReply: React.FC<AddReplyProrp> = ({ formik, reply, comment, ToggleReplyInput }) => {
+const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput }) => {
   const dispatch = useDispatch();
   const postId = useAppSelector((state) => state.postSlice.dataForModal?.id);
-  const AddReplyFunc = async () => {
-    const { replyContent } = formik.values;
-    const commentData = {
+  const formik = useFormik({
+    initialValues: {
+      content: '',
       commentId: comment?.commentId,
-      content: replyContent,
-    };
-    const replyData = {
-      commentId: reply?.commentId,
-      content: replyContent,
-    };
-    const data = comment ? commentData : reply && replyData;
-    data && (await dispatch(addReply(data)));
-    postId && (await dispatch(loadPost(postId)));
-  };
+    },
+    onSubmit: async (values) => {
+      const { content } = values;
+      const commentData = {
+        commentId: comment?.commentId,
+        content: content,
+      };
+      const replyData = {
+        commentId: reply?.commentId,
+        content: content,
+      };
+      const data = comment ? commentData : reply && replyData;
+      try {
+        data && (await dispatch(addReply(data)));
+        postId && (await dispatch(loadPost(postId)));
+      } catch (e) {
+        console.error(e);
+      } finally {
+        ToggleReplyInput();
+      }
+    },
+  });
 
   return (
-    <>
+    <form onSubmit={formik.handleSubmit}>
       <S.StyledTextArea
-        name="replyContent"
-        id="replyContent"
+        name="content"
+        id="content"
         onChange={formik.handleChange}
-        value={formik.values.replyContent}
+        value={formik.values.content}
         large={reply ? false : comment ? true : false}
       />
       <S.MoreRelpyBtnWrapper>
         <S.StyledBtn onClick={ToggleReplyInput}>취소</S.StyledBtn>
-        <S.StyledBtn onClick={AddReplyFunc}>등록</S.StyledBtn>
+        <S.StyledBtn htmlType="submit">등록</S.StyledBtn>
       </S.MoreRelpyBtnWrapper>
-    </>
+    </form>
   );
 };
 

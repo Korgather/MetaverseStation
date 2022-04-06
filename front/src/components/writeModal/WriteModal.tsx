@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Input } from 'antd';
 import { useFormik } from 'formik';
 import UploadImages from './UploadImages';

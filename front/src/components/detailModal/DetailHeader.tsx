@@ -7,7 +7,7 @@ import shortid from 'shortid';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { clearDataForModal, getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import modal from 'antd/lib/modal';
-import { loadPosts, removePost } from '@actions/post';
+import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
 interface DetailHeaderProps {
   setDetailModalState: Dispatch<SetStateAction<boolean>>;

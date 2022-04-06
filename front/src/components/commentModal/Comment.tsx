@@ -8,16 +8,16 @@ import * as S from './style';
 const Comment = () => {
   const Comments = useAppSelector((state) => state.postSlice.dataForModal?.postCommentList);
   return (
-    <S.CommentWrapper key={shortid.generate()}>
+    <S.CommentWrapper>
       {Comments?.map((comment) => (
         <div key={comment.id}>
-          <S.CommentContainer key={shortid.generate()}>
+          <S.CommentContainer>
             <S.PromfileImg large src={comment.profileImageUrl} />
             <S.ContentAndBottomWrapper>
-              <CommentFactory comment={comment} key={shortid.generate()} />
+              <CommentFactory comment={comment} />
             </S.ContentAndBottomWrapper>
           </S.CommentContainer>
-          <Reply key={shortid.generate()} comment={comment} />
+          <Reply comment={comment} />
         </div>
       ))}
     </S.CommentWrapper>

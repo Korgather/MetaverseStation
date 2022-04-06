@@ -105,6 +105,9 @@ const ImgWrapper = styled.div`
   width: 340px;
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-bottom: 10px;
+
   @media screen and (max-width: 1650px) {
     width: 17vw;
   }
