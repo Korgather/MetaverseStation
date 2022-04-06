@@ -1,9 +1,8 @@
-import React, { ReactChildren, ReactChild, useState, useLayoutEffect, useEffect } from 'react';
+import React, { ReactChildren, ReactChild, useState, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '@store/hook';
-import { logOut } from '@actions/user';
+import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import ProfileDropdown from './ProfileDropdown';
 
@@ -15,18 +14,8 @@ const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }: AuxProps) => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const me = useAppSelector((state) => state.userSlice.me);
   const [selectedKeys, setSelectedKeys] = useState(['']);
-  const logOutLoading = useAppSelector((state) => state.userSlice.logOutLoading);
-  const logOutRequest = async () => {
-    try {
-      await dispatch(logOut());
-    } catch (e) {
-      console.error(e);
-      alert('실패');
-    }
-  };
   const onSelect = ({ key }: { key: string }) => {
     if (key === 'nav_gathertown') {
       router.push('/');
@@ -62,13 +51,7 @@ const AppLayout = ({ children }: AuxProps) => {
             </MenuWrapper>
             <BtnWrapper>
               {me ? (
-                // <StyledBtn htmlType="button" onClick={logOutRequest} loading={logOutLoading}>
-                //   로그아웃
-                // </StyledBtn>
                 <>
-                  {/* <Link href="/mypage">
-                    <UserName>{me.userName}</UserName>
-                  </Link> */}
                   <ProfileDropdown />
                   <Link href="/mypage">
                     <ProfileImg src={me.profileImageUrl} alt="" />
@@ -92,16 +75,6 @@ const AppLayout = ({ children }: AuxProps) => {
 };
 
 export default AppLayout;
-
-const UserName = styled.div`
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  :hover {
-    color: #1890ff;
-  }
-  transition: color 0.2s ease-in;
-`;
 
 const ProfileImg = styled.img`
   border-radius: 1000px;

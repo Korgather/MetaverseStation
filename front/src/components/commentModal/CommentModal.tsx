@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CommentInput from './CommentInput';
 import Comment from './Comment';
 import * as C from './style';

@@ -2,7 +2,7 @@ import { Button } from 'antd';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '@store/hook';
+import { useAppSelector } from '@store/hook';
 import Router from 'next/router';
 
 const redirectUrl =

@@ -1,6 +1,6 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { IComment } from './comment';
-import { IPostUser, IUser } from './user';
+import { IPostUser } from './user';
 
 export interface CustomFile {
   file?: File;

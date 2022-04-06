@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import shortid from 'shortid';
 import CommentFactory from './CommentFactory';
 import { IComment } from '@customTypes/comment';

@@ -1,5 +1,4 @@
 import { loadMyInfo, updateProfile } from '@actions/user';
-import { IUser } from '@customTypes/user';
 import { beforeUploadValidation, closeModal, uploadButton } from '@lib/ModalUtil';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input, Upload } from 'antd';
