@@ -25,7 +25,7 @@ export const changeNickName = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
+    await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
       params: {
         userName: data,
       },
@@ -33,9 +33,6 @@ export const changeNickName = createAsyncThunk(
         Authorization: `Bearer ${AccessToken}`,
       },
     });
-
-    console.log(res);
-    return data;
   },
 );
 
@@ -51,6 +48,52 @@ export const updateProfile = createAsyncThunk(
       },
     });
     return res.data;
+  },
+);
+
+export const loadAuthorLikedPosts = createAsyncThunk(
+  'authorLikedPosts/load',
+  async (userId: number, thunkAPI) => {
+    const {
+      userSlice: { likedPostPageNum },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+      params: {
+        size: 8,
+        page: likedPostPageNum - 1,
+      },
+    });
+    thunkAPI.dispatch(getlikedPostTotalPages(res.data.totalPages));
+    return res.data.content;
+  },
+);
+
+export const loadAuthorPosts = createAsyncThunk(
+  'authorPosts/load',
+  async (userId: number, thunkAPI) => {
+    const {
+      userSlice: { myPostPageNum },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/userid/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+      params: {
+        size: 8,
+        page: myPostPageNum - 1,
+      },
+    });
+    thunkAPI.dispatch(getmyPostTotalPages(res.data.totalPages));
+    return res.data.content;
   },
 );
 

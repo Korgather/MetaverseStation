@@ -25,7 +25,7 @@ export interface IPost {
   id: number;
   tags?: string[];
   imageList: IImageList[];
-  postUser?: IPostUser;
+  postUser: IPostUser;
   postCommentList: IComment[];
   likeUserList: object;
   view: number;
@@ -34,6 +34,7 @@ export interface IPost {
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
   images?: Omit<CustomFile, 'file'>[];
   id?: string;
+  category?: string;
 }
 
 export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
