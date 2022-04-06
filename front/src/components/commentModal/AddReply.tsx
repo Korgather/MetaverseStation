@@ -2,7 +2,7 @@ import React from 'react';
 import { addReply, loadPost } from '@actions/post';
 import { IComment, IReply } from '@customTypes/comment';
 import { useAppSelector } from '@store/hook';
-import { FormikValues, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import * as S from './style';
 

@@ -1,5 +1,4 @@
 import { SerializedError } from '@reduxjs/toolkit';
-import { string } from 'yup';
 import { IPost } from './post';
 
 export interface IUser {

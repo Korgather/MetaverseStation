@@ -1,5 +1,4 @@
 import React from 'react';
-import shortid from 'shortid';
 import Reply from './Reply';
 import CommentFactory from './CommentFactory';
 import { useAppSelector } from '@store/hook';

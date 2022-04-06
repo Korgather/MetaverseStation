@@ -1,4 +1,3 @@
-import { IPost } from '@customTypes/post';
 import { useAppSelector } from '@store/hook';
 import React from 'react';
 import shortid from 'shortid';

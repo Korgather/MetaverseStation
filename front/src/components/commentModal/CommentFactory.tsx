@@ -1,5 +1,5 @@
 import { IComment, IReply } from '@customTypes/comment';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { useFormik } from 'formik';
 import * as S from './style';
@@ -43,7 +43,6 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
           formik={formik}
           updateInputState={updateInputState}
           setReplyInputState={setReplyInputState}
-          moreCommentView={moreCommentView}
         />
         {replyInputState && (
           <AddReply reply={reply} comment={comment} ToggleReplyInput={ToggleReplyInput} />

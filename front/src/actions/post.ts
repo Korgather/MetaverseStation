@@ -149,7 +149,7 @@ export const updateComment = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.put(
+    await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/comments/${data?.commentId}`,
       { content: data?.content },
       {
