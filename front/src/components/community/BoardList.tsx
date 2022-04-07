@@ -1,39 +1,34 @@
 import { HeartFilled } from '@ant-design/icons';
-import React from 'react';
+import { useAppSelector } from '@store/hook';
+import React, { useEffect, useRef } from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
+import parse from 'html-react-parser';
+import { removeHtml } from '@lib/removeHtml';
 
 const BoardList = () => {
-  const dummy = {
-    title: 'Title',
-    content:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, dolores est. Distinctio culpa sapiente repellat natus velit, sed porro tempora rerum pariatur cupiditate, libero illo vero dolorum, possimus ipsam eius.',
-    username: 'Eungwang',
-    time: '5시간 전',
-    commentNum: '2',
-    likeNum: '2',
-  };
-  const dummmyArr = [1, 2, 3, 4, 5].map(() => dummy);
+  const mainComPosts = useAppSelector((state) => state.communitySlice.mainCommunityPosts);
 
   return (
     <>
-      {dummmyArr.map((dummyData) => (
+      {mainComPosts?.map((post) => (
         <BoardListContainer key={shortid.generate()}>
           <FirstContainer>
-            <Title>{dummyData.title}</Title>
-            <Content>{dummyData.content.slice(0, 150)}...</Content>
+            <Title>{post?.title}</Title>
+            {/* <Content ref={test}>{parse(post.content as string)}</Content> */}
+            <Content>{removeHtml(post?.content as string).slice(0, 100)}...</Content>
             <NameAndTime>
-              {dummyData.username} · {dummyData.time}
+              {post.postUser.username} · {post.createdDate.slice(0, 10)}
             </NameAndTime>
           </FirstContainer>
           <SecondContainer>
             <CommentBox>
-              <div>{dummyData.commentNum}</div>
+              <div>{post.postCommentList.length}</div>
               <div>댓글</div>
             </CommentBox>
             <LikedBox>
               <HeartFilled style={{ fontSize: '1rem', color: '#eb3f96' }} />
-              <span>{dummyData.likeNum}</span>
+              <span>{Object.keys(post.likeUserList).length}</span>
             </LikedBox>
           </SecondContainer>
         </BoardListContainer>
@@ -50,9 +45,14 @@ const BoardListContainer = styled.div`
   margin-top: 20px;
   border-bottom: 1.5px solid #c9cccf;
   padding: 20px 0;
+  width: 100%;
+  word-break: break-all;
 `;
 const FirstContainer = styled.div`
   flex: 8;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 `;
 const SecondContainer = styled.div`
   align-items: center;
@@ -82,7 +82,7 @@ const Title = styled.div`
   font-size: 1.3rem;
   font-weight: 700;
 `;
-const Content = styled.div`
+const Content = styled.p`
   font-size: 0.9rem;
   margin-top: 10px;
   font-weight: 600;
