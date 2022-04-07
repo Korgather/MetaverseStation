@@ -14,10 +14,33 @@ export interface IUser {
   roleType?: string;
   emailVerifiedYn?: string;
   userNameModifiedYn: string;
+  bio?: string;
 }
 
-export interface IPostUser extends Pick<IUser, 'profileImageUrl' | 'email' | 'roleType'> {
+export interface IAuthorInfo {
+  bio: string;
+  profileImageUrl: string;
   username: string;
+  userId: number;
+}
+
+export interface IAuthor {
+  info: IAuthorInfo;
+  likedPosts: IPost[];
+  myPosts: IPost[];
+}
+
+export interface IPostUser extends Pick<IUser, 'email' | 'roleType'> {
+  username: string;
+  userId: string;
+  bio: string;
+  profileImageUrl: string;
+}
+
+export interface IupdateProfile {
+  username: string | undefined;
+  bio: string | undefined;
+  profileImageUrl: string | undefined;
 }
 
 export interface IUserState {
@@ -30,5 +53,29 @@ export interface IUserState {
   changeNickNameLoading: boolean;
   changeNickNameDone: boolean;
   changeNickNameError: SerializedError | null;
+  updateProfileLoading: boolean;
+  updateProfileDone: boolean;
+  updateProfileError: SerializedError | null;
+  loadLikedPostsLoading: boolean;
+  loadLikedPostsDone: boolean;
+  loadLikedPostsError: SerializedError | null;
+  loadMyPostsLoading: boolean;
+  loadMyPostsDone: boolean;
+  loadMyPostsError: SerializedError | null;
+  loadAuthorLikedPostsLoading: boolean;
+  loadAuthorLikedPostsDone: boolean;
+  loadAuthorLikedPostsError: SerializedError | null;
+  loadAuthorPostsLoading: boolean;
+  loadAuthorPostsDone: boolean;
+  loadAuthorPostsError: SerializedError | null;
   AccessToken: string | null;
+  myLikedPosts: IPost[] | null;
+  myPosts: IPost[] | null;
+  authorLikedPosts: IPost[] | null;
+  authorPosts: IPost[] | null;
+  likedPostPageNum: number;
+  likedPostTotalPages: number;
+  myPostPageNum: number;
+  myPostTotalPages: number;
+  authorInfo: IAuthorInfo | null;
 }

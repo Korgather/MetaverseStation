@@ -1,4 +1,3 @@
-import { IPost } from '@customTypes/post';
 import { useAppSelector } from '@store/hook';
 import React from 'react';
 import shortid from 'shortid';
@@ -6,7 +5,7 @@ import SliderFrame from './SliderFrame';
 import * as S from './style';
 
 const SliderImages = () => {
-  const postData = useAppSelector((state) => state.postSlice.dataForModal);
+  const postData = useAppSelector((state) => state.postSlice.postDetail);
 
   return (
     <SliderFrame>

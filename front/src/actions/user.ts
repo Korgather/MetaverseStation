@@ -1,17 +1,7 @@
-import { IUser, IUserState } from '@customTypes/user';
-import { generateDummyPost } from '@lib/generateDummyData';
+import { IupdateProfile, IUserState } from '@customTypes/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import userSlice, { saveAccessToken } from '@slices/userSlice';
+import { getlikedPostTotalPages, getmyPostTotalPages } from '@slices/userSlice';
 import axios from 'axios';
-import faker from 'faker';
-
-// const dummyUser: IUser = {
-//   username: "eungwang",
-//   userId: "eungwang",
-//   profileImageUrl: faker.image.cats(),
-//   postList: generateDummyPost(8, 5),
-//   introduce: faker.lorem.paragraph(),
-// };
 
 export const logOut = createAsyncThunk('user/logOut', async () => {
   localStorage.setItem('me', '');
@@ -35,7 +25,7 @@ export const changeNickName = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
+    await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
       params: {
         userName: data,
       },
@@ -43,8 +33,109 @@ export const changeNickName = createAsyncThunk(
         Authorization: `Bearer ${AccessToken}`,
       },
     });
-
-    console.log(res);
-    return data;
   },
 );
+
+export const updateProfile = createAsyncThunk(
+  'user/updateProfile',
+  async (data: IupdateProfile, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/profile`, data, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+    return res.data;
+  },
+);
+
+export const loadAuthorLikedPosts = createAsyncThunk(
+  'authorLikedPosts/load',
+  async (userId: number, thunkAPI) => {
+    const {
+      userSlice: { likedPostPageNum },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+      params: {
+        size: 8,
+        page: likedPostPageNum - 1,
+      },
+    });
+    thunkAPI.dispatch(getlikedPostTotalPages(res.data.totalPages));
+    return res.data.content;
+  },
+);
+
+export const loadAuthorPosts = createAsyncThunk(
+  'authorPosts/load',
+  async (userId: number, thunkAPI) => {
+    const {
+      userSlice: { myPostPageNum },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/userid/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+      params: {
+        size: 8,
+        page: myPostPageNum - 1,
+      },
+    });
+    thunkAPI.dispatch(getmyPostTotalPages(res.data.totalPages));
+    return res.data.content;
+  },
+);
+
+export const loadLikedPosts = createAsyncThunk(
+  'likedPosts/load',
+  async (userId: number, thunkAPI) => {
+    const {
+      userSlice: { likedPostPageNum },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+      params: {
+        size: 8,
+        page: likedPostPageNum - 1,
+      },
+    });
+    thunkAPI.dispatch(getlikedPostTotalPages(res.data.totalPages));
+    return res.data.content;
+  },
+);
+
+export const loadMyPosts = createAsyncThunk('myPosts/load', async (userId: number, thunkAPI) => {
+  const {
+    userSlice: { myPostPageNum },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/userid/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}}`,
+    },
+    params: {
+      size: 8,
+      page: myPostPageNum - 1,
+    },
+  });
+  thunkAPI.dispatch(getmyPostTotalPages(res.data.totalPages));
+  return res.data.content;
+});

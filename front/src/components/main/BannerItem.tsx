@@ -30,7 +30,7 @@ const items: itemsProps[] = [
 function BannerItem() {
   return (
     <BannerFrame>
-      {items.map((item, index) => (
+      {items.map((item) => (
         <SliderItem key={shortid.generate()}>
           <a href={item.link} target="_blank" rel="noreferrer">
             <img src={item.item} alt={item.name} />

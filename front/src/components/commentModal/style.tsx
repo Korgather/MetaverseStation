@@ -147,6 +147,18 @@ export const MoreViewBtn = styled.div`
   }
   padding-bottom: 5px;
 `;
+export const CloseMoreViewBtn = styled.div`
+  font-size: 0.7rem;
+  margin-left: auto;
+  margin-right: 10px;
+  margin-top: 0 !important;
+  color: #188fffa1;
+  cursor: pointer;
+  :hover {
+    color: #1890ff;
+  }
+  padding-bottom: 5px;
+`;
 
 export const ReplyContainer = styled.div<ReplyContainer>`
   display: flex;

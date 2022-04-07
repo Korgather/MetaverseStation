@@ -1,23 +1,22 @@
 import React from 'react';
-import shortid from 'shortid';
 import Reply from './Reply';
 import CommentFactory from './CommentFactory';
 import { useAppSelector } from '@store/hook';
 import * as S from './style';
 
 const Comment = () => {
-  const Comments = useAppSelector((state) => state.postSlice.dataForModal?.postCommentList);
+  const Comments = useAppSelector((state) => state.postSlice.postDetail?.postCommentList);
   return (
     <S.CommentWrapper>
       {Comments?.map((comment) => (
         <div key={comment.id}>
-          <S.CommentContainer key={shortid.generate()}>
+          <S.CommentContainer>
             <S.PromfileImg large src={comment.profileImageUrl} />
             <S.ContentAndBottomWrapper>
-              <CommentFactory comment={comment} key={shortid.generate()} />
+              <CommentFactory comment={comment} />
             </S.ContentAndBottomWrapper>
           </S.CommentContainer>
-          <Reply key={shortid.generate()} comment={comment} />
+          <Reply comment={comment} />
         </div>
       ))}
     </S.CommentWrapper>

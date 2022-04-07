@@ -1,4 +1,4 @@
-import { IUser } from '@customTypes/user';
+import { IAuthorInfo, IUser } from '@customTypes/user';
 import { openModal } from '@lib/ModalUtil';
 import { Button } from 'antd';
 import React, { Dispatch, SetStateAction } from 'react';
@@ -7,21 +7,24 @@ import styled from 'styled-components';
 interface ProfileProps {
   me?: IUser | null;
   setEditModalState: Dispatch<SetStateAction<boolean>>;
+  authorInfo?: IAuthorInfo | null;
 }
 
-const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState }) => {
+const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState, authorInfo }) => {
   return (
     <>
       <ProfileWrapper>
         <ImgWrapper src={me?.profileImageUrl} />
         <ContentWrapper>
           <Title>{me?.userName}</Title>
-          <Content>{me?.introduce ? me.introduce : '소개를 입력해주세요.'}</Content>
+          <Content>{me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
         </ContentWrapper>
         <ButtonWrapper>
-          <Button onClick={() => openModal(setEditModalState)} htmlType="button">
-            프로필 수정
-          </Button>
+          {!authorInfo && (
+            <Button onClick={() => openModal(setEditModalState)} htmlType="button">
+              프로필 수정
+            </Button>
+          )}
         </ButtonWrapper>
       </ProfileWrapper>
     </>

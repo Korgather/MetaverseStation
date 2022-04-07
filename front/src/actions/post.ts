@@ -3,7 +3,7 @@ import axios from 'axios';
 import { IComment, TUpdateComment, TUpdateReply, TAddComment } from '@customTypes/comment';
 import { AddPost, IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';
-import { getTotalPage } from '@slices/postSlice';
+import { getSearchTotalPage, getTotalPage } from '@slices/postSlice';
 
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
   const {
@@ -21,7 +21,7 @@ export const removePost = createAsyncThunk('post/remove', async (postId: number,
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+  await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     headers: {
       Authorization: `Bearer ${AccessToken}}`,
     },
@@ -40,22 +40,40 @@ export const updatePost = createAsyncThunk('post/update', async (data: AddPost, 
   return res.data;
 });
 
-export const loadPost = createAsyncThunk('post/load', async (data: number, thunkAPI) => {
+export const loadPost = createAsyncThunk('post/load', async (postId: number, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data}`, {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     headers: {
       Authorization: `Bearer ${AccessToken}}`,
     },
   });
-  console.log(res.data);
   return res.data;
 });
 
-export const loadPosts = createAsyncThunk('posts/load', async (data, thunkAPI) => {
+export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, thunkAPI) => {
   const {
-    postSlice: { pageNum },
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}}`,
+    },
+    params: {
+      category: '',
+      keyword: '',
+      size: 8,
+      page: Number(pageNum) - 1,
+    },
+  });
+  thunkAPI.dispatch(getTotalPage(res.data.totalPages));
+  return res.data;
+});
+
+export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAPI) => {
+  const {
+    postSlice: { searchPageNum, searchKeyword },
   } = thunkAPI.getState() as { postSlice: IPostState };
   const {
     userSlice: { AccessToken },
@@ -65,11 +83,12 @@ export const loadPosts = createAsyncThunk('posts/load', async (data, thunkAPI) =
       Authorization: `Bearer ${AccessToken}}`,
     },
     params: {
+      keyword: searchKeyword,
       size: 8,
-      page: pageNum,
+      page: searchPageNum - 1,
     },
   });
-  thunkAPI.dispatch(getTotalPage(res.data.totalPages));
+  thunkAPI.dispatch(getSearchTotalPage(res.data.totalPages));
   return res.data;
 });
 
@@ -130,7 +149,7 @@ export const updateComment = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.put(
+    await axios.put(
       `${process.env.NEXT_PUBLIC_API_URL}/comments/${data?.commentId}`,
       { content: data?.content },
       {
@@ -146,7 +165,6 @@ export const addReply = createAsyncThunk('reply/add', async (data: TUpdateCommen
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  console.log(data);
   await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}/comments/${data.commentId}`,
     { content: data.content },

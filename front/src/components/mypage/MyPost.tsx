@@ -1,29 +1,49 @@
-import React, { Dispatch, SetStateAction } from 'react';
-import { Row, Col, Button } from 'antd';
-import styled from 'styled-components';
-import { openModal } from '@lib/ModalUtil';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Row } from 'antd';
 import { IPost } from '@customTypes/post';
-import { useAppDispatch } from '@store/hook';
-import shortid from 'shortid';
-import { loadPost } from '@actions/post';
+import { useAppSelector } from '@store/hook';
+import MyPagination from './MyPagination';
+import * as S from './style';
+import MyPostFactory from './MyPostFactory';
+
 interface MyPostProps {
   myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
 }
 
-const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState, myPosts }) => {
-  const dispatch = useAppDispatch();
-
-  const loadPostId = (data: IPost) => {
-    dispatch(loadPost(data.id));
+const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) => {
+  const myLikedPosts = useAppSelector((state) => state.userSlice.myLikedPosts);
+  const myPosts = useAppSelector((state) => state.userSlice.myPosts);
+  const [myLikedPostsState, setMyLikedPostsState] = useState(false);
+  const [myPostsState, setMyPostsState] = useState(true);
+  const showLikedPosts = () => {
+    setMyLikedPostsState(true);
+    setMyPostsState(false);
   };
+  const showMyPosts = () => {
+    setMyLikedPostsState(false);
+    setMyPostsState(true);
+  };
+
   return (
     <>
-      <MyPostWrapper>
-        <ButtonWrapper>
-          <StyledBtn>내가 쓴 글</StyledBtn>
-          <StyledBtn>북마크</StyledBtn>
-        </ButtonWrapper>
+      <S.MyPostWrapper>
+        <S.ButtonWrapper>
+          <S.StyledBtn
+            onClick={() => showMyPosts()}
+            htmlType="button"
+            isactive={myPostsState.toString()}
+          >
+            내가 쓴 글
+          </S.StyledBtn>
+          <S.StyledBtn
+            onClick={() => showLikedPosts()}
+            htmlType="button"
+            isactive={myLikedPostsState.toString()}
+          >
+            좋아요 누른 글
+          </S.StyledBtn>
+        </S.ButtonWrapper>
         <Row
           justify="start"
           gutter={[
@@ -31,61 +51,16 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState, myP
             { xs: 4, sm: 8, md: 16, lg: 24 },
           ]}
         >
-          {myPosts &&
-            myPosts.map((post, i) => (
-              <Col key={shortid.generate()} xs={24} md={12} lg={8} xl={6} style={{}}>
-                <PostImg
-                  onClick={() => {
-                    post && loadPostId(post);
-                    openModal(setDetailModalState);
-                  }}
-                  src={post.imageList && post.imageList[0].imagePath}
-                />
-              </Col>
-            ))}
+          {myLikedPostsState ? (
+            <MyPostFactory Posts={myLikedPosts} setDetailModalState={setDetailModalState} />
+          ) : (
+            <MyPostFactory Posts={myPosts} setDetailModalState={setDetailModalState} />
+          )}
         </Row>
-      </MyPostWrapper>
+      </S.MyPostWrapper>
+      <MyPagination myLikedPostsState={myLikedPostsState} />
     </>
   );
 };
 
 export default MyPost;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 15px;
-`;
-const StyledBtn = styled(Button)`
-  + button {
-    margin-left: 10px;
-  }
-`;
-
-const PostImg = styled.img`
-  transform: scale(1);
-  transition: all 0.3s ease-in-out;
-  width: 340px;
-  cursor: pointer;
-  border-radius: 10px;
-  @media screen and (max-width: 1650px) {
-    width: 17vw;
-  }
-  @media screen and (max-width: 1200px) {
-    width: 22vw;
-  }
-  @media screen and (max-width: 992px) {
-    width: 32vw;
-  }
-  @media screen and (max-width: 768px) {
-    width: 70vw;
-  }
-  :hover {
-    transform: scale(1.1);
-  }
-`;
-
-const MyPostWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;

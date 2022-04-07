@@ -1,6 +1,6 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { IComment } from './comment';
-import { IPostUser, IUser } from './user';
+import { IPostUser } from './user';
 
 export interface CustomFile {
   file?: File;
@@ -25,15 +25,17 @@ export interface IPost {
   id: number;
   tags?: string[];
   imageList: IImageList[];
-  postUser?: IPostUser;
+  postUser: IPostUser;
   postCommentList: IComment[];
   likeUserList: object;
   view: number;
+  createdDate: string;
 }
 
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
   images?: Omit<CustomFile, 'file'>[];
   id?: string;
+  category?: string;
 }
 
 export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
@@ -54,7 +56,7 @@ export interface IPostState {
   updatePostError: SerializedError | null;
   loadPostsLoading: boolean;
   loadPostsError: SerializedError | null;
-  dataForModal: IPost | null;
+  postDetail: IPost | null;
   addCommentLoading: boolean;
   addCommentDone: boolean;
   addCommentError: SerializedError | null;
@@ -76,6 +78,9 @@ export interface IPostState {
   loadPostLoading: boolean;
   loadPostDone: boolean;
   loadPostError: SerializedError | null;
+  searchPostsLoading: boolean;
+  searchPostsDone: boolean;
+  searchPostsError: SerializedError | null;
   heartPostLoading: boolean;
   heartPostDone: boolean;
   heartPostError: SerializedError | null;
@@ -84,6 +89,9 @@ export interface IPostState {
   viewPostError: SerializedError | null;
   pageNum: number;
   totalPages: number;
+  searchPageNum: number;
+  searchTotalPages: number;
   prevPostData: IPostDataForUpdate | null;
+  searchKeyword: string;
   updateModalState: boolean;
 }

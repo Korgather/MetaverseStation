@@ -1,13 +1,14 @@
-import React, { useState, useCallback, Dispatch, SetStateAction, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Input } from 'antd';
 import { useFormik } from 'formik';
 import UploadImages from './UploadImages';
 import * as Yup from 'yup';
 import { CustomFile, IPost } from '@customTypes/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { addPost, loadPosts, updatePost } from '@actions/post';
+import { addPost, updatePost } from '@actions/post';
 import * as S from './style';
 import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
+import { useRouter } from 'next/router';
 
 const { TextArea } = Input;
 interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCommentList'> {
@@ -18,6 +19,7 @@ const WriteModal = () => {
   const dispatch = useAppDispatch();
   const [gatherState, setGatherState] = useState(false);
   const [zepState, setZepState] = useState(false);
+  const router = useRouter();
   const [category, setCategory] = useState('');
   const [imageList, setImageList] = useState<CustomFile[]>([]);
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
@@ -27,7 +29,10 @@ const WriteModal = () => {
       .min(2, '2글자 이상 입력해주세요')
       .max(50, '제목이 너무 길어요')
       .required('제목은 필수입니다.'),
-    link: Yup.string().url('올바른 링크를 입력해주세요').required('링크는 필수입니다.'),
+    link: Yup.string()
+      .url('올바른 링크를 입력해주세요')
+      .required('링크는 필수입니다.')
+      .matches(/gather.town/g, 'gather.town이 포함된 링크만 유효합니다.'),
     content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
     images: Yup.array().min(1, '이미지를 1개 이상 등록해주세요.'),
   });
@@ -50,13 +55,16 @@ const WriteModal = () => {
         origFileName,
         fileSize,
       }));
-      console.log(values.images);
       const { images, link, title, content, id } = values;
+      if (!category) {
+        alert('카테고리를 선택해주세요');
+        return;
+      }
 
       prevPostData
-        ? await dispatch(updatePost({ link, title, content, images, id }))
-        : await dispatch(addPost({ link, title, content, images }));
-      await dispatch(loadPosts());
+        ? await dispatch(updatePost({ link, title, content, images, id, category }))
+        : await dispatch(addPost({ link, title, content, images, category }));
+      router.push('/');
       dispatch(ToggleWriteModalState(false));
       dispatch(getPrevPostData(null));
     },
@@ -80,12 +88,12 @@ const WriteModal = () => {
       if (name === 'gather') {
         setGatherState(true);
         setZepState(false);
-        setCategory('gathertown');
+        setCategory('METAVERSE_GATHERTOWN');
       }
       if (name === 'zep') {
         setGatherState(false);
         setZepState(true);
-        setCategory('zep');
+        setCategory('METAVERSE_ZEP');
       }
     },
     [gatherState, zepState],
