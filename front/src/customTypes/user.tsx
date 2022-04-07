@@ -17,8 +17,24 @@ export interface IUser {
   bio?: string;
 }
 
-export interface IPostUser extends Pick<IUser, 'profileImageUrl' | 'email' | 'roleType'> {
+export interface IAuthorInfo {
+  bio: string;
+  profileImageUrl: string;
   username: string;
+  userId: number;
+}
+
+export interface IAuthor {
+  info: IAuthorInfo;
+  likedPosts: IPost[];
+  myPosts: IPost[];
+}
+
+export interface IPostUser extends Pick<IUser, 'email' | 'roleType'> {
+  username: string;
+  userId: string;
+  bio: string;
+  profileImageUrl: string;
 }
 
 export interface IupdateProfile {
@@ -46,11 +62,20 @@ export interface IUserState {
   loadMyPostsLoading: boolean;
   loadMyPostsDone: boolean;
   loadMyPostsError: SerializedError | null;
+  loadAuthorLikedPostsLoading: boolean;
+  loadAuthorLikedPostsDone: boolean;
+  loadAuthorLikedPostsError: SerializedError | null;
+  loadAuthorPostsLoading: boolean;
+  loadAuthorPostsDone: boolean;
+  loadAuthorPostsError: SerializedError | null;
   AccessToken: string | null;
   myLikedPosts: IPost[] | null;
   myPosts: IPost[] | null;
+  authorLikedPosts: IPost[] | null;
+  authorPosts: IPost[] | null;
   likedPostPageNum: number;
   likedPostTotalPages: number;
   myPostPageNum: number;
   myPostTotalPages: number;
+  authorInfo: IAuthorInfo | null;
 }
