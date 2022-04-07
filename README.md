@@ -9,6 +9,9 @@
 - 웹 서비스에 대한 개요
   - MetaverseStation은 회원들이 서로 자신의 메타버스 공간을 공유할 수 있는 커뮤니티입니다.
 
+- 레이아웃 구상
+  - https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
+
 
 ## 2. 주요 기능 (구현예정)
 - OAUTH로그인 (카카오,네이버,구글)
