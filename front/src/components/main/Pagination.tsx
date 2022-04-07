@@ -12,7 +12,6 @@ const Pagination = ({ pageNum }: { pageNum?: string }) => {
   const searchState = router.pathname.indexOf('search') > -1;
   const searchPageNum = useAppSelector((state) => state.postSlice.searchPageNum);
   const searchTotalPages = useAppSelector((state) => state.postSlice.searchTotalPages);
-  console.log(searchState);
   const totalPages = useAppSelector((state) => state.postSlice.totalPages);
   const onPageChange = (page: number) => {
     if (searchState) {

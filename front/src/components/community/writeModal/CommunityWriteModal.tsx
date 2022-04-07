@@ -17,12 +17,11 @@ const WriteModal = () => {
   const [questionState, setQuestionState] = useState(false);
   const [freeState, setFreeState] = useState(false);
   const [studyState, setStudyState] = useState(false);
-
+  const pathIndex = router.pathname.lastIndexOf('/');
+  const pathName = router.pathname.slice(0, pathIndex);
   const onChangeContent = (content: string) => {
     setContent(content);
   };
-  const pathIndex = router.pathname.lastIndexOf('/');
-  const pathName = router.pathname.slice(0, pathIndex);
 
   const PostSchema = Yup.object().shape({
     title: Yup.string()

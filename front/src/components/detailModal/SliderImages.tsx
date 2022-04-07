@@ -5,7 +5,7 @@ import SliderFrame from './SliderFrame';
 import * as S from './style';
 
 const SliderImages = () => {
-  const postData = useAppSelector((state) => state.postSlice.dataForModal);
+  const postData = useAppSelector((state) => state.postSlice.postDetail);
 
   return (
     <SliderFrame>

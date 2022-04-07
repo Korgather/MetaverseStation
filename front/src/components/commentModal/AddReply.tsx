@@ -14,7 +14,7 @@ interface AddReplyProrp {
 
 const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput }) => {
   const dispatch = useDispatch();
-  const postId = useAppSelector((state) => state.postSlice.dataForModal?.id);
+  const postId = useAppSelector((state) => state.postSlice.postDetail?.id);
   const formik = useFormik({
     initialValues: {
       content: '',

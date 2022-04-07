@@ -76,10 +76,10 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-  if (store.getState().userSlice.AccessToken !== null) {
-    if (ctx.params?.id != '1') {
-      await store.dispatch(loadPosts(ctx.params?.id as string));
-    }
+
+  if (ctx.params?.id != '1') {
+    await store.dispatch(loadPosts(ctx.params?.id as string));
   }
+
   return { props: {} };
 });

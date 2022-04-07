@@ -29,6 +29,7 @@ export interface IPost {
   postCommentList: IComment[];
   likeUserList: object;
   view: number;
+  createdDate: string;
 }
 
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
@@ -55,7 +56,7 @@ export interface IPostState {
   updatePostError: SerializedError | null;
   loadPostsLoading: boolean;
   loadPostsError: SerializedError | null;
-  dataForModal: IPost | null;
+  postDetail: IPost | null;
   addCommentLoading: boolean;
   addCommentDone: boolean;
   addCommentError: SerializedError | null;

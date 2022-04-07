@@ -9,7 +9,6 @@ const redirectUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
     : 'https://metaverse-station-hzetmxtep-eungwang1.vercel.app';
-console.log(redirectUrl);
 
 const GoogleUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=${redirectUrl}/oauth/redirect`;
 

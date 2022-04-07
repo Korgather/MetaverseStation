@@ -11,7 +11,6 @@ const ProfileDropdown = () => {
   const dispatch = useAppDispatch();
 
   const onSelect = async ({ key }: { key: string }) => {
-    console.log(key);
     if (key === 'pro_mypage') {
       router.push('/mypage');
     }

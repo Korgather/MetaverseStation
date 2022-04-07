@@ -40,16 +40,15 @@ export const updatePost = createAsyncThunk('post/update', async (data: AddPost, 
   return res.data;
 });
 
-export const loadPost = createAsyncThunk('post/load', async (data: number, thunkAPI) => {
+export const loadPost = createAsyncThunk('post/load', async (postId: number, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data}`, {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     headers: {
       Authorization: `Bearer ${AccessToken}}`,
     },
   });
-  console.log(res.data);
   return res.data;
 });
 
@@ -62,6 +61,7 @@ export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, 
       Authorization: `Bearer ${AccessToken}}`,
     },
     params: {
+      category: '',
       keyword: '',
       size: 8,
       page: Number(pageNum) - 1,
@@ -165,7 +165,6 @@ export const addReply = createAsyncThunk('reply/add', async (data: TUpdateCommen
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  console.log(data);
   await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}/comments/${data.commentId}`,
     { content: data.content },

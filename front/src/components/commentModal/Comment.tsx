@@ -5,7 +5,7 @@ import { useAppSelector } from '@store/hook';
 import * as S from './style';
 
 const Comment = () => {
-  const Comments = useAppSelector((state) => state.postSlice.dataForModal?.postCommentList);
+  const Comments = useAppSelector((state) => state.postSlice.postDetail?.postCommentList);
   return (
     <S.CommentWrapper>
       {Comments?.map((comment) => (

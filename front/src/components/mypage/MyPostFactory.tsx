@@ -27,7 +27,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
                 openModal(setDetailModalState);
               }}
             >
-              {post.imageList[0].imagePath.length >= 20 ? (
+              {post.imageList[0]?.imagePath.length >= 20 ? (
                 <S.PostImg src={post.imageList[0].imagePath} />
               ) : (
                 <S.PostImg src="images/thumbnail02.png" />

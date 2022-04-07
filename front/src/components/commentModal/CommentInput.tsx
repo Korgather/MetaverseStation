@@ -10,16 +10,16 @@ const CommentInput = () => {
   const dispatch = useAppDispatch();
   const addCommentLoading = useAppSelector((state) => state.postSlice.addCommentLoading);
   const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
-  const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
+  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
 
   const formik = useFormik({
     initialValues: {
       content: '',
-      postid: dataForModal?.id,
+      postid: postDetail?.id,
     },
     onSubmit: async (values) => {
       await dispatch(addComment(values));
-      dataForModal && (await dispatch(loadPost(dataForModal.id)));
+      postDetail && (await dispatch(loadPost(postDetail.id)));
     },
   });
   useEffect(() => {

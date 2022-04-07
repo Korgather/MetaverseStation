@@ -75,9 +75,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-  if (store.getState().userSlice.AccessToken !== null) {
-    await store.dispatch(getSearchKeyword(ctx.params?.id as string));
-    await store.dispatch(searchPosts());
-  }
+
+  await store.dispatch(getSearchKeyword(ctx.params?.id as string));
+  await store.dispatch(searchPosts());
+
   return { props: {} };
 });

@@ -74,7 +74,7 @@ const ContentBoxLayout = styled.div`
   flex-direction: column;
 `;
 
-const Title = styled.div`
+const Title = styled.h1`
   font-weight: 700;
   font-size: 1.9rem;
 `;
@@ -105,7 +105,7 @@ const Date = styled.div`
   font-size: 0.9rem;
 `;
 
-const Content = styled.div`
+const Content = styled.p`
   margin-top: 50px;
   font-size: 0.9rem;
 `;

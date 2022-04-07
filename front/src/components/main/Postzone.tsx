@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { openModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
-import shortid from 'shortid';
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { loadPost, viewPost } from '@actions/post';
 interface PostzoneProps {
@@ -15,8 +14,6 @@ interface PostzoneProps {
 const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState, mainPosts }) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
-    console.log(data);
-    console.log(data.id);
     await dispatch(viewPost(data.id));
     await dispatch(loadPost(data.id));
   };

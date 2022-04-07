@@ -16,9 +16,6 @@ const MyPagination = ({ myLikedPostsState }: MyPaginationProps) => {
   const likedPostTotalPages = useAppSelector((state) => state.userSlice.likedPostTotalPages);
   const myPostPageNum = useAppSelector((state) => state.userSlice.myPostPageNum);
   const myPostTotalPages = useAppSelector((state) => state.userSlice.myPostTotalPages);
-  useEffect(() => {
-    console.log(myLikedPostsState);
-  }, [myLikedPostsState]);
   const onPageChange = (page: number) => {
     if (myLikedPostsState) {
       dispatch(getlikedPostPageNum(page));

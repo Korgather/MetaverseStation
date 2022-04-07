@@ -74,7 +74,7 @@ const initialState: IPostState = {
   viewPostDone: false,
   viewPostError: null,
 
-  dataForModal: null,
+  postDetail: null,
   pageNum: 0,
   totalPages: 1,
   searchPageNum: 0,
@@ -112,8 +112,8 @@ export const postSlice = createSlice({
         ? (document.body.style.overflow = 'hidden')
         : (document.body.style.overflow = 'unset');
     },
-    clearDataForModal: (state) => {
-      state.dataForModal = null;
+    clearpostDetail: (state) => {
+      state.postDetail = null;
     },
   },
   extraReducers: (builder) =>
@@ -169,7 +169,7 @@ export const postSlice = createSlice({
       })
       .addCase(loadPost.fulfilled, (state, action) => {
         state.loadPostLoading = false;
-        state.dataForModal = action.payload;
+        state.postDetail = action.payload;
       })
       .addCase(loadPost.rejected, (state, action: ReturnType<typeof loadPost.rejected>) => {
         state.loadPostLoading = false;
@@ -275,7 +275,7 @@ export const {
   getTotalPage,
   getPrevPostData,
   ToggleWriteModalState,
-  clearDataForModal,
+  clearpostDetail,
   getSearchPageNum,
   getSearchTotalPage,
   getSearchKeyword,
