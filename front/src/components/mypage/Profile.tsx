@@ -1,4 +1,4 @@
-import { IAuthorInfo, IUser } from '@customTypes/user';
+import { IUser } from '@customTypes/user';
 import { openModal } from '@lib/ModalUtil';
 import { useAppSelector } from '@store/hook';
 import { Button } from 'antd';

@@ -13,9 +13,8 @@ import {
   removePost,
   searchPosts,
 } from '@actions/post';
-import { IComment } from '@customTypes/comment';
-import { IPost, IPostState } from '@customTypes/post';
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IPostState } from '@customTypes/post';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: IPostState = {
   mainPosts: [],

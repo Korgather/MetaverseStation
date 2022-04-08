@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Row } from 'antd';
 import { IPost } from '@customTypes/post';
 import { useAppSelector } from '@store/hook';
@@ -143,7 +143,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
           <BlankBox />
         </ContentWrapper>
       </S.MyPostWrapper>
-      <MyPagination myLikedPostsState={myLikedPostsState} />
+      <MyPagination />
     </>
   );
 };

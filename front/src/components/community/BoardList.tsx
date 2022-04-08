@@ -1,6 +1,6 @@
 import { HeartFilled } from '@ant-design/icons';
 import { useAppSelector } from '@store/hook';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
 import { removeHtml } from '@lib/removeHtml';

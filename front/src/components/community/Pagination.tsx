@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
-import { useAppDispatch, useAppSelector } from '@store/hook';
+import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 
 const Pagination = () => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
   const category =
     router.pathname.indexOf('question') > -1

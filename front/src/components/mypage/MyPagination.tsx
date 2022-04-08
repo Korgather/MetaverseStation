@@ -1,9 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
-import { useAppDispatch, useAppSelector } from '@store/hook';
-import { getlikedPostPageNum, getmyPostPageNum } from '@slices/userSlice';
-import { loadLikedPosts, loadMyPosts } from '@actions/user';
+import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 
 const MyPagination = () => {
