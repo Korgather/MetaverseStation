@@ -7,6 +7,8 @@ import { useRouter } from 'next/router';
 import ProfileDropdown from './ProfileDropdown';
 import { BellOutlined } from '@ant-design/icons';
 import Alram from './Alram';
+import WriteModal from '@components/writeModal/WriteModal';
+import DetailModal from '@components/detailModal/DetailModal';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -16,6 +18,8 @@ const { Header, Content, Footer } = Layout;
 
 const AppLayout = ({ children }: AuxProps) => {
   const router = useRouter();
+  const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
+  const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const me = useAppSelector((state) => state.userSlice.me);
   const [selectedKeys, setSelectedKeys] = useState(['']);
   const onSelect = ({ key }: { key: string }) => {
@@ -36,6 +40,8 @@ const AppLayout = ({ children }: AuxProps) => {
   }, []);
   return (
     <>
+      {updateModalState && <WriteModal />}
+      {detailModalState && <DetailModal />}
       <LayoutWrapper className="layout">
         <StyledLayout>
           <StyledHeader>

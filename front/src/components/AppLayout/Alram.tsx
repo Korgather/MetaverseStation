@@ -1,6 +1,7 @@
 import { loadPost } from '@actions/post';
 import { BellOutlined, DownOutlined } from '@ant-design/icons';
 import { IPost } from '@customTypes/post';
+import { ToggleDetailState } from '@slices/postSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Dropdown, Menu } from 'antd';
 import Router from 'next/router';
@@ -14,9 +15,12 @@ const Alram = () => {
     const postIdx = key.indexOf('_');
     const postId = key.slice(0, postIdx);
     console.log(postId);
+    const openDetailModal = async () => {
+      dispatch(ToggleDetailState(true));
+    };
     const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
     postData.category && postData.category?.indexOf('METAVERSE') > -1
-      ? console.log('meta')
+      ? openDetailModal()
       : Router.push(`/community/post/${postId}`);
   };
   const alram = useAppSelector((state) => state.userSlice.me?.notificationResponseDtoList);
