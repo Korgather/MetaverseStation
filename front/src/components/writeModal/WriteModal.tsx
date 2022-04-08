@@ -29,10 +29,8 @@ const WriteModal = () => {
       .min(2, '2글자 이상 입력해주세요')
       .max(50, '제목이 너무 길어요')
       .required('제목은 필수입니다.'),
-    link: Yup.string()
-      .url('올바른 링크를 입력해주세요')
-      .required('링크는 필수입니다.')
-      .matches(/gather.town/g, 'gather.town이 포함된 링크만 유효합니다.'),
+    link: Yup.string().url('올바른 링크를 입력해주세요').required('링크는 필수입니다.'),
+    // .matches(/gather.town/g, 'gather.town이 포함된 링크만 유효합니다.'),
     content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
     images: Yup.array().min(1, '이미지를 1개 이상 등록해주세요.'),
   });

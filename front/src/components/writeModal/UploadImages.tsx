@@ -42,7 +42,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
       ]);
       setUploadSuccess('ok');
     } catch (e) {
-      console.log(e);
       setUploadSuccess('error');
     }
     return '';

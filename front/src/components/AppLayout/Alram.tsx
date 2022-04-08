@@ -14,7 +14,6 @@ const Alram = () => {
   const onSelect = async ({ key }: { key: string }) => {
     const postIdx = key.indexOf('_');
     const postId = key.slice(0, postIdx);
-    console.log(postId);
     const openDetailModal = async () => {
       dispatch(ToggleDetailState(true));
     };
@@ -37,13 +36,11 @@ const Alram = () => {
         개
       </StyledMenuItem>
       <Menu.Divider />
+
       {alram?.map((message) => (
-        <>
-          <StyledMenuItem
-            key={`${message.postId}_${shortid.generate()}`}
-          >{`"${message.postTitle.slice(0, 10)}..." 게시글에 답변이 달렸습니다.`}</StyledMenuItem>
-          <Menu.Divider />
-        </>
+        <StyledMenuItem
+          key={`${message.postId}_${shortid.generate()}`}
+        >{`"${message.postTitle.slice(0, 10)}..." 게시글에 답변이 달렸습니다.`}</StyledMenuItem>
       ))}
 
       <StyledMenuItem
@@ -62,7 +59,7 @@ const Alram = () => {
   );
   return (
     <MessageWrapper>
-      <StyledDropdown overlay={menu} arrow={false} placement="topRight">
+      <StyledDropdown key={shortid.generate()} overlay={menu} arrow={false} placement="topRight">
         <a
           className="ant-dropdown-link"
           onClick={(e) => e.preventDefault()}

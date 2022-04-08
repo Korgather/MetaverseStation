@@ -15,7 +15,6 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
   const [updateState, setUpdateState] = useState(false);
   const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(content);
     e.preventDefault();
     setContent(e.target.value);
   };
@@ -24,7 +23,6 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       content,
       commentId,
     };
-    console.log(updateData);
     postDetail &&
       modal.confirm({
         title: '댓글을 수정하시겠습니까?',

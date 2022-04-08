@@ -35,14 +35,12 @@ const Reply = ({ comment }: { comment: IComment }) => {
       ) : (
         comment.postCommentReplyList &&
         comment.postCommentReplyList.map((reply) => (
-          <>
-            <S.ReplyContainer key={shortid.generate()}>
-              <S.PromfileImg src={reply.profileImageUrl} />
-              <S.ContentAndBottomWrapper>
-                <CommentFactory reply={reply} />
-              </S.ContentAndBottomWrapper>
-            </S.ReplyContainer>
-          </>
+          <S.ReplyContainer key={shortid.generate()}>
+            <S.PromfileImg src={reply.profileImageUrl} />
+            <S.ContentAndBottomWrapper>
+              <CommentFactory reply={reply} />
+            </S.ContentAndBottomWrapper>
+          </S.ReplyContainer>
         ))
       )}
 

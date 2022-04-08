@@ -23,7 +23,6 @@ interface IComSearch {
 export const loadComPosts = createAsyncThunk(
   'comPosts/load',
   async (data: IloadComPosts, thunkAPI) => {
-    console.log(data);
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
