@@ -1,8 +1,9 @@
-import { loadAuthorLikedPosts, loadAuthorPosts, loadMyInfo } from '@actions/user';
+import { loadLikedPosts, loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModal from '@components/detailModal/DetailModal';
-import MyPost from '@components/user/MyPost';
-import Profile from '@components/user/Profile';
+import MyPost from '@components/mypage/MyPost';
+import Profile from '@components/mypage/Profile';
+import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
 import { IAuthorInfo } from '@customTypes/user';
 import { getAuthorInfo, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
@@ -10,25 +11,27 @@ import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import cookies from 'next-cookies';
-import { useRouter } from 'next/router';
-
-import React, { useState } from 'react';
+import Router from 'next/router';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
-  const authorInfo = useAppSelector((state) => state.userSlice.authorInfo);
+  const author = useAppSelector((state) => state.userSlice.authorInfo);
   const [editModalState, setEditModalState] = useState(false);
-  const router = useRouter();
-  console.log(router);
+  useEffect(() => {
+    if (!author) Router.push('/');
+  }, []);
+
   return (
     <>
       {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
+      {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
         <>
-          {authorInfo && (
+          {author && (
             <StyledLayout>
-              <Profile authorInfo={authorInfo} setEditModalState={setEditModalState} />
+              <Profile author={author} setEditModalState={setEditModalState} />
               <MyPost setDetailModalState={setDetailModalState} />
             </StyledLayout>
           )}
@@ -61,8 +64,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(loadMyInfo());
   await store.dispatch(getAuthorInfo(ctx.query as unknown as IAuthorInfo));
   await store.dispatch(
-    loadAuthorLikedPosts(store.getState().userSlice.authorInfo?.userId as number),
+    loadMyPosts({
+      userId: store.getState().userSlice.authorInfo?.userId as number,
+      pageNum: ctx.query.page as string,
+      category: 'METAVERSE',
+      keyword: ctx.query.search as string,
+      filter: ctx.query.filter as string,
+    }),
   );
-  await store.dispatch(loadAuthorPosts(store.getState().userSlice.authorInfo?.userId as number));
   return { props: {} };
 });

@@ -45,6 +45,11 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                 </div>
               </ImgWrapper>
               <Summary>
+                {post.category === 'METAVERSE_ZEP' ? (
+                  <Logo src="../../images/zepLogo.png" />
+                ) : (
+                  <Logo src="../../images/gatherLogo.png" />
+                )}
                 <Title>
                   {post.title && post.title?.length >= 15
                     ? `${post.title?.slice(0, 15)}...`
@@ -65,6 +70,11 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
 };
 
 export default Postzone;
+
+const Logo = styled.img`
+  margin-right: 10px;
+  height: 2rem;
+`;
 
 const Title = styled.div`
   font-size: 1rem;
@@ -135,4 +145,5 @@ const PostImg = styled.img`
 const Summary = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;

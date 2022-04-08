@@ -1,13 +1,15 @@
-import { logOut } from '@actions/user';
 import { DownOutlined } from '@ant-design/icons';
+import { logOut } from '@slices/userSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Dropdown, Menu } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useCookies } from 'react-cookie';
 
 const ProfileDropdown = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const router = useRouter();
+  const setCookie = useCookies(['Token'])[1];
   const dispatch = useAppDispatch();
 
   const onSelect = async ({ key }: { key: string }) => {
@@ -16,8 +18,8 @@ const ProfileDropdown = () => {
     }
     if (key === 'pro_logout') {
       try {
-        await dispatch(logOut());
-        router.push('/login');
+        setCookie('Token', '');
+        dispatch(logOut());
       } catch (e) {
         console.error(e);
       }

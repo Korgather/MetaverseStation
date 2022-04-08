@@ -10,6 +10,7 @@ export const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 15px;
+  margin-left: 9.5%;
 `;
 export const StyledBtn = styled(Button)<isactive>`
   + button {
@@ -24,24 +25,10 @@ export const StyledBtn = styled(Button)<isactive>`
 `;
 
 export const ImgWrapper = styled.div`
-  width: 340px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin-bottom: 10px;
-
-  @media screen and (max-width: 1650px) {
-    width: 17vw;
-  }
-  @media screen and (max-width: 1200px) {
-    width: 22vw;
-  }
-  @media screen and (max-width: 992px) {
-    width: 32vw;
-  }
-  @media screen and (max-width: 768px) {
-    width: 70vw;
-  }
 `;
 
 export const PostImg = styled.img`

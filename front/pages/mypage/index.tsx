@@ -61,7 +61,14 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-  await store.dispatch(loadLikedPosts(store.getState().userSlice.me?.userId as number));
-  await store.dispatch(loadMyPosts(store.getState().userSlice.me?.userId as number));
+  await store.dispatch(
+    loadMyPosts({
+      userId: store.getState().userSlice.me?.userId as number,
+      pageNum: ctx.query.page as string,
+      category: 'METAVERSE',
+      keyword: ctx.query.search as string,
+      filter: ctx.query.filter as string,
+    }),
+  );
   return { props: {} };
 });

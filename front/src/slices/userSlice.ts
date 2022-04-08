@@ -5,7 +5,6 @@ import {
   loadLikedPosts,
   loadMyInfo,
   loadMyPosts,
-  logOut,
   updateProfile,
 } from '@actions/user';
 import { IAuthorInfo, IUserState } from '@customTypes/user';
@@ -85,20 +84,13 @@ export const userSlice = createSlice({
     clearAuthorInfo: (state) => {
       state.authorInfo = null;
     },
+    logOut: (state) => {
+      state.AccessToken = null;
+      state.me = null;
+    },
   },
   extraReducers: (builder) =>
     builder
-      .addCase(logOut.pending, (state) => {
-        state.logOutLoading = true;
-      })
-      .addCase(logOut.fulfilled, (state) => {
-        state.logOutLoading = false;
-        state.me = null;
-      })
-      .addCase(logOut.rejected, (state, action: ReturnType<typeof logOut.rejected>) => {
-        state.logOutLoading = false;
-        state.logOutError = action.error;
-      })
       .addCase(loadMyInfo.pending, (state) => {
         state.loadMyInfoLoading = true;
       })
@@ -158,7 +150,8 @@ export const userSlice = createSlice({
       .addCase(loadMyPosts.fulfilled, (state, action) => {
         state.loadMyPostsLoading = false;
         if (state.me !== null) {
-          state.myPosts = action.payload;
+          state.myPosts = action.payload.content;
+          state.myPostTotalPages = action.payload.totalPages;
         }
       })
       .addCase(loadMyPosts.rejected, (state, action: ReturnType<typeof loadMyPosts.rejected>) => {
@@ -210,5 +203,6 @@ export const {
   getAuthorPostPageNum,
   getAuthorlikedPostTotalPages,
   getAuthorlikedPostPageNum,
+  logOut,
 } = userSlice.actions;
 export default userSlice.reducer;

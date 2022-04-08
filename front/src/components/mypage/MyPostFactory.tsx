@@ -19,7 +19,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
   return (
     <>
       {Posts?.map((post) => (
-        <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
+        <Col key={post.id} xs={24} md={12} lg={8} xl={8} style={{}}>
           <S.ImgWrapper>
             <div
               onClick={() => {

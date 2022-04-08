@@ -8,16 +8,23 @@ interface ProfileProps {
   me?: IUser | null;
   setEditModalState: Dispatch<SetStateAction<boolean>>;
   authorInfo?: IAuthorInfo | null;
+  author?: IAuthorInfo;
 }
 
-const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState, authorInfo }) => {
+const Profile: React.FunctionComponent<ProfileProps> = ({
+  me,
+  setEditModalState,
+  authorInfo,
+  author,
+}) => {
+  const user = author ? author : me;
   return (
     <>
       <ProfileWrapper>
-        <ImgWrapper src={me?.profileImageUrl} />
+        <ImgWrapper src={author ? author.profileImageUrl : me?.profileImageUrl} />
         <ContentWrapper>
-          <Title>{me?.userName}</Title>
-          <Content>{me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
+          <Title>{author ? author.username : me?.userName}</Title>
+          <Content>{author ? author.bio : me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
         </ContentWrapper>
         <ButtonWrapper>
           {!authorInfo && (

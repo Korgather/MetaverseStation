@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Menu } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
@@ -12,6 +12,8 @@ function Category() {
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
+  const category = router.query.category;
+
   const onSearch = () => {
     dispatch(getSearchKeyword(searchValue));
     router.push({
@@ -27,7 +29,7 @@ function Category() {
         pathname: '/',
       });
     }
-    if (key === 'category_gather') {
+    if (key === 'METAVERSE_GATHERTOWN') {
       router.push({
         pathname: '/',
         query: {
@@ -36,7 +38,7 @@ function Category() {
         },
       });
     }
-    if (key === 'category_zep') {
+    if (key === 'METAVERSE_ZEP') {
       router.push({
         pathname: '/',
         query: {
@@ -48,10 +50,13 @@ function Category() {
   };
   return (
     <MenuWrapper>
-      <MenuBox onSelect={({ key }) => onSelect({ key })} defaultSelectedKeys={['category_all']}>
+      <MenuBox
+        onSelect={({ key }) => onSelect({ key })}
+        selectedKeys={category ? [category as string] : ['category_all']}
+      >
         <Menu.Item key="category_all">All</Menu.Item>
-        <Menu.Item key="category_gather">GatherTown</Menu.Item>
-        <Menu.Item key="category_zep">Zep</Menu.Item>
+        <Menu.Item key="METAVERSE_GATHERTOWN">GatherTown</Menu.Item>
+        <Menu.Item key="METAVERSE_ZEP">Zep</Menu.Item>
       </MenuBox>
       <StyledSearch onChange={searchOnChange} value={searchValue} onSearch={onSearch} />
       <BlankBox />
