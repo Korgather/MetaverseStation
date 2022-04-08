@@ -21,7 +21,7 @@ const AppLayout = ({ children }: AuxProps) => {
       router.push('/');
     }
     if (key === 'nav_community') {
-      router.push('/community/question/1');
+      router.push('/community/question');
     }
   };
   useEffect(() => {

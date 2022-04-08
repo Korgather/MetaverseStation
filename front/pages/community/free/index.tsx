@@ -10,7 +10,6 @@ import wrapper from '@store/configureStore';
 import { useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
-import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -50,7 +49,11 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   await store.dispatch(loadMyInfo());
 
   await store.dispatch(
-    loadComPosts({ pageNum: ctx.query.id as string, category: 'COMMUNITY_STUDY' }),
+    loadComPosts({
+      pageNum: ctx.query.page as string,
+      category: 'COMMUNITY_GENERAL',
+      keyword: ctx.query.search as string,
+    }),
   );
 
   return { props: {} };

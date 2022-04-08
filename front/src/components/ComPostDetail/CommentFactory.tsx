@@ -5,8 +5,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import modal from 'antd/lib/modal';
-import React, { useRef, useState } from 'react';
-import shortid from 'shortid';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const CommentFactory = ({ comment }: { comment: IComment }) => {

@@ -5,6 +5,7 @@ import axios from 'axios';
 interface IloadComPosts {
   pageNum: string;
   category: string;
+  keyword: string;
 }
 
 interface IAddComPost {
@@ -13,9 +14,16 @@ interface IAddComPost {
   category: string;
 }
 
+interface IComSearch {
+  keyword: string;
+  category: string;
+  pageNum: string;
+}
+
 export const loadComPosts = createAsyncThunk(
   'comPosts/load',
   async (data: IloadComPosts, thunkAPI) => {
+    console.log(data);
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
@@ -25,9 +33,9 @@ export const loadComPosts = createAsyncThunk(
       },
       params: {
         category: data.category,
-        keyword: '',
+        keyword: data.keyword ? data.keyword : '',
         size: 5,
-        page: Number(data.pageNum) - 1,
+        page: data.pageNum ? Number(data.pageNum) - 1 : 0,
       },
     });
     return res.data;
@@ -45,3 +53,24 @@ export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComP
   });
   return res.data;
 });
+
+export const searchComPosts = createAsyncThunk(
+  'posts/search',
+  async (data: IComSearch, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+      params: {
+        keyword: data.keyword,
+        size: 5,
+        page: data.pageNum,
+        category: data.category,
+      },
+    });
+    return res.data;
+  },
+);

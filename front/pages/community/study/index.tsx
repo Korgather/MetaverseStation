@@ -12,6 +12,7 @@ import axios from 'axios';
 import cookies from 'next-cookies';
 import { useRouter } from 'next/router';
 import React from 'react';
+import styled from 'styled-components';
 
 const community = () => {
   const communityWriteModalState = useAppSelector(
@@ -21,17 +22,22 @@ const community = () => {
     <>
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>
-        <>
+        <FlexWrapper>
           <BannerItem />
           <Board />
           <Pagination />
-        </>
+        </FlexWrapper>
       </AppLayout>
     </>
   );
 };
 
 export default community;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   const token = cookies(ctx).Token;
@@ -42,8 +48,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
+
   await store.dispatch(
-    loadComPosts({ pageNum: ctx.query.id as string, category: 'COMMUNITY_QUESTION' }),
+    loadComPosts({
+      pageNum: ctx.query.page as string,
+      category: 'COMMUNITY_STUDY',
+      keyword: ctx.query.search as string,
+    }),
   );
 
   return { props: {} };
