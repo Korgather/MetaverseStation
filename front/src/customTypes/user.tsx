@@ -15,6 +15,7 @@ export interface IUser {
   emailVerifiedYn?: string;
   userNameModifiedYn: string;
   bio?: string;
+  notificationResponseDtoList: notification[];
 }
 
 export interface IAuthorInfo {
@@ -28,6 +29,13 @@ export interface IAuthor {
   info: IAuthorInfo;
   likedPosts: IPost[];
   myPosts: IPost[];
+}
+
+export interface notification {
+  notificationId: number;
+  pub_username: string;
+  postId: number;
+  postTitle: string;
 }
 
 export interface IPostUser extends Pick<IUser, 'email' | 'roleType'> {

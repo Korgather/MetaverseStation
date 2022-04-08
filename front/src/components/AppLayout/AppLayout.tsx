@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import ProfileDropdown from './ProfileDropdown';
+import { BellOutlined } from '@ant-design/icons';
+import Alram from './Alram';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -53,6 +55,7 @@ const AppLayout = ({ children }: AuxProps) => {
               {me ? (
                 <>
                   <ProfileDropdown />
+                  <Alram />
                   <Link href="/mypage">
                     <ProfileImg src={me.profileImageUrl} alt="" />
                   </Link>
@@ -81,7 +84,6 @@ const ProfileImg = styled.img`
   width: 2.5rem;
   height: 2.5rem;
   cursor: pointer;
-  margin-left: 15px;
 `;
 
 const MenuWrapper = styled(Menu)`
