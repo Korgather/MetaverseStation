@@ -105,7 +105,7 @@ const Date = styled.div`
   font-size: 0.9rem;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   margin-top: 50px;
   font-size: 0.9rem;
 `;

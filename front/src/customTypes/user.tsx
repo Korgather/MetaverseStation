@@ -32,7 +32,7 @@ export interface IAuthor {
 
 export interface IPostUser extends Pick<IUser, 'email' | 'roleType'> {
   username: string;
-  userId: string;
+  userId: number;
   bio: string;
   profileImageUrl: string;
 }
