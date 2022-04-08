@@ -74,3 +74,15 @@ export const searchComPosts = createAsyncThunk(
     return res.data;
   },
 );
+
+export const loadComPost = createAsyncThunk('post/load', async (postId: number, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}}`,
+    },
+  });
+  return res.data;
+});

@@ -23,7 +23,7 @@ const ContentBox = () => {
     }
     setLikeState(!likeState);
   };
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
 
   const gotoUserPage = () => {
     if (postDetail) {

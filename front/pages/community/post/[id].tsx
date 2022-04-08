@@ -1,3 +1,4 @@
+import { loadComPost } from '@actions/community';
 import { loadPost, viewPost } from '@actions/post';
 import { loadMyInfo } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
@@ -42,7 +43,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   }
   await store.dispatch(loadMyInfo());
 
-  await store.dispatch(loadPost(Number(ctx.query.id as string)));
+  await store.dispatch(loadComPost(Number(ctx.query.id as string)));
   await store.dispatch(viewPost(Number(ctx.query.id as string)));
 
   return { props: {} };

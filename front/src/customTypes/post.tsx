@@ -94,4 +94,5 @@ export interface IPostState {
   prevPostData: IPostDataForUpdate | null;
   searchKeyword: string;
   updateModalState: boolean;
+  detailModalState: boolean;
 }

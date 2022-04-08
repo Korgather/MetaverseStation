@@ -80,6 +80,7 @@ const initialState: IPostState = {
   searchTotalPages: 1,
   prevPostData: null,
   updateModalState: false,
+  detailModalState: false,
   searchKeyword: '',
 };
 
@@ -110,6 +111,12 @@ export const postSlice = createSlice({
       action.payload === true
         ? (document.body.style.overflow = 'hidden')
         : (document.body.style.overflow = 'unset');
+    },
+    ToggleDetailState: (state, action) => {
+      state.detailModalState = action.payload;
+      // action.payload === true
+      //   ? (document.body.style.overflow = 'hidden')
+      //   : (document.body.style.overflow = 'unset');
     },
     clearpostDetail: (state) => {
       state.postDetail = null;
@@ -278,5 +285,6 @@ export const {
   getSearchPageNum,
   getSearchTotalPage,
   getSearchKeyword,
+  ToggleDetailState,
 } = postSlice.actions;
 export default postSlice.reducer;

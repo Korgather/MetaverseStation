@@ -1,6 +1,6 @@
 import CommentModal from '@components/commentModal/CommentModal';
 import { closeModal } from '@lib/ModalUtil';
-import { clearpostDetail } from '@slices/postSlice';
+import { clearpostDetail, ToggleDetailState } from '@slices/postSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import shortid from 'shortid';
@@ -9,11 +9,7 @@ import HeartAndMessage from './HeartAndMessage';
 import SliderImages from './SliderImages';
 import * as S from './style';
 
-interface DetailModalProps {
-  setDetailModalState: Dispatch<SetStateAction<boolean>>;
-}
-
-const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModalState }) => {
+const DetailModal = () => {
   const [commentState, setCommentState] = useState(false);
   const postData = useAppSelector((state) => state.postSlice.postDetail);
   const dispatch = useAppDispatch();
@@ -23,12 +19,12 @@ const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModal
         <S.ModalWrapper>
           <S.Dim
             onClick={() => {
-              closeModal(setDetailModalState);
+              dispatch(ToggleDetailState(false));
               dispatch(clearpostDetail());
             }}
           />
           <S.Modal commentState={commentState}>
-            <DetailHeader setDetailModalState={setDetailModalState} />
+            <DetailHeader />
             <SliderImages />
             <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
             <S.Content>{postData.content} </S.Content>

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import CommentFactory from './CommentFactory';
 
 const CommentList = () => {
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
 
   return postDetail ? (
     <CommentListLayout>

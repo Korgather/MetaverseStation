@@ -6,12 +6,12 @@ import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { loadPost, viewPost } from '@actions/post';
+import { ToggleDetailState } from '@slices/postSlice';
 interface PostzoneProps {
-  setDetailModalState: Dispatch<SetStateAction<boolean>>;
   mainPosts: IPost[];
 }
 
-const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState, mainPosts }) => {
+const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
     await dispatch(viewPost(data.id));
@@ -34,7 +34,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                   onClick={(e) => {
                     e.preventDefault();
                     post && loadPostId(post);
-                    openModal(setDetailModalState);
+                    dispatch(ToggleDetailState(true));
                   }}
                 >
                   {post.imageList[0].imagePath.length >= 20 ? (

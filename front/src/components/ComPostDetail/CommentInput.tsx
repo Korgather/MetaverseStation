@@ -8,7 +8,7 @@ import styled from 'styled-components';
 const CommentInput = () => {
   const dispatch = useAppDispatch();
   const [comment, setComment] = useState('');
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
 
   const postComment = async () => {
     const data = {

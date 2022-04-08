@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const CommentFactory = ({ comment }: { comment: IComment }) => {
   const me = useAppSelector((state) => state.userSlice.me);
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   const [content, setContent] = useState('');
   const [updateState, setUpdateState] = useState(false);
   const dispatch = useAppDispatch();
