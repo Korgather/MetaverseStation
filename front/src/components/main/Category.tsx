@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input } from 'antd';
+import { Input, Menu } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '@store/hook';
@@ -21,9 +21,40 @@ function Category() {
       },
     });
   };
+  const onSelect = ({ key }: { key: string }) => {
+    if (key === 'category_all') {
+      router.push({
+        pathname: '/',
+      });
+    }
+    if (key === 'category_gather') {
+      router.push({
+        pathname: '/',
+        query: {
+          category: 'METAVERSE_GATHERTOWN',
+          page: 1,
+        },
+      });
+    }
+    if (key === 'category_zep') {
+      router.push({
+        pathname: '/',
+        query: {
+          category: 'METAVERSE_ZEP',
+          page: 1,
+        },
+      });
+    }
+  };
   return (
     <MenuWrapper>
+      <MenuBox onSelect={({ key }) => onSelect({ key })} defaultSelectedKeys={['category_all']}>
+        <Menu.Item key="category_all">All</Menu.Item>
+        <Menu.Item key="category_gather">GatherTown</Menu.Item>
+        <Menu.Item key="category_zep">Zep</Menu.Item>
+      </MenuBox>
       <StyledSearch onChange={searchOnChange} value={searchValue} onSearch={onSearch} />
+      <BlankBox />
     </MenuWrapper>
   );
 }
@@ -42,6 +73,17 @@ const MenuWrapper = styled.div`
 
 const StyledSearch = styled(Search)`
   margin: 0 auto;
-  width: 30%;
+  width: 40%;
   min-width: 250px;
+`;
+
+const MenuBox = styled(Menu)`
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  border: none;
+`;
+
+const BlankBox = styled.div`
+  width: 30%;
 `;

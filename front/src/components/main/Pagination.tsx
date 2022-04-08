@@ -2,20 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { getPageNum, getSearchPageNum } from '@slices/postSlice';
 import { useRouter } from 'next/router';
-import { searchPosts } from '@actions/post';
 
 const Pagination = () => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const category =
-    router.pathname.indexOf('gathertown') > -1
-      ? 'METAVERSE_GATHERTOWN'
-      : router.pathname.indexOf('zep') > -1
-      ? 'METAVERSE_ZEP'
-      : 'METAVERSE';
+  const category = router.query.category;
+
   const search = useAppSelector((state) => state.postSlice.searchKeyword);
   const totalPages = useAppSelector((state) => state.postSlice.totalPages);
   const onPageChange = (page: number) => {
@@ -33,6 +26,7 @@ const Pagination = () => {
         onChange={onPageChange}
         defaultPageSize={8}
         total={totalPages * 8}
+        current={router.query.page ? (Number(router.query.page) as number) : 1}
       />
     </PaginationWrapper>
   );
