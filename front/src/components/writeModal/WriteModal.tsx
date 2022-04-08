@@ -55,12 +55,15 @@ const WriteModal = () => {
         origFileName,
         fileSize,
       }));
-      console.log(values.images);
       const { images, link, title, content, id } = values;
+      if (!category) {
+        alert('카테고리를 선택해주세요');
+        return;
+      }
 
       prevPostData
-        ? await dispatch(updatePost({ link, title, content, images, id }))
-        : await dispatch(addPost({ link, title, content, images }));
+        ? await dispatch(updatePost({ link, title, content, images, id, category }))
+        : await dispatch(addPost({ link, title, content, images, category }));
       router.push('/');
       dispatch(ToggleWriteModalState(false));
       dispatch(getPrevPostData(null));
@@ -85,12 +88,12 @@ const WriteModal = () => {
       if (name === 'gather') {
         setGatherState(true);
         setZepState(false);
-        setCategory('gathertown');
+        setCategory('METAVERSE_GATHERTOWN');
       }
       if (name === 'zep') {
         setGatherState(false);
         setZepState(true);
-        setCategory('zep');
+        setCategory('METAVERSE_ZEP');
       }
     },
     [gatherState, zepState],

@@ -5,7 +5,7 @@ import { IPost } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { clearDataForModal, getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
+import { clearpostDetail, getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import modal from 'antd/lib/modal';
 import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
@@ -16,9 +16,9 @@ interface DetailHeaderProps {
 const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
   const router = useRouter();
   const { id: pageNum } = router.query;
-
+  const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
-  const postData = useAppSelector((state) => state.postSlice.dataForModal);
+  const postData = useAppSelector((state) => state.postSlice.postDetail);
   const dataForUpdate = {
     images: (postData as IPost).imageList.map((image) => ({
       imagePath: image.imagePath,
@@ -36,7 +36,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   const openUpdateModal = () => {
     dispatch(getPrevPostData(dataForUpdate));
     dispatch(ToggleWriteModalState(true));
-    dispatch(clearDataForModal());
+    dispatch(clearpostDetail());
     closeModal(setDetailModalState);
   };
 
@@ -61,13 +61,27 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
       </Menu.Item>
     </Menu>
   );
+
+  const gotoUserPage = () => {
+    const isMe = postData?.postUser.userId === me?.userId;
+    const pathname = isMe ? '/mypage' : `/user/${postData?.postUser.userId}`;
+    if (postData) {
+      const { username, userId, bio, profileImageUrl } = postData.postUser;
+      router.push({
+        pathname: pathname,
+        query: !isMe ? { userId, username, bio, profileImageUrl } : '',
+      });
+    }
+  };
   return (
     <S.HeaderWrapper>
-      <S.ProfileImg src={postData?.postUser?.profileImageUrl} />
+      <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
       <S.NickName>{postData?.postUser?.username}</S.NickName>
-      <Dropdown overlay={menu} trigger={['click']}>
-        <S.StyledDownOutlined />
-      </Dropdown>
+      {postData?.postUser.userId === me?.userId && (
+        <Dropdown overlay={menu} trigger={['click']}>
+          <S.StyledDownOutlined />
+        </Dropdown>
+      )}
       <S.StyledA href="https://cafe.naver.com/gathertown" target="_blank">
         <S.EntnerButton type="primary" htmlType="button">
           입장하기
@@ -75,7 +89,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
       </S.StyledA>
       <S.CloseModalBtn
         onClick={() => {
-          dispatch(clearDataForModal());
+          dispatch(clearpostDetail());
           closeModal(setDetailModalState);
         }}
       >

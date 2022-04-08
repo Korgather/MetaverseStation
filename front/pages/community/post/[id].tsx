@@ -1,7 +1,8 @@
-import { loadComPosts } from '@actions/community';
 import { loadPost, viewPost } from '@actions/post';
 import { loadMyInfo } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
+import CommentInput from '@components/ComPostDetail/CommentInput';
+import CommentList from '@components/ComPostDetail/CommentList';
 import ContentBox from '@components/ComPostDetail/ContentBox';
 import { saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
@@ -17,6 +18,8 @@ const ComDetailPost = () => {
         <ComDetailPostLayout>
           <ContentBox />
         </ComDetailPostLayout>
+        <CommentInput />
+        <CommentList />
       </>
     </AppLayout>
   );

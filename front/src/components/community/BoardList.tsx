@@ -1,21 +1,23 @@
 import { HeartFilled } from '@ant-design/icons';
 import { useAppSelector } from '@store/hook';
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
-import parse from 'html-react-parser';
 import { removeHtml } from '@lib/removeHtml';
+import { useRouter } from 'next/router';
 
 const BoardList = () => {
+  const router = useRouter();
   const mainComPosts = useAppSelector((state) => state.communitySlice.mainCommunityPosts);
-
+  const gotoDetail = (id: number) => {
+    router.push(`/community/post/${id}`);
+  };
   return (
     <>
       {mainComPosts?.map((post) => (
-        <BoardListContainer key={shortid.generate()}>
+        <BoardListContainer key={shortid.generate()} onClick={() => gotoDetail(post.id)}>
           <FirstContainer>
             <Title>{post?.title}</Title>
-            {/* <Content ref={test}>{parse(post.content as string)}</Content> */}
             <Content>{removeHtml(post?.content as string).slice(0, 100)}...</Content>
             <NameAndTime>
               {post.postUser.username} · {post.createdDate.slice(0, 10)}
@@ -42,11 +44,14 @@ export default BoardList;
 const BoardListContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
   border-bottom: 1.5px solid #c9cccf;
-  padding: 20px 0;
+  padding: 30px 0;
   width: 100%;
   word-break: break-all;
+  cursor: pointer;
+  :hover {
+    background-color: #f6f6f6d4;
+  }
 `;
 const FirstContainer = styled.div`
   flex: 8;

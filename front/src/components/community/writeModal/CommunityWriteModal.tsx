@@ -1,11 +1,11 @@
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Input } from 'antd';
 import * as Yup from 'yup';
 import { useAppDispatch } from '@store/hook';
 import * as S from './style';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { useFormik } from 'formik';
-import { addComPost, loadComPosts } from '@actions/community';
+import { addComPost } from '@actions/community';
 import { useRouter } from 'next/router';
 
 const WriteModal = () => {
@@ -17,12 +17,11 @@ const WriteModal = () => {
   const [questionState, setQuestionState] = useState(false);
   const [freeState, setFreeState] = useState(false);
   const [studyState, setStudyState] = useState(false);
-
+  const pathIndex = router.pathname.lastIndexOf('/');
+  const pathName = router.pathname.slice(0, pathIndex);
   const onChangeContent = (content: string) => {
     setContent(content);
   };
-  const pathIndex = router.pathname.lastIndexOf('/');
-  const pathName = router.pathname.slice(0, pathIndex);
 
   const PostSchema = Yup.object().shape({
     title: Yup.string()

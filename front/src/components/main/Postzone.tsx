@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { openModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import { useAppDispatch } from '@store/hook';
-import shortid from 'shortid';
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { loadPost, viewPost } from '@actions/post';
 interface PostzoneProps {
@@ -15,8 +14,6 @@ interface PostzoneProps {
 const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState, mainPosts }) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
-    console.log(data);
-    console.log(data.id);
     await dispatch(viewPost(data.id));
     await dispatch(loadPost(data.id));
   };
@@ -43,11 +40,16 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                   {post.imageList[0].imagePath.length >= 20 ? (
                     <PostImg src={post.imageList[0].imagePath} />
                   ) : (
-                    <PostImg src="../images/thumbnail02.png" />
+                    <PostImg src="../../images/thumbnail02.png" />
                   )}
                 </div>
               </ImgWrapper>
               <Summary>
+                {post.category === 'METAVERSE_ZEP' ? (
+                  <Logo src="../../images/zepLogo.png" />
+                ) : (
+                  <Logo src="../../images/gatherLogo.png" />
+                )}
                 <Title>
                   {post.title && post.title?.length >= 15
                     ? `${post.title?.slice(0, 15)}...`
@@ -55,7 +57,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                 </Title>
                 <StyledHeartTwoTone twoToneColor="#eb3f96" />
                 <Count>{Object.keys(post.likeUserList).length}</Count>
-                <CommentImg src="../images/commentIcon.png" />
+                <CommentImg src="../../images/commentIcon.png" />
                 <Count>{post.postCommentList.length}</Count>
                 <StyledEyeOutlined />
                 <Count>{post.view}</Count>
@@ -68,6 +70,11 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
 };
 
 export default Postzone;
+
+const Logo = styled.img`
+  margin-right: 10px;
+  height: 2rem;
+`;
 
 const Title = styled.div`
   font-size: 1rem;
@@ -138,4 +145,5 @@ const PostImg = styled.img`
 const Summary = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;

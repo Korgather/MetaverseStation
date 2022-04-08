@@ -1,6 +1,6 @@
 import CommentModal from '@components/commentModal/CommentModal';
 import { closeModal } from '@lib/ModalUtil';
-import { clearDataForModal } from '@slices/postSlice';
+import { clearpostDetail } from '@slices/postSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import shortid from 'shortid';
@@ -15,7 +15,7 @@ interface DetailModalProps {
 
 const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModalState }) => {
   const [commentState, setCommentState] = useState(false);
-  const postData = useAppSelector((state) => state.postSlice.dataForModal);
+  const postData = useAppSelector((state) => state.postSlice.postDetail);
   const dispatch = useAppDispatch();
   return (
     <>
@@ -24,7 +24,7 @@ const DetailModal: React.FunctionComponent<DetailModalProps> = ({ setDetailModal
           <S.Dim
             onClick={() => {
               closeModal(setDetailModalState);
-              dispatch(clearDataForModal());
+              dispatch(clearpostDetail());
             }}
           />
           <S.Modal commentState={commentState}>

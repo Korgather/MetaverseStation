@@ -74,8 +74,14 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-  if (store.getState().userSlice.AccessToken !== null) {
-    await store.dispatch(loadPosts('1'));
-  }
+
+  await store.dispatch(
+    loadPosts({
+      pageNum: ctx.query.page as string,
+      category: ctx.query.category ? (ctx.query.category as string) : 'METAVERSE',
+      keyword: ctx.query.search as string,
+    }),
+  );
+
   return { props: {} };
 });

@@ -1,13 +1,14 @@
 import {
   changeNickName,
+  loadAuthorLikedPosts,
+  loadAuthorPosts,
   loadLikedPosts,
   loadMyInfo,
   loadMyPosts,
-  logOut,
   updateProfile,
 } from '@actions/user';
-import { IUserState } from '@customTypes/user';
-import { createSlice } from '@reduxjs/toolkit';
+import { IAuthorInfo, IUserState } from '@customTypes/user';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const initialState: IUserState = {
   me: null,
@@ -35,6 +36,15 @@ export const initialState: IUserState = {
   likedPostTotalPages: 1,
   myPostPageNum: 1,
   myPostTotalPages: 1,
+  authorInfo: null,
+  authorLikedPosts: null,
+  authorPosts: null,
+  loadAuthorLikedPostsLoading: false,
+  loadAuthorLikedPostsDone: false,
+  loadAuthorLikedPostsError: null,
+  loadAuthorPostsLoading: false,
+  loadAuthorPostsDone: false,
+  loadAuthorPostsError: null,
 };
 
 export const userSlice = createSlice({
@@ -56,20 +66,31 @@ export const userSlice = createSlice({
     getmyPostTotalPages: (state, action) => {
       state.myPostTotalPages = action.payload;
     },
+    getAuthorlikedPostPageNum: (state, action) => {
+      state.likedPostPageNum = action.payload;
+    },
+    getAuthorlikedPostTotalPages: (state, action) => {
+      state.likedPostTotalPages = action.payload;
+    },
+    getAuthorPostPageNum: (state, action) => {
+      state.myPostPageNum = action.payload;
+    },
+    getAuthorPostTotalPages: (state, action) => {
+      state.myPostTotalPages = action.payload;
+    },
+    getAuthorInfo: (state, action: PayloadAction<IAuthorInfo>) => {
+      state.authorInfo = action.payload;
+    },
+    clearAuthorInfo: (state) => {
+      state.authorInfo = null;
+    },
+    logOut: (state) => {
+      state.AccessToken = null;
+      state.me = null;
+    },
   },
   extraReducers: (builder) =>
     builder
-      .addCase(logOut.pending, (state) => {
-        state.logOutLoading = true;
-      })
-      .addCase(logOut.fulfilled, (state, action) => {
-        state.logOutLoading = false;
-        state.me = null;
-      })
-      .addCase(logOut.rejected, (state, action: ReturnType<typeof logOut.rejected>) => {
-        state.logOutLoading = false;
-        state.logOutError = action.error;
-      })
       .addCase(loadMyInfo.pending, (state) => {
         state.loadMyInfoLoading = true;
       })
@@ -86,9 +107,6 @@ export const userSlice = createSlice({
       })
       .addCase(changeNickName.fulfilled, (state, action) => {
         state.changeNickNameLoading = false;
-        if (state.me !== null) {
-          state.me.userName = action.payload;
-        }
       })
       .addCase(
         changeNickName.rejected,
@@ -132,13 +150,46 @@ export const userSlice = createSlice({
       .addCase(loadMyPosts.fulfilled, (state, action) => {
         state.loadMyPostsLoading = false;
         if (state.me !== null) {
-          state.myPosts = action.payload;
+          state.myPosts = action.payload.content;
+          state.myPostTotalPages = action.payload.totalPages;
         }
       })
       .addCase(loadMyPosts.rejected, (state, action: ReturnType<typeof loadMyPosts.rejected>) => {
         state.loadMyPostsLoading = false;
         state.loadMyPostsError = action.error;
-      }),
+      })
+      .addCase(loadAuthorLikedPosts.pending, (state) => {
+        state.loadAuthorLikedPostsLoading = true;
+      })
+      .addCase(loadAuthorLikedPosts.fulfilled, (state, action) => {
+        state.loadAuthorLikedPostsLoading = false;
+        if (state.me !== null) {
+          state.authorLikedPosts = action.payload;
+        }
+      })
+      .addCase(
+        loadAuthorLikedPosts.rejected,
+        (state, action: ReturnType<typeof loadAuthorLikedPosts.rejected>) => {
+          state.loadAuthorLikedPostsLoading = false;
+          state.loadAuthorLikedPostsError = action.error;
+        },
+      )
+      .addCase(loadAuthorPosts.pending, (state) => {
+        state.loadAuthorPostsLoading = true;
+      })
+      .addCase(loadAuthorPosts.fulfilled, (state, action) => {
+        state.loadAuthorPostsLoading = false;
+        if (state.me !== null) {
+          state.authorPosts = action.payload;
+        }
+      })
+      .addCase(
+        loadAuthorPosts.rejected,
+        (state, action: ReturnType<typeof loadAuthorPosts.rejected>) => {
+          state.loadAuthorPostsLoading = false;
+          state.loadAuthorPostsError = action.error;
+        },
+      ),
 });
 export const {
   saveAccessToken,
@@ -146,5 +197,12 @@ export const {
   getlikedPostTotalPages,
   getmyPostPageNum,
   getmyPostTotalPages,
+  getAuthorInfo,
+  clearAuthorInfo,
+  getAuthorPostTotalPages,
+  getAuthorPostPageNum,
+  getAuthorlikedPostTotalPages,
+  getAuthorlikedPostPageNum,
+  logOut,
 } = userSlice.actions;
 export default userSlice.reducer;

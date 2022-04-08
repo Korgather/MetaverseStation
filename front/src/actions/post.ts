@@ -5,6 +5,12 @@ import { AddPost, IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';
 import { getSearchTotalPage, getTotalPage } from '@slices/postSlice';
 
+interface IloadPosts {
+  pageNum: string;
+  category: string;
+  keyword: string;
+}
+
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
   const {
     userSlice: { AccessToken },
@@ -40,20 +46,19 @@ export const updatePost = createAsyncThunk('post/update', async (data: AddPost, 
   return res.data;
 });
 
-export const loadPost = createAsyncThunk('post/load', async (data: number, thunkAPI) => {
+export const loadPost = createAsyncThunk('post/load', async (postId: number, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data}`, {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     headers: {
       Authorization: `Bearer ${AccessToken}}`,
     },
   });
-  console.log(res.data);
   return res.data;
 });
 
-export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, thunkAPI) => {
+export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
@@ -62,9 +67,10 @@ export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, 
       Authorization: `Bearer ${AccessToken}}`,
     },
     params: {
-      keyword: '',
+      category: data.category,
+      keyword: data.keyword ? data.keyword : '',
       size: 8,
-      page: Number(pageNum) - 1,
+      page: data.pageNum ? Number(data.pageNum) - 1 : 0,
     },
   });
   thunkAPI.dispatch(getTotalPage(res.data.totalPages));
@@ -86,6 +92,7 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
       keyword: searchKeyword,
       size: 8,
       page: searchPageNum - 1,
+      category: 'METAVERSE',
     },
   });
   thunkAPI.dispatch(getSearchTotalPage(res.data.totalPages));
@@ -165,7 +172,6 @@ export const addReply = createAsyncThunk('reply/add', async (data: TUpdateCommen
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  console.log(data);
   await axios.post(
     `${process.env.NEXT_PUBLIC_API_URL}/comments/${data.commentId}`,
     { content: data.content },

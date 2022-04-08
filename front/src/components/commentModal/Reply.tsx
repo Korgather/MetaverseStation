@@ -7,7 +7,6 @@ const Reply = ({ comment }: { comment: IComment }) => {
   const [moreCommentView, setMoreCommentView] = useState(false);
   const ToggleMoreCommentView = () => {
     setMoreCommentView(!moreCommentView);
-    console.log(moreCommentView);
   };
 
   return (

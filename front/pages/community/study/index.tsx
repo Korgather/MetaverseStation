@@ -48,10 +48,14 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-  if (store.getState().userSlice.AccessToken !== null) {
-    await store.dispatch(
-      loadComPosts({ pageNum: ctx.query.id as string, category: 'COMMUNITY_STUDY' }),
-    );
-  }
+
+  await store.dispatch(
+    loadComPosts({
+      pageNum: ctx.query.page as string,
+      category: 'COMMUNITY_STUDY',
+      keyword: ctx.query.search as string,
+    }),
+  );
+
   return { props: {} };
 });

@@ -9,9 +9,6 @@
 - 웹 서비스에 대한 개요
   - MetaverseStation은 회원들이 서로 자신의 메타버스 공간을 공유할 수 있는 커뮤니티입니다.
 
-- 레이아웃 구상
-  - https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
-
 
 ## 2. 주요 기능 (구현예정)
 - OAUTH로그인 (카카오,네이버,구글)
@@ -22,7 +19,11 @@
 - 이미지 슬라이더
   - slick-carousel 라이브러리 사용
 
-## 3. 페이지별 화면 
+## 3. 프로젝트 구성도
+https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
+
+## 4. 페이지별 화면 
+
   - 현재는 백엔드서버가 개발 진행중에 있어 Fakerjs를 활용해 DummyData로 화면을 구성하고 있습니다.
 
 | |

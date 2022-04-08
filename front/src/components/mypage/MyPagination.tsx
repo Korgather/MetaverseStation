@@ -1,32 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
-import { useAppDispatch, useAppSelector } from '@store/hook';
-import { getlikedPostPageNum, getmyPostPageNum } from '@slices/userSlice';
-import { loadLikedPosts, loadMyPosts } from '@actions/user';
+import { useAppSelector } from '@store/hook';
+import { useRouter } from 'next/router';
 
-interface MyPaginationProps {
-  myLikedPostsState: boolean;
-}
-
-const MyPagination = ({ myLikedPostsState }: MyPaginationProps) => {
-  const dispatch = useAppDispatch();
+const MyPagination = () => {
+  const router = useRouter();
+  const author = useAppSelector((state) => state.userSlice.authorInfo);
+  const pathname = author ? `/user/${author.userId}` : '/mypage';
   const me = useAppSelector((state) => state.userSlice.me);
-  const likedPostPageNum = useAppSelector((state) => state.userSlice.likedPostPageNum);
-  const likedPostTotalPages = useAppSelector((state) => state.userSlice.likedPostTotalPages);
-  const myPostPageNum = useAppSelector((state) => state.userSlice.myPostPageNum);
-  const myPostTotalPages = useAppSelector((state) => state.userSlice.myPostTotalPages);
-  useEffect(() => {
-    console.log(myLikedPostsState);
-  }, [myLikedPostsState]);
+  const category = router.query.category ? router.query.category : 'METAVERSE';
+  const userTotalPages = useAppSelector((state) => state.userSlice.myPostTotalPages);
   const onPageChange = (page: number) => {
-    if (myLikedPostsState) {
-      dispatch(getlikedPostPageNum(page));
-      dispatch(loadLikedPosts(me?.userId as number));
-    } else {
-      dispatch(getmyPostPageNum(page));
-      dispatch(loadMyPosts(me?.userId as number));
-    }
+    router.push({
+      pathname: pathname,
+      query: {
+        page,
+        category,
+        profileImageUrl: author && author.profileImageUrl,
+        userId: author ? author.userId : me?.userId,
+        username: author && author?.username,
+      },
+    });
   };
   return (
     <PaginationWrapper>
@@ -35,9 +30,9 @@ const MyPagination = ({ myLikedPostsState }: MyPaginationProps) => {
         responsive={true}
         pageSizeOptions={[10, 20, 50, 100]}
         onChange={onPageChange}
-        defaultPageSize={8}
-        total={myLikedPostsState ? likedPostTotalPages * 8 : myPostTotalPages * 8}
-        current={myLikedPostsState ? likedPostPageNum : myPostPageNum}
+        defaultPageSize={6}
+        total={userTotalPages * 5}
+        current={router.query.page ? (Number(router.query.page) as number) : 1}
       />
     </PaginationWrapper>
   );

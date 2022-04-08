@@ -24,5 +24,9 @@ export interface ICommunityState {
   addComPostLoading: boolean;
   addComPostDone: boolean;
   addComPostError: SerializedError | null;
+  searchComPostsLoading: boolean;
+  searchComPostsDone: boolean;
+  searchComPostsError: SerializedError | null;
   comTotalPages: number;
+  getSearchInput: string;
 }

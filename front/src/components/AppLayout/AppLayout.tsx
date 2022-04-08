@@ -1,4 +1,4 @@
-import React, { ReactChildren, ReactChild, useState, useLayoutEffect } from 'react';
+import React, { ReactChildren, ReactChild, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
@@ -20,16 +20,16 @@ const AppLayout = ({ children }: AuxProps) => {
     if (key === 'nav_gathertown') {
       router.push('/');
     }
-    if (key === 'nav_mypage') {
-      router.push('/mypage');
+    if (key === 'nav_community') {
+      router.push('/community/question');
     }
   };
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (router.pathname === '/') {
       setSelectedKeys(['nav_gathertown']);
     }
-    if (router.pathname === '/mypage') {
-      setSelectedKeys(['nav_mypage']);
+    if (router.pathname.indexOf('/community') > -1) {
+      setSelectedKeys(['nav_community']);
     }
   }, []);
   return (
@@ -46,8 +46,8 @@ const AppLayout = ({ children }: AuxProps) => {
               mode="horizontal"
               style={{ border: 'none', margin: '5px 0 0 30px' }}
             >
-              <Menu.Item key="nav_gathertown">GatherTown</Menu.Item>
-              {me && <Menu.Item key="nav_mypage">MyPage</Menu.Item>}
+              <Menu.Item key="nav_gathertown">Gallery</Menu.Item>
+              <Menu.Item key="nav_community">Community</Menu.Item>
             </MenuWrapper>
             <BtnWrapper>
               {me ? (
@@ -90,17 +90,19 @@ const MenuWrapper = styled(Menu)`
 `;
 
 const LayoutWrapper = styled.div`
+  word-break: break-all;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const StyledLayout = styled(Layout)`
   align-items: center;
   width: 1440px;
   background: white;
-
+  height: 100% !important;
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }

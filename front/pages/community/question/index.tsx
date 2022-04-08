@@ -7,11 +7,11 @@ import CommunityWriteModal from '@components/community/writeModal/CommunityWrite
 import BannerItem from '@components/main/BannerItem';
 import { saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
-import { useAppSelector } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const community = () => {
   const communityWriteModalState = useAppSelector(
@@ -42,10 +42,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-  if (store.getState().userSlice.AccessToken !== null) {
-    await store.dispatch(
-      loadComPosts({ pageNum: ctx.query.id as string, category: 'COMMUNITY_QUESTION' }),
-    );
-  }
+  await store.dispatch(
+    loadComPosts({
+      pageNum: ctx.query.page as string,
+      category: 'COMMUNITY_QUESTION',
+      keyword: ctx.query.search as string,
+    }),
+  );
+
   return { props: {} };
 });

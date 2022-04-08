@@ -13,8 +13,15 @@ const Pagination = () => {
       ? 'study'
       : router.pathname.indexOf('free') > -1 && 'free';
   const comTotalPages = useAppSelector((state) => state.communitySlice.comTotalPages);
+  const search = useAppSelector((state) => state.communitySlice.getSearchInput);
   const onPageChange = (page: number) => {
-    router.push(`/community/${category}/${page}`);
+    router.push({
+      pathname: `/community/${category}`,
+      query: {
+        page,
+        search,
+      },
+    });
   };
   return (
     <PaginationWrapper>
@@ -25,7 +32,7 @@ const Pagination = () => {
         onChange={onPageChange}
         defaultPageSize={5}
         total={comTotalPages * 5}
-        current={Number(router.query.id) as number}
+        current={router.query.page ? (Number(router.query.page) as number) : 1}
       />
     </PaginationWrapper>
   );

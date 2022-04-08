@@ -1,5 +1,6 @@
 import { IUser } from '@customTypes/user';
 import { openModal } from '@lib/ModalUtil';
+import { useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
@@ -10,19 +11,21 @@ interface ProfileProps {
 }
 
 const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState }) => {
+  const author = useAppSelector((state) => state.userSlice.authorInfo);
   return (
     <>
       <ProfileWrapper>
-        <ImgWrapper src={me?.profileImageUrl} />
+        <ImgWrapper src={author ? author.profileImageUrl : me?.profileImageUrl} />
         <ContentWrapper>
-          <Title>{me?.userName}</Title>
-
-          <Content>{me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
+          <Title>{author ? author.username : me?.userName}</Title>
+          <Content>{author ? author.bio : me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
         </ContentWrapper>
         <ButtonWrapper>
-          <Button onClick={() => openModal(setEditModalState)} htmlType="button">
-            프로필 수정
-          </Button>
+          {!author && (
+            <Button onClick={() => openModal(setEditModalState)} htmlType="button">
+              프로필 수정
+            </Button>
+          )}
         </ButtonWrapper>
       </ProfileWrapper>
     </>

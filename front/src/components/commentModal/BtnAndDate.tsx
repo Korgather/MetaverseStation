@@ -28,19 +28,19 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   setReplyInputState,
 }) => {
   const me = useAppSelector((state) => state.userSlice.me);
-  const dataForModal = useAppSelector((state) => state.postSlice.dataForModal);
+  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
   const updateCommentDone = useAppSelector((state) => state.postSlice.updateCommentDone);
   const dispatch = useDispatch();
 
   const RemoveCommentAndReply = async () => {
-    dataForModal &&
+    postDetail &&
       modal.confirm({
         title: '댓글을 삭제하시겠습니까?',
         onOk: async function () {
           comment
             ? await dispatch(removeComment(comment))
             : reply && (await dispatch(removeReply(reply.replyId)));
-          await dispatch(loadPost(dataForModal.id));
+          await dispatch(loadPost(postDetail.id));
         },
       });
   };
@@ -57,7 +57,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
         ? await dispatch(updateComment(commentdata))
         : reply && (await dispatch(updateReply(replydata)));
 
-      dataForModal && (await dispatch(loadPost(dataForModal.id)));
+      postDetail && (await dispatch(loadPost(postDetail.id)));
     } catch (e) {
       console.error(e);
     } finally {

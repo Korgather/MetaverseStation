@@ -1,7 +1,6 @@
-import { addComPost, loadComPosts } from '@actions/community';
+import { addComPost, loadComPosts, searchComPosts } from '@actions/community';
 import { ICommunityState } from '@customTypes/community';
 import { createSlice } from '@reduxjs/toolkit';
-import { stat } from 'fs';
 
 const initialState: ICommunityState = {
   mainCommunityPosts: [],
@@ -12,7 +11,11 @@ const initialState: ICommunityState = {
   addComPostLoading: false,
   addComPostDone: false,
   addComPostError: null,
+  searchComPostsLoading: false,
+  searchComPostsDone: false,
+  searchComPostsError: null,
   comTotalPages: 0,
+  getSearchInput: '',
 };
 
 export const communitySlice = createSlice({
@@ -24,6 +27,9 @@ export const communitySlice = createSlice({
       action.payload === true
         ? (document.body.style.overflow = 'hidden')
         : (document.body.style.overflow = 'unset');
+    },
+    getSearchInput: (state, action) => {
+      state.getSearchInput = action.payload;
     },
   },
   extraReducers: (builder) =>
@@ -52,8 +58,24 @@ export const communitySlice = createSlice({
       .addCase(addComPost.rejected, (state, action: ReturnType<typeof addComPost.rejected>) => {
         state.addComPostLoading = false;
         state.addComPostError = action.error;
-      }),
+      })
+      .addCase(searchComPosts.pending, (state) => {
+        state.searchComPostsLoading = true;
+      })
+      .addCase(searchComPosts.fulfilled, (state, action) => {
+        state.searchComPostsDone = true;
+        state.searchComPostsLoading = false;
+        state.mainCommunityPosts = action.payload.content;
+        state.comTotalPages = action.payload.totalPages;
+      })
+      .addCase(
+        searchComPosts.rejected,
+        (state, action: ReturnType<typeof searchComPosts.rejected>) => {
+          state.searchComPostsLoading = false;
+          state.searchComPostsError = action.error;
+        },
+      ),
 });
 
-export const { ToggleCommunityWriteModalState } = communitySlice.actions;
+export const { ToggleCommunityWriteModalState, getSearchInput } = communitySlice.actions;
 export default communitySlice.reducer;
