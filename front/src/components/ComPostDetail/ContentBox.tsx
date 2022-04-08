@@ -24,12 +24,22 @@ const ContentBox = () => {
     setLikeState(!likeState);
   };
   const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+
+  const gotoUserPage = () => {
+    if (postDetail) {
+      const { username, userId, bio, profileImageUrl } = postDetail.postUser;
+      router.push({
+        pathname: `/user/${userId}`,
+        query: { userId, username, bio, profileImageUrl },
+      });
+    }
+  };
   return postDetail ? (
     <ContentBoxLayout>
       <BackArrow onClick={() => router.back()}>←</BackArrow>
       <Title>{postDetail.title}</Title>
       <ProfileHeader>
-        <ProfileImg src="../../images/profile01.png" alt="" />
+        <ProfileImg src="../../images/profile01.png" alt="" onClick={gotoUserPage} />
         <Username>{postDetail.postUser.username}</Username>
         <Date>{postDetail.createdDate.slice(0, 10)}</Date>
       </ProfileHeader>
@@ -91,6 +101,7 @@ const ProfileImg = styled.img`
   border-radius: 500px;
   width: 50px;
   height: 50px;
+  cursor: pointer;
 `;
 
 const Username = styled.div`
