@@ -35,6 +35,11 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
             </div>
           </S.ImgWrapper>
           <S.Summary>
+            {post.category === 'METAVERSE_ZEP' ? (
+              <S.Logo src="../../images/zepLogo.png" />
+            ) : (
+              <S.Logo src="../../images/gatherLogo.png" />
+            )}
             <S.Title>
               {post.title && post.title?.length >= 15
                 ? `${post.title?.slice(0, 15)}...`

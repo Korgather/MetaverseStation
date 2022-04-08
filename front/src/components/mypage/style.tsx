@@ -79,6 +79,7 @@ export const Count = styled.div`
 export const Summary = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export const CommentImg = styled.img`
@@ -86,4 +87,9 @@ export const CommentImg = styled.img`
   width: 1.1rem;
   height: 1.1rem;
   margin-top: 2px;
+`;
+
+export const Logo = styled.img`
+  margin-right: 10px;
+  height: 2rem;
 `;
