@@ -63,17 +63,19 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   );
 
   const gotoUserPage = () => {
+    const isMe = postData?.postUser.userId === me?.userId;
+    const pathname = isMe ? '/mypage' : `/user/${postData?.postUser.userId}`;
     if (postData) {
       const { username, userId, bio, profileImageUrl } = postData.postUser;
       router.push({
-        pathname: `/user/${userId}`,
-        query: { userId, username, bio, profileImageUrl },
+        pathname: pathname,
+        query: !isMe ? { userId, username, bio, profileImageUrl } : '',
       });
     }
   };
   return (
     <S.HeaderWrapper>
-      <S.ProfileImg src={postData?.postUser?.profileImageUrl} onClick={gotoUserPage} />
+      <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
       <S.NickName>{postData?.postUser?.username}</S.NickName>
       {postData?.postUser.userId === me?.userId && (
         <Dropdown overlay={menu} trigger={['click']}>

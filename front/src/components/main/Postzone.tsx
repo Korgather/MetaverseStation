@@ -40,7 +40,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                   {post.imageList[0].imagePath.length >= 20 ? (
                     <PostImg src={post.imageList[0].imagePath} />
                   ) : (
-                    <PostImg src="../images/thumbnail02.png" />
+                    <PostImg src="../../images/thumbnail02.png" />
                   )}
                 </div>
               </ImgWrapper>
@@ -57,7 +57,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ setDetailModalState,
                 </Title>
                 <StyledHeartTwoTone twoToneColor="#eb3f96" />
                 <Count>{Object.keys(post.likeUserList).length}</Count>
-                <CommentImg src="../images/commentIcon.png" />
+                <CommentImg src="../../images/commentIcon.png" />
                 <Count>{post.postCommentList.length}</Count>
                 <StyledEyeOutlined />
                 <Count>{post.view}</Count>

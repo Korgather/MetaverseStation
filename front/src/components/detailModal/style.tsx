@@ -106,6 +106,7 @@ export const ProfileImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 200px;
+  cursor: pointer;
 `;
 
 export const NickName = styled.div`

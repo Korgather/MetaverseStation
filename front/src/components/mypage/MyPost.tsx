@@ -22,12 +22,12 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
   const myPosts = useAppSelector((state) => state.userSlice.myPosts);
   const mainComPosts = useAppSelector((state) => state.userSlice.myPosts);
   const author = useAppSelector((state) => state.userSlice.authorInfo);
+  const pathname = author ? `/user/${author.userId}` : '/mypage';
   const myLikedPostsState = router.query.filter === 'liked';
   const myPostsState = router.query.filter !== 'liked';
   const MetaverseState = router.query.category !== 'COMMUNITY';
   const CommunityState = router.query.category === 'COMMUNITY';
   const category = router.query.category ? router.query.category : 'METAVERSE';
-  const pathname = author ? `/user/${author.userId}` : '/mypage';
   const showMyPosts = () => {
     router.push({
       pathname: pathname,

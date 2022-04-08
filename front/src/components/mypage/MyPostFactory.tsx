@@ -30,7 +30,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
               {post.imageList[0]?.imagePath.length >= 20 ? (
                 <S.PostImg src={post.imageList[0].imagePath} />
               ) : (
-                <S.PostImg src="images/thumbnail02.png" />
+                <S.PostImg src="../../images/thumbnail02.png" />
               )}
             </div>
           </S.ImgWrapper>
@@ -42,7 +42,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
             </S.Title>
             <S.StyledHeartTwoTone twoToneColor="#eb3f96" />
             <S.Count>{Object.keys(post.likeUserList).length}</S.Count>
-            <S.CommentImg src="../images/commentIcon.png" />
+            <S.CommentImg src="../../images/commentIcon.png" />
             <S.Count>{post.postCommentList.length}</S.Count>
             <S.StyledEyeOutlined />
             <S.Count>{post.view}</S.Count>

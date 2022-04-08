@@ -46,9 +46,9 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
         {Object.keys(postDetail?.likeUserList as object).length}명이 좋아합니다.
       </S.StyledSpan>
       {commentState ? (
-        <S.CommentImg onClick={onToggleComment} src="images/activeCommentIcon.png" />
+        <S.CommentImg onClick={onToggleComment} src="../../images/activeCommentIcon.png" />
       ) : (
-        <S.CommentImg onClick={onToggleComment} src="images/commentIcon.png" />
+        <S.CommentImg onClick={onToggleComment} src="../../images/commentIcon.png" />
       )}
     </S.HeartAndMessageWrapper>
   );

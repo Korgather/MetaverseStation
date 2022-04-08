@@ -1,4 +1,4 @@
-import { loadLikedPosts, loadMyInfo, loadMyPosts } from '@actions/user';
+import { loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModal from '@components/detailModal/DetailModal';
 import MyPost from '@components/mypage/MyPost';
@@ -7,21 +7,15 @@ import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
 import { IAuthorInfo } from '@customTypes/user';
 import { getAuthorInfo, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
-import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import cookies from 'next-cookies';
-import Router from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
-  const author = useAppSelector((state) => state.userSlice.authorInfo);
   const [editModalState, setEditModalState] = useState(false);
-  useEffect(() => {
-    if (!author) Router.push('/');
-  }, []);
 
   return (
     <>
@@ -29,12 +23,10 @@ const mypage = () => {
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
         <>
-          {author && (
-            <StyledLayout>
-              <Profile author={author} setEditModalState={setEditModalState} />
-              <MyPost setDetailModalState={setDetailModalState} />
-            </StyledLayout>
-          )}
+          <StyledLayout>
+            <Profile setEditModalState={setEditModalState} />
+            <MyPost setDetailModalState={setDetailModalState} />
+          </StyledLayout>
         </>
       </AppLayout>
     </>

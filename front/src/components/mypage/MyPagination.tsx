@@ -6,13 +6,8 @@ import { getlikedPostPageNum, getmyPostPageNum } from '@slices/userSlice';
 import { loadLikedPosts, loadMyPosts } from '@actions/user';
 import { useRouter } from 'next/router';
 
-interface MyPaginationProps {
-  myLikedPostsState: boolean;
-}
-
-const MyPagination = ({ myLikedPostsState }: MyPaginationProps) => {
+const MyPagination = () => {
   const router = useRouter();
-  const dispatch = useAppDispatch();
   const author = useAppSelector((state) => state.userSlice.authorInfo);
   const pathname = author ? `/user/${author.userId}` : '/mypage';
   const me = useAppSelector((state) => state.userSlice.me);

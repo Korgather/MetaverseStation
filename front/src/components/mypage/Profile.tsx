@@ -1,5 +1,6 @@
 import { IAuthorInfo, IUser } from '@customTypes/user';
 import { openModal } from '@lib/ModalUtil';
+import { useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
@@ -7,17 +8,10 @@ import styled from 'styled-components';
 interface ProfileProps {
   me?: IUser | null;
   setEditModalState: Dispatch<SetStateAction<boolean>>;
-  authorInfo?: IAuthorInfo | null;
-  author?: IAuthorInfo;
 }
 
-const Profile: React.FunctionComponent<ProfileProps> = ({
-  me,
-  setEditModalState,
-  authorInfo,
-  author,
-}) => {
-  const user = author ? author : me;
+const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState }) => {
+  const author = useAppSelector((state) => state.userSlice.authorInfo);
   return (
     <>
       <ProfileWrapper>
@@ -27,7 +21,7 @@ const Profile: React.FunctionComponent<ProfileProps> = ({
           <Content>{author ? author.bio : me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
         </ContentWrapper>
         <ButtonWrapper>
-          {!authorInfo && (
+          {!author && (
             <Button onClick={() => openModal(setEditModalState)} htmlType="button">
               프로필 수정
             </Button>
