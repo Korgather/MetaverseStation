@@ -5,6 +5,12 @@ import { AddPost, IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';
 import { getSearchTotalPage, getTotalPage } from '@slices/postSlice';
 
+interface IloadPosts {
+  pageNum: string;
+  category: string;
+  keyword: string;
+}
+
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
   const {
     userSlice: { AccessToken },
@@ -52,7 +58,7 @@ export const loadPost = createAsyncThunk('post/load', async (postId: number, thu
   return res.data;
 });
 
-export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, thunkAPI) => {
+export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
@@ -61,10 +67,10 @@ export const loadPosts = createAsyncThunk('posts/load', async (pageNum: string, 
       Authorization: `Bearer ${AccessToken}}`,
     },
     params: {
-      category: '',
-      keyword: '',
+      category: data.category,
+      keyword: data.keyword ? data.keyword : '',
       size: 8,
-      page: Number(pageNum) - 1,
+      page: data.pageNum ? Number(data.pageNum) - 1 : 0,
     },
   });
   thunkAPI.dispatch(getTotalPage(res.data.totalPages));
@@ -86,6 +92,7 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
       keyword: searchKeyword,
       size: 8,
       page: searchPageNum - 1,
+      category: 'METAVERSE',
     },
   });
   thunkAPI.dispatch(getSearchTotalPage(res.data.totalPages));

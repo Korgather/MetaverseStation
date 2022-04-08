@@ -75,7 +75,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   }
   await store.dispatch(loadMyInfo());
 
-  await store.dispatch(loadPosts('1'));
+  await store.dispatch(
+    loadPosts({
+      pageNum: ctx.query.page as string,
+      category: ctx.query.category ? (ctx.query.category as string) : 'METAVERSE',
+      keyword: ctx.query.search as string,
+    }),
+  );
 
   return { props: {} };
 });

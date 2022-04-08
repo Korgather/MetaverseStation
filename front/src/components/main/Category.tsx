@@ -2,15 +2,24 @@ import React, { useState } from 'react';
 import { Input } from 'antd';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import { useAppDispatch } from '@store/hook';
+import { getSearchKeyword } from '@slices/postSlice';
 const { Search } = Input;
 function Category() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState('');
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
   const onSearch = () => {
-    router.push(`/search/${searchValue}`);
+    dispatch(getSearchKeyword(searchValue));
+    router.push({
+      pathname: '/',
+      query: {
+        search: searchValue,
+      },
+    });
   };
   return (
     <MenuWrapper>
