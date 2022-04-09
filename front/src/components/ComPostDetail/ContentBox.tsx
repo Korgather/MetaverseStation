@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import parse from 'html-react-parser';
 import { heartPost, loadPost } from '@actions/post';
 import { useRouter } from 'next/router';
+import { message } from 'antd';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
@@ -17,11 +18,21 @@ const ContentBox = () => {
       : setLikeState(false);
   }, []);
   const onToggleLike = async () => {
-    if (postDetail?.id) {
-      await dispatch(heartPost(postDetail.id));
-      await dispatch(loadPost(postDetail.id));
+    if (me) {
+      if (postDetail?.id) {
+        await dispatch(heartPost(postDetail.id));
+        await dispatch(loadPost(postDetail.id));
+      }
+      setLikeState(!likeState);
+    } else {
+      message.info({
+        content: '로그인이 필요합니다.',
+        className: 'custom-class',
+        style: {
+          marginTop: '20vh',
+        },
+      });
     }
-    setLikeState(!likeState);
   };
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
 

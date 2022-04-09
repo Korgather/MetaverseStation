@@ -9,6 +9,7 @@ const CommentInput = () => {
   const dispatch = useAppDispatch();
   const [comment, setComment] = useState('');
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
+  const me = useAppSelector((state) => state.userSlice.me);
 
   const postComment = async () => {
     const data = {
@@ -30,7 +31,7 @@ const CommentInput = () => {
       <CommentNum>{postDetail?.postCommentList.length}개의 댓글이 있습니다.</CommentNum>
       <Wrapper>
         <StyledTextArea size="large" value={comment} onChange={onChange} />
-        <StyledButton type="primary" onClick={postComment}>
+        <StyledButton type="primary" onClick={postComment} disabled={!me}>
           댓글 등록
         </StyledButton>
       </Wrapper>

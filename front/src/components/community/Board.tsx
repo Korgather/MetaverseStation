@@ -1,5 +1,5 @@
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
-import { useAppDispatch } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
@@ -10,6 +10,8 @@ import CommunitySearch from './CommunitySearch';
 const Board = () => {
   const dispatch = useAppDispatch();
   const openModal = () => dispatch(ToggleCommunityWriteModalState(true));
+  const me = useAppSelector((state) => state.userSlice.me);
+
   return (
     <Layout>
       <CategoryWrapper>
@@ -18,7 +20,7 @@ const Board = () => {
       <BoardWrapper>
         <TopWrapper>
           <CommunitySearch />
-          <StyledButton type="primary" htmlType="button" onClick={openModal}>
+          <StyledButton type="primary" htmlType="button" onClick={openModal} disabled={!me}>
             글쓰기
           </StyledButton>
         </TopWrapper>

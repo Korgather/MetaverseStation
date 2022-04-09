@@ -41,7 +41,9 @@ const Home: NextPage = () => {
           <Postzone mainPosts={mainPosts} />
           <BottomWrapper>
             <Pagination />
-            <StyledButton onClick={openModal}>글쓰기</StyledButton>
+            <StyledButton onClick={openModal} disabled={!me}>
+              글쓰기
+            </StyledButton>
           </BottomWrapper>
         </>
       </AppLayout>
