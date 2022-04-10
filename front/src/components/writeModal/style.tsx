@@ -1,7 +1,12 @@
+import React from 'react';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { Upload, Input, Tag, Button } from 'antd';
 import styled from 'styled-components';
-
+import dynamic from 'next/dynamic';
+const QuillNoSSRWrapper = dynamic(import('react-quill'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 export interface Props {
   state?: boolean;
   for?: string;
@@ -127,4 +132,12 @@ export const TagAndBtnWrapper = styled.div`
 
 export const Error = styled.div`
   color: red;
+`;
+
+export const StyledReactQuill = styled(QuillNoSSRWrapper)`
+  margin: 20px 0;
+  .ql-container.ql-snow {
+    max-height: 300px;
+    height: 40vh;
+  }
 `;

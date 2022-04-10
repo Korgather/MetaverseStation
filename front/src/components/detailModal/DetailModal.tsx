@@ -1,5 +1,5 @@
 import CommentModal from '@components/commentModal/CommentModal';
-import { closeModal } from '@lib/ModalUtil';
+import parse from 'html-react-parser';
 import { clearpostDetail, ToggleDetailState } from '@slices/postSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { Dispatch, SetStateAction, useState } from 'react';
@@ -27,12 +27,12 @@ const DetailModal = () => {
             <DetailHeader />
             <SliderImages />
             <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
-            <S.Content>{postData.content} </S.Content>
-            <S.TagsWrapper>
-              {postData.tags?.map((tag) => (
-                <span key={shortid.generate()}># {tag}</span>
-              ))}
-            </S.TagsWrapper>
+            <S.ContentBox>
+              <S.Title>{postData.title}</S.Title>
+              <S.Content>
+                {typeof postData.content === 'string' ? parse(postData.content) : postData.content}
+              </S.Content>
+            </S.ContentBox>
           </S.Modal>
           <CommentModal commentState={commentState} postData={postData} />
         </S.ModalWrapper>

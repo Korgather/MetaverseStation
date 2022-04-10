@@ -18,6 +18,7 @@ interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCom
 const WriteModal = () => {
   const dispatch = useAppDispatch();
   const prevPostData = useAppSelector((state) => state.postSlice.prevPostData);
+  const [content, setContent] = useState('');
   const [gatherState, setGatherState] = useState(prevPostData?.category === 'METAVERSE_GATHERTOWN');
   const [zepState, setZepState] = useState(prevPostData?.category === 'METAVERSE_ZEP');
   const router = useRouter();
@@ -30,17 +31,21 @@ const WriteModal = () => {
       .max(50, '제목이 너무 길어요')
       .required('제목은 필수입니다.'),
     link: Yup.string().url('올바른 링크를 입력해주세요').required('링크는 필수입니다.'),
-    content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
+    // content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
     images: Yup.array().min(1, '이미지를 1개 이상 등록해주세요.'),
   });
   const closeModal = () => {
     dispatch(ToggleWriteModalState(false));
     dispatch(getPrevPostData(null));
   };
+  const onChangeContent = (content: string) => {
+    setContent(content);
+  };
+
   const formik = useFormik({
     initialValues: {
       title: `${prevPostData ? prevPostData.title : ''}`,
-      content: `${prevPostData ? prevPostData.content : ''}`,
+      // content: `${prevPostData ? prevPostData.content : ''}`,
       link: `${prevPostData ? prevPostData.link : ''}`,
       postCommentList: [],
       images: prevPostData?.images ? prevPostData.images : [],
@@ -52,7 +57,7 @@ const WriteModal = () => {
         origFileName,
         fileSize,
       }));
-      const { images, link, title, content, id } = values;
+      const { images, link, title, id } = values;
       if (!category) {
         alert('카테고리를 선택해주세요');
         return;
@@ -139,7 +144,7 @@ const WriteModal = () => {
               <UploadImages imageList={imageList} setImageList={setImageList} />
               {formik.errors.images && formik.touched && <S.Error>{formik.errors.images}</S.Error>}
               <S.StyledLabel htmlFor="content">내용</S.StyledLabel>
-              <TextArea
+              {/* <TextArea
                 id="content"
                 name="content"
                 onChange={formik.handleChange}
@@ -149,7 +154,11 @@ const WriteModal = () => {
               />
               {formik.errors.content && formik.touched && (
                 <S.Error>{formik.errors.content}</S.Error>
-              )}
+              )} */}
+              <S.StyledReactQuill
+                onChange={(content) => onChangeContent(content)}
+                defaultValue={prevPostData?.content ? prevPostData?.content : ''}
+              />
 
               <S.TagAndBtnWrapper>
                 <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
