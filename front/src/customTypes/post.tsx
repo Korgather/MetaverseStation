@@ -41,6 +41,7 @@ export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
 export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
   images: CustomFile[];
   id?: string;
+  category: string;
 }
 
 export interface IPostState {
@@ -87,6 +88,9 @@ export interface IPostState {
   viewPostLoading: boolean;
   viewPostDone: boolean;
   viewPostError: SerializedError | null;
+  deleteAlramLoading: boolean;
+  deleteAlramDone: boolean;
+  deleteAlramError: SerializedError | null;
   pageNum: number;
   totalPages: number;
   searchPageNum: number;
@@ -94,4 +98,5 @@ export interface IPostState {
   prevPostData: IPostDataForUpdate | null;
   searchKeyword: string;
   updateModalState: boolean;
+  detailModalState: boolean;
 }

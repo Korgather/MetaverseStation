@@ -4,22 +4,28 @@ import styled from 'styled-components';
 import { addComment, loadPost } from '@actions/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useFormik } from 'formik';
+import { scrollToBottom } from '@lib/scroll';
 const { TextArea } = Input;
 
-const CommentInput = () => {
+const CommentInput = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivElement> }) => {
   const dispatch = useAppDispatch();
   const addCommentLoading = useAppSelector((state) => state.postSlice.addCommentLoading);
   const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
   const postDetail = useAppSelector((state) => state.postSlice.postDetail);
-
+  const me = useAppSelector((state) => state.userSlice.me);
   const formik = useFormik({
     initialValues: {
       content: '',
       postid: postDetail?.id,
     },
     onSubmit: async (values) => {
-      await dispatch(addComment(values));
-      postDetail && (await dispatch(loadPost(postDetail.id)));
+      try {
+        await dispatch(addComment(values));
+        postDetail && (await dispatch(loadPost(postDetail.id)));
+        scrollToBottom(CommentRef.current);
+      } catch (e) {
+        console.log(e);
+      }
     },
   });
   useEffect(() => {
@@ -38,7 +44,7 @@ const CommentInput = () => {
           name="content"
           id="content"
         />
-        <StyledButton type="primary" htmlType="submit" loading={addCommentLoading}>
+        <StyledButton type="primary" htmlType="submit" loading={addCommentLoading} disabled={!me}>
           댓글입력
         </StyledButton>
       </form>

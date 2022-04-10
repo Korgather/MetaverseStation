@@ -9,7 +9,7 @@ import { useCookies } from 'react-cookie';
 const ProfileDropdown = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const router = useRouter();
-  const setCookie = useCookies(['Token'])[1];
+  const removeCookie = useCookies(['Token'])[2];
   const dispatch = useAppDispatch();
 
   const onSelect = async ({ key }: { key: string }) => {
@@ -18,10 +18,11 @@ const ProfileDropdown = () => {
     }
     if (key === 'pro_logout') {
       try {
-        setCookie('Token', '');
-        dispatch(logOut());
+        await removeCookie('Token', { path: '/' });
+        await dispatch(logOut());
+        router.push('/login');
       } catch (e) {
-        console.error(e);
+        console.log(e);
       }
     }
   };

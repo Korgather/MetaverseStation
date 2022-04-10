@@ -1,6 +1,7 @@
 import { heartPost, loadPost } from '@actions/post';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@store/hook';
+import { Alert, message } from 'antd';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import * as S from './style';
 interface HeartAndMessage {
@@ -24,10 +25,20 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
   }, []);
 
   const onToggleLike = async () => {
-    setLikeState(!likeState);
-    if (postDetail?.id) {
-      await dispatch(heartPost(postDetail.id));
-      await dispatch(loadPost(postDetail.id));
+    if (me) {
+      setLikeState(!likeState);
+      if (postDetail?.id) {
+        await dispatch(heartPost(postDetail.id));
+        await dispatch(loadPost(postDetail.id));
+      }
+    } else {
+      message.info({
+        content: '로그인이 필요합니다.',
+        className: 'custom-class',
+        style: {
+          marginTop: '20vh',
+        },
+      });
     }
   };
 

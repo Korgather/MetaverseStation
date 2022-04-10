@@ -12,6 +12,7 @@ import {
   updateReply,
   removePost,
   searchPosts,
+  deleteAlram,
 } from '@actions/post';
 import { IPostState } from '@customTypes/post';
 import { createSlice } from '@reduxjs/toolkit';
@@ -73,6 +74,10 @@ const initialState: IPostState = {
   viewPostDone: false,
   viewPostError: null,
 
+  deleteAlramLoading: false,
+  deleteAlramDone: false,
+  deleteAlramError: null,
+
   postDetail: null,
   pageNum: 0,
   totalPages: 1,
@@ -80,6 +85,7 @@ const initialState: IPostState = {
   searchTotalPages: 1,
   prevPostData: null,
   updateModalState: false,
+  detailModalState: false,
   searchKeyword: '',
 };
 
@@ -110,6 +116,12 @@ export const postSlice = createSlice({
       action.payload === true
         ? (document.body.style.overflow = 'hidden')
         : (document.body.style.overflow = 'unset');
+    },
+    ToggleDetailState: (state, action) => {
+      state.detailModalState = action.payload;
+      // action.payload === true
+      //   ? (document.body.style.overflow = 'hidden')
+      //   : (document.body.style.overflow = 'unset');
     },
     clearpostDetail: (state) => {
       state.postDetail = null;
@@ -266,6 +278,17 @@ export const postSlice = createSlice({
       .addCase(updateReply.rejected, (state, action: ReturnType<typeof updateReply.rejected>) => {
         state.updateReplyLoading = false;
         state.updateReplyError = action.error;
+      })
+      .addCase(deleteAlram.pending, (state) => {
+        state.deleteAlramLoading = true;
+      })
+      .addCase(deleteAlram.fulfilled, (state, action) => {
+        state.deleteAlramDone = true;
+        state.deleteAlramLoading = false;
+      })
+      .addCase(deleteAlram.rejected, (state, action: ReturnType<typeof deleteAlram.rejected>) => {
+        state.deleteAlramLoading = false;
+        state.deleteAlramError = action.error;
       }),
 });
 
@@ -278,5 +301,6 @@ export const {
   getSearchPageNum,
   getSearchTotalPage,
   getSearchKeyword,
+  ToggleDetailState,
 } = postSlice.actions;
 export default postSlice.reducer;

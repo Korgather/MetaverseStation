@@ -1,4 +1,6 @@
+import { loadComPost } from '@actions/community';
 import { addComment, loadPost } from '@actions/post';
+import { scrollToBottom } from '@lib/scroll';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
@@ -8,7 +10,8 @@ import styled from 'styled-components';
 const CommentInput = () => {
   const dispatch = useAppDispatch();
   const [comment, setComment] = useState('');
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
+  const me = useAppSelector((state) => state.userSlice.me);
 
   const postComment = async () => {
     const data = {
@@ -17,9 +20,10 @@ const CommentInput = () => {
     };
     try {
       await dispatch(addComment(data));
-      await dispatch(loadPost(data.postid as number));
+      await dispatch(loadComPost(data.postid as number));
+      scrollToBottom(window);
     } catch (e) {
-      console.error(e);
+      console.log(e);
     } finally {
       setComment('');
     }
@@ -30,7 +34,7 @@ const CommentInput = () => {
       <CommentNum>{postDetail?.postCommentList.length}개의 댓글이 있습니다.</CommentNum>
       <Wrapper>
         <StyledTextArea size="large" value={comment} onChange={onChange} />
-        <StyledButton type="primary" onClick={postComment}>
+        <StyledButton type="primary" onClick={postComment} disabled={!me}>
           댓글 등록
         </StyledButton>
       </Wrapper>

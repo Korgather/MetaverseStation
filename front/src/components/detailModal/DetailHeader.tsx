@@ -5,15 +5,17 @@ import { IPost } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { clearpostDetail, getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
+import {
+  clearpostDetail,
+  getPrevPostData,
+  ToggleDetailState,
+  ToggleWriteModalState,
+} from '@slices/postSlice';
 import modal from 'antd/lib/modal';
 import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
-interface DetailHeaderProps {
-  setDetailModalState: Dispatch<SetStateAction<boolean>>;
-}
 
-const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailModalState }) => {
+const DetailHeader = () => {
   const router = useRouter();
   const { id: pageNum } = router.query;
   const me = useAppSelector((state) => state.userSlice.me);
@@ -21,23 +23,24 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
   const postData = useAppSelector((state) => state.postSlice.postDetail);
   const dataForUpdate = {
     images: (postData as IPost).imageList.map((image) => ({
-      imagePath: image.imagePath,
+      imagePath: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
       origFileName: image.origFileName,
       fileSize: image.fileSize,
-      url: image.imagePath,
-      uid: image.imagePath,
+      url: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
+      uid: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
     })),
     link: postData?.link,
     title: postData?.title,
     content: postData?.content,
     state: true,
     id: postData?.id,
+    category: postData?.category,
   };
   const openUpdateModal = () => {
+    dispatch(ToggleDetailState(false));
     dispatch(getPrevPostData(dataForUpdate));
     dispatch(ToggleWriteModalState(true));
     dispatch(clearpostDetail());
-    closeModal(setDetailModalState);
   };
 
   const onRemovePost = () => {
@@ -82,7 +85,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
           <S.StyledDownOutlined />
         </Dropdown>
       )}
-      <S.StyledA href="https://cafe.naver.com/gathertown" target="_blank">
+      <S.StyledA href={postData?.link} target="_blank">
         <S.EntnerButton type="primary" htmlType="button">
           입장하기
         </S.EntnerButton>
@@ -90,7 +93,7 @@ const DetailHeader: React.FunctionComponent<DetailHeaderProps> = ({ setDetailMod
       <S.CloseModalBtn
         onClick={() => {
           dispatch(clearpostDetail());
-          closeModal(setDetailModalState);
+          dispatch(ToggleDetailState(false));
         }}
       >
         x

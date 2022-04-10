@@ -1,11 +1,23 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Bookmark } from 'src/svg';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface IModal {
   commentState: boolean;
 }
+
+export const StyledScroll = css`
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #929292;
+  }
+`;
 
 export const Dim = styled.div`
   width: 100vw;
@@ -74,11 +86,7 @@ export const Modal = styled.div<IModal>`
   flex-direction: column;
 `;
 
-export const Content = styled.div`
-  padding: 15px 30px;
-  overflow-y: auto;
-  height: 30%;
-`;
+export const Content = styled.div``;
 
 export const TagsWrapper = styled.div`
   padding: 15px 30px;
@@ -196,4 +204,16 @@ export const CommentImg = styled.img`
 
 export const StyledBookmark = styled(Bookmark)`
   margin-left: auto;
+`;
+
+export const Title = styled.h2`
+  padding: 0px 0px 10px 0px;
+  border-bottom: 1px solid #c1c1c199;
+`;
+
+export const ContentBox = styled.div`
+  padding: 15px 30px;
+  overflow-y: auto;
+  height: 100%;
+  ${StyledScroll}
 `;

@@ -2,7 +2,6 @@ import React from 'react';
 import { UploadFile } from 'antd/lib/upload/interface';
 import { Upload, Input, Tag, Button } from 'antd';
 import styled from 'styled-components';
-// import ReactQuill from 'react-quill';
 import dynamic from 'next/dynamic';
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,

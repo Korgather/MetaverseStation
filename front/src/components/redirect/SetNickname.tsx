@@ -36,7 +36,7 @@ function SetNickname({ token }: ISetNickname) {
       {!secondStep ? (
         <Content>
           <Request>
-            메버스에 오신것을 환영합니다.
+            모두의 메타버스에 오신것을 환영합니다.
             <br />
             닉네임을 설정해주세요 !
           </Request>
@@ -51,7 +51,7 @@ function SetNickname({ token }: ISetNickname) {
           <Request>
             가입을 축하합니다 !
             <br />
-            메버스에서 메타버스를 탐험해보세요 !
+            모두의 메타버스에서 메타버스를 탐험해보세요 !
           </Request>
           <Logo>로고</Logo>
           <ButtonWrapper>

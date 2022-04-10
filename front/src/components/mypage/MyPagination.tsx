@@ -11,6 +11,7 @@ const MyPagination = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const category = router.query.category ? router.query.category : 'METAVERSE';
   const userTotalPages = useAppSelector((state) => state.userSlice.myPostTotalPages);
+  const filter = router.query.filter;
   const onPageChange = (page: number) => {
     router.push({
       pathname: pathname,
@@ -20,6 +21,7 @@ const MyPagination = () => {
         profileImageUrl: author && author.profileImageUrl,
         userId: author ? author.userId : me?.userId,
         username: author && author?.username,
+        filter,
       },
     });
   };
@@ -31,7 +33,7 @@ const MyPagination = () => {
         pageSizeOptions={[10, 20, 50, 100]}
         onChange={onPageChange}
         defaultPageSize={6}
-        total={userTotalPages * 5}
+        total={userTotalPages * 6}
         current={router.query.page ? (Number(router.query.page) as number) : 1}
       />
     </PaginationWrapper>

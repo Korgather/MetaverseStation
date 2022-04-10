@@ -37,13 +37,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {updateModalState && <WriteModal />}
-      {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
+      {detailModalState && <DetailModal />}
 
       <AppLayout>
         <>
           <BannerItem />
           <Category />
-          <Postzone setDetailModalState={setDetailModalState} mainPosts={mainPosts} />
+          <Postzone mainPosts={mainPosts} />
           <BottomWrapper>
             <Pagination />
             <StyledButton onClick={openModal}>글쓰기</StyledButton>

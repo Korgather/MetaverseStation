@@ -35,7 +35,7 @@ const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput })
         data && (await dispatch(addReply(data)));
         postId && (await dispatch(loadPost(postId)));
       } catch (e) {
-        console.error(e);
+        console.log(e);
       } finally {
         ToggleReplyInput();
       }
@@ -49,7 +49,7 @@ const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput })
         id="content"
         onChange={formik.handleChange}
         value={formik.values.content}
-        large={reply ? false : comment ? true : false}
+        large={reply ? false : comment && true}
       />
       <S.MoreRelpyBtnWrapper>
         <S.StyledBtn onClick={ToggleReplyInput}>취소</S.StyledBtn>

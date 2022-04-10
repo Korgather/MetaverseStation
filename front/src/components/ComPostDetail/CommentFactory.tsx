@@ -1,3 +1,4 @@
+import { loadComPost } from '@actions/community';
 import { loadPost, removeComment, updateComment } from '@actions/post';
 import { IComment } from '@customTypes/comment';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
@@ -10,12 +11,11 @@ import styled from 'styled-components';
 
 const CommentFactory = ({ comment }: { comment: IComment }) => {
   const me = useAppSelector((state) => state.userSlice.me);
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   const [content, setContent] = useState('');
   const [updateState, setUpdateState] = useState(false);
   const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    console.log(content);
     e.preventDefault();
     setContent(e.target.value);
   };
@@ -24,16 +24,15 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       content,
       commentId,
     };
-    console.log(updateData);
     postDetail &&
       modal.confirm({
         title: '댓글을 수정하시겠습니까?',
         onOk: async function () {
           try {
             await dispatch(updateComment(updateData));
-            await dispatch(loadPost(postDetail?.id as number));
+            await dispatch(loadComPost(postDetail?.id as number));
           } catch (e) {
-            console.error(e);
+            console.log(e);
           }
         },
       });
@@ -45,9 +44,9 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
         onOk: async function () {
           try {
             await dispatch(removeComment(comment));
-            await dispatch(loadPost(postDetail?.id as number));
+            await dispatch(loadComPost(postDetail?.id as number));
           } catch (e) {
-            console.error(e);
+            console.log(e);
           } finally {
             onToggleUpdateState();
           }

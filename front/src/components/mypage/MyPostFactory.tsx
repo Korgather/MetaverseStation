@@ -28,13 +28,18 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
               }}
             >
               {post.imageList[0]?.imagePath.length >= 20 ? (
-                <S.PostImg src={post.imageList[0].imagePath} />
+                <S.PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
               ) : (
                 <S.PostImg src="../../images/thumbnail02.png" />
               )}
             </div>
           </S.ImgWrapper>
           <S.Summary>
+            {post.category === 'METAVERSE_ZEP' ? (
+              <S.Logo src="../../images/zepLogo.png" />
+            ) : (
+              <S.Logo src="../../images/gatherLogo.png" />
+            )}
             <S.Title>
               {post.title && post.title?.length >= 15
                 ? `${post.title?.slice(0, 15)}...`
@@ -49,7 +54,6 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
           </S.Summary>
         </Col>
       ))}
-      ;
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { addComPost, loadComPosts, searchComPosts } from '@actions/community';
+import { addComPost, loadComPost, loadComPosts, searchComPosts } from '@actions/community';
 import { ICommunityState } from '@customTypes/community';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -8,6 +8,11 @@ const initialState: ICommunityState = {
   loadComPostsLoading: false,
   loadComPostsDone: false,
   loadComPostsError: null,
+
+  loadComPostLoading: false,
+  loadComPostDone: false,
+  loadComPostError: null,
+
   addComPostLoading: false,
   addComPostDone: false,
   addComPostError: null,
@@ -15,6 +20,7 @@ const initialState: ICommunityState = {
   searchComPostsDone: false,
   searchComPostsError: null,
   comTotalPages: 0,
+  comPostDetail: null,
   getSearchInput: '',
 };
 
@@ -30,6 +36,9 @@ export const communitySlice = createSlice({
     },
     getSearchInput: (state, action) => {
       state.getSearchInput = action.payload;
+    },
+    clearComPostDetail: (state) => {
+      state.comPostDetail = null;
     },
   },
   extraReducers: (builder) =>
@@ -74,8 +83,20 @@ export const communitySlice = createSlice({
           state.searchComPostsLoading = false;
           state.searchComPostsError = action.error;
         },
-      ),
+      )
+      .addCase(loadComPost.pending, (state) => {
+        state.loadComPostLoading = true;
+      })
+      .addCase(loadComPost.fulfilled, (state, action) => {
+        state.loadComPostLoading = false;
+        state.comPostDetail = action.payload;
+      })
+      .addCase(loadComPost.rejected, (state, action: ReturnType<typeof loadComPost.rejected>) => {
+        state.loadComPostLoading = false;
+        state.loadComPostError = action.error;
+      }),
 });
 
-export const { ToggleCommunityWriteModalState, getSearchInput } = communitySlice.actions;
+export const { ToggleCommunityWriteModalState, getSearchInput, clearComPostDetail } =
+  communitySlice.actions;
 export default communitySlice.reducer;

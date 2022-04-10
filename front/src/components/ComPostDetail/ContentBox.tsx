@@ -1,30 +1,50 @@
-import { EyeOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  DownOutlined,
+  EyeOutlined,
+  HeartFilled,
+  HeartOutlined,
+} from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
-import { heartPost, loadPost } from '@actions/post';
+import { heartPost, loadPost, removePost } from '@actions/post';
 import { useRouter } from 'next/router';
+import { Dropdown, Menu, message } from 'antd';
+import shortid from 'shortid';
+import modal from 'antd/lib/modal';
+import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
+import { loadComPost } from '@actions/community';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   useEffect(() => {
     me && Object.keys(postDetail?.likeUserList as object).indexOf(me?.userId.toString()) > -1
       ? setLikeState(true)
       : setLikeState(false);
   }, []);
   const onToggleLike = async () => {
-    if (postDetail?.id) {
-      await dispatch(heartPost(postDetail.id));
-      await dispatch(loadPost(postDetail.id));
+    if (me) {
+      if (postDetail?.id) {
+        await dispatch(heartPost(postDetail.id));
+        await dispatch(loadComPost(postDetail.id));
+      }
+      setLikeState(!likeState);
+    } else {
+      message.info({
+        content: '로그인이 필요합니다.',
+        className: 'custom-class',
+        style: {
+          marginTop: '20vh',
+        },
+      });
     }
-    setLikeState(!likeState);
   };
-  const postDetail = useAppSelector((state) => state.postSlice.postDetail);
-
   const gotoUserPage = () => {
     if (postDetail) {
       const { username, userId, bio, profileImageUrl } = postDetail.postUser;
@@ -34,13 +54,53 @@ const ContentBox = () => {
       });
     }
   };
+
+  const openUpdateModal = () => {
+    dispatch(ToggleCommunityWriteModalState(true));
+  };
+  const categoryForRouter =
+    postDetail?.category === 'COMMUNITY_QUESTION'
+      ? 'question'
+      : postDetail?.category === 'COMMUNITY_GENERAL'
+      ? 'free'
+      : postDetail?.category === 'COMMUNITY_GENERAL' && 'study';
+
+  const onRemovePost = () => {
+    postDetail &&
+      modal.confirm({
+        title: '게시글을 삭제하시겠습니까?',
+        onOk: async function async() {
+          await dispatch(removePost(postDetail?.id));
+          router.push(`/community/${categoryForRouter}`);
+        },
+      });
+  };
+
+  const menu = (
+    <Menu>
+      <Menu.Item key={shortid.generate()}>
+        <a onClick={openUpdateModal}>수정하기</a>
+      </Menu.Item>
+      <Menu.Item key={shortid.generate()}>
+        <a onClick={onRemovePost}>삭제하기</a>
+      </Menu.Item>
+    </Menu>
+  );
+
   return postDetail ? (
     <ContentBoxLayout>
-      <BackArrow onClick={() => router.back()}>←</BackArrow>
+      <BackArrow onClick={() => router.back()}>
+        <ArrowLeftOutlined />
+      </BackArrow>
       <Title>{postDetail.title}</Title>
       <ProfileHeader>
-        <ProfileImg src="../../images/profile01.png" alt="" onClick={gotoUserPage} />
+        <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
         <Username>{postDetail.postUser.username}</Username>
+        {postDetail?.postUser.userId === me?.userId && (
+          <Dropdown overlay={menu} trigger={['click']}>
+            <StyledDownOutlined />
+          </Dropdown>
+        )}
         <Date>{postDetail.createdDate.slice(0, 10)}</Date>
       </ProfileHeader>
       <Content>{parse(postDetail.content as string)}</Content>
@@ -58,7 +118,7 @@ const ContentBox = () => {
         </HeartWrapper>
         <EyeWrpper>
           <StyledEye />
-          <span>{Object.keys(postDetail.view).length}</span>
+          <span>{postDetail.view}</span>
         </EyeWrpper>
       </Icons>
     </ContentBoxLayout>
@@ -69,9 +129,15 @@ const ContentBox = () => {
 
 export default ContentBox;
 
+const StyledDownOutlined = styled(DownOutlined)`
+  width: 18px;
+  svg {
+    width: 10px;
+  }
+`;
 const BackArrow = styled.div`
   cursor: pointer;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #dcdcdc;
   :hover {

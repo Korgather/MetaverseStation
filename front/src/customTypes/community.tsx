@@ -1,5 +1,6 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { IComment } from './comment';
+import { IPost } from './post';
 import { IPostUser } from './user';
 
 export interface ICommunityPost {
@@ -24,9 +25,13 @@ export interface ICommunityState {
   addComPostLoading: boolean;
   addComPostDone: boolean;
   addComPostError: SerializedError | null;
+  loadComPostLoading: boolean;
+  loadComPostDone: boolean;
+  loadComPostError: SerializedError | null;
   searchComPostsLoading: boolean;
   searchComPostsDone: boolean;
   searchComPostsError: SerializedError | null;
   comTotalPages: number;
   getSearchInput: string;
+  comPostDetail: IPost | null;
 }

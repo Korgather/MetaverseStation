@@ -35,14 +35,13 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
           Authorization: `Bearer ${AccessToken}}`,
         },
       });
-      setCurrentImageUrl(res.data[0]);
+      setCurrentImageUrl(process.env.NEXT_PUBLIC_IMG_URL + res.data[0]);
       setImageList([
         ...imageList,
         { file, imagePath: res.data[0], fileSize: file.size, origFileName: file.name },
       ]);
       setUploadSuccess('ok');
     } catch (e) {
-      console.log(e);
       setUploadSuccess('error');
     }
     return '';

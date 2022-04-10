@@ -50,7 +50,7 @@ export const MyPostWrapper = styled.div`
   width: 100%;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h2`
   font-size: 1rem;
   font-weight: 600;
   flex: 1;
@@ -79,6 +79,7 @@ export const Count = styled.div`
 export const Summary = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export const CommentImg = styled.img`
@@ -86,4 +87,9 @@ export const CommentImg = styled.img`
   width: 1.1rem;
   height: 1.1rem;
   margin-top: 2px;
+`;
+
+export const Logo = styled.img`
+  margin-right: 10px;
+  height: 2rem;
 `;
