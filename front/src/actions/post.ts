@@ -211,3 +211,15 @@ export const updateReply = createAsyncThunk(
     );
   },
 );
+
+export const deleteAlram = createAsyncThunk('alram/delete', async (alramId: string, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/notification/${alramId}`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}}`,
+    },
+  });
+  return res.data;
+});

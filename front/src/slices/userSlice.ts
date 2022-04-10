@@ -45,7 +45,6 @@ export const initialState: IUserState = {
   loadAuthorPostsLoading: false,
   loadAuthorPostsDone: false,
   loadAuthorPostsError: null,
-  notificationResponseDtoList: [],
 };
 
 export const userSlice = createSlice({

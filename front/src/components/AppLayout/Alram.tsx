@@ -1,4 +1,5 @@
-import { loadPost } from '@actions/post';
+import { deleteAlram, loadPost } from '@actions/post';
+import { loadMyInfo } from '@actions/user';
 import { BellOutlined, DownOutlined } from '@ant-design/icons';
 import { IPost } from '@customTypes/post';
 import { ToggleDetailState } from '@slices/postSlice';
@@ -12,15 +13,32 @@ import styled from 'styled-components';
 const Alram = () => {
   const dispatch = useAppDispatch();
   const onSelect = async ({ key }: { key: string }) => {
+    if (key === 'clear_alram') {
+      try {
+        dispatch(deleteAlram('all'));
+        await dispatch(loadMyInfo());
+      } catch (e) {
+        console.log(e);
+      }
+
+      return;
+    }
     const postIdx = key.indexOf('_');
     const postId = key.slice(0, postIdx);
     const openDetailModal = async () => {
       dispatch(ToggleDetailState(true));
     };
-    const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
-    postData.category && postData.category?.indexOf('METAVERSE') > -1
-      ? openDetailModal()
-      : Router.push(`/community/post/${postId}`);
+    try {
+      const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
+      await dispatch(deleteAlram(postId));
+      console.log(postData);
+      postData.category && postData.category?.indexOf('METAVERSE') > -1
+        ? openDetailModal()
+        : Router.push(`/community/post/${postId}`);
+      await dispatch(loadMyInfo());
+    } catch (e) {
+      console.log(e);
+    }
   };
   const alram = useAppSelector((state) => state.userSlice.me?.notificationResponseDtoList);
   const menu = (
@@ -40,7 +58,7 @@ const Alram = () => {
       {alram?.map((message) => (
         <StyledMenuItem
           key={`${message.postId}_${shortid.generate()}`}
-        >{`"${message.postTitle.slice(0, 10)}..." 게시글에 답변이 달렸습니다.`}</StyledMenuItem>
+        >{`"${message.postTitle.slice(0, 10)}..." 게시글에 댓글이 달렸습니다.`}</StyledMenuItem>
       ))}
 
       <StyledMenuItem
