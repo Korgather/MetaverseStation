@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { addComment, loadPost } from '@actions/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useFormik } from 'formik';
+import { scrollToBottom } from '@lib/scroll';
 const { TextArea } = Input;
 
-const CommentInput = () => {
+const CommentInput = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivElement> }) => {
   const dispatch = useAppDispatch();
   const addCommentLoading = useAppSelector((state) => state.postSlice.addCommentLoading);
   const addCommentDone = useAppSelector((state) => state.postSlice.addCommentDone);
@@ -21,9 +22,9 @@ const CommentInput = () => {
       try {
         await dispatch(addComment(values));
         postDetail && (await dispatch(loadPost(postDetail.id)));
-      } catch (error: any) {
-        // console.log(e);
-        console.log(error);
+        scrollToBottom(CommentRef.current);
+      } catch (e) {
+        console.log(e);
       }
     },
   });

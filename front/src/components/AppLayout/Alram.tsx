@@ -24,20 +24,25 @@ const Alram = () => {
       return;
     }
     const postIdx = key.indexOf('_');
+    const notifyIdx = key.lastIndexOf('_');
+    const notifyId = key.slice(notifyIdx + 1);
+    console.log(notifyId);
     const postId = key.slice(0, postIdx);
     const openDetailModal = async () => {
       dispatch(ToggleDetailState(true));
     };
     try {
       const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
-      await dispatch(deleteAlram(postId));
+      await dispatch(deleteAlram(notifyId));
       console.log(postData);
       postData.category && postData.category?.indexOf('METAVERSE') > -1
         ? openDetailModal()
         : Router.push(`/community/post/${postId}`);
-      await dispatch(loadMyInfo());
     } catch (e) {
       console.log(e);
+      alert('게시글이 삭제되었습니다.');
+    } finally {
+      await dispatch(loadMyInfo());
     }
   };
   const alram = useAppSelector((state) => state.userSlice.me?.notificationResponseDtoList);
@@ -57,7 +62,7 @@ const Alram = () => {
 
       {alram?.map((message) => (
         <StyledMenuItem
-          key={`${message.postId}_${shortid.generate()}`}
+          key={`${message.postId}_${message.notificationId}`}
         >{`"${message.postTitle.slice(0, 10)}..." 게시글에 댓글이 달렸습니다.`}</StyledMenuItem>
       ))}
 

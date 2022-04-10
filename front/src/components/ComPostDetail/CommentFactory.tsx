@@ -1,3 +1,4 @@
+import { loadComPost } from '@actions/community';
 import { loadPost, removeComment, updateComment } from '@actions/post';
 import { IComment } from '@customTypes/comment';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
@@ -29,7 +30,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
         onOk: async function () {
           try {
             await dispatch(updateComment(updateData));
-            await dispatch(loadPost(postDetail?.id as number));
+            await dispatch(loadComPost(postDetail?.id as number));
           } catch (e) {
             console.log(e);
           }
@@ -43,7 +44,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
         onOk: async function () {
           try {
             await dispatch(removeComment(comment));
-            await dispatch(loadPost(postDetail?.id as number));
+            await dispatch(loadComPost(postDetail?.id as number));
           } catch (e) {
             console.log(e);
           } finally {

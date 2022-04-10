@@ -15,6 +15,7 @@ import { Dropdown, Menu, message } from 'antd';
 import shortid from 'shortid';
 import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
+import { loadComPost } from '@actions/community';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
@@ -31,7 +32,7 @@ const ContentBox = () => {
     if (me) {
       if (postDetail?.id) {
         await dispatch(heartPost(postDetail.id));
-        await dispatch(loadPost(postDetail.id));
+        await dispatch(loadComPost(postDetail.id));
       }
       setLikeState(!likeState);
     } else {

@@ -52,17 +52,22 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
       replyId: reply?.replyId as number,
       content,
     };
-    try {
-      comment
-        ? await dispatch(updateComment(commentdata))
-        : reply && (await dispatch(updateReply(replydata)));
+    modal.confirm({
+      title: '댓글을 수정하시겠습니까?',
+      onOk: async function () {
+        try {
+          comment
+            ? await dispatch(updateComment(commentdata))
+            : reply && (await dispatch(updateReply(replydata)));
 
-      postDetail && (await dispatch(loadPost(postDetail.id)));
-    } catch (e) {
-      console.log(e);
-    } finally {
-      ToggleUpdateInput();
-    }
+          postDetail && (await dispatch(loadPost(postDetail.id)));
+        } catch (e) {
+          console.log(e);
+        } finally {
+          ToggleUpdateInput();
+        }
+      },
+    });
   };
 
   useEffect(() => {

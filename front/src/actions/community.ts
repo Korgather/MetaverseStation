@@ -70,7 +70,7 @@ export const updateComPost = createAsyncThunk(
 );
 
 export const searchComPosts = createAsyncThunk(
-  'posts/search',
+  'comPosts/search',
   async (data: IComSearch, thunkAPI) => {
     const {
       userSlice: { AccessToken },
@@ -90,7 +90,7 @@ export const searchComPosts = createAsyncThunk(
   },
 );
 
-export const loadComPost = createAsyncThunk('post/load', async (postId: number, thunkAPI) => {
+export const loadComPost = createAsyncThunk('comPost/load', async (postId: number, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };

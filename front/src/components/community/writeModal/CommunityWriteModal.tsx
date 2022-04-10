@@ -7,6 +7,7 @@ import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { useFormik } from 'formik';
 import { addComPost, IAddComPost, updateComPost } from '@actions/community';
 import { useRouter } from 'next/router';
+import { CiOutlined } from '@ant-design/icons';
 
 const WriteModal = () => {
   const router = useRouter();
@@ -29,12 +30,20 @@ const WriteModal = () => {
   const pathName = router.pathname.slice(0, pathIndex);
   const updateValidate = router.pathname.indexOf('post') > -1;
   const updatePostDispatch = (submitData: IAddComPost) => {
-    dispatch(updateComPost({ ...submitData, id: postDetail?.id }));
-    router.push(`/community/post/${postDetail?.id}`);
+    try {
+      dispatch(updateComPost({ ...submitData, id: postDetail?.id }));
+      router.push(`/community/post/${postDetail?.id}`);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const addPostDispatch = (submitData: IAddComPost) => {
-    dispatch(addComPost(submitData));
-    router.push(`${pathName}/question`);
+    try {
+      dispatch(addComPost(submitData));
+      router.push(`${pathName}/question`);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const onChangeContent = (content: string) => {
     setContent(content);

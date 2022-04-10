@@ -28,7 +28,7 @@ const login = () => {
       <LoginContainer>
         <LoginHeader>
           <Link href="/">
-            <TitleM>메버스</TitleM>
+            <TitleM>모두의 메타버스</TitleM>
           </Link>
           <TitleP>로그인</TitleP>
         </LoginHeader>
@@ -36,20 +36,20 @@ const login = () => {
           <>
             <StyledA href={KakaoUrl}>
               <StyledButton>
-                <Styledimg src="/images/KakaoIcon.png" />
+                <Styledimg src="../../images/KakaoIcon.png" />
                 <StyledP>카카오 로그인하기</StyledP>
               </StyledButton>
             </StyledA>
             <StyledA href={NaverUrl}>
               <StyledButton>
-                <Styledimg src="/images/NaverIcon.png" />
+                <Styledimg src="../../images/NaverIcon.png" />
                 <StyledP>네이버 로그인하기</StyledP>
               </StyledButton>
             </StyledA>
 
             <StyledA href={GoogleUrl}>
               <StyledButton>
-                <Styledimg src="/images/GoogleIcon.png" />
+                <Styledimg src="../../images/GoogleIcon.png" />
                 <StyledP>구글로 로그인하기</StyledP>
               </StyledButton>
             </StyledA>

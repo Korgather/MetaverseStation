@@ -1,4 +1,6 @@
+import { loadComPost } from '@actions/community';
 import { addComment, loadPost } from '@actions/post';
+import { scrollToBottom } from '@lib/scroll';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
@@ -18,7 +20,8 @@ const CommentInput = () => {
     };
     try {
       await dispatch(addComment(data));
-      await dispatch(loadPost(data.postid as number));
+      await dispatch(loadComPost(data.postid as number));
+      scrollToBottom(window);
     } catch (e) {
       console.log(e);
     } finally {
