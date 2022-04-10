@@ -9,6 +9,9 @@ import { BellOutlined } from '@ant-design/icons';
 import Alram from './Alram';
 import WriteModal from '@components/writeModal/WriteModal';
 import DetailModal from '@components/detailModal/DetailModal';
+import FeedBack from './FeedBack';
+import Head from 'next/head';
+import shortid from 'shortid';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -21,6 +24,7 @@ const AppLayout = ({ children }: AuxProps) => {
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const me = useAppSelector((state) => state.userSlice.me);
+  const url = 'https://metaverse-station.vercel.app/';
   const [selectedKeys, setSelectedKeys] = useState(['']);
   const onSelect = ({ key }: { key: string }) => {
     if (key === 'nav_gathertown') {
@@ -40,6 +44,29 @@ const AppLayout = ({ children }: AuxProps) => {
   }, []);
   return (
     <>
+      <Head>
+        <title>모두의 메타버스 - MoMe</title>
+        <meta
+          name="description"
+          content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
+        />
+        <meta
+          name="keyword"
+          content="메타버스, 게더타운, 젭,zep,gathertown,개더타운, 매타버스, metaverse, 게더타운맵, 젭맵 , 코게더 "
+        />
+        <meta key={shortid.generate()} property="og:type" content="website" />
+        <meta key={shortid.generate()} property="og:url" content={url} />
+        <meta key={shortid.generate()} property="og:title" content="모두의 메타버스 - MoMe" />
+        <meta key={shortid.generate()} property="og:image" content={'../../images/logo01.png'} />
+        <meta
+          key={shortid.generate()}
+          property="og:description"
+          content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
+        />
+        <meta key={shortid.generate()} property="og:site_name" content="모두의 메타버스 - MoMe" />
+        <meta key={shortid.generate()} property="og:locale" content="ko_KR" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {updateModalState && <WriteModal />}
       {detailModalState && <DetailModal />}
       <LayoutWrapper className="layout">
@@ -79,6 +106,7 @@ const AppLayout = ({ children }: AuxProps) => {
         </StyledLayout>
         <StyledFooter>ⓒ KORGATHER All Rights Reserved.</StyledFooter>
       </LayoutWrapper>
+      <FeedBack />
     </>
   );
 };
@@ -131,7 +159,7 @@ const StyledHeader = styled(Header)`
 const StyledFooter = styled(Footer)`
   text-align: center;
   width: 1440px;
-  padding: '24px 0';
+  padding: 24px 0;
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
