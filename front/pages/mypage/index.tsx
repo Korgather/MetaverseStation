@@ -24,7 +24,7 @@ const mypage = () => {
 
   return (
     <>
-      {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
+      {detailModalState && <DetailModal />}
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
         <>
@@ -65,7 +65,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     loadMyPosts({
       userId: store.getState().userSlice.me?.userId as number,
       pageNum: ctx.query.page as string,
-      category: 'METAVERSE',
+      category: ctx.query.category as string,
       keyword: ctx.query.search as string,
       filter: ctx.query.filter as string,
     }),

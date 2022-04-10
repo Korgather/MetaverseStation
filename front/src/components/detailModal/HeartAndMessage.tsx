@@ -33,7 +33,7 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
       }
     } else {
       message.info({
-        content: '로그인 해주세요!',
+        content: '로그인이 필요합니다.',
         className: 'custom-class',
         style: {
           marginTop: '20vh',

@@ -1,17 +1,21 @@
-import { EyeOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { DownOutlined, EyeOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
-import { heartPost, loadPost } from '@actions/post';
+import { heartPost, loadPost, removePost } from '@actions/post';
 import { useRouter } from 'next/router';
-import { message } from 'antd';
+import { Dropdown, Menu, message } from 'antd';
+import shortid from 'shortid';
+import modal from 'antd/lib/modal';
+import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   useEffect(() => {
     me && Object.keys(postDetail?.likeUserList as object).indexOf(me?.userId.toString()) > -1
       ? setLikeState(true)
@@ -34,8 +38,6 @@ const ContentBox = () => {
       });
     }
   };
-  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
-
   const gotoUserPage = () => {
     if (postDetail) {
       const { username, userId, bio, profileImageUrl } = postDetail.postUser;
@@ -45,13 +47,51 @@ const ContentBox = () => {
       });
     }
   };
+
+  const openUpdateModal = () => {
+    dispatch(ToggleCommunityWriteModalState(true));
+  };
+  const categoryForRouter =
+    postDetail?.category === 'COMMUNITY_QUESTION'
+      ? 'question'
+      : postDetail?.category === 'COMMUNITY_GENERAL'
+      ? 'free'
+      : postDetail?.category === 'COMMUNITY_GENERAL' && 'study';
+
+  const onRemovePost = () => {
+    postDetail &&
+      modal.confirm({
+        title: '게시글을 삭제하시겠습니까?',
+        onOk: async function async() {
+          await dispatch(removePost(postDetail?.id));
+          router.push(`/community/${categoryForRouter}`);
+        },
+      });
+  };
+
+  const menu = (
+    <Menu>
+      <Menu.Item key={shortid.generate()}>
+        <a onClick={openUpdateModal}>수정하기</a>
+      </Menu.Item>
+      <Menu.Item key={shortid.generate()}>
+        <a onClick={onRemovePost}>삭제하기</a>
+      </Menu.Item>
+    </Menu>
+  );
+
   return postDetail ? (
     <ContentBoxLayout>
       <BackArrow onClick={() => router.back()}>←</BackArrow>
       <Title>{postDetail.title}</Title>
       <ProfileHeader>
-        <ProfileImg src="../../images/profile01.png" alt="" onClick={gotoUserPage} />
+        <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
         <Username>{postDetail.postUser.username}</Username>
+        {postDetail?.postUser.userId === me?.userId && (
+          <Dropdown overlay={menu} trigger={['click']}>
+            <StyledDownOutlined />
+          </Dropdown>
+        )}
         <Date>{postDetail.createdDate.slice(0, 10)}</Date>
       </ProfileHeader>
       <Content>{parse(postDetail.content as string)}</Content>
@@ -69,7 +109,7 @@ const ContentBox = () => {
         </HeartWrapper>
         <EyeWrpper>
           <StyledEye />
-          <span>{Object.keys(postDetail.view).length}</span>
+          <span>{postDetail.view}</span>
         </EyeWrpper>
       </Icons>
     </ContentBoxLayout>
@@ -80,6 +120,12 @@ const ContentBox = () => {
 
 export default ContentBox;
 
+const StyledDownOutlined = styled(DownOutlined)`
+  width: 18px;
+  svg {
+    width: 10px;
+  }
+`;
 const BackArrow = styled.div`
   cursor: pointer;
   font-size: 4rem;

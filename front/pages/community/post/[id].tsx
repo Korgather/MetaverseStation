@@ -2,27 +2,44 @@ import { loadComPost } from '@actions/community';
 import { loadPost, viewPost } from '@actions/post';
 import { loadMyInfo } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
+import CommunityWriteModal from '@components/community/writeModal/CommunityWriteModal';
 import CommentInput from '@components/ComPostDetail/CommentInput';
 import CommentList from '@components/ComPostDetail/CommentList';
 import ContentBox from '@components/ComPostDetail/ContentBox';
+import { clearComPostDetail } from '@slices/communitySlice';
 import { saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const ComDetailPost = () => {
+  const communityWriteModalState = useAppSelector(
+    (state) => state.communitySlice.communityWriteModalState,
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearComPostDetail());
+    };
+  }, []);
+
   return (
-    <AppLayout>
-      <>
-        <ComDetailPostLayout>
-          <ContentBox />
-        </ComDetailPostLayout>
-        <CommentInput />
-        <CommentList />
-      </>
-    </AppLayout>
+    <>
+      {communityWriteModalState && <CommunityWriteModal />}
+      <AppLayout>
+        <>
+          <ComDetailPostLayout>
+            <ContentBox />
+          </ComDetailPostLayout>
+          <CommentInput />
+          <CommentList />
+        </>
+      </AppLayout>
+    </>
   );
 };
 

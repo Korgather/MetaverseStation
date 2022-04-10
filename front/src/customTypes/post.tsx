@@ -41,6 +41,7 @@ export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
 export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
   images: CustomFile[];
   id?: string;
+  category: string;
 }
 
 export interface IPostState {

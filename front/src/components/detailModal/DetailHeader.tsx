@@ -34,6 +34,7 @@ const DetailHeader = () => {
     content: postData?.content,
     state: true,
     id: postData?.id,
+    category: postData?.category,
   };
   const openUpdateModal = () => {
     dispatch(ToggleDetailState(false));

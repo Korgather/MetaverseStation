@@ -37,6 +37,9 @@ export const communitySlice = createSlice({
     getSearchInput: (state, action) => {
       state.getSearchInput = action.payload;
     },
+    clearComPostDetail: (state) => {
+      state.comPostDetail = null;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -94,5 +97,6 @@ export const communitySlice = createSlice({
       }),
 });
 
-export const { ToggleCommunityWriteModalState, getSearchInput } = communitySlice.actions;
+export const { ToggleCommunityWriteModalState, getSearchInput, clearComPostDetail } =
+  communitySlice.actions;
 export default communitySlice.reducer;

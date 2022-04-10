@@ -8,10 +8,11 @@ interface IloadComPosts {
   keyword: string;
 }
 
-interface IAddComPost {
+export interface IAddComPost {
   content: string;
   title: string;
   category: string;
+  id?: number;
 }
 
 interface IComSearch {
@@ -52,6 +53,21 @@ export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComP
   });
   return res.data;
 });
+
+export const updateComPost = createAsyncThunk(
+  'comPosts/update',
+  async (data: IAddComPost, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}}`,
+      },
+    });
+    return res.data;
+  },
+);
 
 export const searchComPosts = createAsyncThunk(
   'posts/search',
