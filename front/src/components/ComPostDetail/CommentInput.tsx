@@ -20,7 +20,7 @@ const CommentInput = () => {
       await dispatch(addComment(data));
       await dispatch(loadPost(data.postid as number));
     } catch (e) {
-      console.error(e);
+      console.log(e);
     } finally {
       setComment('');
     }

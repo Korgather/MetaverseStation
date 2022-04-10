@@ -12,6 +12,7 @@ import {
   updateReply,
   removePost,
   searchPosts,
+  deleteAlram,
 } from '@actions/post';
 import { IPostState } from '@customTypes/post';
 import { createSlice } from '@reduxjs/toolkit';
@@ -72,6 +73,10 @@ const initialState: IPostState = {
   viewPostLoading: false,
   viewPostDone: false,
   viewPostError: null,
+
+  deleteAlramLoading: false,
+  deleteAlramDone: false,
+  deleteAlramError: null,
 
   postDetail: null,
   pageNum: 0,
@@ -273,6 +278,17 @@ export const postSlice = createSlice({
       .addCase(updateReply.rejected, (state, action: ReturnType<typeof updateReply.rejected>) => {
         state.updateReplyLoading = false;
         state.updateReplyError = action.error;
+      })
+      .addCase(deleteAlram.pending, (state) => {
+        state.deleteAlramLoading = true;
+      })
+      .addCase(deleteAlram.fulfilled, (state, action) => {
+        state.deleteAlramDone = true;
+        state.deleteAlramLoading = false;
+      })
+      .addCase(deleteAlram.rejected, (state, action: ReturnType<typeof deleteAlram.rejected>) => {
+        state.deleteAlramLoading = false;
+        state.deleteAlramError = action.error;
       }),
 });
 

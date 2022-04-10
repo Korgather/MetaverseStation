@@ -22,7 +22,7 @@ const CommentInput = () => {
         await dispatch(addComment(values));
         postDetail && (await dispatch(loadPost(postDetail.id)));
       } catch (error: any) {
-        // console.error(e);
+        // console.log(e);
         console.log(error);
       }
     },

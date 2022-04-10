@@ -19,7 +19,7 @@ const mypage = () => {
 
   return (
     <>
-      {detailModalState && <DetailModal setDetailModalState={setDetailModalState} />}
+      {detailModalState && <DetailModal />}
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
         <>

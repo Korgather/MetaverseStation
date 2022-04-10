@@ -1,11 +1,23 @@
 import { DownOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Bookmark } from 'src/svg';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 interface IModal {
   commentState: boolean;
 }
+
+export const StyledScroll = css`
+  ::-webkit-scrollbar {
+    width: 10px;
+    background-color: #f5f5f5;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #929292;
+  }
+`;
 
 export const Dim = styled.div`
   width: 100vw;
@@ -203,4 +215,5 @@ export const ContentBox = styled.div`
   padding: 15px 30px;
   overflow-y: auto;
   height: 100%;
+  ${StyledScroll}
 `;

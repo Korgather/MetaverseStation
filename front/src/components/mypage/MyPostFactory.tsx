@@ -28,7 +28,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
               }}
             >
               {post.imageList[0]?.imagePath.length >= 20 ? (
-                <S.PostImg src={post.imageList[0].imagePath} />
+                <S.PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
               ) : (
                 <S.PostImg src="../../images/thumbnail02.png" />
               )}
@@ -54,7 +54,6 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
           </S.Summary>
         </Col>
       ))}
-      ;
     </>
   );
 };

@@ -67,7 +67,7 @@ const WriteModal = () => {
       try {
         updateValidate ? updatePostDispatch(submitData) : addPostDispatch(submitData);
       } catch (e) {
-        console.error(e);
+        console.log(e);
       } finally {
         closeModal();
       }

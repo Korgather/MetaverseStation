@@ -88,6 +88,9 @@ export interface IPostState {
   viewPostLoading: boolean;
   viewPostDone: boolean;
   viewPostError: SerializedError | null;
+  deleteAlramLoading: boolean;
+  deleteAlramDone: boolean;
+  deleteAlramError: SerializedError | null;
   pageNum: number;
   totalPages: number;
   searchPageNum: number;

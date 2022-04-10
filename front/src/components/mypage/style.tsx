@@ -50,7 +50,7 @@ export const MyPostWrapper = styled.div`
   width: 100%;
 `;
 
-export const Title = styled.div`
+export const Title = styled.h2`
   font-size: 1rem;
   font-weight: 600;
   flex: 1;

@@ -38,7 +38,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                   }}
                 >
                   {post.imageList[0].imagePath.length >= 20 ? (
-                    <PostImg src={post.imageList[0].imagePath} />
+                    <PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
                   ) : (
                     <PostImg src="../../images/thumbnail02.png" />
                   )}
@@ -76,7 +76,7 @@ const Logo = styled.img`
   height: 2rem;
 `;
 
-const Title = styled.div`
+const Title = styled.h2`
   font-size: 1rem;
   font-weight: 600;
   flex: 1;

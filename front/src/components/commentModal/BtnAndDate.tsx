@@ -59,7 +59,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
 
       postDetail && (await dispatch(loadPost(postDetail.id)));
     } catch (e) {
-      console.error(e);
+      console.log(e);
     } finally {
       ToggleUpdateInput();
     }

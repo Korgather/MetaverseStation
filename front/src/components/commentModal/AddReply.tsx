@@ -35,7 +35,7 @@ const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput })
         data && (await dispatch(addReply(data)));
         postId && (await dispatch(loadPost(postId)));
       } catch (e) {
-        console.error(e);
+        console.log(e);
       } finally {
         ToggleReplyInput();
       }

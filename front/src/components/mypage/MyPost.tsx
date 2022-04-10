@@ -252,7 +252,7 @@ const LikedBox = styled.div`
     font-weight: 700;
   }
 `;
-const Title = styled.div`
+const Title = styled.h2`
   font-size: 1.3rem;
   font-weight: 700;
 `;

@@ -31,7 +31,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
             await dispatch(updateComment(updateData));
             await dispatch(loadPost(postDetail?.id as number));
           } catch (e) {
-            console.error(e);
+            console.log(e);
           }
         },
       });
@@ -45,7 +45,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
             await dispatch(removeComment(comment));
             await dispatch(loadPost(postDetail?.id as number));
           } catch (e) {
-            console.error(e);
+            console.log(e);
           } finally {
             onToggleUpdateState();
           }

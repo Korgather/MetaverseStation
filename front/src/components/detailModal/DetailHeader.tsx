@@ -23,11 +23,11 @@ const DetailHeader = () => {
   const postData = useAppSelector((state) => state.postSlice.postDetail);
   const dataForUpdate = {
     images: (postData as IPost).imageList.map((image) => ({
-      imagePath: image.imagePath,
+      imagePath: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
       origFileName: image.origFileName,
       fileSize: image.fileSize,
-      url: image.imagePath,
-      uid: image.imagePath,
+      url: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
+      uid: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
     })),
     link: postData?.link,
     title: postData?.title,

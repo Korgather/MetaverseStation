@@ -1,4 +1,10 @@
-import { DownOutlined, EyeOutlined, HeartFilled, HeartOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  DownOutlined,
+  EyeOutlined,
+  HeartFilled,
+  HeartOutlined,
+} from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -82,7 +88,9 @@ const ContentBox = () => {
 
   return postDetail ? (
     <ContentBoxLayout>
-      <BackArrow onClick={() => router.back()}>←</BackArrow>
+      <BackArrow onClick={() => router.back()}>
+        <ArrowLeftOutlined />
+      </BackArrow>
       <Title>{postDetail.title}</Title>
       <ProfileHeader>
         <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
@@ -128,7 +136,7 @@ const StyledDownOutlined = styled(DownOutlined)`
 `;
 const BackArrow = styled.div`
   cursor: pointer;
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #dcdcdc;
   :hover {

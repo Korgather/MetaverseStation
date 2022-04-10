@@ -34,7 +34,8 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
           Authorization: `Bearer ${AccessToken}}`,
         },
       });
-      setCurrentImg(res.data[0]);
+      setCurrentImg(process.env.NEXT_PUBLIC_PROFILE_IMG_URL + res.data[0]);
+      console.log(process.env.NEXT_PUBLIC_PROFILE_IMG_URL + res.data[0]);
       setUploadSuccess('ok');
     } catch (e) {
       setUploadSuccess('error');
