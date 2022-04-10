@@ -9,13 +9,13 @@ const Category = () => {
   const gotoStudy = () => router.push('/community/study');
   return (
     <CategoryContainer>
+      <Menu isactive={(router.pathname?.indexOf('free') > -1) as boolean} onClick={gotoFree}>
+        자유주제
+      </Menu>
       <Menu
         isactive={(router.pathname.indexOf('question') > -1) as boolean}
         onClick={gotoQuestion}
       >{`질문 & 답변`}</Menu>
-      <Menu isactive={(router.pathname?.indexOf('free') > -1) as boolean} onClick={gotoFree}>
-        자유주제
-      </Menu>
       <Menu isactive={(router.pathname?.indexOf('study') > -1) as boolean} onClick={gotoStudy}>
         스터디 모집
       </Menu>
@@ -42,7 +42,9 @@ const Menu = styled.div<isacitve>`
   font-size: 1.1rem;
   padding: 5px 15px;
   border-radius: 7px;
+  width: 125px;
   cursor: pointer;
+  transition: all 0.2s ease-in;
   @media screen and (max-width: 1080px) {
     font-size: 0.9rem;
   }
