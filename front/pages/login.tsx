@@ -49,7 +49,7 @@ const login = () => {
 
             <StyledA href={GoogleUrl}>
               <StyledButton>
-                <Styledimg src="../../images/GoogleIcon.png" />
+                <Styledimg src="../../images/Googleicon.png" />
                 <StyledP>구글로 로그인하기</StyledP>
               </StyledButton>
             </StyledA>

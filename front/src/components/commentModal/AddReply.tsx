@@ -1,9 +1,8 @@
 import React from 'react';
 import { addReply, loadPost } from '@actions/post';
 import { IComment, IReply } from '@customTypes/comment';
-import { useAppSelector } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
 import * as S from './style';
 
 interface AddReplyProrp {
@@ -13,7 +12,7 @@ interface AddReplyProrp {
 }
 
 const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const postId = useAppSelector((state) => state.postSlice.postDetail?.id);
   const formik = useFormik({
     initialValues: {

@@ -22,7 +22,8 @@
       "@store/*": ["src/store/*"],
       "@lib/*": ["src/lib/*"],
       "@actions/*": ["src/actions/*"],
-      "@customTypes/*": ["src/customTypes/*"]
+      "@customTypes/*": ["src/customTypes/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -26,14 +26,6 @@ const AppLayout = ({ children }: AuxProps) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const url = 'https://metaverse-station.vercel.app/';
   const [selectedKeys, setSelectedKeys] = useState(['']);
-  const onSelect = ({ key }: { key: string }) => {
-    if (key === 'nav_gathertown') {
-      router.push('/');
-    }
-    if (key === 'nav_community') {
-      router.push('/community/question');
-    }
-  };
   useEffect(() => {
     if (router.pathname === '/') {
       setSelectedKeys(['nav_gathertown']);
@@ -45,6 +37,15 @@ const AppLayout = ({ children }: AuxProps) => {
   return (
     <>
       <Head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id=%27+i+dl;f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','GTM-N4NRZP8');`,
+          }}
+        />
         <title>모두의 메타버스 - MoMe</title>
         <meta
           name="description"
@@ -77,12 +78,15 @@ const AppLayout = ({ children }: AuxProps) => {
             </div>
             <MenuWrapper
               selectedKeys={selectedKeys}
-              onSelect={({ key }) => onSelect({ key })}
               mode="horizontal"
               style={{ border: 'none', margin: '5px 0 0 30px' }}
             >
-              <Menu.Item key="nav_gathertown">Gallery</Menu.Item>
-              <Menu.Item key="nav_community">Community</Menu.Item>
+              <Menu.Item key="nav_gathertown">
+                <Link href="/">Gallery</Link>
+              </Menu.Item>
+              <Menu.Item key="nav_community">
+                <Link href="/community/free">Community</Link>
+              </Menu.Item>
             </MenuWrapper>
             <BtnWrapper>
               {me ? (
