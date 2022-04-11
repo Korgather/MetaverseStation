@@ -20,7 +20,6 @@ const ProfileDropdown = () => {
       try {
         await removeCookie('Token', { path: '/' });
         await dispatch(logOut());
-        router.push('/login');
       } catch (e) {
         console.log(e);
       }
