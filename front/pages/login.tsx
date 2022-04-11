@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { useAppSelector } from '@store/hook';
 import Router from 'next/router';
+import cookies from 'next-cookies';
+import wrapper from '@store/configureStore';
+import axios from 'axios';
+import { saveAccessToken } from '@slices/userSlice';
+import { loadMyInfo } from '@actions/user';
 
 const redirectUrl =
   process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.modumeta.com';
@@ -122,3 +127,16 @@ const TitleP = styled.p`
   font-weight: 600;
   display: inline-block;
 `;
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  const token = cookies(ctx).Token;
+  axios.defaults.headers.common['Authorization'] = '';
+  token
+    ? (axios.defaults.headers.common['Authorization'] = `Bearer ${token}`)
+    : (axios.defaults.headers.common['Authorization'] = '');
+  if (token) {
+    store.dispatch(saveAccessToken(token));
+  }
+  await store.dispatch(loadMyInfo());
+  return { props: {} };
+});
