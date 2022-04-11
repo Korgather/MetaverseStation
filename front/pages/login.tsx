@@ -129,6 +129,7 @@ const TitleP = styled.p`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  axios.defaults.headers.Cookie = '';
   axios.defaults.headers.common['Authorization'] = '';
   store.dispatch(clearAccessToken());
   return { props: {} };

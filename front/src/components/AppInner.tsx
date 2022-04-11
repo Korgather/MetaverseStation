@@ -19,13 +19,12 @@ export default AppInner;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   const token = cookies(ctx).Token;
+  axios.defaults.headers.Cookie = '';
   axios.defaults.headers.common['Authorization'] = '';
   if (token) {
     store.dispatch(saveAccessToken(token));
   }
-  token
-    ? (axios.defaults.headers.common['Authorization'] = `Bearer ${token}`)
-    : (axios.defaults.headers.common['Authorization'] = '');
+
   await store.dispatch(loadMyInfo());
   return { props: {} };
 });
