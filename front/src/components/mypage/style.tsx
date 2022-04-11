@@ -28,6 +28,7 @@ export const ImgWrapper = styled.div`
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 0 auto;
   margin-bottom: 10px;
 `;
 

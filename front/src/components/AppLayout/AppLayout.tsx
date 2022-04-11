@@ -24,7 +24,7 @@ const AppLayout = ({ children }: AuxProps) => {
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const me = useAppSelector((state) => state.userSlice.me);
-  const url = 'https://metaverse-station.vercel.app/';
+  const url = 'https://www.modumeta.com/';
   const [selectedKeys, setSelectedKeys] = useState(['']);
   useEffect(() => {
     if (router.pathname === '/') {
@@ -58,7 +58,7 @@ const AppLayout = ({ children }: AuxProps) => {
         <meta key={shortid.generate()} property="og:type" content="website" />
         <meta key={shortid.generate()} property="og:url" content={url} />
         <meta key={shortid.generate()} property="og:title" content="모두의 메타버스 - MoMe" />
-        <meta key={shortid.generate()} property="og:image" content={'../../images/logo01.png'} />
+        <meta key={shortid.generate()} property="og:image" content={'../../images/Logo01.png'} />
         <meta
           key={shortid.generate()}
           property="og:description"
@@ -131,11 +131,24 @@ const MenuWrapper = styled(Menu)`
 
 const LayoutWrapper = styled.div`
   word-break: break-all;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: 'Roboto', sans-serif;
+  .ant-layout-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .site-layout-content {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+  }
 `;
 
 const StyledLayout = styled(Layout)`

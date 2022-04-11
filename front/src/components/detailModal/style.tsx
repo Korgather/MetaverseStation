@@ -173,7 +173,7 @@ export const SlideWrapper = styled.section`
   padding: 0;
   position: relative;
   width: 100%;
-  height: 47%;
+
   .slick-prev:before,
   .slick-next:before {
     color: black;

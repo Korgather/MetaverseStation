@@ -22,7 +22,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
     }
   };
   return (
-    <div>
+    <PostZoneWrapper>
       <Row
         justify="start"
         gutter={[
@@ -69,11 +69,16 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
             </Col>
           ))}
       </Row>
-    </div>
+    </PostZoneWrapper>
   );
 };
 
 export default Postzone;
+
+const PostZoneWrapper = styled.div`
+  max-width: 1440px;
+  width: 80vw;
+`;
 
 const Logo = styled.img`
   margin-right: 10px;
@@ -117,8 +122,8 @@ const ImgWrapper = styled.div`
   border-radius: 10px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin: 0 auto;
   margin-bottom: 10px;
-
   @media screen and (max-width: 1650px) {
     width: 17vw;
   }
