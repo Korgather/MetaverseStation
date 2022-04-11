@@ -6,15 +6,13 @@ import { useAppSelector } from '@store/hook';
 import Router from 'next/router';
 
 const redirectUrl =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://metaverse-station-hzetmxtep-eungwang1.vercel.app';
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.modumeta.com';
 
-const GoogleUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/google?redirect_uri=${redirectUrl}/oauth/redirect`;
+const GoogleUrl = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/google?redirect_uri=${redirectUrl}/oauth/redirect`;
 
-const NaverUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/naver?redirect_uri=${redirectUrl}/oauth/redirect`;
+const NaverUrl = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/naver?redirect_uri=${redirectUrl}/oauth/redirect`;
 
-const KakaoUrl = `http://metastation-env.eba-jip4zmfh.ap-northeast-2.elasticbeanstalk.com/oauth2/authorization/kakao?redirect_uri=${redirectUrl}/oauth/redirect`;
+const KakaoUrl = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/kakao?redirect_uri=${redirectUrl}/oauth/redirect`;
 
 const login = () => {
   const me = useAppSelector((state) => state.userSlice.me);
