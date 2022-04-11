@@ -19,9 +19,13 @@ function redirect() {
       if (token) {
         setCookie('Token', token, { path: '/' });
         dispatch(saveAccessToken(token));
-        const res = await dispatch(loadMyInfo());
-        if (res.payload.userNameModifiedYn === 'Y') {
-          router.push('/');
+        try {
+          const res = await dispatch(loadMyInfo());
+          if (res.payload.userNameModifiedYn === 'Y') {
+            router.push('/');
+          }
+        } catch (e) {
+          console.error(e);
         }
       }
     })();

@@ -1,6 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { Menu, Dropdown } from 'antd';
-import { closeModal } from '@lib/ModalUtil';
 import { IPost } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
@@ -48,8 +47,12 @@ const DetailHeader = () => {
       modal.confirm({
         title: '게시글을 삭제하시겠습니까?',
         onOk: async function async() {
-          await dispatch(removePost(postData?.id));
-          pageNum ? router.push(`/${pageNum}`) : router.push('/');
+          try {
+            await dispatch(removePost(postData?.id));
+            pageNum ? router.push(`/${pageNum}`) : router.push('/');
+          } catch (e) {
+            console.log(e);
+          }
         },
       });
   };

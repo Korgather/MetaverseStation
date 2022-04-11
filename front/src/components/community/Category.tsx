@@ -1,24 +1,24 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
 const Category = () => {
   const router = useRouter();
-  const gotoQuestion = () => router.push('/community/question');
-  const gotoFree = () => router.push('/community/free');
-  const gotoStudy = () => router.push('/community/study');
+
   return (
     <CategoryContainer>
-      <Menu isactive={(router.pathname?.indexOf('free') > -1) as boolean} onClick={gotoFree}>
-        자유주제
-      </Menu>
-      <Menu
-        isactive={(router.pathname.indexOf('question') > -1) as boolean}
-        onClick={gotoQuestion}
-      >{`질문 & 답변`}</Menu>
-      <Menu isactive={(router.pathname?.indexOf('study') > -1) as boolean} onClick={gotoStudy}>
-        스터디 모집
-      </Menu>
+      <Link href="/community/free">
+        <Menu isactive={(router.pathname?.indexOf('free') > -1) as boolean}>자유주제</Menu>
+      </Link>
+      <Link href="/community/question">
+        <Menu isactive={(router.pathname.indexOf('question') > -1) as boolean}>
+          {`질문 & 답변`}
+        </Menu>
+      </Link>
+      <Link href="/community/study">
+        <Menu isactive={(router.pathname?.indexOf('study') > -1) as boolean}>스터디 모집</Menu>
+      </Link>
     </CategoryContainer>
   );
 };

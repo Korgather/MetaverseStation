@@ -26,14 +26,6 @@ const AppLayout = ({ children }: AuxProps) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const url = 'https://metaverse-station.vercel.app/';
   const [selectedKeys, setSelectedKeys] = useState(['']);
-  const onSelect = ({ key }: { key: string }) => {
-    if (key === 'nav_gathertown') {
-      router.push('/');
-    }
-    if (key === 'nav_community') {
-      router.push('/community/question');
-    }
-  };
   useEffect(() => {
     if (router.pathname === '/') {
       setSelectedKeys(['nav_gathertown']);
@@ -77,12 +69,15 @@ const AppLayout = ({ children }: AuxProps) => {
             </div>
             <MenuWrapper
               selectedKeys={selectedKeys}
-              onSelect={({ key }) => onSelect({ key })}
               mode="horizontal"
               style={{ border: 'none', margin: '5px 0 0 30px' }}
             >
-              <Menu.Item key="nav_gathertown">Gallery</Menu.Item>
-              <Menu.Item key="nav_community">Community</Menu.Item>
+              <Menu.Item key="nav_gathertown">
+                <Link href="/">Gallery</Link>
+              </Menu.Item>
+              <Menu.Item key="nav_community">
+                <Link href="/community/free">Community</Link>
+              </Menu.Item>
             </MenuWrapper>
             <BtnWrapper>
               {me ? (

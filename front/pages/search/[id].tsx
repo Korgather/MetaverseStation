@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ import DetailModal from '@components/detailModal/DetailModal';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
-import { loadPosts, searchPosts } from '@actions/post';
+import { searchPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
 import { loadMyInfo } from '@actions/user';

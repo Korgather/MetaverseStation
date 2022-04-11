@@ -40,7 +40,7 @@ const Alram = () => {
         : Router.push(`/community/post/${postId}`);
     } catch (e) {
       console.log(e);
-      alert('게시글이 삭제되었습니다.');
+      alert('존재하지 않는 게시물입니다.');
     } finally {
       await dispatch(loadMyInfo());
     }

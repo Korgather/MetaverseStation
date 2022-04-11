@@ -15,13 +15,17 @@ function Category() {
   const category = router.query.category;
 
   const onSearch = () => {
-    dispatch(getSearchKeyword(searchValue));
-    router.push({
-      pathname: '/',
-      query: {
-        search: searchValue,
-      },
-    });
+    try {
+      dispatch(getSearchKeyword(searchValue));
+      router.push({
+        pathname: '/',
+        query: {
+          search: searchValue,
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
   const onSelect = ({ key }: { key: string }) => {
     if (key === 'category_all') {

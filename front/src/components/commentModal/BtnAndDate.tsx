@@ -1,10 +1,9 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { loadPost, removeComment, removeReply, updateComment, updateReply } from '@actions/post';
 import { IComment, IReply, TUpdateComment, TUpdateReply } from '@customTypes/comment';
-import { useAppSelector } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import modal from 'antd/lib/modal';
 import { FormikValues } from 'formik';
-import { useDispatch } from 'react-redux';
 import * as S from './style';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
 
@@ -30,17 +29,21 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   const me = useAppSelector((state) => state.userSlice.me);
   const postDetail = useAppSelector((state) => state.postSlice.postDetail);
   const updateCommentDone = useAppSelector((state) => state.postSlice.updateCommentDone);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const RemoveCommentAndReply = async () => {
     postDetail &&
       modal.confirm({
         title: '댓글을 삭제하시겠습니까?',
         onOk: async function () {
-          comment
-            ? await dispatch(removeComment(comment))
-            : reply && (await dispatch(removeReply(reply.replyId)));
-          await dispatch(loadPost(postDetail.id));
+          try {
+            comment
+              ? await dispatch(removeComment(comment))
+              : reply && (await dispatch(removeReply(reply.replyId)));
+            await dispatch(loadPost(postDetail.id));
+          } catch (e) {
+            console.log(e);
+          }
         },
       });
   };
