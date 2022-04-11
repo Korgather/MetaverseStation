@@ -7,7 +7,7 @@ import Router from 'next/router';
 import cookies from 'next-cookies';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
-import { saveAccessToken } from '@slices/userSlice';
+import { clearAccessToken, saveAccessToken } from '@slices/userSlice';
 import { loadMyInfo } from '@actions/user';
 
 const redirectUrl =
@@ -129,14 +129,7 @@ const TitleP = styled.p`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  const token = cookies(ctx).Token;
   axios.defaults.headers.common['Authorization'] = '';
-  token
-    ? (axios.defaults.headers.common['Authorization'] = `Bearer ${token}`)
-    : (axios.defaults.headers.common['Authorization'] = '');
-  if (token) {
-    store.dispatch(saveAccessToken(token));
-  }
-  await store.dispatch(loadMyInfo());
+  store.dispatch(clearAccessToken());
   return { props: {} };
 });

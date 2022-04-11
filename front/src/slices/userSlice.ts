@@ -54,6 +54,9 @@ export const userSlice = createSlice({
     saveAccessToken: (state, action) => {
       state.AccessToken = action.payload;
     },
+    clearAccessToken: (state) => {
+      state.AccessToken = '';
+    },
     getlikedPostPageNum: (state, action) => {
       state.likedPostPageNum = action.payload;
     },
@@ -206,5 +209,6 @@ export const {
   getAuthorlikedPostTotalPages,
   getAuthorlikedPostPageNum,
   logOut,
+  clearAccessToken,
 } = userSlice.actions;
 export default userSlice.reducer;
