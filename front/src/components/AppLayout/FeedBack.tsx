@@ -9,7 +9,7 @@ const FeedBack = () => {
     <>
       {!modalState ? (
         <ImgWrapper onClick={() => setModalState(true)}>
-          <FeedBackIcon src="../../images/logo01.png" alt="" />
+          <FeedBackIcon src="../../images/Logo01.png" alt="" />
           <StyledP>피드백</StyledP>
         </ImgWrapper>
       ) : (
@@ -18,7 +18,7 @@ const FeedBack = () => {
             <CloseBtn onClick={() => setModalState(false)}>x</CloseBtn>
             <Title>모두의 메타버스에 만족하셨나요?</Title>
             <Content>더 좋은 서비스를 위해, 평가를 남겨주세요!</Content>
-            <LogoImg src="../../images/logo01.png" alt="" />
+            <LogoImg src="../../images/Logo01.png" alt="" />
             <SubmitInput />
             <StyledButton type="primary">제출하기</StyledButton>
           </RelativeWrapper>
