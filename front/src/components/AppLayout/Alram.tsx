@@ -26,7 +26,6 @@ const Alram = () => {
     const postIdx = key.indexOf('_');
     const notifyIdx = key.lastIndexOf('_');
     const notifyId = key.slice(notifyIdx + 1);
-    console.log(notifyId);
     const postId = key.slice(0, postIdx);
     const openDetailModal = async () => {
       dispatch(ToggleDetailState(true));
@@ -34,7 +33,6 @@ const Alram = () => {
     try {
       const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
       await dispatch(deleteAlram(notifyId));
-      console.log(postData);
       postData.category && postData.category?.indexOf('METAVERSE') > -1
         ? openDetailModal()
         : Router.push(`/community/post/${postId}`);
