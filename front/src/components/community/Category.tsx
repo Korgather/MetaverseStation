@@ -33,7 +33,7 @@ const CategoryContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-right: 50px;
+  margin: 0 auto;
   margin-top: 85px;
 `;
 
@@ -42,7 +42,7 @@ const Menu = styled.div<isacitve>`
   font-size: 1.1rem;
   padding: 5px 15px;
   border-radius: 7px;
-  width: 125px;
+  width: 6.5vw;
   cursor: pointer;
   transition: all 0.2s ease-in;
   @media screen and (max-width: 1080px) {

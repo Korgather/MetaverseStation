@@ -72,6 +72,7 @@ export default Category;
 
 const MenuWrapper = styled.div`
   margin: 50px 0 30px 0;
+  width: 100%;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -83,11 +84,12 @@ const MenuWrapper = styled.div`
 const StyledSearch = styled(Search)`
   margin: 0 auto;
   width: 40%;
-  min-width: 250px;
+  min-width: 150px;
 `;
 
 const MenuBox = styled(Menu)`
   display: flex;
+  margin-right: auto;
   flex-direction: row;
   width: 30%;
   border: none;

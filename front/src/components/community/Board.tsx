@@ -47,6 +47,7 @@ const BoardWrapper = styled.div`
 `;
 const CategoryWrapper = styled.div`
   width: 20%;
+  display: flex;
 `;
 
 const BlankBox = styled.div`
