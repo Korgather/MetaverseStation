@@ -58,14 +58,13 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  const token = cookies(ctx).Token;
-  axios.defaults.headers.Cookie = '';
   axios.defaults.headers.common['Authorization'] = '';
+  const token = cookies(ctx).Token;
   if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
   }
   await store.dispatch(loadMyInfo());
-
   await store.dispatch(
     loadPosts({
       pageNum: ctx.query.page as string,

@@ -25,4 +25,6 @@ const CommentListLayout = styled.div`
   flex-direction: column;
   margin-top: 50px;
   max-width: 600px;
+  width: 100%;
+  margin-right: auto;
 `;

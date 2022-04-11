@@ -99,9 +99,7 @@ export const userSlice = createSlice({
       })
       .addCase(loadMyInfo.fulfilled, (state, action) => {
         state.loadMyInfoLoading = false;
-        if (action.payload !== null) {
-          state.me = action.payload;
-        }
+        state.me = action.payload;
       })
       .addCase(loadMyInfo.rejected, (state, action: ReturnType<typeof loadMyInfo.rejected>) => {
         state.loadMyInfoLoading = false;

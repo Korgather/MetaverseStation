@@ -7,6 +7,7 @@ import { saveAccessToken } from '@slices/userSlice';
 import { useRouter } from 'next/router';
 import { loadMyInfo } from '@actions/user';
 import { Triangle } from 'react-loader-spinner';
+import axios from 'axios';
 
 function redirect() {
   const router = useRouter();
@@ -19,6 +20,7 @@ function redirect() {
       if (token) {
         setCookie('Token', token, { path: '/' });
         dispatch(saveAccessToken(token));
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         try {
           const res = await dispatch(loadMyInfo());
           if (res.payload.userNameModifiedYn === 'Y') {

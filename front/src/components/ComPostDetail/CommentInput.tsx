@@ -47,7 +47,9 @@ export default CommentInput;
 const CommentInputLayout = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   max-width: 840px;
+  margin-right: auto;
 `;
 
 const CommentNum = styled.div`

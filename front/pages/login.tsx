@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import Link from 'next/link';
 import { useAppSelector } from '@store/hook';
 import Router from 'next/router';
-import cookies from 'next-cookies';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
-import { clearAccessToken, saveAccessToken } from '@slices/userSlice';
+import cookies from 'next-cookies';
+import { saveAccessToken } from '@slices/userSlice';
 import { loadMyInfo } from '@actions/user';
 
 const redirectUrl =
@@ -129,8 +129,12 @@ const TitleP = styled.p`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  axios.defaults.headers.Cookie = '';
   axios.defaults.headers.common['Authorization'] = '';
-  store.dispatch(clearAccessToken());
+  const token = cookies(ctx).Token;
+  if (token) {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    store.dispatch(saveAccessToken(token));
+  }
+  await store.dispatch(loadMyInfo());
   return { props: {} };
 });
