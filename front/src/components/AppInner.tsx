@@ -3,7 +3,7 @@ import { NextComponentType, NextPageContext } from 'next';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
 import cookies from 'next-cookies';
-import { saveAccessToken } from '@slices/userSlice';
+import { logOut, saveAccessToken } from '@slices/userSlice';
 import { loadMyInfo } from '@actions/user';
 
 type Props = {
@@ -17,12 +17,13 @@ const AppInner = ({ pageProps, Component }: Props) => {
 
 export default AppInner;
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
   return { props: {} };
 });

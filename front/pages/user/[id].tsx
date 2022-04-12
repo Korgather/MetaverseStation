@@ -5,7 +5,7 @@ import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
 import { IAuthorInfo } from '@customTypes/user';
-import { getAuthorInfo, saveAccessToken } from '@slices/userSlice';
+import { getAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { Layout } from 'antd';
 import axios from 'axios';
@@ -46,13 +46,14 @@ const StyledLayout = styled(Layout)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
   await store.dispatch(getAuthorInfo(ctx.query as unknown as IAuthorInfo));
   await store.dispatch(
     loadMyPosts({

@@ -17,7 +17,7 @@ import wrapper from '@store/configureStore';
 import axios from 'axios';
 import { loadMyInfo } from '@actions/user';
 import cookies from 'next-cookies';
-import { saveAccessToken } from '@slices/userSlice';
+import { logOut, saveAccessToken } from '@slices/userSlice';
 import { getSearchKeyword, ToggleWriteModalState } from '@slices/postSlice';
 const Home: NextPage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
@@ -67,13 +67,14 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
 
   await store.dispatch(getSearchKeyword(ctx.params?.id as string));
   await store.dispatch(searchPosts());

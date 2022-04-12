@@ -5,7 +5,7 @@ import Board from '@components/community/Board';
 import Pagination from '@components/community/Pagination';
 import CommunityWriteModal from '@components/community/writeModal/CommunityWriteModal';
 import BannerItem from '@components/main/BannerItem';
-import { saveAccessToken } from '@slices/userSlice';
+import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppSelector } from '@store/hook';
 import axios from 'axios';
@@ -40,13 +40,14 @@ const FlexWrapper = styled.div`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
 
   await store.dispatch(
     loadComPosts({
