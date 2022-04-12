@@ -223,3 +223,15 @@ export const deleteAlram = createAsyncThunk('alram/delete', async (alramId: stri
   });
   return res.data;
 });
+
+export const addFeedBack = createAsyncThunk('add/feedback', async (content: string, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
+  const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, content, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}`,
+    },
+  });
+  return res.data;
+});
