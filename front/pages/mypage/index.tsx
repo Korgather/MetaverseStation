@@ -56,8 +56,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
-    const me = await store.dispatch(loadMyInfo());
-    store.dispatch(
+    await store.dispatch(loadMyInfo());
+    await store.dispatch(
       loadMyPosts({
         userId: store.getState().userSlice.me?.userId as number,
         pageNum: ctx.query.page as string,
