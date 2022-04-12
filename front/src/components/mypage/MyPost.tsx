@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 import { removeHtml } from '@lib/removeHtml';
 import { HeartFilled } from '@ant-design/icons';
 import shortid from 'shortid';
+import Profile from './Profile';
 
 interface MyPostProps {
   myPosts?: IPost[];
@@ -187,17 +188,12 @@ const Menu = styled.div<isActive>`
     margin-top: 20px;
   }
   :hover {
-    background-color: #c6daf7;
-    color: white;
+    color: #4490f8;
   }
   ${(props) =>
     props.isActive &&
     css`
-      background-color: #448ef7;
-      color: white;
-      :hover {
-        background-color: #448ef7;
-      }
+      color: #4490f8;
     `}
 `;
 

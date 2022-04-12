@@ -6,27 +6,28 @@ import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 interface ProfileProps {
-  me?: IUser | null;
   setEditModalState: Dispatch<SetStateAction<boolean>>;
 }
 
-const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState }) => {
+const Profile: React.FunctionComponent<ProfileProps> = ({ setEditModalState }) => {
+  const me = useAppSelector((state) => state.userSlice.me);
   const author = useAppSelector((state) => state.userSlice.authorInfo);
   return (
     <>
       <ProfileWrapper>
         <ImgWrapper src={author ? author.profileImageUrl : me?.profileImageUrl} />
         <ContentWrapper>
-          <Title>{author ? author.username : me?.userName}</Title>
+          <TitleWrapper>
+            <Title>{author ? author.username : me?.userName}</Title>
+            {!author && (
+              <Button onClick={() => openModal(setEditModalState)} htmlType="button">
+                프로필 수정
+              </Button>
+            )}
+          </TitleWrapper>
           <Content>{author ? author.bio : me?.bio ? me.bio : '소개를 입력해주세요.'}</Content>
         </ContentWrapper>
-        <ButtonWrapper>
-          {!author && (
-            <Button onClick={() => openModal(setEditModalState)} htmlType="button">
-              프로필 수정
-            </Button>
-          )}
-        </ButtonWrapper>
+        <ButtonWrapper></ButtonWrapper>
       </ProfileWrapper>
     </>
   );
@@ -34,11 +35,36 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ me, setEditModalState 
 
 export default Profile;
 
+const PostsCountWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  + div {
+    margin-left: 15px;
+  }
+`;
+
+const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  Button {
+    margin-left: 20px;
+    height: 25px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+`;
+const Title = styled.div`
+  font-size: 1.6rem;
+  font-weight: 500;
+`;
+
 const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
   padding: 10px 0 50px 0;
+  margin-left: 300px;
 `;
 
 const ImgWrapper = styled.img`
@@ -48,18 +74,14 @@ const ImgWrapper = styled.img`
 `;
 
 const ContentWrapper = styled.div`
-  padding: 0 30px;
+  margin-left: 4rem;
   display: flex;
   flex-direction: column;
   width: 480px;
 `;
 
-const Title = styled.div`
-  font-size: 1.1rem;
-  font-weight: 600;
-`;
 const Content = styled.div`
-  margin-top: 10px;
+  margin-top: 30px;
   word-wrap: break-word;
 `;
 

@@ -27,7 +27,7 @@ const mypage = () => {
         <>
           {me && (
             <StyledLayout>
-              <Profile me={me} setEditModalState={setEditModalState} />
+              <Profile setEditModalState={setEditModalState} />
               <MyPost setDetailModalState={setDetailModalState} />
             </StyledLayout>
           )}
