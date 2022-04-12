@@ -22,7 +22,10 @@ const DetailHeader = () => {
   const postData = useAppSelector((state) => state.postSlice.postDetail);
   const dataForUpdate = {
     images: (postData as IPost).imageList.map((image) => ({
-      imagePath: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
+      imagePath:
+        image.imagePath.indexOf('https://cdn.metabusstation.shop/static') === -1
+          ? image.imagePath
+          : process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
       origFileName: image.origFileName,
       fileSize: image.fileSize,
       url: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,

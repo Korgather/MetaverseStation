@@ -15,12 +15,11 @@ export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunk
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-  // const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-  //   headers: {
-  //     Authorization: `Bearer ${AccessToken}}`,
-  //   },
-  // });
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}`,
+    },
+  });
   return res.data;
 });
 
@@ -67,7 +66,7 @@ export const loadAuthorLikedPosts = createAsyncThunk(
     } = thunkAPI.getState() as { userSlice: IUserState };
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${userId}`, {
       headers: {
-        Authorization: `Bearer ${AccessToken}}`,
+        Authorization: `Bearer ${AccessToken}`,
       },
       params: {
         size: 8,
@@ -90,7 +89,7 @@ export const loadAuthorPosts = createAsyncThunk(
     } = thunkAPI.getState() as { userSlice: IUserState };
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/userid/${userId}`, {
       headers: {
-        Authorization: `Bearer ${AccessToken}}`,
+        Authorization: `Bearer ${AccessToken}`,
       },
       params: {
         size: 8,
@@ -112,7 +111,7 @@ export const loadLikedPosts = createAsyncThunk(
       `${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${data.userId}`,
       {
         headers: {
-          Authorization: `Bearer ${AccessToken}}`,
+          Authorization: `Bearer ${AccessToken}`,
         },
         params: {
           keyword: data.keyword ? data.keyword : '',
@@ -139,7 +138,7 @@ export const loadMyPosts = createAsyncThunk(
         : `${process.env.NEXT_PUBLIC_API_URL}/posts/userid/${data.userId}`;
     const res = await axios.get(Url, {
       headers: {
-        Authorization: `Bearer ${AccessToken}}`,
+        Authorization: `Bearer ${AccessToken}`,
       },
       params: {
         keyword: data.keyword ? data.keyword : '',

@@ -75,30 +75,30 @@ const AppLayout = ({ children }: AuxProps) => {
       {detailModalState && <DetailModal />}
       <LayoutWrapper className="layout">
         <StyledLayout>
+          <div
+            onClick={() => router.push('/')}
+            style={{ width: '100%', marginTop: '30px', marginBottom: '20px', marginLeft: '50px' }}
+          >
+            <img
+              style={{ width: '250px', cursor: 'pointer', marginRight: 'auto' }}
+              src="/images/ModuMetaLogo2.png"
+            />
+          </div>
           <StyledHeader>
-            <div onClick={() => router.push('/')}>
-              <img style={{ width: '35px', cursor: 'pointer' }} src="/images/Logo01.png" />
-            </div>
-            <MenuWrapper
-              selectedKeys={selectedKeys}
-              mode="horizontal"
-              style={{ border: 'none', margin: '5px 0 0 30px' }}
-            >
+            <MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
               <Menu.Item key="nav_gathertown">
-                <Link href="/">Gallery</Link>
+                <Link href="/">메타버스 게시판</Link>
               </Menu.Item>
               <Menu.Item key="nav_community">
-                <Link href="/community/free">Community</Link>
+                <Link href="/community/free">커뮤니티 게시판</Link>
               </Menu.Item>
             </MenuWrapper>
             <BtnWrapper>
               {me ? (
                 <>
-                  <ProfileDropdown />
                   <Alram />
-                  <Link href="/mypage">
-                    <ProfileImg src={me.profileImageUrl} alt="" />
-                  </Link>
+
+                  <ProfileDropdown />
                 </>
               ) : (
                 <Link href="/login">
@@ -129,7 +129,8 @@ const ProfileImg = styled.img`
 
 const MenuWrapper = styled(Menu)`
   width: 50%;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 700;
 `;
 
 const LayoutWrapper = styled.div`

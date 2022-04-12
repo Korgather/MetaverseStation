@@ -5,6 +5,7 @@ import { Dropdown, Menu } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useCookies } from 'react-cookie';
+import styled from 'styled-components';
 
 const ProfileDropdown = () => {
   const me = useAppSelector((state) => state.userSlice.me);
@@ -27,14 +28,21 @@ const ProfileDropdown = () => {
   };
   const menu = (
     <Menu onClick={({ key }) => onSelect({ key })}>
-      <Menu.Item key="pro_mypage">myPage</Menu.Item>
+      <StyledMenuItem key="pro_profile">
+        <ProfileWrapper>
+          <img src={me?.profileImageUrl} alt="" />
+          <div>{me?.userName}</div>
+        </ProfileWrapper>
+      </StyledMenuItem>
       <Menu.Divider />
-      <Menu.Item key="pro_logout">로그아웃</Menu.Item>
+      <StyledMenuItem key="pro_mypage">마이페이지</StyledMenuItem>
+      <Menu.Divider />
+      <StyledMenuItem key="pro_logout">로그아웃</StyledMenuItem>
     </Menu>
   );
   return (
     <>
-      <Dropdown overlay={menu}>
+      <DropdownWrapper overlay={menu} placement="topRight" arrow={false}>
         <a
           className="ant-dropdown-link"
           onClick={(e) => e.preventDefault()}
@@ -44,12 +52,44 @@ const ProfileDropdown = () => {
             fontSize: '1rem',
           }}
         >
-          {me?.userName}
+          <img
+            src={me?.profileImageUrl}
+            style={{ width: '3rem', borderRadius: '100%', height: '3rem' }}
+          />
           <DownOutlined />
         </a>
-      </Dropdown>
+      </DropdownWrapper>
     </>
   );
 };
 
 export default ProfileDropdown;
+
+const StyledMenuItem = styled(Menu.Item)`
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+`;
+
+const DropdownWrapper = styled(Dropdown)`
+  .anticon-down {
+    display: none;
+  }
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  div {
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+  }
+`;

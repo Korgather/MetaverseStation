@@ -21,6 +21,7 @@ function Category() {
         pathname: '/',
         query: {
           search: searchValue,
+          category,
         },
       });
     } catch (e) {

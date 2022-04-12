@@ -9,7 +9,7 @@ const Pagination = () => {
 
   const category = router.query.category;
 
-  const search = useAppSelector((state) => state.postSlice.searchKeyword);
+  const search = router.query.search;
   const totalPages = useAppSelector((state) => state.postSlice.totalPages);
   const onPageChange = (page: number) => {
     router.push({

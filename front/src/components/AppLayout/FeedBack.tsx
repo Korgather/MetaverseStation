@@ -1,3 +1,5 @@
+import { addFeedBack } from '@actions/post';
+import { useAppDispatch } from '@store/hook';
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
@@ -5,6 +7,15 @@ import styled from 'styled-components';
 
 const FeedBack = () => {
   const [modalState, setModalState] = useState(false);
+  const [feedBack, setFeedBack] = useState('');
+  const dispatch = useAppDispatch();
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFeedBack(e.target.value);
+  };
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(addFeedBack(feedBack));
+  };
   return (
     <>
       {!modalState ? (
@@ -14,13 +25,15 @@ const FeedBack = () => {
         </ImgWrapper>
       ) : (
         <ContentWrapper>
-          <RelativeWrapper>
+          <RelativeWrapper onSubmit={onSubmit}>
             <CloseBtn onClick={() => setModalState(false)}>x</CloseBtn>
             <Title>모두의 메타버스에 만족하셨나요?</Title>
             <Content>더 좋은 서비스를 위해, 평가를 남겨주세요!</Content>
             <LogoImg src="../../images/Logo01.png" alt="" />
-            <SubmitInput />
-            <StyledButton type="primary">제출하기</StyledButton>
+            <SubmitInput placeholder="피드백을 남겨주세요:D" value={feedBack} onChange={onChange} />
+            <StyledButton type="primary" htmlType="submit">
+              제출하기
+            </StyledButton>
           </RelativeWrapper>
         </ContentWrapper>
       )}
@@ -38,7 +51,7 @@ const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-const RelativeWrapper = styled.div`
+const RelativeWrapper = styled.form`
   position: relative;
   padding: 20px 40px;
   display: flex;

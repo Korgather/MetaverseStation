@@ -12,10 +12,16 @@ function CommunitySearch() {
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
+  const category =
+    router.pathname.indexOf('question') > -1
+      ? 'question'
+      : router.pathname.indexOf('study') > -1
+      ? 'study'
+      : router.pathname.indexOf('free') > -1 && 'free';
   const onSearch = () => {
     dispatch(getSearchInput(searchValue));
     router.push({
-      pathname: `/community/question`,
+      pathname: `/community/${category}`,
       query: {
         search: searchValue,
       },

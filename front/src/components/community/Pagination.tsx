@@ -13,7 +13,7 @@ const Pagination = () => {
       ? 'study'
       : router.pathname.indexOf('free') > -1 && 'free';
   const comTotalPages = useAppSelector((state) => state.communitySlice.comTotalPages);
-  const search = useAppSelector((state) => state.communitySlice.getSearchInput);
+  const search = router.query.search;
   const onPageChange = (page: number) => {
     router.push({
       pathname: `/community/${category}`,
