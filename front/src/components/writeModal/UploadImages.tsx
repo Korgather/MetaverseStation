@@ -24,6 +24,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
 
   useEffect(() => {
     prevPostData && setImageList(prevPostData.images);
+    console.log(prevPostData?.images);
   }, []);
 
   const RequestUploadImage = async (file: File) => {
@@ -77,15 +78,19 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
   };
 
   const onRemove = (file: UploadFile<unknown> | CustomDefaultFileList) => {
-    let RemoveIdx = imageList.findIndex(
-      (el) => el.imagePath === (file as CustomDefaultFileList).imagePath,
-    );
+    const sliceFileIdx = (file as UploadFile<unknown>)?.thumbUrl?.lastIndexOf('/');
+    const sliceFilePath =
+      sliceFileIdx && (file as UploadFile<unknown>)?.thumbUrl?.slice(sliceFileIdx + 1);
+    let RemoveIdx = imageList.findIndex((el) => el.imagePath === sliceFilePath);
     if (RemoveIdx === -1) {
       RemoveIdx = imageList.findIndex(
-        (el) => el.imagePath === (file as UploadFile<unknown>).thumbUrl,
+        (el) => el.imagePath === (file as CustomDefaultFileList).imagePath,
       );
     }
     setImageList(() => imageList.filter((el, idx) => idx !== RemoveIdx));
+    console.log(file);
+    console.log(RemoveIdx);
+    console.log(imageList);
   };
 
   const handleCancel = () => setPreviewVisible(false);

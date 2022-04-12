@@ -1,9 +1,10 @@
 import { SerializedError } from '@reduxjs/toolkit';
+import { UploadFile } from 'antd/lib/upload/interface';
 import { IComment } from './comment';
 import { IPostUser } from './user';
 
 export interface CustomFile {
-  file?: File;
+  file?: UploadFile<unknown> | File;
   imagePath: string;
   fileSize: number;
   origFileName: string;
@@ -91,6 +92,9 @@ export interface IPostState {
   deleteAlramLoading: boolean;
   deleteAlramDone: boolean;
   deleteAlramError: SerializedError | null;
+  addFeedBackLoading: boolean;
+  addFeedBackDone: boolean;
+  addFeedBackError: SerializedError | null;
   pageNum: number;
   totalPages: number;
   searchPageNum: number;

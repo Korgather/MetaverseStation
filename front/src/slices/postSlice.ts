@@ -13,6 +13,7 @@ import {
   removePost,
   searchPosts,
   deleteAlram,
+  addFeedBack,
 } from '@actions/post';
 import { IPostState } from '@customTypes/post';
 import { createSlice } from '@reduxjs/toolkit';
@@ -77,6 +78,10 @@ const initialState: IPostState = {
   deleteAlramLoading: false,
   deleteAlramDone: false,
   deleteAlramError: null,
+
+  addFeedBackLoading: false,
+  addFeedBackDone: false,
+  addFeedBackError: null,
 
   postDetail: null,
   pageNum: 0,
@@ -289,6 +294,17 @@ export const postSlice = createSlice({
       .addCase(deleteAlram.rejected, (state, action: ReturnType<typeof deleteAlram.rejected>) => {
         state.deleteAlramLoading = false;
         state.deleteAlramError = action.error;
+      })
+      .addCase(addFeedBack.pending, (state) => {
+        state.addFeedBackLoading = true;
+      })
+      .addCase(addFeedBack.fulfilled, (state, action) => {
+        state.addFeedBackDone = true;
+        state.addFeedBackLoading = false;
+      })
+      .addCase(addFeedBack.rejected, (state, action: ReturnType<typeof addFeedBack.rejected>) => {
+        state.addFeedBackLoading = false;
+        state.addFeedBackError = action.error;
       }),
 });
 

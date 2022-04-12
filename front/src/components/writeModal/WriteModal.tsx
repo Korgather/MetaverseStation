@@ -147,17 +147,6 @@ const WriteModal = () => {
               <UploadImages imageList={imageList} setImageList={setImageList} />
               {formik.errors.images && formik.touched && <S.Error>{formik.errors.images}</S.Error>}
               <S.StyledLabel htmlFor="content">내용</S.StyledLabel>
-              {/* <TextArea
-                id="content"
-                name="content"
-                onChange={formik.handleChange}
-                value={formik.values.content}
-                rows={8}
-                placeholder="메타버스 공간을 소개해주세요."
-              />
-              {formik.errors.content && formik.touched && (
-                <S.Error>{formik.errors.content}</S.Error>
-              )} */}
               <S.StyledReactQuill
                 onChange={(content) => onChangeContent(content)}
                 defaultValue={prevPostData?.content ? prevPostData?.content : ''}

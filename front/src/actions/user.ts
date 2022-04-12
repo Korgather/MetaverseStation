@@ -15,12 +15,11 @@ export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunk
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-  // const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
-  //   headers: {
-  //     Authorization: `Bearer ${AccessToken}`,
-  //   },
-  // });
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+    headers: {
+      Authorization: `Bearer ${AccessToken}`,
+    },
+  });
   return res.data;
 });
 
