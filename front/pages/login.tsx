@@ -136,7 +136,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
-    store.dispatch(loadMyInfo());
+    await store.dispatch(loadMyInfo());
   }
   return { props: {} };
 });

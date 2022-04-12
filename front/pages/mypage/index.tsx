@@ -18,9 +18,6 @@ const mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [editModalState, setEditModalState] = useState(false);
-  useEffect(() => {
-    if (!me) Router.push('/');
-  }, []);
 
   return (
     <>
@@ -59,16 +56,17 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
   if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
-    store.dispatch(loadMyInfo());
+    const me = await store.dispatch(loadMyInfo());
+    store.dispatch(
+      loadMyPosts({
+        userId: store.getState().userSlice.me?.userId as number,
+        pageNum: ctx.query.page as string,
+        category: ctx.query.category as string,
+        keyword: ctx.query.search as string,
+        filter: ctx.query.filter as string,
+      }),
+    );
   }
-  await store.dispatch(
-    loadMyPosts({
-      userId: store.getState().userSlice.me?.userId as number,
-      pageNum: ctx.query.page as string,
-      category: ctx.query.category as string,
-      keyword: ctx.query.search as string,
-      filter: ctx.query.filter as string,
-    }),
-  );
+
   return { props: {} };
 });

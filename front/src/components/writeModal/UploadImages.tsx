@@ -32,7 +32,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
     try {
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
         headers: {
-          Authorization: `Bearer ${AccessToken}}`,
+          Authorization: `Bearer ${AccessToken}`,
         },
       });
       setCurrentImageUrl(process.env.NEXT_PUBLIC_IMG_URL + res.data[0]);

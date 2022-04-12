@@ -29,7 +29,7 @@ export const loadComPosts = createAsyncThunk(
     } = thunkAPI.getState() as { userSlice: IUserState };
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       headers: {
-        Authorization: `Bearer ${AccessToken}}`,
+        Authorization: `Bearer ${AccessToken}`,
       },
       params: {
         category: data.category,
@@ -48,7 +48,7 @@ export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComP
   } = thunkAPI.getState() as { userSlice: IUserState };
   const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
     headers: {
-      Authorization: `Bearer ${AccessToken}}`,
+      Authorization: `Bearer ${AccessToken}`,
     },
   });
   return res.data;
@@ -62,7 +62,7 @@ export const updateComPost = createAsyncThunk(
     } = thunkAPI.getState() as { userSlice: IUserState };
     const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
       headers: {
-        Authorization: `Bearer ${AccessToken}}`,
+        Authorization: `Bearer ${AccessToken}`,
       },
     });
     return res.data;
@@ -77,7 +77,7 @@ export const searchComPosts = createAsyncThunk(
     } = thunkAPI.getState() as { userSlice: IUserState };
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       headers: {
-        Authorization: `Bearer ${AccessToken}}`,
+        Authorization: `Bearer ${AccessToken}`,
       },
       params: {
         keyword: data.keyword,
@@ -96,7 +96,7 @@ export const loadComPost = createAsyncThunk('comPost/load', async (postId: numbe
   } = thunkAPI.getState() as { userSlice: IUserState };
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
     headers: {
-      Authorization: `Bearer ${AccessToken}}`,
+      Authorization: `Bearer ${AccessToken}`,
     },
   });
   return res.data;
