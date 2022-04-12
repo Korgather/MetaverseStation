@@ -7,7 +7,7 @@ import CommentInput from '@components/ComPostDetail/CommentInput';
 import CommentList from '@components/ComPostDetail/CommentList';
 import ContentBox from '@components/ComPostDetail/ContentBox';
 import { clearComPostDetail } from '@slices/communitySlice';
-import { saveAccessToken } from '@slices/userSlice';
+import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import axios from 'axios';
@@ -51,13 +51,14 @@ const ComDetailPostLayout = styled.div`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
 
   await store.dispatch(loadComPost(Number(ctx.query.id as string)));
   await store.dispatch(viewPost(Number(ctx.query.id as string)));

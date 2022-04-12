@@ -4,7 +4,7 @@ import DetailModal from '@components/detailModal/DetailModal';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
-import { saveAccessToken } from '@slices/userSlice';
+import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
@@ -53,13 +53,14 @@ const StyledLayout = styled(Layout)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
   await store.dispatch(
     loadMyPosts({
       userId: store.getState().userSlice.me?.userId as number,

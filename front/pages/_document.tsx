@@ -42,7 +42,6 @@ class MyDocument extends Document {
             }}
           />
           <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
-          <title>모두의 메타버스 - MoMe</title>
           <meta
             name="description"
             content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ import wrapper from '@store/configureStore';
 import axios from 'axios';
 import { loadMyInfo } from '@actions/user';
 import cookies from 'next-cookies';
-import { saveAccessToken } from '@slices/userSlice';
+import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
@@ -58,13 +58,15 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  store.dispatch(logOut());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
-  if (token) {
+  if (ctx.req && token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
+    store.dispatch(loadMyInfo());
   }
-  await store.dispatch(loadMyInfo());
+
   await store.dispatch(
     loadPosts({
       pageNum: ctx.query.page as string,
