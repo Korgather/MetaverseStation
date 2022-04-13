@@ -185,7 +185,7 @@ const Date = styled.div`
 const Content = styled.div`
   margin-top: 50px;
   font-size: 1rem;
-  line-height: 2;
+  line-height: 1.3;
 `;
 
 const Icons = styled.div`

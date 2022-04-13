@@ -88,7 +88,7 @@ export const Modal = styled.div<IModal>`
 
 export const Content = styled.div`
   font-size: 1rem;
-  line-height: 2;
+  line-height: 1.3;
 `;
 
 export const TagsWrapper = styled.div`
