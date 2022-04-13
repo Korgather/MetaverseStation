@@ -49,30 +49,13 @@ export const userSlice = createSlice({
     clearAccessToken: (state) => {
       state.AccessToken = '';
     },
-    getlikedPostPageNum: (state, action) => {
-      state.likedPostPageNum = action.payload;
-    },
     getlikedPostTotalPages: (state, action) => {
       state.likedPostTotalPages = action.payload;
-    },
-    getmyPostPageNum: (state, action) => {
-      state.myPostPageNum = action.payload;
     },
     getmyPostTotalPages: (state, action) => {
       state.myPostTotalPages = action.payload;
     },
-    getAuthorlikedPostPageNum: (state, action) => {
-      state.likedPostPageNum = action.payload;
-    },
-    getAuthorlikedPostTotalPages: (state, action) => {
-      state.likedPostTotalPages = action.payload;
-    },
-    getAuthorPostPageNum: (state, action) => {
-      state.myPostPageNum = action.payload;
-    },
-    getAuthorPostTotalPages: (state, action) => {
-      state.myPostTotalPages = action.payload;
-    },
+
     getAuthorInfo: (state, action: PayloadAction<IAuthorInfo>) => {
       state.authorInfo = action.payload;
     },
@@ -156,16 +139,10 @@ export const userSlice = createSlice({
 });
 export const {
   saveAccessToken,
-  getlikedPostPageNum,
   getlikedPostTotalPages,
-  getmyPostPageNum,
   getmyPostTotalPages,
   getAuthorInfo,
   clearAuthorInfo,
-  getAuthorPostTotalPages,
-  getAuthorPostPageNum,
-  getAuthorlikedPostTotalPages,
-  getAuthorlikedPostPageNum,
   logOut,
   clearAccessToken,
 } = userSlice.actions;

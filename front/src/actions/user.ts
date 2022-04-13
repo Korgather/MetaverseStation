@@ -13,8 +13,15 @@ interface ILoadUserPosts {
 }
 
 export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
@@ -26,10 +33,16 @@ export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunk
 export const changeNickName = createAsyncThunk(
   'user/changeNickName',
   async (data: string, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
       await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
         params: {
           userName: data,
+        },
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
         },
       });
     } catch (error) {
@@ -43,8 +56,15 @@ export const changeNickName = createAsyncThunk(
 export const updateProfile = createAsyncThunk(
   'user/updateProfile',
   async (data: IupdateProfile, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
-      const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/profile`, data, {});
+      const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/profile`, data, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+      });
       return res.data;
     } catch (error) {
       console.error('REQUEST ERROR --', error);
@@ -57,10 +77,16 @@ export const updateProfile = createAsyncThunk(
 export const loadLikedPosts = createAsyncThunk(
   'likedPosts/load',
   async (data: ILoadUserPosts, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
       const res = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${data.userId}`,
         {
+          headers: {
+            Authorization: `Bearer ${AccessToken}`,
+          },
           params: {
             keyword: data.keyword ? data.keyword : '',
             size: 6,
@@ -82,12 +108,18 @@ export const loadLikedPosts = createAsyncThunk(
 export const loadMyPosts = createAsyncThunk(
   'myPosts/load',
   async (data: ILoadUserPosts, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
       const Url =
         data.filter === 'liked'
           ? `${process.env.NEXT_PUBLIC_API_URL}/posts/likepost/${data.userId}`
           : `${process.env.NEXT_PUBLIC_API_URL}/posts/userid/${data.userId}`;
       const res = await axios.get(Url, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
         params: {
           keyword: data.keyword ? data.keyword : '',
           size: 6,

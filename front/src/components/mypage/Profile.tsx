@@ -12,10 +12,17 @@ interface ProfileProps {
 const Profile: React.FunctionComponent<ProfileProps> = ({ setEditModalState }) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const author = useAppSelector((state) => state.userSlice.authorInfo);
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = '../../Logo01.png';
+    console.log('error');
+  };
   return (
     <>
       <ProfileWrapper>
-        <ImgWrapper src={author ? author.profileImageUrl : me?.profileImageUrl} />
+        <ImgWrapper
+          src={author ? author.profileImageUrl : me?.profileImageUrl}
+          onError={handleImgError}
+        />
         <ContentWrapper>
           <TitleWrapper>
             <Title>{author ? author.username : me?.userName}</Title>

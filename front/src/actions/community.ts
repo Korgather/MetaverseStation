@@ -25,8 +25,14 @@ interface IComSearch {
 export const loadComPosts = createAsyncThunk(
   'comPosts/load',
   async (data: IloadComPosts, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
         params: {
           category: data.category,
           keyword: data.keyword ? data.keyword : '',
@@ -44,8 +50,15 @@ export const loadComPosts = createAsyncThunk(
 );
 
 export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComPost, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data);
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
@@ -57,8 +70,15 @@ export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComP
 export const updateComPost = createAsyncThunk(
   'comPosts/update',
   async (data: IAddComPost, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
-      const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data);
+      const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+      });
       return res.data;
     } catch (error) {
       console.error('REQUEST ERROR --', error);
@@ -71,8 +91,14 @@ export const updateComPost = createAsyncThunk(
 export const searchComPosts = createAsyncThunk(
   'comPosts/search',
   async (data: IComSearch, thunkAPI) => {
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
         params: {
           keyword: data.keyword,
           size: 5,
@@ -90,8 +116,15 @@ export const searchComPosts = createAsyncThunk(
 );
 
 export const loadComPost = createAsyncThunk('comPost/load', async (postId: number, thunkAPI) => {
+  const {
+    userSlice: { AccessToken },
+  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`);
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
