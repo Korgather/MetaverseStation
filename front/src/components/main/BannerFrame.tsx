@@ -52,4 +52,7 @@ const SlideWrapper = styled.section`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
+  @media screen and (max-width: 850px) {
+    width: 100vw;
+  }
 `;

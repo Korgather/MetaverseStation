@@ -42,14 +42,6 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ setEditModalState }) =
 
 export default Profile;
 
-const PostsCountWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  + div {
-    margin-left: 15px;
-  }
-`;
-
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -71,7 +63,6 @@ const ProfileWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   padding: 10px 0 50px 0;
-  margin-left: 300px;
 `;
 
 const ImgWrapper = styled.img`

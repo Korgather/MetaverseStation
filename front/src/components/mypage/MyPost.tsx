@@ -202,6 +202,9 @@ const Menu = styled.div<isActive>`
 
 const BlankBox = styled.div`
   flex: 2;
+  @media screen and (max-width: 1450px) {
+    display: none;
+  }
 `;
 
 const BoardListContainer = styled.div`

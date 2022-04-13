@@ -81,7 +81,7 @@ const AppLayout = ({ children }: AuxProps) => {
           >
             <img
               style={{ width: '26rem', cursor: 'pointer', marginRight: 'auto' }}
-              src="/images/ModuMetaLogo3.png"
+              src="/images/BetaLogo.png"
             />
           </div>
           <StyledHeader>
