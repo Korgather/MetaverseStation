@@ -44,13 +44,13 @@ function BannerItem() {
 export default BannerItem;
 const SliderItem = styled.div`
   img {
-    min-height: 150px;
     width: 1440px;
     @media screen and (max-width: 1650px) {
       width: 75vw;
     }
     @media screen and (max-width: 850px) {
       width: 100vw;
+      height: 130px;
     }
   }
 `;

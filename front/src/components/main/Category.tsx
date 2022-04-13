@@ -76,11 +76,16 @@ const MenuWrapper = styled.div`
   a {
     font-size: 0.8rem;
   }
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const StyledSearch = styled(Search)`
   margin: 0 auto;
-  width: 40%;
+  width: 60%;
   min-width: 150px;
 `;
 
@@ -90,8 +95,15 @@ const MenuBox = styled(Menu)`
   flex-direction: row;
   width: 30%;
   border: none;
+  @media screen and (max-width: 850px) {
+    margin: 0 auto;
+    width: 80%;
+  }
 `;
 
 const BlankBox = styled.div`
   width: 30%;
+  @media screen and (max-width: 850px) {
+    display: none;
+  }
 `;

@@ -51,12 +51,25 @@ export default Home;
 
 const BottomWrapper = styled.div`
   position: relative;
+  @media screen and (max-width: 850px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const StyledButton = styled(Button)`
   position: absolute;
   right: 10px;
   top: 45px;
+  @media screen and (max-width: 850px) {
+    display: flex;
+    flex-direction: column;
+    position: unset;
+    width: 30%;
+    margin: 30px 0 0px auto;
+    right: 0;
+    top: 0;
+  }
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {

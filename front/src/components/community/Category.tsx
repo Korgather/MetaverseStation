@@ -35,6 +35,9 @@ const CategoryContainer = styled.div`
   align-items: flex-end;
   margin: 0 auto;
   margin-top: 85px;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+  }
 `;
 
 const Menu = styled.div<isacitve>`
@@ -47,6 +50,9 @@ const Menu = styled.div<isacitve>`
   transition: all 0.2s ease-in;
   @media screen and (max-width: 1080px) {
     font-size: 0.9rem;
+  }
+  @media screen and (max-width: 850px) {
+    width: 100px;
   }
   + div {
     margin-top: 10px;
