@@ -80,8 +80,10 @@ const Content = styled.p`
 `;
 const LogoImg = styled.img`
   width: 300px;
-
   margin: 20px 0;
+  @media screen and (max-width: 850px) {
+    width: 250px;
+  }
 `;
 const SubmitInput = styled(TextArea)`
   min-height: 80px !important;
@@ -104,13 +106,11 @@ const ContentWrapper = styled.div`
   background-color: white;
   border: 2px solid #4490f8;
   border-radius: 10px;
-`;
-
-const FeedBackIcon = styled.img`
-  width: 22px;
-  height: 22px;
-
-  object-fit: contain;
+  @media screen and (max-width: 850px) {
+    width: 320px;
+    text-align: center;
+    font-size: 0.8rem;
+  }
 `;
 
 const ImgWrapper = styled.div`
