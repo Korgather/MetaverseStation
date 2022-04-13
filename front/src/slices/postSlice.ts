@@ -118,9 +118,9 @@ export const postSlice = createSlice({
     },
     ToggleWriteModalState: (state, action) => {
       state.updateModalState = action.payload;
-      action.payload === true
-        ? (document.body.style.overflow = 'hidden')
-        : (document.body.style.overflow = 'unset');
+      // action.payload === true
+      //   ? (document.body.style.overflow = 'hidden')
+      //   : (document.body.style.overflow = 'unset');
     },
     ToggleDetailState: (state, action) => {
       state.detailModalState = action.payload;

@@ -75,12 +75,26 @@ const AppLayout = ({ children }: AuxProps) => {
       {detailModalState && <DetailModal />}
       <LayoutWrapper className="layout">
         <StyledLayout>
-          <div
-            onClick={() => router.push('/')}
-            style={{ width: '100%', marginTop: '30px', marginBottom: '20px', marginLeft: '50px' }}
-          >
-            <LogoImg src="/images/BetaLogo.png" />
-          </div>
+          <TopWrapper>
+            <div
+              onClick={() => router.push('/')}
+              style={{ width: '100%', marginTop: '30px', marginBottom: '20px', marginLeft: '20px' }}
+            >
+              <LogoImg src="/images/BetaLogo.png" />
+            </div>
+            <BtnWrapper>
+              {me ? (
+                <AlramProfileWrapper>
+                  <Alram />
+                  <ProfileDropdown />
+                </AlramProfileWrapper>
+              ) : (
+                <Link href="/login">
+                  <StyledBtn>로그인</StyledBtn>
+                </Link>
+              )}
+            </BtnWrapper>
+          </TopWrapper>
           <StyledHeader>
             <MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
               <Menu.Item key="nav_gathertown">
@@ -90,19 +104,6 @@ const AppLayout = ({ children }: AuxProps) => {
                 <Link href="/community/free">커뮤니티 게시판</Link>
               </Menu.Item>
             </MenuWrapper>
-            <BtnWrapper>
-              {me ? (
-                <>
-                  <Alram />
-
-                  <ProfileDropdown />
-                </>
-              ) : (
-                <Link href="/login">
-                  <StyledBtn>로그인</StyledBtn>
-                </Link>
-              )}
-            </BtnWrapper>
           </StyledHeader>
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
@@ -117,6 +118,16 @@ const AppLayout = ({ children }: AuxProps) => {
 
 export default AppLayout;
 
+const AlramProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const TopWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
 const LogoImg = styled.img`
   width: 26rem;
   cursor: pointer;
