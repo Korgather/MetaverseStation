@@ -134,11 +134,14 @@ export const StyledDownOutlined = styled(DownOutlined)`
 `;
 
 export const StyledA = styled.a`
-  margin-left: auto;
-  margin-right: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 900;
 `;
 
 export const CloseModalBtn = styled.div`
+  margin-left: auto;
   background-color: #dfdada;
   border-radius: 50px;
   width: 25px;
@@ -192,6 +195,7 @@ export const SlideWrapper = styled.section`
 `;
 
 export const StyledImages = styled.div`
+  position: relative;
   img {
     width: 100%;
     height: 309px;

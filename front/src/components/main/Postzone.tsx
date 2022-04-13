@@ -51,8 +51,8 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                   <Logo src="../../images/gatherLogo.png" />
                 )}
                 <Title>
-                  {post.title && post.title?.length >= 15
-                    ? `${post.title?.slice(0, 15)}...`
+                  {post.title && post.title?.length >= 13
+                    ? `${post.title?.slice(0, 13)}`
                     : post.title}
                 </Title>
                 <StyledHeartTwoTone twoToneColor="#eb3f96" />

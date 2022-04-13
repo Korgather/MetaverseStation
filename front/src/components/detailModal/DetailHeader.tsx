@@ -87,11 +87,6 @@ const DetailHeader = () => {
           <S.StyledDownOutlined />
         </Dropdown>
       )}
-      <S.StyledA href={postData?.link} target="_blank">
-        <S.EntnerButton type="primary" htmlType="button">
-          입장하기
-        </S.EntnerButton>
-      </S.StyledA>
       <S.CloseModalBtn
         onClick={() => {
           dispatch(clearpostDetail());

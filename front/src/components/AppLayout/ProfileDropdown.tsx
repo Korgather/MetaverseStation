@@ -50,7 +50,7 @@ const ProfileDropdown = () => {
         >
           <img
             src={me?.profileImageUrl}
-            style={{ width: '3rem', borderRadius: '100%', height: '3rem' }}
+            style={{ width: '2.5rem', borderRadius: '100%', height: '2.5rem' }}
           />
           <DownOutlined />
         </a>

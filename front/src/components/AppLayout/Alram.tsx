@@ -101,7 +101,6 @@ const StyledMenuItem = styled(Menu.Item)`
 `;
 
 const StyledBellOutlined = styled(BellOutlined)`
-  margin-top: 26px;
   svg {
     height: 1.6rem;
     width: 1.6rem;
@@ -126,7 +125,7 @@ const MessageWrapper = styled.div`
 const MessageAlarm = styled.div`
   position: absolute;
   top: 0;
-  right: 21px;
+  right: 20px;
   color: red;
   font-size: 0.5rem;
 `;
