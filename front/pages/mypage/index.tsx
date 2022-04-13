@@ -10,6 +10,7 @@ import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import cookies from 'next-cookies';
+import Head from 'next/head';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -21,6 +22,9 @@ const mypage = () => {
 
   return (
     <>
+      <Head>
+        <title>{`${me?.userName}님의 소개 - 모두의메타버스 | 메타버스 공유 플랫폼`}</title>
+      </Head>
       {detailModalState && <DetailModal />}
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>

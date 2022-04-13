@@ -12,6 +12,7 @@ import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
+import Head from 'next/head';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -20,7 +21,7 @@ const ComDetailPost = () => {
     (state) => state.communitySlice.communityWriteModalState,
   );
   const dispatch = useAppDispatch();
-
+  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   useEffect(() => {
     return () => {
       dispatch(clearComPostDetail());
@@ -29,6 +30,9 @@ const ComDetailPost = () => {
 
   return (
     <>
+      <Head>
+        <title>{`${postDetail?.title} - 모두의 메타버스 | 커뮤니티`}</title>
+      </Head>
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>
         <>
