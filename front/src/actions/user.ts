@@ -37,14 +37,15 @@ export const changeNickName = createAsyncThunk(
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
     try {
-      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/username`, data, {
-        params: {
-          userName: data,
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/username`,
+        { username: data },
+        {
+          headers: {
+            Authorization: `Bearer ${AccessToken}`,
+          },
         },
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-        },
-      });
+      );
     } catch (error) {
       console.error('REQUEST ERROR --', error);
       alert((error as ServerError).response.data.error);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Input, Button } from 'antd';
+import { Input, Button, Tooltip } from 'antd';
 import styled from 'styled-components';
 import { addComment, loadPost } from '@actions/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
@@ -40,9 +40,15 @@ const CommentInput = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivEleme
           name="content"
           id="content"
         />
-        <StyledButton type="primary" htmlType="submit" loading={addCommentLoading} disabled={!me}>
-          댓글입력
-        </StyledButton>
+        {me ? (
+          <StyledButton type="primary" htmlType="submit" loading={addCommentLoading}>
+            댓글입력
+          </StyledButton>
+        ) : (
+          <Tooltip placement="topLeft" title="로그인이 필요합니다">
+            <StyledButton type="primary">댓글입력</StyledButton>
+          </Tooltip>
+        )}
       </form>
     </CommentInputWrapper>
   );

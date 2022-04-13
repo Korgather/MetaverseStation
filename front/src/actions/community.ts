@@ -49,7 +49,7 @@ export const loadComPosts = createAsyncThunk(
   },
 );
 
-export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComPost, thunkAPI) => {
+export const addComPost = createAsyncThunk('comPost/add', async (data: IAddComPost, thunkAPI) => {
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
@@ -68,7 +68,7 @@ export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComP
 });
 
 export const updateComPost = createAsyncThunk(
-  'comPosts/update',
+  'comPost/update',
   async (data: IAddComPost, thunkAPI) => {
     const {
       userSlice: { AccessToken },

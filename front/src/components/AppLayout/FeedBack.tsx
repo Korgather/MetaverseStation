@@ -1,6 +1,7 @@
 import { addFeedBack } from '@actions/post';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -8,7 +9,8 @@ import styled from 'styled-components';
 const FeedBack = () => {
   const [modalState, setModalState] = useState(false);
   const [feedBack, setFeedBack] = useState('');
-  const { addFeedBackLoading, addFeedBackDone } = useAppSelector((state) => state.postSlice);
+  const addFeedBackLoading = useAppSelector((state) => state.postSlice.addFeedBackLoading);
+  const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFeedBack(e.target.value);
@@ -24,7 +26,8 @@ const FeedBack = () => {
     <>
       {!modalState ? (
         <ImgWrapper onClick={() => setModalState(true)}>
-          <FeedBackIcon src="../../images/Logo01.png" alt="" />
+          {/* <FeedBackIcon src="../../images/Logo01.png" alt="" /> */}
+          <QuestionCircleOutlined />
           <StyledP>피드백</StyledP>
         </ImgWrapper>
       ) : (
@@ -33,11 +36,17 @@ const FeedBack = () => {
             <CloseBtn onClick={() => setModalState(false)}>x</CloseBtn>
             <Title>모두의 메타버스에 만족하셨나요?</Title>
             <Content>더 좋은 서비스를 위해, 평가를 남겨주세요!</Content>
-            <LogoImg src="../../images/Logo01.png" alt="" />
+            <LogoImg src="../../images/ModuMetaLogo3.png" alt="" />
             <SubmitInput placeholder="피드백을 남겨주세요:D" value={feedBack} onChange={onChange} />
-            <StyledButton type="primary" htmlType="submit" loading={addFeedBackLoading}>
-              제출하기
-            </StyledButton>
+            {me ? (
+              <StyledButton type="primary" htmlType="submit" loading={addFeedBackLoading}>
+                제출하기
+              </StyledButton>
+            ) : (
+              <Tooltip placement="topLeft" title="로그인이 필요합니다">
+                <StyledButton type="primary">제출하기</StyledButton>
+              </Tooltip>
+            )}
           </RelativeWrapper>
         </ContentWrapper>
       )}
@@ -70,13 +79,15 @@ const Content = styled.p`
   font-size: 1rem;
 `;
 const LogoImg = styled.img`
-  width: 55px;
-  height: 55px;
+  width: 300px;
+
   margin: 20px 0;
 `;
 const SubmitInput = styled(TextArea)`
   min-height: 80px !important;
   max-width: 350px !important;
+  border-radius: 15px;
+  resize: none;
 `;
 
 const StyledButton = styled(Button)`
@@ -119,6 +130,11 @@ const ImgWrapper = styled.div`
   padding: 10px;
   border: 1px solid #4490f8;
   cursor: pointer;
+  svg {
+    color: #4490f8;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
 `;
 
 const StyledP = styled.p`

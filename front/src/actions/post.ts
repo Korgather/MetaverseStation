@@ -3,8 +3,14 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { IComment, TUpdateComment, TUpdateReply, TAddComment } from '@customTypes/comment';
 import { AddPost, IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';
-import { getSearchTotalPage, getTotalPage } from '@slices/postSlice';
+import {
+  getPrevPostData,
+  getSearchTotalPage,
+  getTotalPage,
+  ToggleWriteModalState,
+} from '@slices/postSlice';
 import { ServerError } from '@customTypes/common';
+import { useRouter } from 'next/router';
 
 interface IloadPosts {
   pageNum: string;
@@ -22,11 +28,12 @@ export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkA
         Authorization: `Bearer ${AccessToken}`,
       },
     });
+    thunkAPI.dispatch(ToggleWriteModalState(false));
+    thunkAPI.dispatch(getPrevPostData(null));
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
-
     return thunkAPI.rejectWithValue(error as ServerError);
   }
 });

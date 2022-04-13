@@ -86,7 +86,10 @@ export const Modal = styled.div<IModal>`
   flex-direction: column;
 `;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  font-size: 1rem;
+  line-height: 2;
+`;
 
 export const TagsWrapper = styled.div`
   padding: 15px 30px;

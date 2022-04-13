@@ -37,10 +37,10 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                     dispatch(ToggleDetailState(true));
                   }}
                 >
-                  {post.imageList[0].imagePath.length >= 20 ? (
+                  {post.imageList[0]?.imagePath.length >= 20 ? (
                     <PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
                   ) : (
-                    <PostImg src="../../images/thumbnail02.png" />
+                    <PostImg src="../../images/defaultThumbNail.png" />
                   )}
                 </div>
               </ImgWrapper>

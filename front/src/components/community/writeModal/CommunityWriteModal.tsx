@@ -21,7 +21,7 @@ const WriteModal = () => {
     ? { category: postDetail?.category, title: postDetail?.title, content: postDetail?.content }
     : { category: '', title: '', content: '' };
 
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(prevData.content ? prevData.content : '');
   const [category, setCategory] = useState('');
   const [questionState, setQuestionState] = useState(prevData.category === 'COMMUNITY_QUESTION');
   const [freeState, setFreeState] = useState(prevData.category === 'COMMUNITY_GENERAL');
@@ -29,13 +29,19 @@ const WriteModal = () => {
   const pathIndex = router.pathname.lastIndexOf('/');
   const pathName = router.pathname.slice(0, pathIndex);
   const updateValidate = router.pathname.indexOf('post') > -1;
-  const updatePostDispatch = (submitData: IAddComPost) => {
-    dispatch(updateComPost({ ...submitData, id: postDetail?.id }));
-    router.push(`/community/post/${postDetail?.id}`);
+  const updatePostDispatch = async (submitData: IAddComPost) => {
+    const res = await dispatch(updateComPost({ ...submitData, id: postDetail?.id }));
+    res.type === 'comPost/update/fulfilled' && router.push(`/community/post/${postDetail?.id}`);
   };
-  const addPostDispatch = (submitData: IAddComPost) => {
-    dispatch(addComPost(submitData));
-    router.push(`${pathName}/question`);
+  const addPostDispatch = async (submitData: IAddComPost) => {
+    const res = await dispatch(addComPost(submitData));
+    const categoryForRoute =
+      category === 'COMMUNITY_QUESTION'
+        ? 'question'
+        : category === 'COMMUNITY_GENERAL'
+        ? 'free'
+        : category === 'COMMUNITY_STUDY' && 'study';
+    res.type === 'comPost/add/fulfilled' && router.push(`${pathName}/${categoryForRoute}`);
   };
   const onChangeContent = (content: string) => {
     setContent(content);
@@ -46,7 +52,7 @@ const WriteModal = () => {
   }, []);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
-      .min(2, '제목을 2글자 이상 입력해주세요')
+      .min(5, '제목을 5글자 이상 입력해주세요')
       .max(100, '제목이 너무 길어요')
       .required('제목은 필수입니다.'),
   });
@@ -63,11 +69,9 @@ const WriteModal = () => {
       const submitData = {
         title: values.title,
         content: content,
-        category,
+        category: category,
       };
-
       updateValidate ? updatePostDispatch(submitData) : addPostDispatch(submitData);
-      closeModal();
     },
     validationSchema: PostSchema,
     validateOnChange: true,

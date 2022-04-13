@@ -83,6 +83,8 @@ export default CommentFactory;
 
 const StyledTextArea = styled(TextArea)`
   margin-top: 10px;
+  border-radius: 10px;
+  resize: none;
 `;
 
 const Content = styled.div`
@@ -120,6 +122,7 @@ const UserName = styled.div`
 
 const Time = styled.div`
   font-size: 0.7rem;
+  color: #8c8c8c;
 `;
 
 const ButtonWrapper = styled.div`
@@ -128,7 +131,7 @@ const ButtonWrapper = styled.div`
   margin-left: auto;
   font-size: 0.7rem;
   cursor: pointer;
-  color: #c3c2c2;
+  color: #8c8c8c;
   div {
     :hover {
       color: #448ef7;
