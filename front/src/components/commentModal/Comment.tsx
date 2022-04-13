@@ -10,7 +10,7 @@ const Comment = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivElement> }
   return (
     <S.CommentWrapper ref={CommentRef}>
       {Comments?.map((comment) => (
-        <div key={shortid.generate()}>
+        <S.TempContainer key={shortid.generate()}>
           <S.CommentContainer>
             <S.PromfileImg large src={comment.profileImageUrl} />
             <S.ContentAndBottomWrapper>
@@ -18,7 +18,7 @@ const Comment = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivElement> }
             </S.ContentAndBottomWrapper>
           </S.CommentContainer>
           <Reply comment={comment} />
-        </div>
+        </S.TempContainer>
       ))}
     </S.CommentWrapper>
   );

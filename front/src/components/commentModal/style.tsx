@@ -34,6 +34,9 @@ export const CommentModal = styled.div<IModal>`
   margin-left: 10px;
   flex-direction: column;
   align-items: center;
+  @media screen and (max-width: 850px) {
+    width: 85vw !important;
+  }
 `;
 
 export const ReplyInputWrapper = styled.div``;
@@ -48,6 +51,9 @@ export const StyledTextArea = styled(TextArea)<large>`
       width: 13.5vw;
       max-width: 260px !important;
     `}
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
 `;
 
 export const StyledBtn = styled(Button)`
@@ -128,6 +134,9 @@ export const ContentWrapper = styled.div<large>`
       width: 14vw;
       max-width: 260px;
     `}
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
 `;
 
 export const ContentAndBottomWrapper = styled.div`
@@ -179,6 +188,9 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
 `;
 
 export const PromfileImg = styled.img<large>`
@@ -200,5 +212,28 @@ export const CommentContainer = styled.div`
   padding: 0 10px;
   + div {
     margin-top: 10px;
+  }
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
+`;
+
+export const TempContainer = styled.div`
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
+`;
+
+export const Goback = styled.div`
+  display: none;
+  @media screen and (max-width: 850px) {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    svg {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
   }
 `;
