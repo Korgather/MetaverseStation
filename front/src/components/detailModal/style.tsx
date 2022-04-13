@@ -84,6 +84,13 @@ export const Modal = styled.div<IModal>`
   transition: right 100ms linear;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 850px) {
+    ${(props) =>
+      props.commentState &&
+      css`
+        display: none;
+      `}
+  }
 `;
 
 export const Content = styled.div`

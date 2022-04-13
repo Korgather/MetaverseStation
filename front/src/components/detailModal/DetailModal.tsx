@@ -33,7 +33,11 @@ const DetailModal = () => {
               </S.Content>
             </S.ContentBox>
           </S.Modal>
-          <CommentModal commentState={commentState} postData={postData} />
+          <CommentModal
+            commentState={commentState}
+            postData={postData}
+            setCommentState={setCommentState}
+          />
         </S.ModalWrapper>
       )}
     </>
