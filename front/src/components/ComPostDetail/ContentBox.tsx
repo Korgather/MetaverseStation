@@ -31,12 +31,8 @@ const ContentBox = () => {
   const onToggleLike = async () => {
     if (me) {
       if (postDetail?.id) {
-        try {
-          await dispatch(heartPost(postDetail.id));
-          await dispatch(loadComPost(postDetail.id));
-        } catch (e) {
-          console.log(e);
-        }
+        await dispatch(heartPost(postDetail.id));
+        await dispatch(loadComPost(postDetail.id));
       }
       setLikeState(!likeState);
     } else {
@@ -74,12 +70,8 @@ const ContentBox = () => {
       modal.confirm({
         title: '게시글을 삭제하시겠습니까?',
         onOk: async function async() {
-          try {
-            await dispatch(removePost(postDetail?.id));
-            router.push(`/community/${categoryForRouter}`);
-          } catch (e) {
-            console.log(e);
-          }
+          await dispatch(removePost(postDetail?.id));
+          router.push(`/community/${categoryForRouter}`);
         },
       });
   };

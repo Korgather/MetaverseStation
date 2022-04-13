@@ -19,13 +19,9 @@ const CommentInput = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivEleme
       postid: postDetail?.id,
     },
     onSubmit: async (values) => {
-      try {
-        await dispatch(addComment(values));
-        postDetail && (await dispatch(loadPost(postDetail.id)));
-        scrollToBottom(CommentRef.current);
-      } catch (e) {
-        console.log(e);
-      }
+      await dispatch(addComment(values));
+      postDetail && (await dispatch(loadPost(postDetail.id)));
+      scrollToBottom(CommentRef.current);
     },
   });
   useEffect(() => {

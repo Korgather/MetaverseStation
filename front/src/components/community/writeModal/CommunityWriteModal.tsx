@@ -30,20 +30,12 @@ const WriteModal = () => {
   const pathName = router.pathname.slice(0, pathIndex);
   const updateValidate = router.pathname.indexOf('post') > -1;
   const updatePostDispatch = (submitData: IAddComPost) => {
-    try {
-      dispatch(updateComPost({ ...submitData, id: postDetail?.id }));
-      router.push(`/community/post/${postDetail?.id}`);
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch(updateComPost({ ...submitData, id: postDetail?.id }));
+    router.push(`/community/post/${postDetail?.id}`);
   };
   const addPostDispatch = (submitData: IAddComPost) => {
-    try {
-      dispatch(addComPost(submitData));
-      router.push(`${pathName}/question`);
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch(addComPost(submitData));
+    router.push(`${pathName}/question`);
   };
   const onChangeContent = (content: string) => {
     setContent(content);
@@ -73,13 +65,9 @@ const WriteModal = () => {
         content: content,
         category,
       };
-      try {
-        updateValidate ? updatePostDispatch(submitData) : addPostDispatch(submitData);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        closeModal();
-      }
+
+      updateValidate ? updatePostDispatch(submitData) : addPostDispatch(submitData);
+      closeModal();
     },
     validationSchema: PostSchema,
     validateOnChange: true,

@@ -18,15 +18,11 @@ const CommentInput = () => {
       content: comment,
       postid: postDetail?.id,
     };
-    try {
-      await dispatch(addComment(data));
-      await dispatch(loadComPost(data.postid as number));
-      scrollToBottom(window);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setComment('');
-    }
+
+    await dispatch(addComment(data));
+    await dispatch(loadComPost(data.postid as number));
+    scrollToBottom(window);
+    setComment('');
   };
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setComment(e.target.value);
   return (

@@ -1,7 +1,5 @@
 import {
   changeNickName,
-  loadAuthorLikedPosts,
-  loadAuthorPosts,
   loadLikedPosts,
   loadMyInfo,
   loadMyPosts,
@@ -39,12 +37,6 @@ export const initialState: IUserState = {
   authorInfo: null,
   authorLikedPosts: null,
   authorPosts: null,
-  loadAuthorLikedPostsLoading: false,
-  loadAuthorLikedPostsDone: false,
-  loadAuthorLikedPostsError: null,
-  loadAuthorPostsLoading: false,
-  loadAuthorPostsDone: false,
-  loadAuthorPostsError: null,
 };
 
 export const userSlice = createSlice({
@@ -160,39 +152,7 @@ export const userSlice = createSlice({
       .addCase(loadMyPosts.rejected, (state, action: ReturnType<typeof loadMyPosts.rejected>) => {
         state.loadMyPostsLoading = false;
         state.loadMyPostsError = action.error;
-      })
-      .addCase(loadAuthorLikedPosts.pending, (state) => {
-        state.loadAuthorLikedPostsLoading = true;
-      })
-      .addCase(loadAuthorLikedPosts.fulfilled, (state, action) => {
-        state.loadAuthorLikedPostsLoading = false;
-        if (state.me !== null) {
-          state.authorLikedPosts = action.payload;
-        }
-      })
-      .addCase(
-        loadAuthorLikedPosts.rejected,
-        (state, action: ReturnType<typeof loadAuthorLikedPosts.rejected>) => {
-          state.loadAuthorLikedPostsLoading = false;
-          state.loadAuthorLikedPostsError = action.error;
-        },
-      )
-      .addCase(loadAuthorPosts.pending, (state) => {
-        state.loadAuthorPostsLoading = true;
-      })
-      .addCase(loadAuthorPosts.fulfilled, (state, action) => {
-        state.loadAuthorPostsLoading = false;
-        if (state.me !== null) {
-          state.authorPosts = action.payload;
-        }
-      })
-      .addCase(
-        loadAuthorPosts.rejected,
-        (state, action: ReturnType<typeof loadAuthorPosts.rejected>) => {
-          state.loadAuthorPostsLoading = false;
-          state.loadAuthorPostsError = action.error;
-        },
-      ),
+      }),
 });
 export const {
   saveAccessToken,

@@ -28,12 +28,8 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       modal.confirm({
         title: '댓글을 수정하시겠습니까?',
         onOk: async function () {
-          try {
-            await dispatch(updateComment(updateData));
-            await dispatch(loadComPost(postDetail?.id as number));
-          } catch (e) {
-            console.log(e);
-          }
+          await dispatch(updateComment(updateData));
+          await dispatch(loadComPost(postDetail?.id as number));
         },
       });
   };
@@ -42,14 +38,9 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       modal.confirm({
         title: '댓글을 삭제하시겠습니까?',
         onOk: async function () {
-          try {
-            await dispatch(removeComment(comment));
-            await dispatch(loadComPost(postDetail?.id as number));
-          } catch (e) {
-            console.log(e);
-          } finally {
-            onToggleUpdateState();
-          }
+          await dispatch(removeComment(comment));
+          await dispatch(loadComPost(postDetail?.id as number));
+          onToggleUpdateState();
         },
       });
   };

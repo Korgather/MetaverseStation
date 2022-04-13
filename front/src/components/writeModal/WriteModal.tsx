@@ -62,16 +62,12 @@ const WriteModal = () => {
         alert('카테고리를 선택해주세요');
         return;
       }
-      try {
-        prevPostData
-          ? await dispatch(updatePost({ link, title, content, images, id, category }))
-          : await dispatch(addPost({ link, title, content, images, category }));
-        router.push('/');
-        dispatch(ToggleWriteModalState(false));
-        dispatch(getPrevPostData(null));
-      } catch (e) {
-        console.log(e);
-      }
+      prevPostData
+        ? await dispatch(updatePost({ link, title, content, images, id, category }))
+        : await dispatch(addPost({ link, title, content, images, category }));
+      router.push('/');
+      dispatch(ToggleWriteModalState(false));
+      dispatch(getPrevPostData(null));
     },
     validationSchema: PostSchema,
     validateOnChange: true,

@@ -14,12 +14,8 @@ interface PostzoneProps {
 const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
-    try {
-      await dispatch(viewPost(data.id));
-      await dispatch(loadPost(data.id));
-    } catch (e) {
-      console.log(e);
-    }
+    await dispatch(viewPost(data.id));
+    await dispatch(loadPost(data.id));
   };
   return (
     <PostZoneWrapper>

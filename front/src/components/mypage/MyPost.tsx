@@ -188,12 +188,15 @@ const Menu = styled.div<isActive>`
     margin-top: 20px;
   }
   :hover {
-    color: #4490f8;
+    color: #c6daf7;
   }
   ${(props) =>
     props.isActive &&
     css`
       color: #4490f8;
+      :hover {
+        color: #4490f8;
+      }
     `}
 `;
 

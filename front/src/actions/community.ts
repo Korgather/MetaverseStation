@@ -1,3 +1,4 @@
+import { ServerError } from '@customTypes/common';
 import { IUserState } from '@customTypes/user';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -27,18 +28,24 @@ export const loadComPosts = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-      params: {
-        category: data.category,
-        keyword: data.keyword ? data.keyword : '',
-        size: 5,
-        page: data.pageNum ? Number(data.pageNum) - 1 : 0,
-      },
-    });
-    return res.data;
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+        params: {
+          category: data.category,
+          keyword: data.keyword ? data.keyword : '',
+          size: 5,
+          page: data.pageNum ? Number(data.pageNum) - 1 : 0,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error('REQUEST ERROR --', error);
+      alert((error as ServerError).response.data.error);
+      return thunkAPI.rejectWithValue(error as ServerError);
+    }
   },
 );
 
@@ -46,12 +53,18 @@ export const addComPost = createAsyncThunk('comPosts/add', async (data: IAddComP
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
-    headers: {
-      Authorization: `Bearer ${AccessToken}`,
-    },
-  });
-  return res.data;
+  try {
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error('REQUEST ERROR --', error);
+    alert((error as ServerError).response.data.error);
+    return thunkAPI.rejectWithValue(error as ServerError);
+  }
 });
 
 export const updateComPost = createAsyncThunk(
@@ -60,12 +73,18 @@ export const updateComPost = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
-    return res.data;
+    try {
+      const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error('REQUEST ERROR --', error);
+      alert((error as ServerError).response.data.error);
+      return thunkAPI.rejectWithValue(error as ServerError);
+    }
   },
 );
 
@@ -75,18 +94,24 @@ export const searchComPosts = createAsyncThunk(
     const {
       userSlice: { AccessToken },
     } = thunkAPI.getState() as { userSlice: IUserState };
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-      params: {
-        keyword: data.keyword,
-        size: 5,
-        page: data.pageNum,
-        category: data.category,
-      },
-    });
-    return res.data;
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+        },
+        params: {
+          keyword: data.keyword,
+          size: 5,
+          page: data.pageNum,
+          category: data.category,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error('REQUEST ERROR --', error);
+      alert((error as ServerError).response.data.error);
+      return thunkAPI.rejectWithValue(error as ServerError);
+    }
   },
 );
 
@@ -94,10 +119,16 @@ export const loadComPost = createAsyncThunk('comPost/load', async (postId: numbe
   const {
     userSlice: { AccessToken },
   } = thunkAPI.getState() as { userSlice: IUserState };
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
-    headers: {
-      Authorization: `Bearer ${AccessToken}`,
-    },
-  });
-  return res.data;
+  try {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+      headers: {
+        Authorization: `Bearer ${AccessToken}`,
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error('REQUEST ERROR --', error);
+    alert((error as ServerError).response.data.error);
+    return thunkAPI.rejectWithValue(error as ServerError);
+  }
 });

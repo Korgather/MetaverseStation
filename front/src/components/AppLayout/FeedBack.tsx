@@ -1,21 +1,25 @@
 import { addFeedBack } from '@actions/post';
-import { useAppDispatch } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const FeedBack = () => {
   const [modalState, setModalState] = useState(false);
   const [feedBack, setFeedBack] = useState('');
+  const { addFeedBackLoading, addFeedBackDone } = useAppSelector((state) => state.postSlice);
   const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFeedBack(e.target.value);
   };
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(addFeedBack(feedBack));
+    const submitdata = { content: feedBack };
+    await dispatch(addFeedBack(submitdata));
+    setModalState(false);
   };
+
   return (
     <>
       {!modalState ? (
@@ -31,7 +35,7 @@ const FeedBack = () => {
             <Content>더 좋은 서비스를 위해, 평가를 남겨주세요!</Content>
             <LogoImg src="../../images/Logo01.png" alt="" />
             <SubmitInput placeholder="피드백을 남겨주세요:D" value={feedBack} onChange={onChange} />
-            <StyledButton type="primary" htmlType="submit">
+            <StyledButton type="primary" htmlType="submit" loading={addFeedBackLoading}>
               제출하기
             </StyledButton>
           </RelativeWrapper>

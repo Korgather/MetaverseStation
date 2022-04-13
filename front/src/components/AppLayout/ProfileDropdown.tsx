@@ -18,12 +18,8 @@ const ProfileDropdown = () => {
       router.push('/mypage');
     }
     if (key === 'pro_logout') {
-      try {
-        await removeCookie('Token', { path: '/' });
-        await dispatch(logOut());
-      } catch (e) {
-        console.log(e);
-      }
+      await removeCookie('Token', { path: '/' });
+      await dispatch(logOut());
     }
   };
   const menu = (
