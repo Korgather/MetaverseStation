@@ -47,4 +47,8 @@ const PaginationWrapper = styled.div`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
+  @media screen and (max-width: 850px) {
+    margin-top: 20px;
+    width: 100vw;
+  }
 `;

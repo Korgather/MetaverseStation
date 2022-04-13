@@ -54,5 +54,12 @@ const SlideWrapper = styled.section`
   }
   @media screen and (max-width: 850px) {
     width: 100vw;
+    .slick-prev:before,
+    .slick-next:before {
+      display: none;
+    }
+    .slick-dots {
+      display: none !important;
+    }
   }
 `;

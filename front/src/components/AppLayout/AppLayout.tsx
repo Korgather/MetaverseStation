@@ -79,10 +79,7 @@ const AppLayout = ({ children }: AuxProps) => {
             onClick={() => router.push('/')}
             style={{ width: '100%', marginTop: '30px', marginBottom: '20px', marginLeft: '50px' }}
           >
-            <img
-              style={{ width: '26rem', cursor: 'pointer', marginRight: 'auto' }}
-              src="/images/BetaLogo.png"
-            />
+            <LogoImg src="/images/BetaLogo.png" />
           </div>
           <StyledHeader>
             <MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
@@ -120,17 +117,47 @@ const AppLayout = ({ children }: AuxProps) => {
 
 export default AppLayout;
 
-const ProfileImg = styled.img`
-  border-radius: 1000px;
-  width: 2.5rem;
-  height: 2.5rem;
+const LogoImg = styled.img`
+  width: 26rem;
   cursor: pointer;
+  margin-right: auto;
+  @media screen and (max-width: 850px) {
+    width: 240px;
+  }
 `;
 
 const MenuWrapper = styled(Menu)`
-  width: 50%;
+  width: 70%;
   font-size: 1rem;
   font-weight: 700;
+  @media screen and (max-width: 850px) {
+    flex: 2;
+    font-size: 0.6rem;
+  }
+`;
+const BtnWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  @media screen and (max-width: 850px) {
+    flex: 1;
+  }
+`;
+
+const StyledHeader = styled(Header)`
+  background-color: white;
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  width: 1440px;
+  padding: 0 10px;
+  position: relative;
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
+  @media screen and (max-width: 850px) {
+    width: 100vw;
+  }
 `;
 
 const LayoutWrapper = styled.div`
@@ -163,17 +190,8 @@ const StyledLayout = styled(Layout)`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
-`;
-
-const StyledHeader = styled(Header)`
-  background-color: white;
-  display: flex;
-  border-bottom: 1px solid #f0f0f0;
-  width: 1440px;
-  padding: 0 10px;
-  position: relative;
-  @media screen and (max-width: 1650px) {
-    width: 75vw;
+  @media screen and (max-width: 850px) {
+    width: 100vw;
   }
 `;
 
@@ -187,11 +205,4 @@ const StyledFooter = styled(Footer)`
 `;
 const StyledBtn = styled(Button)`
   margin-left: auto;
-`;
-
-const BtnWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: end;
 `;

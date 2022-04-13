@@ -44,9 +44,16 @@ export default Board;
 const StyledButton = styled(Button)`
   margin-top: auto;
   margin-left: 30px;
+  @media screen and (max-width: 850px) {
+    margin: 15px 0 0 auto;
+    width: 100px;
+  }
 `;
 const TopWrapper = styled.div`
   display: flex;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+  }
 `;
 const BoardWrapper = styled.div`
   display: flex;
@@ -56,10 +63,19 @@ const BoardWrapper = styled.div`
 const CategoryWrapper = styled.div`
   width: 20%;
   display: flex;
+  @media screen and (max-width: 850px) {
+    flex-direction: row;
+    height: 100%;
+    margin-bottom: auto;
+    margin-top: -70px;
+  }
 `;
 
 const BlankBox = styled.div`
   width: 10%;
+  @media screen and (max-width: 850px) {
+    display: none;
+  }
 `;
 
 const Layout = styled.div`
@@ -70,6 +86,11 @@ const Layout = styled.div`
   margin: 50px auto;
   display: flex;
   flex-direction: row;
-
   justify-content: center;
+  @media screen and (max-width: 850px) {
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
 `;

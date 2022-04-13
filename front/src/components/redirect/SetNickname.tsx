@@ -86,6 +86,9 @@ const Container = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 850px) {
+    min-width: 350px;
+  }
 `;
 
 const Header = styled.div`
@@ -120,6 +123,9 @@ const Request = styled.div`
 const StyledInput = styled(Input)`
   width: 40%;
   margin-top: 30px;
+  @media screen and (max-width: 850px) {
+    width: 50%;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -127,6 +133,9 @@ const StyledButton = styled(Button)`
   width: 13%;
   + button {
     margin-left: 20px;
+  }
+  @media screen and (max-width: 850px) {
+    width: 30%;
   }
 `;
 
