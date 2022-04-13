@@ -31,12 +31,8 @@ const ContentBox = () => {
   const onToggleLike = async () => {
     if (me) {
       if (postDetail?.id) {
-        try {
-          await dispatch(heartPost(postDetail.id));
-          await dispatch(loadComPost(postDetail.id));
-        } catch (e) {
-          console.log(e);
-        }
+        await dispatch(heartPost(postDetail.id));
+        await dispatch(loadComPost(postDetail.id));
       }
       setLikeState(!likeState);
     } else {
@@ -74,12 +70,8 @@ const ContentBox = () => {
       modal.confirm({
         title: '게시글을 삭제하시겠습니까?',
         onOk: async function async() {
-          try {
-            await dispatch(removePost(postDetail?.id));
-            router.push(`/community/${categoryForRouter}`);
-          } catch (e) {
-            console.log(e);
-          }
+          await dispatch(removePost(postDetail?.id));
+          router.push(`/community/${categoryForRouter}`);
         },
       });
   };
@@ -167,8 +159,8 @@ const ProfileHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 50px 0px;
-  border-bottom: 2px solid #dcdcdc;
+  padding: 0 0 20px 0;
+  border-bottom: 1px solid #dcdcdc;
 `;
 
 const ProfileImg = styled.img`
@@ -187,12 +179,13 @@ const Username = styled.div`
 const Date = styled.div`
   margin-left: auto;
   color: #acb0b4;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 `;
 
 const Content = styled.div`
   margin-top: 50px;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 2;
 `;
 
 const Icons = styled.div`

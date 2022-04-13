@@ -14,11 +14,7 @@ interface IMyPostFactoryProps {
 const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
   const dispatch = useAppDispatch();
   const onLoadPost = (data: IPost) => {
-    try {
-      dispatch(loadPost(data.id));
-    } catch (e) {
-      console.log(e);
-    }
+    dispatch(loadPost(data.id));
   };
   return (
     <>

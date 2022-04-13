@@ -14,12 +14,8 @@ interface PostzoneProps {
 const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
-    try {
-      await dispatch(viewPost(data.id));
-      await dispatch(loadPost(data.id));
-    } catch (e) {
-      console.log(e);
-    }
+    await dispatch(viewPost(data.id));
+    await dispatch(loadPost(data.id));
   };
   return (
     <PostZoneWrapper>
@@ -41,10 +37,10 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                     dispatch(ToggleDetailState(true));
                   }}
                 >
-                  {post.imageList[0].imagePath.length >= 20 ? (
+                  {post.imageList[0]?.imagePath.length >= 20 ? (
                     <PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
                   ) : (
-                    <PostImg src="../../images/thumbnail02.png" />
+                    <PostImg src="../../images/defaultThumbNail.png" />
                   )}
                 </div>
               </ImgWrapper>

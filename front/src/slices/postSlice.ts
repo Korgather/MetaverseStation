@@ -124,9 +124,6 @@ export const postSlice = createSlice({
     },
     ToggleDetailState: (state, action) => {
       state.detailModalState = action.payload;
-      // action.payload === true
-      //   ? (document.body.style.overflow = 'hidden')
-      //   : (document.body.style.overflow = 'unset');
     },
     clearpostDetail: (state) => {
       state.postDetail = null;

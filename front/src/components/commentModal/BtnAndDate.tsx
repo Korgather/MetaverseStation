@@ -36,14 +36,10 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
       modal.confirm({
         title: '댓글을 삭제하시겠습니까?',
         onOk: async function () {
-          try {
-            comment
-              ? await dispatch(removeComment(comment))
-              : reply && (await dispatch(removeReply(reply.replyId)));
-            await dispatch(loadPost(postDetail.id));
-          } catch (e) {
-            console.log(e);
-          }
+          comment
+            ? await dispatch(removeComment(comment))
+            : reply && (await dispatch(removeReply(reply.replyId)));
+          await dispatch(loadPost(postDetail.id));
         },
       });
   };
@@ -58,24 +54,15 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
     modal.confirm({
       title: '댓글을 수정하시겠습니까?',
       onOk: async function () {
-        try {
-          comment
-            ? await dispatch(updateComment(commentdata))
-            : reply && (await dispatch(updateReply(replydata)));
-
-          postDetail && (await dispatch(loadPost(postDetail.id)));
-        } catch (e) {
-          console.log(e);
-        } finally {
-          ToggleUpdateInput();
-        }
+        comment
+          ? await dispatch(updateComment(commentdata))
+          : reply && (await dispatch(updateReply(replydata)));
+        postDetail && (await dispatch(loadPost(postDetail.id)));
+        ToggleUpdateInput();
       },
     });
   };
 
-  useEffect(() => {
-    updateCommentDone && setReplyInputState(false);
-  }, [updateCommentDone]);
   return (
     <S.ReplyBottom>
       <S.ReplyDate>

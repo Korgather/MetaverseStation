@@ -53,16 +53,15 @@ const Menu = styled.div<isacitve>`
   }
   transition: all 0.1s ease-in;
   :hover {
-    background-color: #c6daf7;
-    color: white;
+    color: #c6daf7;
   }
   ${(props) =>
     props.isactive &&
     css`
-      background-color: #448ef7;
-      color: white;
+      /* background-color: #448ef7; */
+      color: #448ef7;
       :hover {
-        background-color: #448ef7;
+        color: #448ef7;
       }
     `}
 `;

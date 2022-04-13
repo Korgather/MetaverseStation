@@ -28,12 +28,8 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       modal.confirm({
         title: '댓글을 수정하시겠습니까?',
         onOk: async function () {
-          try {
-            await dispatch(updateComment(updateData));
-            await dispatch(loadComPost(postDetail?.id as number));
-          } catch (e) {
-            console.log(e);
-          }
+          await dispatch(updateComment(updateData));
+          await dispatch(loadComPost(postDetail?.id as number));
         },
       });
   };
@@ -42,14 +38,9 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       modal.confirm({
         title: '댓글을 삭제하시겠습니까?',
         onOk: async function () {
-          try {
-            await dispatch(removeComment(comment));
-            await dispatch(loadComPost(postDetail?.id as number));
-          } catch (e) {
-            console.log(e);
-          } finally {
-            onToggleUpdateState();
-          }
+          await dispatch(removeComment(comment));
+          await dispatch(loadComPost(postDetail?.id as number));
+          onToggleUpdateState();
         },
       });
   };
@@ -92,6 +83,8 @@ export default CommentFactory;
 
 const StyledTextArea = styled(TextArea)`
   margin-top: 10px;
+  border-radius: 10px;
+  resize: none;
 `;
 
 const Content = styled.div`
@@ -129,6 +122,7 @@ const UserName = styled.div`
 
 const Time = styled.div`
   font-size: 0.7rem;
+  color: #8c8c8c;
 `;
 
 const ButtonWrapper = styled.div`
@@ -137,7 +131,7 @@ const ButtonWrapper = styled.div`
   margin-left: auto;
   font-size: 0.7rem;
   cursor: pointer;
-  color: #c3c2c2;
+  color: #8c8c8c;
   div {
     :hover {
       color: #448ef7;

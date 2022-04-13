@@ -28,12 +28,8 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
     if (me) {
       setLikeState(!likeState);
       if (postDetail?.id) {
-        try {
-          await dispatch(heartPost(postDetail.id));
-          await dispatch(loadPost(postDetail.id));
-        } catch (e) {
-          console.log(e);
-        }
+        await dispatch(heartPost(postDetail.id));
+        await dispatch(loadPost(postDetail.id));
       }
     } else {
       message.info({

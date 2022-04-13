@@ -14,16 +14,12 @@ const ProfileDropdown = () => {
   const dispatch = useAppDispatch();
 
   const onSelect = async ({ key }: { key: string }) => {
-    if (key === 'pro_mypage') {
+    if (key === 'pro_mypage' || key === 'pro_profile') {
       router.push('/mypage');
     }
     if (key === 'pro_logout') {
-      try {
-        await removeCookie('Token', { path: '/' });
-        await dispatch(logOut());
-      } catch (e) {
-        console.log(e);
-      }
+      await removeCookie('Token', { path: '/' });
+      await dispatch(logOut());
     }
   };
   const menu = (

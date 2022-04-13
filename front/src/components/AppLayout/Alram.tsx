@@ -14,13 +14,8 @@ const Alram = () => {
   const dispatch = useAppDispatch();
   const onSelect = async ({ key }: { key: string }) => {
     if (key === 'clear_alram') {
-      try {
-        await dispatch(deleteAlram('all'));
-        await dispatch(loadMyInfo());
-      } catch (e) {
-        console.log(e);
-      }
-
+      await dispatch(deleteAlram('all'));
+      await dispatch(loadMyInfo());
       return;
     }
     const postIdx = key.indexOf('_');
@@ -30,17 +25,13 @@ const Alram = () => {
     const openDetailModal = async () => {
       dispatch(ToggleDetailState(true));
     };
-    try {
-      const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
-      await dispatch(deleteAlram(notifyId));
-      await dispatch(loadMyInfo());
-      postData.category && postData.category?.indexOf('METAVERSE') > -1
-        ? openDetailModal()
-        : Router.push(`/community/post/${postId}`);
-    } catch (e) {
-      console.log(e);
-      alert('존재하지 않는 게시물입니다.');
-    }
+
+    const postData: IPost = await (await dispatch(loadPost(Number(postId)))).payload;
+    await dispatch(deleteAlram(notifyId));
+    await dispatch(loadMyInfo());
+    postData.category && postData.category?.indexOf('METAVERSE') > -1
+      ? openDetailModal()
+      : Router.push(`/community/post/${postId}`);
   };
   const alram = useAppSelector((state) => state.userSlice.me?.notificationResponseDtoList);
   const menu = (

@@ -2,7 +2,7 @@ import { loadComPost } from '@actions/community';
 import { addComment, loadPost } from '@actions/post';
 import { scrollToBottom } from '@lib/scroll';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -18,15 +18,11 @@ const CommentInput = () => {
       content: comment,
       postid: postDetail?.id,
     };
-    try {
-      await dispatch(addComment(data));
-      await dispatch(loadComPost(data.postid as number));
-      scrollToBottom(window);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setComment('');
-    }
+
+    await dispatch(addComment(data));
+    await dispatch(loadComPost(data.postid as number));
+    scrollToBottom(window);
+    setComment('');
   };
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setComment(e.target.value);
   return (
@@ -34,9 +30,15 @@ const CommentInput = () => {
       <CommentNum>{postDetail?.postCommentList.length}개의 댓글이 있습니다.</CommentNum>
       <Wrapper>
         <StyledTextArea size="large" value={comment} onChange={onChange} />
-        <StyledButton type="primary" onClick={postComment} disabled={!me}>
-          댓글 등록
-        </StyledButton>
+        {me ? (
+          <StyledButton type="primary" onClick={postComment}>
+            댓글 등록
+          </StyledButton>
+        ) : (
+          <Tooltip placement="topLeft" title="로그인이 필요합니다">
+            <StyledButton type="primary">댓글 등록</StyledButton>
+          </Tooltip>
+        )}
       </Wrapper>
     </CommentInputLayout>
   );
@@ -50,6 +52,10 @@ const CommentInputLayout = styled.div`
   width: 100%;
   max-width: 840px;
   margin-right: auto;
+  textarea {
+    border-radius: 20px;
+    resize: none;
+  }
 `;
 
 const CommentNum = styled.div`
@@ -60,16 +66,17 @@ const CommentNum = styled.div`
 
 const StyledTextArea = styled(TextArea)`
   margin-top: 10px;
-  width: 70%;
+  width: 100%;
   min-height: 100px !important;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 `;
 
 const StyledButton = styled(Button)`
-  margin-left: 10px;
-  margin-top: auto;
+  width: 100px;
+  margin: 20px 0 0 auto;
+  border-radius: 5px;
 `;

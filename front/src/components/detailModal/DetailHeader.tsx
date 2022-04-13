@@ -50,12 +50,8 @@ const DetailHeader = () => {
       modal.confirm({
         title: '게시글을 삭제하시겠습니까?',
         onOk: async function async() {
-          try {
-            await dispatch(removePost(postData?.id));
-            pageNum ? router.push(`/${pageNum}`) : router.push('/');
-          } catch (e) {
-            console.log(e);
-          }
+          await dispatch(removePost(postData?.id));
+          pageNum ? router.push(`/${pageNum}`) : router.push('/');
         },
       });
   };

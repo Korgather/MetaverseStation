@@ -12,10 +12,17 @@ interface ProfileProps {
 const Profile: React.FunctionComponent<ProfileProps> = ({ setEditModalState }) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const author = useAppSelector((state) => state.userSlice.authorInfo);
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = '../../Logo01.png';
+    console.log('error');
+  };
   return (
     <>
       <ProfileWrapper>
-        <ImgWrapper src={author ? author.profileImageUrl : me?.profileImageUrl} />
+        <ImgWrapper
+          src={author ? author.profileImageUrl : me?.profileImageUrl}
+          onError={handleImgError}
+        />
         <ContentWrapper>
           <TitleWrapper>
             <Title>{author ? author.username : me?.userName}</Title>
@@ -34,14 +41,6 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ setEditModalState }) =
 };
 
 export default Profile;
-
-const PostsCountWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  + div {
-    margin-left: 15px;
-  }
-`;
 
 const TitleWrapper = styled.div`
   display: flex;
@@ -64,7 +63,6 @@ const ProfileWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   padding: 10px 0 50px 0;
-  margin-left: 300px;
 `;
 
 const ImgWrapper = styled.img`

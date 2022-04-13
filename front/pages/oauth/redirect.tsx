@@ -21,13 +21,9 @@ function redirect() {
         setCookie('Token', token, { path: '/' });
         dispatch(saveAccessToken(token));
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        try {
-          const res = await dispatch(loadMyInfo());
-          if (res.payload.userNameModifiedYn === 'Y') {
-            router.push('/');
-          }
-        } catch (e) {
-          console.error(e);
+        const res = await dispatch(loadMyInfo());
+        if (res.payload.userNameModifiedYn === 'Y') {
+          router.push('/');
         }
       }
     })();

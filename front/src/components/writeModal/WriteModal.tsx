@@ -18,7 +18,7 @@ interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCom
 const WriteModal = () => {
   const dispatch = useAppDispatch();
   const prevPostData = useAppSelector((state) => state.postSlice.prevPostData);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(prevPostData?.content ? prevPostData.content : '');
   const [gatherState, setGatherState] = useState(prevPostData?.category === 'METAVERSE_GATHERTOWN');
   const [zepState, setZepState] = useState(prevPostData?.category === 'METAVERSE_ZEP');
   const router = useRouter();
@@ -27,11 +27,10 @@ const WriteModal = () => {
   const postLoading = useAppSelector((state) => state.postSlice.addPostLoading);
   const PostSchema = Yup.object().shape({
     title: Yup.string()
-      .min(2, '2글자 이상 입력해주세요')
+      .min(5, '5글자 이상 입력해주세요')
       .max(50, '제목이 너무 길어요')
       .required('제목은 필수입니다.'),
     link: Yup.string().url('올바른 링크를 입력해주세요').required('링크는 필수입니다.'),
-    // content: Yup.string().min(2, '10글자 이상 입력해주세요').required('내용은 필수입니다.'),
     images: Yup.array().min(1, '이미지를 1개 이상 등록해주세요.'),
   });
   const closeModal = () => {
@@ -45,7 +44,6 @@ const WriteModal = () => {
   const formik = useFormik({
     initialValues: {
       title: `${prevPostData ? prevPostData.title : ''}`,
-      // content: `${prevPostData ? prevPostData.content : ''}`,
       link: `${prevPostData ? prevPostData.link : ''}`,
       postCommentList: [],
       images: prevPostData?.images ? prevPostData.images : [],
@@ -62,15 +60,12 @@ const WriteModal = () => {
         alert('카테고리를 선택해주세요');
         return;
       }
-      try {
-        prevPostData
-          ? await dispatch(updatePost({ link, title, content, images, id, category }))
-          : await dispatch(addPost({ link, title, content, images, category }));
+      let res;
+      prevPostData
+        ? (res = await dispatch(updatePost({ link, title, content, images, id, category })))
+        : (res = await dispatch(addPost({ link, title, content, images, category })));
+      if (res.type === 'post/add/fulfilled' || res.type === 'post/update/fulfilled') {
         router.push('/');
-        dispatch(ToggleWriteModalState(false));
-        dispatch(getPrevPostData(null));
-      } catch (e) {
-        console.log(e);
       }
     },
     validationSchema: PostSchema,

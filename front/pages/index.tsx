@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import type { NextPage } from 'next';
-import Head from 'next/head';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/main/Postzone';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
-import WriteModal from '@components/writeModal/WriteModal';
-import DetailModal from '@components/detailModal/DetailModal';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
 import { loadPosts } from '@actions/post';
@@ -26,6 +23,7 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : Router.push('/login');
   };
+
   return (
     <>
       <AppLayout>
@@ -35,9 +33,13 @@ const Home: NextPage = () => {
           <Postzone mainPosts={mainPosts} />
           <BottomWrapper>
             <Pagination />
-            <StyledButton onClick={openModal} disabled={!me}>
-              글쓰기
-            </StyledButton>
+            {me ? (
+              <StyledButton onClick={openModal}>글쓰기</StyledButton>
+            ) : (
+              <Tooltip placement="topLeft" title="로그인이 필요합니다">
+                <StyledButton>글쓰기</StyledButton>
+              </Tooltip>
+            )}
           </BottomWrapper>
         </>
       </AppLayout>

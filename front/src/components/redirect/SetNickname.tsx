@@ -1,5 +1,5 @@
 import { changeNickName } from '@actions/user';
-import { useAppDispatch } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input } from 'antd';
 import Router from 'next/router';
 import React, { useState } from 'react';
@@ -13,11 +13,14 @@ function SetNickname({ token }: ISetNickname) {
   const [secondStep, setSecondStep] = useState(false);
   const [nickname, setNickName] = useState('');
   const [inValid, setInValid] = useState(false);
+  const changeNickNameLoading = useAppSelector((state) => state.userSlice.changeNickNameLoading);
   const dispatch = useAppDispatch();
   const goback = () => setSecondStep(false);
-  const goNext = () => setSecondStep(true);
-  const goMain = () => {
-    dispatch(changeNickName(nickname));
+  const goNext = async () => {
+    const res = await dispatch(changeNickName(nickname));
+    res.type === 'user/changeNickName/fulfilled' && setSecondStep(true);
+  };
+  const goMain = async () => {
     token && Router.push('/');
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +34,7 @@ function SetNickname({ token }: ISetNickname) {
   return (
     <Container>
       <Header>
-        <h2>로고</h2>
+        <img src="../../images/ModuMetaLogo2.png" alt="" />
       </Header>
       {!secondStep ? (
         <Content>
@@ -42,7 +45,12 @@ function SetNickname({ token }: ISetNickname) {
           </Request>
           <StyledInput onChange={onChange} value={nickname} />
           {inValid && <Error>닉네임은 두글자 이상 적어주세요 !</Error>}
-          <StyledButton type="primary" htmlType="button" onClick={goNext}>
+          <StyledButton
+            type="primary"
+            htmlType="button"
+            onClick={goNext}
+            loading={changeNickNameLoading}
+          >
             다음
           </StyledButton>
         </Content>
@@ -51,15 +59,14 @@ function SetNickname({ token }: ISetNickname) {
           <Request>
             가입을 축하합니다 !
             <br />
-            모두의 메타버스에서 메타버스를 탐험해보세요 !
+            모두의 메타버스를 타고 출발할 준비가 되셨나요?
           </Request>
-          <Logo>로고</Logo>
           <ButtonWrapper>
             <StyledButton type="default" htmlType="button" onClick={goback}>
               뒤로가기
             </StyledButton>
             <StyledButton type="primary" htmlType="button" onClick={goMain}>
-              시작하기
+              출발하기
             </StyledButton>
           </ButtonWrapper>
         </Content>
@@ -88,8 +95,11 @@ const Header = styled.div`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 5px 15px;
-  h2 {
-    font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 300px;
   }
 `;
 

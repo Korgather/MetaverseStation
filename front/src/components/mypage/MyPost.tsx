@@ -188,17 +188,23 @@ const Menu = styled.div<isActive>`
     margin-top: 20px;
   }
   :hover {
-    color: #4490f8;
+    color: #c6daf7;
   }
   ${(props) =>
     props.isActive &&
     css`
       color: #4490f8;
+      :hover {
+        color: #4490f8;
+      }
     `}
 `;
 
 const BlankBox = styled.div`
   flex: 2;
+  @media screen and (max-width: 1450px) {
+    display: none;
+  }
 `;
 
 const BoardListContainer = styled.div`

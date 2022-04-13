@@ -51,13 +51,9 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
       profileImageUrl: me?.profileImageUrl,
     },
     onSubmit: async (values) => {
-      try {
-        await dispatch(updateProfile(values));
-        await dispatch(loadMyInfo());
-        setEditModalState(false);
-      } catch (e) {
-        console.log(e);
-      }
+      await dispatch(updateProfile(values));
+      await dispatch(loadMyInfo());
+      setEditModalState(false);
     },
   });
 

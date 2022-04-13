@@ -1,6 +1,6 @@
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Button } from 'antd';
+import { Button, Tooltip } from 'antd';
 import React from 'react';
 import styled from 'styled-components';
 import BoardList from './BoardList';
@@ -20,9 +20,17 @@ const Board = () => {
       <BoardWrapper>
         <TopWrapper>
           <CommunitySearch />
-          <StyledButton type="primary" htmlType="button" onClick={openModal} disabled={!me}>
-            글쓰기
-          </StyledButton>
+          {me ? (
+            <StyledButton type="primary" htmlType="button" onClick={openModal}>
+              글쓰기
+            </StyledButton>
+          ) : (
+            <Tooltip placement="topLeft" title="로그인이 필요합니다">
+              <StyledButton type="primary" htmlType="button" onClick={openModal}>
+                글쓰기
+              </StyledButton>
+            </Tooltip>
+          )}
         </TopWrapper>
         <BoardList />
       </BoardWrapper>

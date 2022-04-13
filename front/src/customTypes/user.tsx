@@ -70,12 +70,7 @@ export interface IUserState {
   loadMyPostsLoading: boolean;
   loadMyPostsDone: boolean;
   loadMyPostsError: SerializedError | null;
-  loadAuthorLikedPostsLoading: boolean;
-  loadAuthorLikedPostsDone: boolean;
-  loadAuthorLikedPostsError: SerializedError | null;
-  loadAuthorPostsLoading: boolean;
-  loadAuthorPostsDone: boolean;
-  loadAuthorPostsError: SerializedError | null;
+
   AccessToken: string | null;
   myLikedPosts: IPost[] | null;
   myPosts: IPost[] | null;

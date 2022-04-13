@@ -30,9 +30,9 @@ export const communitySlice = createSlice({
   reducers: {
     ToggleCommunityWriteModalState: (state, action) => {
       state.communityWriteModalState = action.payload;
-      action.payload === true
-        ? (document.body.style.overflow = 'hidden')
-        : (document.body.style.overflow = 'unset');
+      // action.payload === true
+      //   ? (document.body.style.overflow = 'hidden')
+      //   : (document.body.style.overflow = 'unset');
     },
     getSearchInput: (state, action) => {
       state.getSearchInput = action.payload;
