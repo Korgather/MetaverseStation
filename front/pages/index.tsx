@@ -16,6 +16,7 @@ import { loadMyInfo } from '@actions/user';
 import cookies from 'next-cookies';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
+import Head from 'next/head';
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
@@ -26,6 +27,9 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>모두의 메타버스 - MoMe</title>
+      </Head>
       <AppLayout>
         <>
           <BannerItem />

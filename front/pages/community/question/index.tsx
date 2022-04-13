@@ -10,6 +10,7 @@ import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 
@@ -19,6 +20,9 @@ const community = () => {
   );
   return (
     <>
+      <Head>
+        <title>질문 & 답변 - 모두의메타버스 | 커뮤니티</title>
+      </Head>
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>
         <>

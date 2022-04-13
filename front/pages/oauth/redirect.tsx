@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { loadMyInfo } from '@actions/user';
 import { Triangle } from 'react-loader-spinner';
 import axios from 'axios';
+import Head from 'next/head';
 
 function redirect() {
   const router = useRouter();
@@ -30,14 +31,24 @@ function redirect() {
   }, [token]);
   if (userNameModifiedYn === 'N')
     return (
-      <Layout>
-        <SetNickname token={token} />
-      </Layout>
+      <>
+        <Head>
+          <title>모두의 메타버스 | 메타버스 공유 플랫폼</title>
+        </Head>
+        <Layout>
+          <SetNickname token={token} />
+        </Layout>
+      </>
     );
   return (
-    <LoadingWrapper>
-      <Triangle color="#1890ff" />
-    </LoadingWrapper>
+    <>
+      <Head>
+        <title>로그인중 - 모두의메타버스</title>
+      </Head>
+      <LoadingWrapper>
+        <Triangle color="#1890ff" />
+      </LoadingWrapper>
+    </>
   );
 }
 

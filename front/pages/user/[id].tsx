@@ -7,18 +7,23 @@ import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
 import { IAuthorInfo } from '@customTypes/user';
 import { getAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
+import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import cookies from 'next-cookies';
+import Head from 'next/head';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
   const [editModalState, setEditModalState] = useState(false);
-
+  const author = useAppSelector((state) => state.userSlice.authorInfo);
   return (
     <>
+      <Head>
+        <title>{`${author?.username}님의 소개 - 모두의메타버스 | 메타버스 공유 플랫폼`}</title>
+      </Head>
       {detailModalState && <DetailModal />}
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
