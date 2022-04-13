@@ -13,15 +13,8 @@ interface IloadPosts {
 }
 
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data);
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
@@ -32,15 +25,8 @@ export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkA
 });
 
 export const removePost = createAsyncThunk('post/remove', async (postId: number, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`);
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
@@ -49,15 +35,8 @@ export const removePost = createAsyncThunk('post/remove', async (postId: number,
 });
 
 export const updatePost = createAsyncThunk('post/update', async (data: AddPost, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data);
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
@@ -67,15 +46,8 @@ export const updatePost = createAsyncThunk('post/update', async (data: AddPost, 
 });
 
 export const loadPost = createAsyncThunk('post/load', async (postId: number, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`);
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
@@ -85,14 +57,8 @@ export const loadPost = createAsyncThunk('post/load', async (postId: number, thu
 });
 
 export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
       params: {
         category: data.category,
         keyword: data.keyword ? data.keyword : '',
@@ -113,14 +79,8 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
   const {
     postSlice: { searchPageNum, searchKeyword },
   } = thunkAPI.getState() as { postSlice: IPostState };
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
       params: {
         keyword: searchKeyword,
         size: 8,
@@ -138,15 +98,8 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
 });
 
 export const heartPost = createAsyncThunk('heart/post', async (postId: number, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/like/${postId}`, '', {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/like/${postId}`, '');
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
@@ -155,15 +108,8 @@ export const heartPost = createAsyncThunk('heart/post', async (postId: number, t
 });
 
 export const viewPost = createAsyncThunk('view/post', async (postId: number, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/view/${postId}`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/view/${postId}`);
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
@@ -172,19 +118,10 @@ export const viewPost = createAsyncThunk('view/post', async (postId: number, thu
 });
 
 export const addComment = createAsyncThunk('comment/add', async (data: TAddComment, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/posts/${data.postid}/comments`,
-      { content: data.content },
-      {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-        },
-      },
-    );
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.postid}/comments`, {
+      content: data.content,
+    });
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
@@ -195,15 +132,8 @@ export const addComment = createAsyncThunk('comment/add', async (data: TAddComme
 export const removeComment = createAsyncThunk(
   'comment/remove',
   async (data: IComment | undefined, thunkAPI) => {
-    const {
-      userSlice: { AccessToken },
-    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
-      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/comments/${data?.commentId}`, {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-        },
-      });
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/comments/${data?.commentId}`);
     } catch (error) {
       console.error('REQUEST ERROR --', error);
       alert((error as ServerError).response.data.error);
@@ -215,18 +145,11 @@ export const removeComment = createAsyncThunk(
 export const updateComment = createAsyncThunk(
   'comment/update',
   async (data: TUpdateComment | undefined, thunkAPI) => {
-    const {
-      userSlice: { AccessToken },
-    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
       await axios.put(
         `${process.env.NEXT_PUBLIC_API_URL}/comments/${data?.commentId}`,
         { content: data?.content },
-        {
-          headers: {
-            Authorization: `Bearer ${AccessToken}`,
-          },
-        },
+        {},
       );
     } catch (error) {
       console.error('REQUEST ERROR --', error);
@@ -237,19 +160,10 @@ export const updateComment = createAsyncThunk(
 );
 
 export const addReply = createAsyncThunk('reply/add', async (data: TUpdateComment, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/comments/${data.commentId}`,
-      { content: data.content },
-      {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-        },
-      },
-    );
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/comments/${data.commentId}`, {
+      content: data.content,
+    });
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
@@ -259,15 +173,8 @@ export const addReply = createAsyncThunk('reply/add', async (data: TUpdateCommen
   return data;
 });
 export const removeReply = createAsyncThunk('reply/remove', async (replyId: number, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/replies/${replyId}`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/replies/${replyId}`);
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
@@ -278,19 +185,10 @@ export const removeReply = createAsyncThunk('reply/remove', async (replyId: numb
 export const updateReply = createAsyncThunk(
   'reply/update',
   async (data: TUpdateReply, thunkAPI) => {
-    const {
-      userSlice: { AccessToken },
-    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
-      await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/replies/${data?.replyId}`,
-        { content: data?.content },
-        {
-          headers: {
-            Authorization: `Bearer ${AccessToken}`,
-          },
-        },
-      );
+      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/replies/${data?.replyId}`, {
+        content: data?.content,
+      });
     } catch (error) {
       console.error('REQUEST ERROR --', error);
       alert((error as ServerError).response.data.error);
@@ -300,15 +198,8 @@ export const updateReply = createAsyncThunk(
 );
 
 export const deleteAlram = createAsyncThunk('alram/delete', async (alramId: string, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/notification/${alramId}`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-      },
-    });
+    const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/notification/${alramId}`);
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
@@ -320,15 +211,8 @@ export const deleteAlram = createAsyncThunk('alram/delete', async (alramId: stri
 export const addFeedBack = createAsyncThunk(
   'add/feedback',
   async (data: { content: string }, thunkAPI) => {
-    const {
-      userSlice: { AccessToken },
-    } = thunkAPI.getState() as { userSlice: IUserState };
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, data, {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-        },
-      });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, data);
       alert('피드백을 남겨주셔서 감사합니다');
       return res.data;
     } catch (error) {
