@@ -128,7 +128,7 @@ const ImgWrapper = styled.div`
   bottom: 20px;
   left: 20px;
   padding: 10px;
-  border: 1px solid #4490f8;
+  border: 2px solid #4490f8;
   cursor: pointer;
   svg {
     color: #4490f8;

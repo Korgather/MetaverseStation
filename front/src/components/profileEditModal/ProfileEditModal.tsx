@@ -83,6 +83,8 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
               )}
             </StyledUpload>
           </ImgWrapper>
+          <StyledP>이메일</StyledP>
+          <StyledInput value={me?.email} disabled style={{ color: '#5a5a5a' }}></StyledInput>
           <StyledP>닉네임</StyledP>
           <StyledInput
             id="username"
