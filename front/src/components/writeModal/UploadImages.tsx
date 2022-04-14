@@ -24,7 +24,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
 
   useEffect(() => {
     prevPostData && setImageList(prevPostData.images);
-    console.log(prevPostData?.images);
   }, []);
 
   const RequestUploadImage = async (file: File) => {
@@ -88,9 +87,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
       );
     }
     setImageList(() => imageList.filter((el, idx) => idx !== RemoveIdx));
-    console.log(file);
-    console.log(RemoveIdx);
-    console.log(imageList);
   };
 
   const handleCancel = () => setPreviewVisible(false);

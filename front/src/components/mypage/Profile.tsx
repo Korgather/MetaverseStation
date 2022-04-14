@@ -14,7 +14,6 @@ const Profile: React.FunctionComponent<ProfileProps> = ({ setEditModalState }) =
   const author = useAppSelector((state) => state.userSlice.authorInfo);
   const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     e.currentTarget.src = '../../Logo01.png';
-    console.log('error');
   };
   return (
     <>
