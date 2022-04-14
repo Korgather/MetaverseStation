@@ -6,7 +6,10 @@ import styled, { css } from 'styled-components';
 interface IModal {
   commentState: boolean;
 }
-
+export const Date = styled.div`
+  margin-left: 10px;
+  font-size: 0.8rem;
+`;
 export const StyledScroll = css`
   ::-webkit-scrollbar {
     width: 10px;
