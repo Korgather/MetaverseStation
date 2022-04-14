@@ -26,9 +26,7 @@ const Board = () => {
             </StyledButton>
           ) : (
             <Tooltip placement="topLeft" title="로그인이 필요합니다">
-              <StyledButton type="primary" htmlType="button" onClick={openModal}>
-                글쓰기
-              </StyledButton>
+              <StyledButton type="primary">글쓰기</StyledButton>
             </Tooltip>
           )}
         </TopWrapper>
