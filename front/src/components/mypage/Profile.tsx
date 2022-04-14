@@ -63,6 +63,11 @@ const ProfileWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   padding: 10px 0 50px 0;
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const ImgWrapper = styled.img`
@@ -76,6 +81,10 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 480px;
+  @media screen and (max-width: 850px) {
+    width: 100%;
+    margin-top: 20px;
+  }
 `;
 
 const Content = styled.div`
