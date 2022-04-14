@@ -48,6 +48,20 @@ class MyDocument extends Document {
             name="description"
             content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
           />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+         window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-JJJK75PQJP');, {
+          page_path: window.location.pathname,
+        });
+      `,
+            }}
+          />
           <meta
             name="keyword"
             content="메타버스, 게더타운, 젭,zep,gathertown,개더타운, 매타버스, metaverse, 게더타운맵, 젭맵 , 코게더 "
@@ -55,7 +69,11 @@ class MyDocument extends Document {
           <meta key={shortid.generate()} property="og:type" content="website" />
           <meta key={shortid.generate()} property="og:url" content={url} />
           <meta key={shortid.generate()} property="og:title" content="모두의 메타버스 - MoMe" />
-          <meta key={shortid.generate()} property="og:image" content="../../images/BetaLogo.png" />
+          <meta
+            key={shortid.generate()}
+            property="og:image"
+            content="../../images/ModuMetaIcon.png"
+          />
           <meta
             key={shortid.generate()}
             property="og:description"
