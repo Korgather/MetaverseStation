@@ -1,6 +1,7 @@
 import { IComment, IReply } from '@customTypes/comment';
+import { IPost } from '@customTypes/post';
 
-export const generateBetweenTime = (comment: IComment | IReply) => {
+export const generateBetweenTime = (comment: IComment | IReply | IPost) => {
   if (comment.createdDate) {
     const today = new Date();
     const [year, month, date] = (comment.createdDate as string).split('-');

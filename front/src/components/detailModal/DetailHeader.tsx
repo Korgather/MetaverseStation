@@ -13,6 +13,7 @@ import {
 import modal from 'antd/lib/modal';
 import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
+import { generateBetweenTime } from '@lib/generateBetweenTime';
 
 const DetailHeader = () => {
   const router = useRouter();
@@ -82,11 +83,13 @@ const DetailHeader = () => {
     <S.HeaderWrapper>
       <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
       <S.NickName>{postData?.postUser?.username}</S.NickName>
+
       {postData?.postUser.userId === me?.userId && (
         <Dropdown overlay={menu} trigger={['click']}>
           <S.StyledDownOutlined />
         </Dropdown>
       )}
+      <S.Date>{postData && generateBetweenTime(postData)}</S.Date>
       <S.CloseModalBtn
         onClick={() => {
           dispatch(clearpostDetail());
