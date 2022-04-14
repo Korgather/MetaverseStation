@@ -4,9 +4,10 @@ import DetailModal from '@components/detailModal/DetailModal';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
-import { logOut, saveAccessToken } from '@slices/userSlice';
+import { IAuthorInfo } from '@customTypes/user';
+import { clearAuthorInfo, getAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
-import { useAppSelector } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import cookies from 'next-cookies';
@@ -19,7 +20,13 @@ const mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [editModalState, setEditModalState] = useState(false);
+  const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    return () => {
+      dispatch(clearAuthorInfo());
+    };
+  }, []);
   return (
     <>
       <Head>
@@ -55,6 +62,7 @@ const StyledLayout = styled(Layout)`
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   store.dispatch(logOut());
+  store.dispatch(clearAuthorInfo());
   axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
   if (ctx.req && token) {
