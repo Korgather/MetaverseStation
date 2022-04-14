@@ -59,12 +59,12 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
     store.dispatch(saveAccessToken(token));
     await store.dispatch(loadMyInfo());
   }
-  await store.dispatch(getAuthorInfo(ctx.query as unknown as IAuthorInfo));
+  store.dispatch(getAuthorInfo(ctx.query as unknown as IAuthorInfo));
   await store.dispatch(
     loadMyPosts({
       userId: store.getState().userSlice.authorInfo?.userId as number,
       pageNum: ctx.query.page as string,
-      category: 'METAVERSE',
+      category: ctx.query.category as string,
       keyword: ctx.query.search as string,
       filter: ctx.query.filter as string,
     }),
