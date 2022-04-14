@@ -37,6 +37,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
         category,
         username: author && author?.username,
         profileImageUrl: author && author.profileImageUrl,
+        bio: author ? author.bio : me?.bio,
       },
     });
   };
@@ -48,6 +49,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
         category,
         username: author && author?.username,
         profileImageUrl: author && author.profileImageUrl,
+        bio: author ? author.bio : me?.bio,
         filter: 'liked',
       },
     });
@@ -59,6 +61,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
         userId: author ? author.userId : me?.userId,
         username: author && author?.username,
         profileImageUrl: author && author.profileImageUrl,
+        bio: author ? author.bio : me?.bio,
         category: 'METAVERSE',
       },
     });
@@ -70,6 +73,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
         userId: author ? author.userId : me?.userId,
         username: author && author?.username,
         profileImageUrl: author && author.profileImageUrl,
+        bio: author ? author.bio : me?.bio,
         category: 'COMMUNITY',
       },
     });
