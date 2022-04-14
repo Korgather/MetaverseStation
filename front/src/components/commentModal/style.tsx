@@ -35,7 +35,7 @@ export const CommentModal = styled.div<IModal>`
   flex-direction: column;
   align-items: center;
   @media screen and (max-width: 850px) {
-    width: 85vw !important;
+    width: ${(popos) => (popos.commentState ? '85vw' : '0px')};
   }
 `;
 
