@@ -18,6 +18,10 @@ const FeedBack = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const submitdata = { content: feedBack };
+    if (feedBack.length <= 5) {
+      alert('피드백을 5글자 이상 남겨주세요 !');
+      return;
+    }
     await dispatch(addFeedBack(submitdata));
     setModalState(false);
   };
