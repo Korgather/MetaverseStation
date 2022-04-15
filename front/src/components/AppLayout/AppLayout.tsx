@@ -34,6 +34,9 @@ const AppLayout = ({ children }: AuxProps) => {
     if (router.pathname.indexOf('/community') > -1) {
       setSelectedKeys(['nav_community']);
     }
+    if (router.pathname.indexOf('/apifactory') > -1) {
+      setSelectedKeys(['nav_api']);
+    }
   }, []);
   return (
     <>
@@ -79,6 +82,9 @@ const AppLayout = ({ children }: AuxProps) => {
               </Menu.Item>
               <Menu.Item key="nav_community">
                 <Link href="/community/free">커뮤니티 게시판</Link>
+              </Menu.Item>
+              <Menu.Item key="nav_api">
+                <Link href="/apifactory/gathertownAPI">ApiFactory</Link>
               </Menu.Item>
             </MenuWrapper>
           </StyledHeader>
