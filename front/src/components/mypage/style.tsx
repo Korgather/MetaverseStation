@@ -11,6 +11,12 @@ export const ButtonWrapper = styled.div`
   flex-direction: row;
   margin-bottom: 15px;
   margin-left: 9.5%;
+  @media screen and (max-width: 1550px) {
+    margin-left: 15%;
+  }
+  @media screen and (max-width: 850px) {
+    margin: 0 auto;
+  }
 `;
 export const StyledBtn = styled(Button)<isactive>`
   + button {

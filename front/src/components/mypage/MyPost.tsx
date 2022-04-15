@@ -185,6 +185,12 @@ const MenuWrapper = styled.div`
     justify-content: center;
     align-items: center;
   }
+  @media screen and (max-width: 1000px) {
+    flex: 1.5;
+  }
+  @media screen and (max-width: 1550px) {
+    flex: 1.3;
+  }
 `;
 
 const Menu = styled.div<isActive>`
@@ -210,16 +216,23 @@ const Menu = styled.div<isActive>`
         color: #4490f8;
       }
     `}
+  @media screen and (max-width: 1550px) {
+    font-size: 1rem;
+  }
   @media screen and (max-width: 850px) {
     margin: 0;
     + div {
       margin: 0;
     }
+    font-size: 1.2rem;
   }
 `;
 
 const BlankBox = styled.div`
   flex: 2;
+  @media screen and (max-width: 1650px) {
+    flex: 1;
+  }
   @media screen and (max-width: 1450px) {
     display: none;
   }
