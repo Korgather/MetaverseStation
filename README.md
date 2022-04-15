@@ -1,4 +1,4 @@
-# MetaverseStation - 개발중 
+# ModuMeta - Beta 
 
 ## 1. 프로젝트 소개
 - 기술 스택 
