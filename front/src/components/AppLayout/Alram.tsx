@@ -13,6 +13,9 @@ import styled from 'styled-components';
 const Alram = () => {
   const dispatch = useAppDispatch();
   const onSelect = async ({ key }: { key: string }) => {
+    if (key === 'alram_count') {
+      return;
+    }
     if (key === 'clear_alram') {
       await dispatch(deleteAlram('all'));
       await dispatch(loadMyInfo());
