@@ -59,7 +59,7 @@ const BoardWrapper = styled.div`
   width: 70%;
 `;
 const CategoryWrapper = styled.div`
-  width: 20%;
+  width: 15%;
   display: flex;
   @media screen and (max-width: 850px) {
     flex-direction: row;
