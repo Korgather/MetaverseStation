@@ -29,7 +29,7 @@ https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
 
 | |
 :------------------------------------------------------------------------------------------------------------------------------: |
-| ![image](https://user-images.githubusercontent.com/86244477/163516173-a67fb1f6-3b73-47f3-b042-fdf40b8a9d0c.png)|
+| ![image](https://user-images.githubusercontent.com/86244477/163527641-d5680c33-f7b0-4a7e-aad2-f1dfa6777bc0.png)|
 | Main |
 | ![image](https://user-images.githubusercontent.com/86244477/163516268-da5eda60-4c6b-4e09-8d4e-2ec99592779e.png)|
 | MyPage |
