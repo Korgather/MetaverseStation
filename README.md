@@ -3,7 +3,7 @@
 ## 1. 프로젝트 소개
 - 기술 스택 
   - Frontend : TypeScript, React, NextJS, Redux, Ant-Design, StyledComponents
-  - Backend : Spring, MySql
+  - Backend : Spring, mariaDB
   - Deployment : AWS , vercel
  
 - 웹 서비스에 대한 개요
@@ -19,7 +19,7 @@
 - 페이지네이션
 - 검색기능
 - 이미지 슬라이더
-  - slick-carousel 라이브러리 사용
+- SSR
 
 ## 3. 프로젝트 구성도
 https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
@@ -29,15 +29,16 @@ https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
 
 | |
 :------------------------------------------------------------------------------------------------------------------------------: |
-| ![image](https://user-images.githubusercontent.com/86244477/159428727-d693ad0a-7eae-4f29-b8a6-fd286766442f.png)|
+| ![image](https://user-images.githubusercontent.com/86244477/163516173-a67fb1f6-3b73-47f3-b042-fdf40b8a9d0c.png)|
 | Main |
-| ![image](https://user-images.githubusercontent.com/86244477/159428776-426e70ff-3a88-499b-b66b-b81db045b363.png)|
-| Login |
-| ![image](https://user-images.githubusercontent.com/86244477/159428861-ddb4cc51-57cc-4a3e-b490-4092cb9e3323.png) |
-| Detail & Comment Modal |
-| ![image](https://user-images.githubusercontent.com/86244477/159428961-055516c7-fe59-4c16-a741-5e6b450fda06.png)|
+| ![image](https://user-images.githubusercontent.com/86244477/163516268-da5eda60-4c6b-4e09-8d4e-2ec99592779e.png)|
 | MyPage |
-| ![image](https://user-images.githubusercontent.com/86244477/159429099-3ac31970-61c9-4601-8cbb-9a43bf694cf2.png) |
-| PostModal |
+| ![image](https://user-images.githubusercontent.com/86244477/163516315-1fd0a1a7-f878-41eb-934c-fc4b6fb9f9f3.png) |
+| Detail & Comment Modal |
+|![image](https://user-images.githubusercontent.com/86244477/163516357-17d295db-19eb-4e2e-a84a-1fb7dc704d20.png)|
+| Community |
+| ![image](https://user-images.githubusercontent.com/86244477/163516398-a95d7465-668d-49d8-9b6d-ecd162ee2abd.png) |
+| CommunityDetail |
 
-
+## 5. 배포링크
+https://www.modumeta.com/
