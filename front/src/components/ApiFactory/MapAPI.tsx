@@ -2,9 +2,10 @@ import { getMap, setMap } from '@actions/apifactory';
 import { IGetMap } from '@customTypes/apifactory';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input } from 'antd';
+import modal from 'antd/lib/modal';
 import { FormikProps, useFormik } from 'formik';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 interface IMusicAPI {
   formik: FormikProps<IGetMap>;
 }
@@ -21,9 +22,14 @@ const MapAPI = ({ formik }: IMusicAPI) => {
       fr.readAsText(mapData, 'utf-8');
       fr.onload = async () => {
         console.log(fr.result);
-        await dispatch(
-          setMap({ spaceId, apiKey, mapId, mapContent: JSON.parse(fr.result as string) }),
-        );
+        modal.confirm({
+          title: '맵파일을 적용하시겠습니까?',
+          onOk: async function async() {
+            await dispatch(
+              setMap({ spaceId, apiKey, mapId, mapContent: JSON.parse(fr.result as string) }),
+            );
+          },
+        });
       };
     }
   };
@@ -33,35 +39,34 @@ const MapAPI = ({ formik }: IMusicAPI) => {
 
   return (
     <ButtonWrapper>
-      <StyledButton type="primary" htmlType="button" onClick={onExportMap} loading={getMapLoading}>
+      <Button type="primary" htmlType="button" onClick={onExportMap} loading={getMapLoading}>
         맵파일 추출
+      </Button>
+      <StyledButton type="primary" loading={setMapLoading}>
+        <FileLabel htmlFor="upload" loading={setMapLoading}>
+          맵파일 적용
+        </FileLabel>
       </StyledButton>
-      <input
-        type="file"
-        style={{ display: 'none' }}
-        id="upload"
-        onChange={onUpload}
-        loading={setMapLoading}
-      />
-      <FileLabel htmlFor="upload">맵파일 적용</FileLabel>
+      <input type="file" style={{ display: 'none' }} id="upload" onChange={onUpload} />
     </ButtonWrapper>
   );
 };
 
 export default MapAPI;
+interface loading {
+  loading: boolean;
+}
 
-const FileLabel = styled.label`
+const FileLabel = styled.label<loading>`
+  width: 100%;
+  height: 100%;
   padding: 4px 15px;
-  color: #fff;
-  background: #1890ff;
-  text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
-  box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
-  margin-left: 10px;
-  transition: opacity 0.3s;
   cursor: pointer;
-  :hover {
-    opacity: 0.85;
-  }
+  ${(props) =>
+    props.loading &&
+    css`
+      padding: 0;
+    `}
 `;
 
 const ButtonWrapper = styled.div`
@@ -71,7 +76,12 @@ const ButtonWrapper = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-  + button {
-    margin-left: 15px;
-  }
+  display: flex;
+  padding: 0;
+  margin-left: 15px;
+  ${(props) =>
+    props.loading &&
+    css`
+      padding: 4px 15px;
+    `}
 `;

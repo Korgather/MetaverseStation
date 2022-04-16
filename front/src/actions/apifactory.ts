@@ -22,6 +22,7 @@ export const getMap = createAsyncThunk('gatherApi/getMap', async (data: IGetMap,
       const file = new File([JSON.stringify(mapData)], fileName, properties);
       const url = URL.createObjectURL(file);
       handleSaveClick(url, fileName);
+      alert('맵파일 추출 성공 !');
     }
     return res.data;
   } catch (error) {

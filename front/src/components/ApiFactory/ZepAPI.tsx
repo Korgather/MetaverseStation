@@ -11,10 +11,12 @@ const ZepAPILayout = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 30px 0;
   justify-content: center;
   align-items: center;
   height: 300px;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid #7cbef6;
+  margin-top: 30px;
 `;
