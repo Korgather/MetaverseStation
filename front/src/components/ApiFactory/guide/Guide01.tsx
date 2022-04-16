@@ -24,6 +24,9 @@ const GuideLayOut = styled.div`
   max-width: 800px;
   display: flex;
   flex-direction: row;
+  @media screen and (max-width: 850px) {
+    width: 80vw;
+  }
 `;
 
 const ContentBox = styled.div`
@@ -31,6 +34,9 @@ const ContentBox = styled.div`
   flex-direction: column;
   margin-top: 80px;
   flex: 8;
+  @media screen and (max-width: 850px) {
+    flex: 10;
+  }
 `;
 const CategoryBox = styled.div`
   display: flex;
@@ -38,4 +44,7 @@ const CategoryBox = styled.div`
   margin-top: 225px;
   flex: 2;
   margin-right: 50px;
+  @media screen and (max-width: 850px) {
+    display: none;
+  }
 `;

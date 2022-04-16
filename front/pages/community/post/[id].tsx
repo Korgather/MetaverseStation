@@ -52,6 +52,9 @@ export default ComDetailPost;
 const ComDetailPostLayout = styled.div`
   width: 60vw;
   max-width: 700px;
+  @media screen and (max-width: 850px) {
+    width: 80vw;
+  }
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
