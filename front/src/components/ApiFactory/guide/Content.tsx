@@ -6,7 +6,7 @@ import { Image } from 'antd';
 const Content = () => {
   return (
     <>
-      <Title>게더타운 ApiFactory 이용가이드</Title>
+      <Title>📄게더타운 ApiFactory 이용가이드</Title>
       <SubTitle id="config">1. Config값(API키, 맵ID, 룸ID) 얻는 방법</SubTitle>
       <ContentContainer>
         <h3>{`▶ API키 얻는방법`}</h3>

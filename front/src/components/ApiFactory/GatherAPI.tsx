@@ -62,7 +62,7 @@ const GatherAPI = () => {
             배경음악
           </Tab>
           <Tab name="userguide" onClick={gotoGuide}>
-            사용법보러가기
+            사용법 보러가기
           </Tab>
         </TabWapper>
         <ConfigWrapper>
