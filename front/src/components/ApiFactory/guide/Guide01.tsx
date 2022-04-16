@@ -13,6 +13,7 @@ const Guide01 = () => {
       <ContentBox>
         <Content />
       </ContentBox>
+      <BlankBox />
     </GuideLayOut>
   );
 };
@@ -21,7 +22,7 @@ export default Guide01;
 
 const GuideLayOut = styled.div`
   width: 70vw;
-  max-width: 800px;
+  max-width: 900px;
   display: flex;
   flex-direction: row;
   @media screen and (max-width: 850px) {
@@ -33,7 +34,7 @@ const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 80px;
-  flex: 8;
+  flex: 10;
   @media screen and (max-width: 850px) {
     flex: 10;
   }
@@ -44,6 +45,13 @@ const CategoryBox = styled.div`
   margin-top: 225px;
   flex: 2;
   margin-right: 50px;
+  @media screen and (max-width: 850px) {
+    display: none;
+  }
+`;
+
+const BlankBox = styled.div`
+  flex: 2;
   @media screen and (max-width: 850px) {
     display: none;
   }
