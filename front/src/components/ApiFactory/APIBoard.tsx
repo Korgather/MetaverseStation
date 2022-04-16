@@ -21,7 +21,6 @@ const APIBoard = () => {
         {category === 'gather' && <GatherAPI />}
         {category === 'zep' && <ZepAPI />}
       </BoardWrapper>
-      <BlankBox />
     </Layout>
   );
 };
@@ -31,10 +30,10 @@ export default APIBoard;
 const BoardWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 80%;
 `;
 const CategoryWrapper = styled.div`
-  width: 15%;
+  width: 20%;
   display: flex;
   @media screen and (max-width: 850px) {
     flex-direction: row;
@@ -44,16 +43,9 @@ const CategoryWrapper = styled.div`
   }
 `;
 
-const BlankBox = styled.div`
-  width: 10%;
-  @media screen and (max-width: 850px) {
-    display: none;
-  }
-`;
-
 const Layout = styled.div`
   color: #575757;
-  max-width: 1200px;
+  max-width: 700px;
   width: 80vw;
   height: 100%;
   margin: 50px auto;

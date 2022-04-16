@@ -25,7 +25,7 @@ const initialState: ICommunityState = {
 };
 
 export const communitySlice = createSlice({
-  name: 'posts',
+  name: 'community',
   initialState,
   reducers: {
     ToggleCommunityWriteModalState: (state, action) => {
