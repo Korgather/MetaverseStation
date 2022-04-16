@@ -32,7 +32,7 @@ const Category = () => {
       </p>
       <p>
         <Link to="ref" spy={true} smooth={true}>
-          ※ 참조 : 게더타운에서 유효한 배경음악 Url만드는 방법
+          ※ 참고 : 게더타운에서 유효한 배경음악 Url만드는 방법
         </Link>
       </p>
     </CategoryLayout>

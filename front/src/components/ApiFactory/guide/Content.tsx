@@ -94,7 +94,7 @@ const Content = () => {
           <StyledImg src="../../images/guide01/loadbgm.gif" alt="" width={'100%'} />
         </ul>
       </ContentContainer>
-      <SubTitle id="ref">※ 참조 : 게더타운에서 유효한 배경음악 Url만드는 방법</SubTitle>
+      <SubTitle id="ref">※ 참고 : 게더타운에서 유효한 배경음악 Url만드는 방법</SubTitle>
       <ContentContainer step="two">
         <ul>
           <StyledLi>{`준비물 : 음악파일, 구글드라이브 아이디`}</StyledLi>
