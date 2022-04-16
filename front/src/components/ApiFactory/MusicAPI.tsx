@@ -84,22 +84,27 @@ const MusicAPI = ({ formik, selectItem, setSelectItem }: IMusicAPI) => {
       </RowFlex>
       <RowFlex>
         <WrapperDiv>
-          <Label htmlFor="maxDistance">범위</Label>
+          <Label htmlFor="maxDistance">범위(0~1000)</Label>
           <StyledInput
             id="maxDistance"
             name="maxDistance"
             placeholder="0~1000"
+            min={0}
+            max={1000}
             type={'number'}
             onChange={formik.handleChange}
             value={formik.values.maxDistance}
           />
         </WrapperDiv>
         <WrapperDiv>
-          <Label htmlFor="volume">볼륨</Label>
+          <Label htmlFor="volume">볼륨(0~1)</Label>
           <StyledInput
             id="volume"
             name="volume"
-            placeholder="0.05~1"
+            min={0}
+            max={1}
+            step={0.1}
+            placeholder="0~1"
             type={'number'}
             onChange={formik.handleChange}
             value={formik.values.volume}
