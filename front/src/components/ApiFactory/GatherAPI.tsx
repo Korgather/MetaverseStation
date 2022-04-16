@@ -4,6 +4,7 @@ import { useAppDispatch } from '@store/hook';
 import { Input } from 'antd';
 import { Button } from 'antd';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import MapAPI from './MapAPI';
@@ -11,6 +12,7 @@ import MusicAPI from './MusicAPI';
 
 const GatherAPI = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [mapState, setMapState] = useState('true');
   const [musicState, setMusicState] = useState('');
   const [selectItem, setSelectItem] = useState('modu-meta-music-01');
@@ -43,6 +45,12 @@ const GatherAPI = () => {
       dispatch(setMusic(submitData));
     },
   });
+
+  const gotoGuide = () => {
+    const url =
+      process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.modumeta.com';
+    window.open(`${url}/apifactory/guide01`);
+  };
   return (
     <form onSubmit={formik.handleSubmit}>
       <GatherAPILayout>
@@ -53,14 +61,32 @@ const GatherAPI = () => {
           <Tab name="music" onClick={onChangeTab} isactive={musicState}>
             배경음악
           </Tab>
+          <Tab name="userguide" onClick={gotoGuide}>
+            사용법보러가기
+          </Tab>
         </TabWapper>
         <ConfigWrapper>
           <Label htmlFor="apiKey">API 키</Label>
-          <StyledInput id="apiKey" name="apiKey" onChange={formik.handleChange} />
+          <StyledInput
+            id="apiKey"
+            name="apiKey"
+            onChange={formik.handleChange}
+            placeholder="API키를 입력해주세요.  ex) Nwactexa"
+          />
           <Label htmlFor="spaceId">맵 ID</Label>
-          <StyledInput id="spaceId" name="spaceId" onChange={formik.handleChange} />
-          <Label htmlFor="mapId">룸 이름</Label>
-          <StyledInput id="mapId" name="mapId" onChange={formik.handleChange} />
+          <StyledInput
+            id="spaceId"
+            name="spaceId"
+            onChange={formik.handleChange}
+            placeholder="맵 ID를 입력해주세요.  ex) ejBedga/test"
+          />
+          <Label htmlFor="mapId">룸 ID</Label>
+          <StyledInput
+            id="mapId"
+            name="mapId"
+            onChange={formik.handleChange}
+            placeholder="룸 ID를 입력해주세요.  ex) living-room"
+          />
         </ConfigWrapper>
         {mapState === 'true' && <MapAPI formik={formik} />}
         {musicState === 'true' && (
@@ -74,7 +100,7 @@ const GatherAPI = () => {
 export default GatherAPI;
 
 interface isactive {
-  isactive: string;
+  isactive?: string;
 }
 
 const ConfigWrapper = styled.div`
