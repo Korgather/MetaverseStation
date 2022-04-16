@@ -211,6 +211,9 @@ export const StyledImages = styled.div`
     height: 309px;
     object-fit: cover;
   }
+  .ant-image {
+    display: block !important;
+  }
 `;
 
 export const CommentImg = styled.img`

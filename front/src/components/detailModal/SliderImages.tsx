@@ -3,6 +3,7 @@ import React from 'react';
 import shortid from 'shortid';
 import SliderFrame from './SliderFrame';
 import * as S from './style';
+import { Image } from 'antd';
 
 const SliderImages = () => {
   const postData = useAppSelector((state) => state.postSlice.postDetail);
@@ -12,8 +13,11 @@ const SliderImages = () => {
       {postData?.imageList &&
         postData?.imageList.map((item) => (
           <S.StyledImages key={shortid.generate()}>
-            <img src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath} alt="" />
-
+            <Image
+              src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
+              alt=""
+              style={{ display: 'block' }}
+            />
             <S.StyledA href={postData?.link} target="_blank">
               <S.EntnerButton type="primary" htmlType="button">
                 <div>입장하기</div>
