@@ -20,6 +20,7 @@ export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunk
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
       headers: {
         Authorization: `Bearer ${AccessToken}`,
+        Origin: 'https://www.modumeta.com',
       },
     });
     return res.data;
@@ -43,6 +44,7 @@ export const changeNickName = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${AccessToken}`,
+            Origin: 'https://www.modumeta.com',
           },
         },
       );
@@ -64,6 +66,7 @@ export const updateProfile = createAsyncThunk(
       const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/profile`, data, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
+          Origin: 'https://www.modumeta.com',
         },
       });
       return res.data;
@@ -87,6 +90,7 @@ export const loadLikedPosts = createAsyncThunk(
         {
           headers: {
             Authorization: `Bearer ${AccessToken}`,
+            Origin: 'https://www.modumeta.com',
           },
           params: {
             keyword: data.keyword ? data.keyword : '',
@@ -120,6 +124,7 @@ export const loadMyPosts = createAsyncThunk(
       const res = await axios.get(Url, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
+          Origin: 'https://www.modumeta.com',
         },
         params: {
           keyword: data.keyword ? data.keyword : '',

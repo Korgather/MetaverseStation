@@ -33,6 +33,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
+          Origin: 'https://www.modumeta.com',
         },
       });
       setCurrentImageUrl(process.env.NEXT_PUBLIC_IMG_URL + res.data[0]);

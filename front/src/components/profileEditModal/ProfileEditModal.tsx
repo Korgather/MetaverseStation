@@ -32,6 +32,7 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/profileimage`, fd, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
+          Origin: 'https://www.modumeta.com',
         },
       });
       setCurrentImg(process.env.NEXT_PUBLIC_PROFILE_IMG_URL + res.data[0]);

@@ -75,7 +75,6 @@ const ContentBox = () => {
         },
       });
   };
-
   const menu = (
     <Menu>
       <Menu.Item key={shortid.generate()}>
