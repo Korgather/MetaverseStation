@@ -22,6 +22,8 @@ const ComDetailPost = () => {
   );
   const dispatch = useAppDispatch();
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
+  const isGather = postDetail?.category === 'METAVERSE_GATHERTOWN';
+  const isZep = postDetail?.category === 'METAVERSE_ZEP';
   useEffect(() => {
     return () => {
       dispatch(clearComPostDetail());
@@ -31,7 +33,13 @@ const ComDetailPost = () => {
   return (
     <>
       <Head>
-        <title>{`${postDetail?.title} - 모두의 메타버스 | 커뮤니티`}</title>
+        {isGather ? (
+          <title>{`${postDetail?.title} - 게더타운맵 | 모두메타`}</title>
+        ) : isZep ? (
+          <title>{`${postDetail?.title} - 젭맵 | 모두메타`}</title>
+        ) : (
+          <title>{`${postDetail?.title} - 모두메타 | 커뮤니티`}</title>
+        )}
       </Head>
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>

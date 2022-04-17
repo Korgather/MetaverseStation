@@ -43,10 +43,11 @@ class MyDocument extends Document {
                   })(window,document,'script','dataLayer','GTM-N4NRZP8');`,
             }}
           />
+          <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
           <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
           <meta
             name="description"
-            content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
+            content="메타버스 공유 플랫폼 모두메타입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
           />
           <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"></script>
           <script
@@ -76,7 +77,7 @@ class MyDocument extends Document {
           <meta
             key={shortid.generate()}
             property="og:description"
-            content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
+            content="메타버스 공유 플랫폼 모두메타입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
           />
           <meta
             key={shortid.generate()}
