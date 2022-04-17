@@ -1,10 +1,8 @@
-import { Button, Dropdown, Input, Menu } from 'antd';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useFormik } from 'formik';
+import { Button, Dropdown, Menu, Tooltip } from 'antd';
+import React, { Dispatch, SetStateAction } from 'react';
+
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { getMap } from '@actions/apifactory';
-import { IGetMap } from '@customTypes/apifactory';
 
 interface IMusicDropDown {
   selectItem: string;
@@ -13,8 +11,9 @@ interface IMusicDropDown {
 }
 
 const MusicDropDown = ({ setSelectItem, selectItem, onLoadData }: IMusicDropDown) => {
-  const dispatch = useAppDispatch();
   const getMapLoading = useAppSelector((state) => state.apifactorySlice.getMapLoading);
+  const me = useAppSelector((state) => state.userSlice.me);
+
   const onSelect = async ({ key }: { key: string }) => {
     if (key === 'modu-meta-music-01') setSelectItem('modu-meta-music-01');
     if (key === 'modu-meta-music-02') setSelectItem('modu-meta-music-02');
@@ -44,9 +43,15 @@ const MusicDropDown = ({ setSelectItem, selectItem, onLoadData }: IMusicDropDown
   );
   return (
     <MusicDropDownLayout>
-      <StyledButton type="primary" onClick={onLoadData} loading={getMapLoading}>
-        불러오기
-      </StyledButton>
+      {me ? (
+        <StyledButton type="primary" onClick={onLoadData} loading={getMapLoading}>
+          불러오기
+        </StyledButton>
+      ) : (
+        <Tooltip placement="topLeft" title="로그인이 필요합니다">
+          <StyledButton type="primary">불러오기</StyledButton>
+        </Tooltip>
+      )}
       <StyledDropdown overlay={menu} placement="bottomCenter">
         <Button>{selectItem}</Button>
       </StyledDropdown>

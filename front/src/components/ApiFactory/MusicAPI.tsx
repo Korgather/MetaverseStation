@@ -1,11 +1,11 @@
-import { Button, Input } from 'antd';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import { Button, Input, Tooltip } from 'antd';
+import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { FormikProps, useFormik } from 'formik';
+import { FormikProps } from 'formik';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import MusicDropDown from './MusicDropDown';
-import { IGetMap, IloadMusicValue, IMusicObj } from '@customTypes/apifactory';
-import { getMap, setMusic } from '@actions/apifactory';
+import { IGetMap, IMusicObj } from '@customTypes/apifactory';
+import { getMap } from '@actions/apifactory';
 
 interface IMusicAPI {
   formik: FormikProps<IGetMap>;
@@ -15,6 +15,7 @@ interface IMusicAPI {
 
 const MusicAPI = ({ formik, selectItem, setSelectItem }: IMusicAPI) => {
   const dispatch = useAppDispatch();
+  const me = useAppSelector((state) => state.userSlice.me);
   const setMusicLoading = useAppSelector((state) => state.apifactorySlice.setMusicLoading);
   const onLoadData = async () => {
     const data = formik.values;
@@ -123,9 +124,15 @@ const MusicAPI = ({ formik, selectItem, setSelectItem }: IMusicAPI) => {
       </div>
 
       <ButtonWrapper>
-        <StyledButton type="primary" htmlType="submit" loading={setMusicLoading}>
-          배경음악 넣기
-        </StyledButton>
+        {me ? (
+          <StyledButton type="primary" htmlType="submit" loading={setMusicLoading}>
+            배경음악 넣기
+          </StyledButton>
+        ) : (
+          <Tooltip placement="topLeft" title="로그인이 필요합니다">
+            <StyledButton type="primary">배경음악 넣기</StyledButton>
+          </Tooltip>
+        )}
       </ButtonWrapper>
     </div>
   );
