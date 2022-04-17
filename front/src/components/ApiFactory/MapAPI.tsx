@@ -1,7 +1,7 @@
 import { getMap, setMap } from '@actions/apifactory';
 import { IGetMap } from '@customTypes/apifactory';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Button, Input } from 'antd';
+import { Button, Input, Tooltip } from 'antd';
 import modal from 'antd/lib/modal';
 import { FormikProps, useFormik } from 'formik';
 import React from 'react';
@@ -15,6 +15,7 @@ const MapAPI = ({ formik }: IMusicAPI) => {
   const { spaceId, apiKey, mapId } = formik.values;
   const getMapLoading = useAppSelector((state) => state.apifactorySlice.getMapLoading);
   const setMapLoading = useAppSelector((state) => state.apifactorySlice.setMapLoading);
+  const me = useAppSelector((state) => state.userSlice.me);
   const onUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const mapData = e.target.files && e.target.files[0];
     const fr = new FileReader();
@@ -39,15 +40,34 @@ const MapAPI = ({ formik }: IMusicAPI) => {
 
   return (
     <ButtonWrapper>
-      <Button type="primary" htmlType="button" onClick={onExportMap} loading={getMapLoading}>
-        맵파일 추출
-      </Button>
-      <StyledButton type="primary" loading={setMapLoading}>
-        <FileLabel htmlFor="upload" loading={setMapLoading}>
-          맵파일 적용
-        </FileLabel>
-      </StyledButton>
-      <input type="file" style={{ display: 'none' }} id="upload" onChange={onUpload} />
+      {me ? (
+        <Button type="primary" onClick={onExportMap} loading={getMapLoading}>
+          맵파일 추출
+        </Button>
+      ) : (
+        <Tooltip placement="topLeft" title="로그인이 필요합니다">
+          <Button type="primary" htmlType="button">
+            맵파일 추출
+          </Button>
+        </Tooltip>
+      )}
+
+      {me ? (
+        <>
+          <StyledButton type="primary" loading={setMapLoading}>
+            <FileLabel htmlFor="upload" loading={setMapLoading}>
+              맵파일 적용
+            </FileLabel>
+          </StyledButton>
+          <input type="file" style={{ display: 'none' }} id="upload" onChange={onUpload} />
+        </>
+      ) : (
+        <Tooltip placement="topLeft" title="로그인이 필요합니다">
+          <Button type="primary" style={{ marginLeft: '15px' }}>
+            맵파일 적용
+          </Button>
+        </Tooltip>
+      )}
     </ButtonWrapper>
   );
 };
