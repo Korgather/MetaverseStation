@@ -103,7 +103,6 @@ const ContentBox = () => {
         )}
         <Date>{postDetail.createdDate.slice(0, 10)}</Date>
       </ProfileHeader>
-      <SliderImages />
       <Content>{parse(postDetail.content as string)}</Content>
       <Icons>
         <HeartWrapper>
