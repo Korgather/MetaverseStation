@@ -19,7 +19,9 @@
 - 페이지네이션
 - 검색기능
 - 이미지 슬라이더
-- SSR
+- 게더타운 ApiFactory
+  - 게더타운에서 제공해주는 api를 가공해서,<br/>
+    기존 게더타운에 없는 기능 (배경음악 넣기, 맵파일 추출 및 적용)을 가능하게 해줍니다.
 
 ## 3. 프로젝트 구성도
 https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
@@ -39,6 +41,13 @@ https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
 | Community |
 | ![image](https://user-images.githubusercontent.com/86244477/163516398-a95d7465-668d-49d8-9b6d-ecd162ee2abd.png) |
 | CommunityDetail |
+| ![exportmap](https://user-images.githubusercontent.com/86244477/163701512-fcdcf1e1-5052-4e73-92a8-c91dd44869e0.gif) |
+| GathertownApiFactory - 맵파일 추출 |
+| ![importmap](https://user-images.githubusercontent.com/86244477/163701525-528deb44-5dd0-4fd3-9875-76ec502fe086.gif) |
+| GathertownApiFactory - 맵파일 적용 |
+| ![importbgm](https://user-images.githubusercontent.com/86244477/163701544-85ca09af-e7c2-4bbc-9638-caae23d14baf.gif) |
+| GathertownApiFactory - 배경음악 넣기 |
+
 
 ## 5. 배포링크
 https://www.modumeta.com/
