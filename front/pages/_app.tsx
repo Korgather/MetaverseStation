@@ -9,7 +9,11 @@ import 'react-quill/dist/quill.snow.css';
 import 'slick-carousel/slick/slick-theme.css';
 import AppInner from '@components/AppInner';
 import { CookiesProvider } from 'react-cookie';
-
+declare global {
+  interface Window {
+    Kakao: any;
+  }
+}
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
     async function loadCrate() {
@@ -21,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       });
     }
     loadCrate();
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
   }, []);
   return (
     <CookiesProvider>

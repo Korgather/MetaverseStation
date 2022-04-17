@@ -1,5 +1,7 @@
 import { heartPost, loadPost } from '@actions/post';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { IPost } from '@customTypes/post';
+import { kakaoShare } from '@lib/kakaoShare';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Alert, message } from 'antd';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -56,11 +58,17 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
       <S.StyledSpan>
         {Object.keys(postDetail?.likeUserList as object).length}명이 좋아합니다.
       </S.StyledSpan>
-      {commentState ? (
-        <S.CommentImg onClick={onToggleComment} src="../../images/activeCommentIcon.png" />
-      ) : (
-        <S.CommentImg onClick={onToggleComment} src="../../images/commentIcon.png" />
-      )}
+      <S.RightWrapper>
+        <S.StyledShareIcon
+          src="../../images/share.png"
+          onClick={() => kakaoShare(postDetail as IPost)}
+        />
+        {commentState ? (
+          <S.CommentImg onClick={onToggleComment} src="../../images/activeCommentIcon.png" />
+        ) : (
+          <S.CommentImg onClick={onToggleComment} src="../../images/commentIcon.png" />
+        )}
+      </S.RightWrapper>
     </S.HeartAndMessageWrapper>
   );
 };

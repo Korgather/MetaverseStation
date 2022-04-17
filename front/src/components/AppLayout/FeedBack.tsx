@@ -38,7 +38,7 @@ const FeedBack = () => {
         <ContentWrapper>
           <RelativeWrapper onSubmit={onSubmit}>
             <CloseBtn onClick={() => setModalState(false)}>x</CloseBtn>
-            <Title>모두의 메타버스에 만족하셨나요?</Title>
+            <Title>모두메타에 만족하셨나요?</Title>
             <Content>더 좋은 서비스를 위해, 평가를 남겨주세요!</Content>
             <LogoImg src="../../images/ModuMetaLogo3.png" alt="" />
             <SubmitInput placeholder="피드백을 남겨주세요:D" value={feedBack} onChange={onChange} />
