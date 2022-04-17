@@ -1,4 +1,4 @@
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, SelectOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Bookmark } from 'src/svg';
 import styled, { css } from 'styled-components';
@@ -150,19 +150,6 @@ export const StyledA = styled.a`
   z-index: 900;
 `;
 
-export const CloseModalBtn = styled.div`
-  margin-left: auto;
-  background-color: #dfdada;
-  border-radius: 50px;
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  cursor: pointer;
-`;
-
 export const EntnerButton = styled(Button)`
   border-radius: 5px;
 `;
@@ -251,3 +238,40 @@ export const StyledShareIcon = styled.img`
 `;
 
 export const RightWrapper = styled.div``;
+
+export const CloseModalBtn = styled.div`
+  margin-left: auto;
+  background-color: #dfdada;
+  border-radius: 50px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  transition: opacity 0.2s ease-in;
+  cursor: pointer;
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+export const StyledSelectOutlined = styled(SelectOutlined)`
+  svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+  margin-right: 20px;
+  margin-top: 2px;
+  transition: opacity 0.2s ease-in;
+  cursor: pointer;
+  :hover {
+    opacity: 0.6;
+  }
+`;
+
+export const TopWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+`;
