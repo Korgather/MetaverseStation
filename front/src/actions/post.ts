@@ -26,6 +26,7 @@ export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkA
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     thunkAPI.dispatch(ToggleWriteModalState(false));
@@ -47,6 +48,7 @@ export const removePost = createAsyncThunk('post/remove', async (postId: number,
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
   } catch (error) {
@@ -65,6 +67,7 @@ export const updatePost = createAsyncThunk('post/update', async (data: AddPost, 
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     return res.data;
@@ -84,6 +87,7 @@ export const loadPost = createAsyncThunk('post/load', async (postId: number, thu
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     return res.data;
@@ -103,6 +107,7 @@ export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts,
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
       params: {
         category: data.category,
@@ -132,6 +137,7 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
       params: {
         keyword: searchKeyword,
@@ -158,6 +164,7 @@ export const heartPost = createAsyncThunk('heart/post', async (postId: number, t
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
   } catch (error) {
@@ -176,6 +183,7 @@ export const viewPost = createAsyncThunk('view/post', async (postId: number, thu
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
   } catch (error) {
@@ -197,6 +205,7 @@ export const addComment = createAsyncThunk('comment/add', async (data: TAddComme
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       },
     );
@@ -218,6 +227,7 @@ export const removeComment = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       });
     } catch (error) {
@@ -242,6 +252,7 @@ export const updateComment = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${AccessToken}`,
             Origin: 'https://www.modumeta.com',
+            withCredentials: true,
           },
         },
       );
@@ -265,6 +276,7 @@ export const addReply = createAsyncThunk('reply/add', async (data: TUpdateCommen
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       },
     );
@@ -285,6 +297,7 @@ export const removeReply = createAsyncThunk('reply/remove', async (replyId: numb
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
   } catch (error) {
@@ -308,6 +321,7 @@ export const updateReply = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${AccessToken}`,
             Origin: 'https://www.modumeta.com',
+            withCredentials: true,
           },
         },
       );
@@ -328,6 +342,7 @@ export const deleteAlram = createAsyncThunk('alram/delete', async (alramId: stri
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     return res.data;
@@ -349,6 +364,7 @@ export const addFeedBack = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       });
       alert('피드백을 남겨주셔서 감사합니다');

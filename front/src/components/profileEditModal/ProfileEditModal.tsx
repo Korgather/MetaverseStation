@@ -33,6 +33,7 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       });
       setCurrentImg(process.env.NEXT_PUBLIC_PROFILE_IMG_URL + res.data[0]);

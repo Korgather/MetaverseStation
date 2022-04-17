@@ -26,6 +26,6 @@
       "@assets/*": ["src/assets/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/sitemap-common.js"],
   "exclude": ["node_modules"]
 }

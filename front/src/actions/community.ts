@@ -33,6 +33,7 @@ export const loadComPosts = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
         params: {
           category: data.category,
@@ -59,6 +60,7 @@ export const addComPost = createAsyncThunk('comPost/add', async (data: IAddComPo
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     return res.data;
@@ -80,6 +82,7 @@ export const updateComPost = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       });
       return res.data;
@@ -102,6 +105,7 @@ export const searchComPosts = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
         params: {
           keyword: data.keyword,
@@ -128,6 +132,7 @@ export const loadComPost = createAsyncThunk('comPost/load', async (postId: numbe
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     return res.data;

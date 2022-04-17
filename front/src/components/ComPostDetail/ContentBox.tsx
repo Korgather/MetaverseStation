@@ -16,6 +16,7 @@ import shortid from 'shortid';
 import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { loadComPost } from '@actions/community';
+import SliderImages from '@components/detailModal/SliderImages';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
@@ -102,6 +103,7 @@ const ContentBox = () => {
         )}
         <Date>{postDetail.createdDate.slice(0, 10)}</Date>
       </ProfileHeader>
+      <SliderImages />
       <Content>{parse(postDetail.content as string)}</Content>
       <Icons>
         <HeartWrapper>

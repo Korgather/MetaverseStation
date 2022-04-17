@@ -21,6 +21,7 @@ export const loadMyInfo = createAsyncThunk('user/loadMyInfo', async (data, thunk
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     return res.data;
@@ -45,6 +46,7 @@ export const changeNickName = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${AccessToken}`,
             Origin: 'https://www.modumeta.com',
+            withCredentials: true,
           },
         },
       );
@@ -67,6 +69,7 @@ export const updateProfile = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       });
       return res.data;
@@ -91,6 +94,7 @@ export const loadLikedPosts = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${AccessToken}`,
             Origin: 'https://www.modumeta.com',
+            withCredentials: true,
           },
           params: {
             keyword: data.keyword ? data.keyword : '',
@@ -125,6 +129,7 @@ export const loadMyPosts = createAsyncThunk(
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
         params: {
           keyword: data.keyword ? data.keyword : '',

@@ -63,11 +63,11 @@ class MyDocument extends Document {
           />
           <meta
             name="keyword"
-            content="메타버스, 게더타운, 젭,zep,gathertown,개더타운, 매타버스, metaverse, 게더타운맵, 젭맵 , 코게더 "
+            content="메타버스, 게더타운, 젭,zep,gathertown,개더타운, 매타버스, metaverse, 게더타운맵, 젭맵 , 코게더, 모두의메타버스, 모두메타,메타버스체험 "
           />
           <meta key={shortid.generate()} property="og:type" content="website" />
           <meta key={shortid.generate()} property="og:url" content={url} />
-          <meta key={shortid.generate()} property="og:title" content="모두의 메타버스 - MoMe" />
+          <meta key={shortid.generate()} property="og:title" content="모두메타 - 모두의 메타버스" />
           <meta
             key={shortid.generate()}
             property="og:image"
@@ -78,7 +78,11 @@ class MyDocument extends Document {
             property="og:description"
             content="메타버스 공유 플랫폼 모두의 메타버스입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
           />
-          <meta key={shortid.generate()} property="og:site_name" content="모두의 메타버스 - MoMe" />
+          <meta
+            key={shortid.generate()}
+            property="og:site_name"
+            content="모두메타 - 모두의 메타버스"
+          />
           <meta key={shortid.generate()} property="og:locale" content="ko_KR" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
