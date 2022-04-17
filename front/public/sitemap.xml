@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>https://kihat.ga/sitemap/sitemap-common.xml.gz</loc>
-    <lastmod>2022-04-17T13:10:04.903Z</lastmod>
+    <loc>https://modumeta.com/sitemap/sitemap-common.xml.gz</loc>
+    <lastmod>2022-04-17T13:18:28.778Z</lastmod>
   </sitemap>
 
   <sitemap>
-    <loc>https://kihat.ga/sitemap/sitemap-posts.xml.gz</loc>
-    <lastmod>2022-04-17T13:10:04.903Z</lastmod>
+    <loc>https://modumeta.com/sitemap/sitemap-posts.xml.gz</loc>
+    <lastmod>2022-04-17T13:18:28.778Z</lastmod>
   </sitemap>
 </sitemapindex>
