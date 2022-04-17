@@ -28,7 +28,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>모두의 메타버스 - MoMe</title>
+        <title>모두메타 - 모두의 메타버스</title>
       </Head>
       <AppLayout>
         <>

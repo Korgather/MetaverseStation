@@ -31,7 +31,7 @@ const login = () => {
       <LoginContainer>
         <LoginHeader>
           <Link href="/">
-            <TitleM>모두의 메타버스</TitleM>
+            <TitleM>모두메타 - 모두의 메타버스</TitleM>
           </Link>
           <TitleP>로그인</TitleP>
         </LoginHeader>

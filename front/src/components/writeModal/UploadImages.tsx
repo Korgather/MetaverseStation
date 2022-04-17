@@ -34,6 +34,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       });
       setCurrentImageUrl(process.env.NEXT_PUBLIC_IMG_URL + res.data[0]);

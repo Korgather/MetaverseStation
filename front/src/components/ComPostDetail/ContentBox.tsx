@@ -16,6 +16,7 @@ import shortid from 'shortid';
 import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { loadComPost } from '@actions/community';
+import SliderImages from '@components/detailModal/SliderImages';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);

@@ -14,6 +14,7 @@ export const getMap = createAsyncThunk('gatherApi/getMap', async (data: IGetMap,
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     if (!data.musicState) {
@@ -49,6 +50,7 @@ export const setMusic = createAsyncThunk('gatherApi/setMusic', async (data: IGet
         headers: {
           Authorization: `Bearer ${AccessToken}`,
           Origin: 'https://www.modumeta.com',
+          withCredentials: true,
         },
       },
     );
@@ -74,6 +76,7 @@ export const setMap = createAsyncThunk('gatherApi/setMap', async (data: ISetMap,
       headers: {
         Authorization: `Bearer ${AccessToken}`,
         Origin: 'https://www.modumeta.com',
+        withCredentials: true,
       },
     });
     alert('맵파일 적용 성공 !');
