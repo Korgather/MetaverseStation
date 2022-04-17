@@ -22,7 +22,7 @@ const community = () => {
   return (
     <>
       <Head>
-        <title>스터디 - 모두의메타버스 | 커뮤니티</title>
+        <title>스터디 - 모두메타 | 커뮤니티</title>
       </Head>
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>

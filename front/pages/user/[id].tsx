@@ -22,7 +22,7 @@ const mypage = () => {
   return (
     <>
       <Head>
-        <title>{`${author?.username}님의 소개 - 모두의메타버스 | 메타버스 공유 플랫폼`}</title>
+        <title>{`${author?.username}님의 소개 - 모두메타 | 메타버스 공유 플랫폼`}</title>
       </Head>
       {detailModalState && <DetailModal />}
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}

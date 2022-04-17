@@ -13,7 +13,7 @@ const index = () => {
   return (
     <>
       <Head>
-        <title>{`게더타운 API사용가이드 - 모두의 메타버스`}</title>
+        <title>{`게더타운 API사용가이드 - 모두메타`}</title>
       </Head>
       <AppLayout>
         <>

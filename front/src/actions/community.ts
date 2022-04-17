@@ -32,7 +32,6 @@ export const loadComPosts = createAsyncThunk(
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
-          Origin: 'https://www.modumeta.com',
           withCredentials: true,
         },
         params: {
@@ -59,7 +58,7 @@ export const addComPost = createAsyncThunk('comPost/add', async (data: IAddComPo
     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, data, {
       headers: {
         Authorization: `Bearer ${AccessToken}`,
-        Origin: 'https://www.modumeta.com',
+
         withCredentials: true,
       },
     });
@@ -81,7 +80,7 @@ export const updateComPost = createAsyncThunk(
       const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${data.id}`, data, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
-          Origin: 'https://www.modumeta.com',
+
           withCredentials: true,
         },
       });
@@ -104,7 +103,7 @@ export const searchComPosts = createAsyncThunk(
       const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
-          Origin: 'https://www.modumeta.com',
+
           withCredentials: true,
         },
         params: {
@@ -131,7 +130,7 @@ export const loadComPost = createAsyncThunk('comPost/load', async (postId: numbe
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
       headers: {
         Authorization: `Bearer ${AccessToken}`,
-        Origin: 'https://www.modumeta.com',
+
         withCredentials: true,
       },
     });

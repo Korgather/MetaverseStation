@@ -237,3 +237,17 @@ export const ContentBox = styled.div`
   height: 100%;
   ${StyledScroll}
 `;
+
+export const StyledShareIcon = styled.img`
+  width: 1.7rem;
+  transform: translateX(180deg);
+  margin-left: auto;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in;
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+export const RightWrapper = styled.div``;
