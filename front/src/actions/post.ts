@@ -10,7 +10,6 @@ import {
   ToggleWriteModalState,
 } from '@slices/postSlice';
 import { ServerError } from '@customTypes/common';
-import { useRouter } from 'next/router';
 
 interface IloadPosts {
   pageNum: string;
