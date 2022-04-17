@@ -33,7 +33,7 @@ function redirect() {
     return (
       <>
         <Head>
-          <title>모두의 메타버스 | 메타버스 공유 플랫폼</title>
+          <title>모두메타 - 모두의 메타버스</title>
         </Head>
         <Layout>
           <SetNickname token={token} />
