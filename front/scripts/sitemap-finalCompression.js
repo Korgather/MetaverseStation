@@ -6,7 +6,7 @@ const prettier = require('prettier');
 
 const getDate = new Date().toISOString();
 
-const webrootDomain = 'https://kihat.ga';
+const webrootDomain = 'https://modumeta.com';
 const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
 
 (async () => {
