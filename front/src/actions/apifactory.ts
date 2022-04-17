@@ -13,6 +13,7 @@ export const getMap = createAsyncThunk('gatherApi/getMap', async (data: IGetMap,
     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/gathertown/getmap`, data, {
       headers: {
         Authorization: `Bearer ${AccessToken}`,
+        Origin: 'https://www.modumeta.com',
       },
     });
     if (!data.musicState) {
@@ -47,6 +48,7 @@ export const setMusic = createAsyncThunk('gatherApi/setMusic', async (data: IGet
       {
         headers: {
           Authorization: `Bearer ${AccessToken}`,
+          Origin: 'https://www.modumeta.com',
         },
       },
     );
@@ -71,6 +73,7 @@ export const setMap = createAsyncThunk('gatherApi/setMap', async (data: ISetMap,
     const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/gathertown/setmap`, data, {
       headers: {
         Authorization: `Bearer ${AccessToken}`,
+        Origin: 'https://www.modumeta.com',
       },
     });
     alert('맵파일 적용 성공 !');
