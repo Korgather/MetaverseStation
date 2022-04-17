@@ -43,7 +43,7 @@ function redirect() {
   return (
     <>
       <Head>
-        <title>로그인중 - 모두의메타버스</title>
+        <title>로그인중 - 모두메타</title>
       </Head>
       <LoadingWrapper>
         <Triangle color="#1890ff" />
