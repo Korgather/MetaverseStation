@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Dropdown } from 'antd';
+import { Menu, Dropdown, Tooltip } from 'antd';
 import { IPost } from '@customTypes/post';
 import * as S from './style';
 import shortid from 'shortid';
@@ -14,6 +14,7 @@ import modal from 'antd/lib/modal';
 import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
+import { SelectOutlined } from '@ant-design/icons';
 
 const DetailHeader = () => {
   const router = useRouter();
@@ -79,6 +80,7 @@ const DetailHeader = () => {
       });
     }
   };
+  const gotoDetailPage = () => router.push(`community/post/${postData?.id}`);
   return (
     <S.HeaderWrapper>
       <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
@@ -90,14 +92,19 @@ const DetailHeader = () => {
         </Dropdown>
       )}
       <S.Date>{postData && generateBetweenTime(postData)}</S.Date>
-      <S.CloseModalBtn
-        onClick={() => {
-          dispatch(clearpostDetail());
-          dispatch(ToggleDetailState(false));
-        }}
-      >
-        x
-      </S.CloseModalBtn>
+      <S.TopWrapper>
+        <Tooltip placement="left" title="페이지로 보기">
+          <S.StyledSelectOutlined onClick={gotoDetailPage} />
+        </Tooltip>
+        <S.CloseModalBtn
+          onClick={() => {
+            dispatch(clearpostDetail());
+            dispatch(ToggleDetailState(false));
+          }}
+        >
+          x
+        </S.CloseModalBtn>
+      </S.TopWrapper>
     </S.HeaderWrapper>
   );
 };

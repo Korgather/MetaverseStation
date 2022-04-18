@@ -27,7 +27,6 @@ const DetailModal = () => {
             <SliderImages />
             <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
             <S.ContentBox>
-              {/* <S.Title>{postData.title}</S.Title> */}
               <S.Content>
                 {typeof postData.content === 'string' ? parse(postData.content) : postData.content}
               </S.Content>
