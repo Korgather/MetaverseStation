@@ -7,7 +7,7 @@ import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { useFormik } from 'formik';
 import { addComPost, IAddComPost, updateComPost } from '@actions/community';
 import { useRouter } from 'next/router';
-import { CiOutlined } from '@ant-design/icons';
+import QuillFactory from './QuillFactory';
 
 const WriteModal = () => {
   const router = useRouter();
@@ -134,10 +134,7 @@ const WriteModal = () => {
                 placeholder="제목을 입력해주세요."
               />
               {formik.errors.title && formik.touched && <S.Error>{formik.errors.title}</S.Error>}
-              <S.StyledReactQuill
-                onChange={(content) => onChangeContent(content)}
-                defaultValue={prevData.content}
-              />
+              <QuillFactory onChangeContent={onChangeContent} prevData={prevData} />
               <S.TagAndBtnWrapper>
                 <S.SubmitBtn type="primary" htmlType="submit">
                   {updateValidate ? '수정하기' : '등록하기'}
