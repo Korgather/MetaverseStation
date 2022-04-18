@@ -22,8 +22,8 @@ const ComDetailPost = () => {
   );
   const dispatch = useAppDispatch();
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
-  const isGather = postDetail?.category === 'METAVERSE_GATHERTOWN';
   const isZep = postDetail?.category === 'METAVERSE_ZEP';
+  const isGather = postDetail?.category === 'METAVERSE_GATHERTOWN';
   useEffect(() => {
     return () => {
       dispatch(clearComPostDetail());
@@ -43,13 +43,19 @@ const ComDetailPost = () => {
       </Head>
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>
-        <>
-          <ComDetailPostLayout>
-            <ContentBox />
-          </ComDetailPostLayout>
-          <CommentInput />
-          <CommentList />
-        </>
+        {postDetail ? (
+          <>
+            <ComDetailPostLayout>
+              <ContentBox />
+            </ComDetailPostLayout>
+            <CommentInput />
+            <CommentList />
+          </>
+        ) : (
+          <>
+            <div>삭제된 게시물입니다.</div>
+          </>
+        )}
       </AppLayout>
     </>
   );

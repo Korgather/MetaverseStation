@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import { addComPost, IAddComPost, updateComPost } from '@actions/community';
 import { useRouter } from 'next/router';
 import QuillFactory from './QuillFactory';
+import { AddPost, IImageList } from '@customTypes/post';
 
 const WriteModal = () => {
   const router = useRouter();
@@ -21,8 +22,16 @@ const WriteModal = () => {
     ? { category: postDetail?.category, title: postDetail?.title, content: postDetail?.content }
     : { category: '', title: '', content: '' };
 
+  const initialImageList =
+    postDetail?.imageList &&
+    postDetail.imageList.map((el) => ({
+      ...el,
+      imagePath: process.env.NEXT_PUBLIC_IMG_URL + el.imagePath,
+    }));
+
   const [content, setContent] = useState(prevData.content ? prevData.content : '');
   const [category, setCategory] = useState('');
+  const [images, setImages] = useState<IImageList[]>(initialImageList ? initialImageList : []);
   const [questionState, setQuestionState] = useState(prevData.category === 'COMMUNITY_QUESTION');
   const [freeState, setFreeState] = useState(prevData.category === 'COMMUNITY_GENERAL');
   const [studyState, setStudyState] = useState(prevData.category === 'COMMUNITY_STUDY');
@@ -70,6 +79,7 @@ const WriteModal = () => {
         title: values.title,
         content: content,
         category: category,
+        images: images,
       };
       updateValidate ? updatePostDispatch(submitData) : addPostDispatch(submitData);
     },
@@ -134,7 +144,12 @@ const WriteModal = () => {
                 placeholder="제목을 입력해주세요."
               />
               {formik.errors.title && formik.touched && <S.Error>{formik.errors.title}</S.Error>}
-              <QuillFactory onChangeContent={onChangeContent} prevData={prevData} />
+              <QuillFactory
+                onChangeContent={onChangeContent}
+                prevData={prevData}
+                images={images}
+                setImages={setImages}
+              />
               <S.TagAndBtnWrapper>
                 <S.SubmitBtn type="primary" htmlType="submit">
                   {updateValidate ? '수정하기' : '등록하기'}

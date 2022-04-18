@@ -24,6 +24,7 @@ const ContentBox = () => {
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
+  const isMeta = postDetail?.category && postDetail?.category?.indexOf('METAVERSE') > -1;
   useEffect(() => {
     me && Object.keys(postDetail?.likeUserList as object).indexOf(me?.userId.toString()) > -1
       ? setLikeState(true)
@@ -72,7 +73,7 @@ const ContentBox = () => {
         title: '게시글을 삭제하시겠습니까?',
         onOk: async function async() {
           await dispatch(removePost(postDetail?.id));
-          router.push(`/community/${categoryForRouter}`);
+          router.push(`/community/free`);
         },
       });
   };
@@ -103,7 +104,7 @@ const ContentBox = () => {
         )}
         <Date>{postDetail.createdDate.slice(0, 10)}</Date>
       </ProfileHeader>
-      <SliderImages />
+      {isMeta && <SliderImages />}
       <Content>{parse(postDetail.content as string)}</Content>
       <Icons>
         <HeartWrapper>
