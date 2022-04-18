@@ -43,12 +43,12 @@ const login = () => {
                 <StyledP>카카오 로그인하기</StyledP>
               </StyledButton>
             </StyledA>
-            {/* <StyledA href={NaverUrl}>
+            <StyledA href={NaverUrl}>
               <StyledButton>
                 <Styledimg src="../../images/NaverIcon.png" />
                 <StyledP>네이버 로그인하기</StyledP>
               </StyledButton>
-            </StyledA> */}
+            </StyledA>
 
             <StyledA href={GoogleUrl}>
               <StyledButton>
