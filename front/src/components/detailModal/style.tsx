@@ -144,14 +144,22 @@ export const StyledDownOutlined = styled(DownOutlined)`
 `;
 
 export const StyledA = styled.a`
-  position: absolute;
-  bottom: 0;
-  right: 0;
   z-index: 900;
+  display: flex;
+  width: 100%;
 `;
 
 export const EntnerButton = styled(Button)`
-  border-radius: 5px;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  padding-top: 5px;
+  transition: all ease-in-out 300ms;
 `;
 
 export const HeartAndMessageWrapper = styled.div`
