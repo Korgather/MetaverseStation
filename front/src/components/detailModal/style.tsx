@@ -174,7 +174,7 @@ export const StyledSpan = styled.span`
 export const SlideWrapper = styled.section`
   margin-top: 10px;
   padding: 0;
-  position: relative;
+  /* position: relative; */
   width: 100%;
 
   .slick-prev:before,
@@ -182,6 +182,7 @@ export const SlideWrapper = styled.section`
     color: black;
   }
   .slick-next {
+    position: absolute;
     right: 0px;
     z-index: 900;
   }
@@ -192,7 +193,7 @@ export const SlideWrapper = styled.section`
 `;
 
 export const StyledImages = styled.div`
-  position: relative;
+  /* position: relative; */
   img {
     width: 100%;
     height: 309px;
