@@ -9,6 +9,7 @@ import modal from 'antd/lib/modal';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReplyContainer from './ReplyContainer';
+import ReplyInput from './ReplyInput';
 import * as S from './style';
 
 const CommentFactory = ({ comment }: { comment: IComment }) => {
@@ -16,6 +17,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   const [content, setContent] = useState('');
   const [updateState, setUpdateState] = useState(false);
+  const [addReplyState, setAddReplyState] = useState(false);
   const dispatch = useAppDispatch();
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
       });
   };
   const onToggleUpdateState = () => setUpdateState(!updateState);
+  const onToggleAddReplyState = () => setAddReplyState(!addReplyState);
   return (
     <>
       <S.Container>
@@ -79,16 +82,19 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <S.Content>{comment.content}</S.Content>
-              {/* <S.ButtonWrapper reply="true">
-                <div onClick={() => onToggleUpdateState()}>답글쓰기</div>
-              </S.ButtonWrapper> */}
+              <S.ButtonWrapper reply="true">
+                <div onClick={() => onToggleAddReplyState()}>
+                  {addReplyState ? '취소' : '답글쓰기'}
+                </div>
+              </S.ButtonWrapper>
             </div>
           )}
         </div>
       </S.Container>
-      {/* {comment.postCommentReplyList.map((reply) => (
+      {addReplyState && <ReplyInput comment={comment} />}
+      {comment.postCommentReplyList.map((reply) => (
         <ReplyContainer reply={reply} key={reply.id} />
-      ))} */}
+      ))}
     </>
   );
 };
