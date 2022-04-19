@@ -19,10 +19,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     async function loadCrate() {
       const result = await import('@widgetbot/crate');
       const Crate = await result.cdn();
-      new Crate({
+      const crate = new Crate({
         server: '960814143588401152',
         channel: '960814144045613068',
       });
+      crate.notify('모두메타 채팅방');
     }
     loadCrate();
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
