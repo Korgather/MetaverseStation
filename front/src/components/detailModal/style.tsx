@@ -88,6 +88,7 @@ export const Modal = styled.div<IModal>`
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 850px) {
+    height: 90vh;
     ${(props) =>
       props.commentState &&
       css`
@@ -160,6 +161,10 @@ export const EntnerButton = styled(Button)`
   letter-spacing: 4px;
   padding-top: 5px;
   transition: all ease-in-out 300ms;
+  @media screen and (max-width: 850px) {
+    font-size: 1.3rem;
+    padding-top: 6px;
+  }
 `;
 
 export const HeartAndMessageWrapper = styled.div`
