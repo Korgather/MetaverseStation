@@ -72,8 +72,10 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
 export default Postzone;
 
 const StyledCol = styled(Col)`
-  + div {
-    margin-top: 20px;
+  @media screen and (max-width: 850px) {
+    + div {
+      margin-top: 20px;
+    }
   }
 `;
 const PostZoneWrapper = styled.div`

@@ -38,9 +38,6 @@ const CategoryWrapper = styled.div`
   @media screen and (max-width: 850px) {
     flex-direction: row;
     width: 100%;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
     margin-bottom: auto;
     margin-top: -70px;
   }
