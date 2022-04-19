@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { SetStateAction, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { useAppSelector } from '@store/hook';
 import axios from 'axios';
 import { useQuill } from 'react-quilljs';
 import { RangeStatic } from 'quill';
+import { AddPost, IImageList } from '@customTypes/post';
 const formats = [
   'header',
   'font',
@@ -29,9 +30,11 @@ interface IQuill {
     title: string | undefined;
     content: string | undefined;
   };
+  images: IImageList[];
+  setImages: React.Dispatch<SetStateAction<IImageList[]>>;
 }
 
-export default function QuillFactory({ onChangeContent, prevData }: IQuill) {
+export default function QuillFactory({ onChangeContent, prevData, images, setImages }: IQuill) {
   const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
   const modules = useMemo(
     () => ({
@@ -58,7 +61,6 @@ export default function QuillFactory({ onChangeContent, prevData }: IQuill) {
     const imageDropAndPaste = require('quill-image-drop-and-paste').default;
     Quill.register('modules/imageDropAndPaste', imageDropAndPaste);
   }
-  console.log(quillRef.current);
   const insertToEditor = (url: string) => {
     const range = quill?.getSelection();
     quill?.insertEmbed((range as RangeStatic).index, 'image', url);
@@ -104,6 +106,17 @@ export default function QuillFactory({ onChangeContent, prevData }: IQuill) {
       prevData.content && quill.clipboard.dangerouslyPasteHTML(`${prevData.content}`);
       quill.on('text-change', () => {
         onChangeContent(quill.root.innerHTML);
+        const imgNode = Array.from(document.querySelectorAll('.ql-editor img'));
+        if (imgNode.length >= 0) {
+          const submitImgList = imgNode
+            ?.map((el) => ({
+              imagePath: (el as HTMLImageElement).src,
+              origFileName: 'clipboardImg',
+              fileSize: 3,
+            }))
+            .filter((el) => el.imagePath.length >= 1);
+          setImages(submitImgList);
+        }
       });
       quill.getModule('toolbar').addHandler('image', selectLocalImage);
       quill.root.addEventListener('paste', onImagePaste, false);
