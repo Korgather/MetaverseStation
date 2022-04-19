@@ -19,23 +19,28 @@ interface sliderProps {
 const NextArrow = styled.div`
   position: absolute;
   right: 0;
-  top: 0px;
+  top: 130px;
   z-index: 200;
   cursor: pointer;
+  img {
+    width: 25px;
+  }
 `;
 const PrevArrow = styled.div`
   position: sticky;
   left: 0;
-  top: 0px;
+  top: 130px;
   z-index: 200;
   cursor: pointer;
+  img {
+    width: 25px;
+  }
 `;
 
 const ArrowImg = styled.img``;
 
 function Arrow(props: any) {
   const { type, onClick } = props;
-  const char = '★';
   if (type === 'next') {
     return (
       <NextArrow onClick={onClick} style={{ position: 'absolute' }}>
@@ -60,8 +65,8 @@ const SliderFrame = ({ loop = true, speed = 400, children }: sliderProps) => {
       speed: speed,
       slidesToShow: 1,
       slidesToScroll: 1,
-      // nextArrow: <Arrow type="next" />,
-      // prevArrow: <Arrow type="prev" />,
+      nextArrow: <Arrow type="next" />,
+      prevArrow: <Arrow type="prev" />,
       // customPaging: (i) => {
       //   return (
       //     <div>
