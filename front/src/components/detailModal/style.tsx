@@ -88,7 +88,7 @@ export const Modal = styled.div<IModal>`
   display: flex;
   flex-direction: column;
   @media screen and (max-width: 850px) {
-    height: 90vh;
+    height: 85vh;
     ${(props) =>
       props.commentState &&
       css`
