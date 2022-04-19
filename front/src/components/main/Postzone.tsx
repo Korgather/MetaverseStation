@@ -28,7 +28,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
       >
         {mainPosts.length >= 1 &&
           mainPosts.map((post) => (
-            <Col key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
+            <StyledCol key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
               <ImgWrapper>
                 <div
                   onClick={(e) => {
@@ -62,7 +62,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                 <StyledEyeOutlined />
                 <Count>{post.view}</Count>
               </Summary>
-            </Col>
+            </StyledCol>
           ))}
       </Row>
     </PostZoneWrapper>
@@ -71,6 +71,11 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
 
 export default Postzone;
 
+const StyledCol = styled(Col)`
+  + div {
+    margin-top: 20px;
+  }
+`;
 const PostZoneWrapper = styled.div`
   max-width: 1440px;
   width: 80vw;
@@ -129,7 +134,7 @@ const ImgWrapper = styled.div`
   @media screen and (max-width: 992px) {
     width: 32vw;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 850px) {
     width: 70vw;
   }
 `;
@@ -151,4 +156,10 @@ const Summary = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media screen and (max-width: 850px) {
+    width: 70vw;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+  }
 `;

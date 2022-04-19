@@ -80,6 +80,7 @@ const MenuWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 20px 0 30px 0;
   }
 `;
 
@@ -98,6 +99,9 @@ const MenuBox = styled(Menu)`
   @media screen and (max-width: 850px) {
     margin: 0 auto;
     width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
   }
 `;
 

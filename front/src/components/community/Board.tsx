@@ -62,10 +62,11 @@ const CategoryWrapper = styled.div`
   width: 15%;
   display: flex;
   @media screen and (max-width: 850px) {
-    flex-direction: row;
-    height: 100%;
+    width: 80%;
+
     margin-bottom: auto;
     margin-top: -70px;
+    margin-bottom: 30px;
   }
 `;
 
