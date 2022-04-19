@@ -79,16 +79,16 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
           ) : (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <S.Content>{comment.content}</S.Content>
-              <S.ButtonWrapper reply="true">
+              {/* <S.ButtonWrapper reply="true">
                 <div onClick={() => onToggleUpdateState()}>답글쓰기</div>
-              </S.ButtonWrapper>
+              </S.ButtonWrapper> */}
             </div>
           )}
         </div>
       </S.Container>
-      {comment.postCommentReplyList.map((reply) => (
+      {/* {comment.postCommentReplyList.map((reply) => (
         <ReplyContainer reply={reply} key={reply.id} />
-      ))}
+      ))} */}
     </>
   );
 };
