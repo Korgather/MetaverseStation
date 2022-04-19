@@ -37,7 +37,9 @@ const CategoryContainer = styled.div`
   width: 100%;
   margin-top: 85px;
   @media screen and (max-width: 850px) {
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -71,4 +73,12 @@ const Menu = styled.div<isacitve>`
         color: #448ef7;
       }
     `}
+  @media screen and (max-width: 850px) {
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    + div {
+      margin-top: 0;
+    }
+  }
 `;

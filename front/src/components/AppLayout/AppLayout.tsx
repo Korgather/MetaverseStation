@@ -105,6 +105,10 @@ const AlramProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  @media screen and (max-width: 850px) {
+    margin-right: 20px;
+    margin-top: 10px;
+  }
 `;
 const TopWrapper = styled.div`
   display: flex;
@@ -125,8 +129,18 @@ const MenuWrapper = styled(Menu)`
   font-size: 1rem;
   font-weight: 700;
   @media screen and (max-width: 850px) {
-    flex: 2;
-    font-size: 0.6rem;
+    width: 100%;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    li {
+      flex: 1;
+      opacity: 1 !important;
+    }
+    .ant-menu-submenu-horizontal {
+      display: none;
+    }
   }
 `;
 const BtnWrapper = styled.div`
@@ -199,4 +213,6 @@ const StyledFooter = styled(Footer)`
 `;
 const StyledBtn = styled(Button)`
   margin-left: auto;
+  margin-right: 18px;
+  margin-top: 15px;
 `;

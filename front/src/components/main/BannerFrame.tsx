@@ -61,5 +61,8 @@ const SlideWrapper = styled.section`
     .slick-dots {
       display: none !important;
     }
+    .slick-list {
+      border-radius: 0px;
+    }
   }
 `;

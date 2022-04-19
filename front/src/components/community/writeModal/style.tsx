@@ -53,6 +53,9 @@ export const Modal = styled.div`
     margin-top: 10px;
   }
   overflow: auto;
+  @media screen and (max-width: 850px) {
+    width: 100vw;
+  }
 `;
 
 export const ModalWrapper = styled.div`
