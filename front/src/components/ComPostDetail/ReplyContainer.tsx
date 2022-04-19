@@ -1,10 +1,12 @@
 import { loadComPost } from '@actions/community';
+import { removeReply, updateReply } from '@actions/post';
 import { IReply } from '@customTypes/comment';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import modal from 'antd/lib/modal';
 import React, { useState } from 'react';
+import ReplyInput from './ReplyInput';
 import * as S from './style';
 const ReplyContainer = ({ reply }: { reply: IReply }) => {
   const dispatch = useAppDispatch();
@@ -13,14 +15,17 @@ const ReplyContainer = ({ reply }: { reply: IReply }) => {
 
   const [updateState, setUpdateState] = useState(false);
   const [content, setContent] = useState('');
+  const [addReplyState, setAddReplyState] = useState(false);
 
   const onToggleUpdateState = () => setUpdateState(!updateState);
+  const onToggleAddReplyState = () => setAddReplyState(!addReplyState);
+
   const onDelete = async (reply: IReply) => {
     postDetail &&
       modal.confirm({
         title: '답글을 삭제하시겠습니까?',
         onOk: async function () {
-          // await dispatch(removeComment(comment as IComment));
+          await dispatch(removeReply(reply.replyId as number));
           await dispatch(loadComPost(postDetail?.id as number));
           onToggleUpdateState();
         },
@@ -30,16 +35,16 @@ const ReplyContainer = ({ reply }: { reply: IReply }) => {
     e.preventDefault();
     setContent(e.target.value);
   };
-  const onUpdate = async (commentId: number) => {
+  const onUpdate = async (replyId: number) => {
     const updateData = {
       content,
-      commentId,
+      replyId,
     };
     postDetail &&
       modal.confirm({
         title: '답글을 수정하시겠습니까?',
         onOk: async function () {
-          // await dispatch(updateComment(updateData));
+          await dispatch(updateReply(updateData));
           await dispatch(loadComPost(postDetail?.id as number));
         },
       });
@@ -60,7 +65,7 @@ const ReplyContainer = ({ reply }: { reply: IReply }) => {
             </S.ButtonWrapper>
           )}
         </S.ProfileWrapper>
-        {updateState ? (
+        {updateState && (
           <S.UpdateWrapper>
             <S.StyledTextArea size="small" value={content} onChange={onChange} />
             <S.UpdateBox>
@@ -72,14 +77,20 @@ const ReplyContainer = ({ reply }: { reply: IReply }) => {
               </Button>
             </S.UpdateBox>
           </S.UpdateWrapper>
-        ) : (
+        )}
+
+        {!updateState && (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <S.Content>{reply.content}</S.Content>
             <S.ButtonWrapper reply="true">
-              <div onClick={() => onToggleUpdateState()}>답글쓰기</div>
+              <div onClick={() => onToggleAddReplyState()}>
+                {addReplyState ? '취소' : '답글쓰기'}
+              </div>
             </S.ButtonWrapper>
           </div>
         )}
+
+        {addReplyState && <ReplyInput reply={reply} />}
       </S.Wrapper>
     </S.ReplyContainerLayout>
   );
