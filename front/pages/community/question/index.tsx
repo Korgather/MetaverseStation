@@ -5,6 +5,7 @@ import Board from '@components/community/Board';
 import Pagination from '@components/community/Pagination';
 import CommunityWriteModal from '@components/community/writeModal/CommunityWriteModal';
 import BannerItem from '@components/main/BannerItem';
+import { clearComPostDetail } from '@slices/communitySlice';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
@@ -53,6 +54,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
       keyword: ctx.query.search as string,
     }),
   );
+  store.dispatch(clearComPostDetail());
 
   return { props: {} };
 });
