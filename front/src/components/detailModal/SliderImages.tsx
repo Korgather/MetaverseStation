@@ -24,11 +24,11 @@ const SliderImages = () => {
             </>
           ))}
       </SliderFrame>
-      {/* <S.StyledA href={postData?.link} target="_blank">
+      <S.StyledA href={postData?.link} target="_blank">
         <S.EntnerButton type="primary">
           <div>입장하기</div>
         </S.EntnerButton>
-      </S.StyledA> */}
+      </S.StyledA>
     </>
   );
 };
