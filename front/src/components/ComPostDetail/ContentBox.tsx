@@ -17,6 +17,8 @@ import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { loadComPost } from '@actions/community';
 import SliderImages from './SliderImages';
+import { getPrevPostData, ToggleDetailState, ToggleWriteModalState } from '@slices/postSlice';
+import { IPost } from '@customTypes/post';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
@@ -58,7 +60,30 @@ const ContentBox = () => {
   };
 
   const openUpdateModal = () => {
-    dispatch(ToggleCommunityWriteModalState(true));
+    if (isMeta) {
+      const dataForUpdate = {
+        images: (postDetail as IPost).imageList.map((image) => ({
+          imagePath:
+            image.imagePath.indexOf('https://cdn.metabusstation.shop/static') === -1
+              ? image.imagePath
+              : process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
+          origFileName: image.origFileName,
+          fileSize: image.fileSize,
+          url: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
+          uid: process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
+        })),
+        link: postDetail?.link,
+        title: postDetail?.title,
+        content: postDetail?.content,
+        state: true,
+        id: postDetail?.id,
+        category: postDetail?.category,
+      };
+      dispatch(getPrevPostData(dataForUpdate));
+      dispatch(ToggleWriteModalState(true));
+    } else {
+      dispatch(ToggleCommunityWriteModalState(true));
+    }
   };
   const categoryForRouter =
     postDetail?.category === 'COMMUNITY_QUESTION'

@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import { useAppSelector } from '@store/hook';
+import React, { useCallback, useMemo } from 'react';
 import Slider, { Settings } from 'react-slick';
 import * as S from './style';
 
@@ -16,14 +17,22 @@ interface sliderProps {
 }
 
 const SliderFrame = ({ loop = true, speed = 400, children }: sliderProps) => {
+  const imageList = useAppSelector((state) => state.postSlice.postDetail)?.imageList;
   const settings = useMemo<Settings>(
     () => ({
       infinite: loop,
       speed: speed,
       slidesToShow: 1,
       slidesToScroll: 1,
+      // customPaging: (i) => {
+      //   return (
+      //     <div>
+      //       {i} / {imageList?.length}
+      //     </div>
+      //   );
+      // },
       // fade: true,
-      // dots: true,
+      dots: true,
     }),
     [loop, speed],
   );
