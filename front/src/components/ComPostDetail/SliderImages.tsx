@@ -4,10 +4,11 @@ import shortid from 'shortid';
 import SliderFrame from './SliderFrame';
 import { Button, Image } from 'antd';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 const SliderImages = () => {
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
-
+  const me = useAppSelector((state) => state.userSlice.me);
   return (
     <SliderFrame>
       {postDetail?.imageList &&
@@ -19,11 +20,19 @@ const SliderImages = () => {
               alt=""
               style={{ display: 'block' }}
             />
-            <StyledA href={postDetail?.link} target="_blank">
-              <EntnerButton type="primary" htmlType="button">
-                <div>입장하기</div>
-              </EntnerButton>
-            </StyledA>
+            {me ? (
+              <StyledA href={postDetail?.link} target="_blank">
+                <EntnerButton type="primary" htmlType="button">
+                  <div>입장하기</div>
+                </EntnerButton>
+              </StyledA>
+            ) : (
+              <Link href={'/login'}>
+                <EntnerButton type="primary" htmlType="button">
+                  <div>입장하기</div>
+                </EntnerButton>
+              </Link>
+            )}
           </StyledImages>
         ))}
     </SliderFrame>

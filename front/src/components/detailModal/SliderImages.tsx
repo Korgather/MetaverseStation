@@ -4,9 +4,11 @@ import shortid from 'shortid';
 import SliderFrame from './SliderFrame';
 import * as S from './style';
 import { Image } from 'antd';
+import Link from 'next/link';
 
 const SliderImages = () => {
   const postData = useAppSelector((state) => state.postSlice.postDetail);
+  const me = useAppSelector((state) => state.userSlice.me);
 
   return (
     <>
@@ -24,11 +26,19 @@ const SliderImages = () => {
             </>
           ))}
       </SliderFrame>
-      <S.StyledA href={postData?.link} target="_blank">
-        <S.EntnerButton type="primary">
-          <div>입장하기</div>
-        </S.EntnerButton>
-      </S.StyledA>
+      {me ? (
+        <S.StyledA href={postData?.link} target="_blank">
+          <S.EntnerButton type="primary" htmlType="button">
+            <div>입장하기</div>
+          </S.EntnerButton>
+        </S.StyledA>
+      ) : (
+        <Link href={'/login'}>
+          <S.EntnerButton type="primary" htmlType="button">
+            <div>입장하기</div>
+          </S.EntnerButton>
+        </Link>
+      )}
     </>
   );
 };
