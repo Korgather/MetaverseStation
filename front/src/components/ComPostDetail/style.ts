@@ -14,8 +14,12 @@ export const StyledTextArea = styled(TextArea)`
   resize: none;
 `;
 
-export const Content = styled.div`
+export const Content = styled.textarea`
   padding: 20px 0;
+  width: 90%;
+  border: none;
+  resize: none;
+  outline: none;
 `;
 
 export const ProfileWrapper = styled.div`
