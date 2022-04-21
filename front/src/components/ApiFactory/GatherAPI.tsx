@@ -61,18 +61,25 @@ const GatherAPI = () => {
           <Tab name="music" onClick={onChangeTab} isactive={musicState}>
             배경음악
           </Tab>
-          <Tab name="userguide" onClick={gotoGuide}>
+          <Button type="link" onClick={gotoGuide}>
             사용법 보러가기
-          </Tab>
+          </Button>
         </TabWapper>
         <ConfigWrapper>
           <Label htmlFor="apiKey">API 키</Label>
-          <StyledInput
-            id="apiKey"
-            name="apiKey"
-            onChange={formik.handleChange}
-            placeholder="API키를 입력해주세요.  ex) Nwactexa"
-          />
+          <TabWapper>
+            <StyledInput
+              id="apiKey"
+              name="apiKey"
+              onChange={formik.handleChange}
+              placeholder="API키를 입력해주세요.  ex) Nwactexa"
+            />
+            <Button type="link">
+              <a href="https://app.gather.town/apikeys" target="_blank" rel="noreferrer">
+                API키 받으러가기
+              </a>
+            </Button>
+          </TabWapper>
           <Label htmlFor="spaceId">맵 ID</Label>
           <StyledInput
             id="spaceId"
