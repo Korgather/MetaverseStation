@@ -97,11 +97,27 @@ export const ReplyBtnWrapper = styled.div`
 
 export const Content = styled.div<large>`
   font-size: 0.7rem;
+  min-height: 0;
+  height: 100%;
   ${(props) =>
     props.large &&
     css`
       font-size: 0.75rem;
-    `}
+    `};
+`;
+
+export const Detail = styled.textarea<large>`
+  font-size: 0.75rem;
+  background-color: inherit;
+  color: black;
+  outline: none;
+  border: none;
+  resize: none;
+  ${(props) =>
+    props.large &&
+    css`
+      font-size: 0.8rem;
+    `};
 `;
 
 export const NickName = styled.div<large>`

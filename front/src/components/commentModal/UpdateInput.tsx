@@ -30,7 +30,9 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
         ) : (
           <S.ContentWrapper large>
             <S.NickName large>{comment.username}</S.NickName>
-            <S.Content large>{comment.content}</S.Content>
+            <S.Detail large readOnly>
+              {comment.content}
+            </S.Detail>
           </S.ContentWrapper>
         ))}
       {reply &&
@@ -49,7 +51,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
         ) : (
           <S.ContentWrapper>
             <S.NickName>{reply.username}</S.NickName>
-            <S.Content>{reply.content}</S.Content>
+            <S.Detail readOnly>{reply.content}</S.Detail>
           </S.ContentWrapper>
         ))}
     </div>
