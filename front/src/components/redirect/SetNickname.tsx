@@ -130,7 +130,6 @@ const StyledInput = styled(Input)`
 
 const StyledButton = styled(Button)`
   margin-top: 30px;
-  width: 13%;
   + button {
     margin-left: 20px;
   }
