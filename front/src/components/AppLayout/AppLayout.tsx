@@ -1,18 +1,15 @@
-import React, { ReactChildren, ReactChild, useState, useEffect } from 'react';
+import React, { ReactChildren, ReactChild, useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Layout, Menu, Button } from 'antd';
 import styled from 'styled-components';
 import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import ProfileDropdown from './ProfileDropdown';
-import { BellOutlined } from '@ant-design/icons';
 import Alram from './Alram';
 import WriteModal from '@components/writeModal/WriteModal';
 import DetailModal from '@components/detailModal/DetailModal';
 import FeedBack from './FeedBack';
-import Head from 'next/head';
 import Script from 'next/script';
-import shortid from 'shortid';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -25,7 +22,6 @@ const AppLayout = ({ children }: AuxProps) => {
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const me = useAppSelector((state) => state.userSlice.me);
-  const url = 'https://www.modumeta.com/';
   const [selectedKeys, setSelectedKeys] = useState(['']);
   useEffect(() => {
     if (router.pathname === '/') {
@@ -53,6 +49,7 @@ const AppLayout = ({ children }: AuxProps) => {
       </Script>
       {updateModalState && <WriteModal />}
       {detailModalState && <DetailModal />}
+      {<DetailModal />}
       <LayoutWrapper className="layout">
         <StyledLayout>
           <TopWrapper>

@@ -5,6 +5,8 @@ import shortid from 'shortid';
 import styled from 'styled-components';
 import { removeHtml } from '@lib/removeHtml';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
+import { pageVariants } from '@assets/motionVarints';
 
 const BoardList = () => {
   const router = useRouter();
@@ -15,7 +17,14 @@ const BoardList = () => {
   return (
     <>
       {mainComPosts?.map((post) => (
-        <BoardListContainer key={shortid.generate()} onClick={() => gotoDetail(post.id)}>
+        <BoardListContainer
+          key={shortid.generate()}
+          onClick={() => gotoDetail(post.id)}
+          variants={pageVariants}
+          initial="initial"
+          animate="visible"
+          exit="leaving"
+        >
           <FirstContainer>
             <Title>{post?.title}</Title>
             <Content>{removeHtml(post?.content as string).slice(0, 100)}...</Content>
@@ -41,7 +50,7 @@ const BoardList = () => {
 
 export default BoardList;
 
-const BoardListContainer = styled.div`
+const BoardListContainer = styled(motion.div)`
   display: flex;
   flex-direction: row;
   border-bottom: 1.5px solid #c9cccf;

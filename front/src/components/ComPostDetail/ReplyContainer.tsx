@@ -81,7 +81,7 @@ const ReplyContainer = ({ reply }: { reply: IReply }) => {
 
         {!updateState && (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <S.Content readOnly>{reply.content}</S.Content>
+            <S.Content readOnly value={reply.content} />
             <S.ButtonWrapper reply="true">
               <div onClick={() => onToggleAddReplyState()}>
                 {addReplyState ? '취소' : '답글쓰기'}

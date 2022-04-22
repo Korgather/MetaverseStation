@@ -7,6 +7,7 @@ import { useAppDispatch } from '@store/hook';
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { loadPost, viewPost } from '@actions/post';
 import { ToggleDetailState } from '@slices/postSlice';
+
 interface PostzoneProps {
   mainPosts: IPost[];
 }

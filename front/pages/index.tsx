@@ -8,7 +8,7 @@ import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
 import { Button, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
@@ -17,13 +17,18 @@ import cookies from 'next-cookies';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
 import Head from 'next/head';
+import { motion, AnimatePresence } from 'framer-motion';
+import { pageVariants } from '@assets/motionVarints';
+import shortid from 'shortid';
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const mainPosts = useAppSelector((state) => state.postSlice.mainPosts);
   const openModal = () => {
-    me ? dispatch(ToggleWriteModalState(true)) : Router.push('/login');
+    me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
+  console.log(shortid);
 
   return (
     <>
@@ -34,7 +39,17 @@ const Home: NextPage = () => {
         <>
           <BannerItem />
           <Category />
-          <Postzone mainPosts={mainPosts} />
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={shortid.generate()}
+              variants={pageVariants}
+              initial="initial"
+              animate="visible"
+              exit="leaving"
+            >
+              <Postzone mainPosts={mainPosts} />
+            </motion.div>
+          </AnimatePresence>
           <BottomWrapper>
             <Pagination />
             {me ? (
