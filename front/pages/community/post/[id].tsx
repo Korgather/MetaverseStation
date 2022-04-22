@@ -15,6 +15,8 @@ import cookies from 'next-cookies';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+import { pageVariants } from '@assets/motionVarints';
 
 const ComDetailPost = () => {
   const communityWriteModalState = useAppSelector(
@@ -44,13 +46,21 @@ const ComDetailPost = () => {
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>
         {postDetail ? (
-          <>
-            <ComDetailPostLayout>
-              <ContentBox />
-            </ComDetailPostLayout>
-            <CommentInput />
-            <CommentList />
-          </>
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={`post/${postDetail.id}`}
+              variants={pageVariants}
+              initial="initial"
+              animate="visible"
+              exit="leaving"
+            >
+              <ComDetailPostLayout>
+                <ContentBox />
+              </ComDetailPostLayout>
+              <CommentInput />
+              <CommentList />
+            </motion.div>
+          </AnimatePresence>
         ) : (
           <>
             <div>삭제된 게시물입니다.</div>

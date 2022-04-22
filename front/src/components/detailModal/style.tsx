@@ -2,7 +2,7 @@ import { DownOutlined, SelectOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import { Bookmark } from 'src/svg';
 import styled, { css } from 'styled-components';
-
+import { motion, AnimatePresence } from 'framer-motion';
 interface IModal {
   commentState: boolean;
 }
@@ -35,7 +35,7 @@ export const ModalContainer = styled.div`
   position: fixed;
 `;
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled(motion.div)`
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -68,7 +68,7 @@ export const CommentModal = styled.div<IModal>`
   align-items: center;
 `;
 
-export const Modal = styled.div<IModal>`
+export const Modal = styled(motion.div)<IModal>`
   z-index: 500;
   background-color: white;
   width: 35vw;

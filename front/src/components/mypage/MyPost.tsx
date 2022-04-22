@@ -10,8 +10,8 @@ import { useRouter } from 'next/router';
 import { removeHtml } from '@lib/removeHtml';
 import { HeartFilled } from '@ant-design/icons';
 import shortid from 'shortid';
-import Profile from './Profile';
-
+import { motion, AnimatePresence } from 'framer-motion';
+import { pageVariants } from '@assets/motionVarints';
 interface MyPostProps {
   myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -123,7 +123,14 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
           ) : (
             <ComWrapper>
               {mainComPosts?.map((post) => (
-                <BoardListContainer key={shortid.generate()} onClick={() => gotoDetail(post.id)}>
+                <BoardListContainer
+                  key={shortid.generate()}
+                  onClick={() => gotoDetail(post.id)}
+                  variants={pageVariants}
+                  initial="initial"
+                  animate="visible"
+                  exit="leaving"
+                >
                   <FirstContainer>
                     <Title>{post?.title}</Title>
                     <Content>{removeHtml(post?.content as string).slice(0, 100)}...</Content>
@@ -238,7 +245,7 @@ const BlankBox = styled.div`
   }
 `;
 
-const BoardListContainer = styled.div`
+const BoardListContainer = styled(motion.div)`
   margin-left: 10px;
   display: flex;
   flex-direction: row;
