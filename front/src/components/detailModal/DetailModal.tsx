@@ -7,8 +7,7 @@ import DetailHeader from './DetailHeader';
 import HeartAndMessage from './HeartAndMessage';
 import SliderImages from './SliderImages';
 import * as S from './style';
-import styled, { keyframes } from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 const DetailModal = () => {
   const [commentState, setCommentState] = useState(false);
@@ -16,35 +15,39 @@ const DetailModal = () => {
   const dispatch = useAppDispatch();
   const modalVariants = {
     initial: {
-      y: -200,
+      opacity: 0,
+      scale: 0.5,
+      transition: { duration: 0.23 },
     },
     visible: {
       opacity: 1,
       scale: 1,
-      y: 0,
+      transition: { duration: 0.23 },
     },
     leaving: {
       opacity: 0,
       scale: 0,
+      transition: { duration: 0.23 },
     },
   };
   return (
     <>
       {postData && (
         <AnimatePresence>
-          <S.ModalWrapper
-            variants={modalVariants}
-            initial="initial"
-            animate="visible"
-            exit="leaving"
-          >
+          <S.ModalWrapper>
             <S.Dim
               onClick={() => {
                 dispatch(ToggleDetailState(false));
                 dispatch(clearpostDetail());
               }}
             />
-            <S.Modal commentState={commentState}>
+            <S.Modal
+              commentState={commentState}
+              variants={modalVariants}
+              initial="initial"
+              animate="visible"
+              exit="leaving"
+            >
               <DetailHeader />
               <SliderImages />
               <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
