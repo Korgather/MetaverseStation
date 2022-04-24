@@ -88,7 +88,9 @@ const CountUser = styled.div`
   color: white;
   font-weight: 600;
   font-size: 0.9rem;
-  margin-left: 8px;
+  flex: 1;
+  text-align: center;
+  margin-right: 6px;
 `;
 
 const CountBox = styled.div`
