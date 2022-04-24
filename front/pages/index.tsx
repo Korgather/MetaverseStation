@@ -106,6 +106,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
       pageNum: ctx.query.page as string,
       category: ctx.query.category ? (ctx.query.category as string) : 'METAVERSE',
       keyword: ctx.query.search as string,
+      sort: ctx.query.sort as string,
     }),
   );
 

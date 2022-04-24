@@ -31,6 +31,7 @@ export interface IPost {
   likeUserList: object;
   view: number;
   createdDate: string;
+  playerCount?: number;
 }
 
 export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
