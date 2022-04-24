@@ -63,6 +63,12 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                 <StyledEyeOutlined />
                 <Count>{post.view}</Count>
               </Summary>
+              {post.category === 'METAVERSE_GATHERTOWN' && (
+                <CountBox>
+                  <CountCirCle />
+                  <CountUser>{post.playerCount}</CountUser>
+                </CountBox>
+              )}
             </StyledCol>
           ))}
       </Row>
@@ -71,8 +77,35 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
 };
 
 export default Postzone;
+const CountCirCle = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 15px;
+  background-color: #06d6a0;
+  margin-left: 10px;
+`;
+const CountUser = styled.div`
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-left: 8px;
+`;
 
+const CountBox = styled.div`
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 10px;
+  left: 20px;
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+`;
 const StyledCol = styled(Col)`
+  position: relative;
   @media screen and (max-width: 850px) {
     + div {
       margin-top: 20px;

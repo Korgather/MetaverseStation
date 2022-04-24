@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, Menu } from 'antd';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import { useAppDispatch } from '@store/hook';
 import { getSearchKeyword } from '@slices/postSlice';
@@ -9,11 +9,27 @@ function Category() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [searchValue, setSearchValue] = useState('');
+  const [sort, setSort] = useState('');
   const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
-  const category = router.query.category;
+  const onFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const name = (e.currentTarget as HTMLButtonElement).name;
+    name && setSort(name);
 
+    router.push({
+      pathname: '/',
+      query: {
+        category: router.query.category,
+        page: 1,
+        sort: name === 'sortByDate' ? '' : name === 'sortByPlayer' && 'playerCount,desc',
+      },
+    });
+  };
+  const category = router.query.category;
+  useEffect(() => {
+    router.query.sort === 'playerCount,desc' ? setSort('sortByPlayer') : setSort('sortByDate');
+  }, [router.query.sort]);
   const onSearch = () => {
     dispatch(getSearchKeyword(searchValue));
     router.push({
@@ -36,6 +52,7 @@ function Category() {
         query: {
           category: 'METAVERSE_GATHERTOWN',
           page: 1,
+          sort: '',
         },
       });
     }
@@ -45,20 +62,33 @@ function Category() {
         query: {
           category: 'METAVERSE_ZEP',
           page: 1,
+          sort: '',
         },
       });
     }
   };
   return (
     <MenuWrapper>
-      <MenuBox
-        onSelect={({ key }) => onSelect({ key })}
-        selectedKeys={category ? [category as string] : ['category_all']}
-      >
-        <Menu.Item key="category_all">All</Menu.Item>
-        <Menu.Item key="METAVERSE_GATHERTOWN">GatherTown</Menu.Item>
-        <Menu.Item key="METAVERSE_ZEP">Zep</Menu.Item>
-      </MenuBox>
+      <MenuFilterWrapper>
+        <MenuBox
+          onSelect={({ key }) => onSelect({ key })}
+          selectedKeys={category ? [category as string] : ['category_all']}
+        >
+          <Menu.Item key="category_all">All</Menu.Item>
+          <Menu.Item key="METAVERSE_GATHERTOWN">GatherTown</Menu.Item>
+          <Menu.Item key="METAVERSE_ZEP">Zep</Menu.Item>
+        </MenuBox>
+        <FilterWrapper>
+          <FilterInner>
+            <FilterBox sortByDate={sort} name="sortByDate" onClick={onFilter}>
+              <Circle>·</Circle> <div>최신순</div>
+            </FilterBox>
+            <FilterBox sortByPlayer={sort} name="sortByPlayer" onClick={onFilter}>
+              <Circle>·</Circle> <div>접속자순</div>
+            </FilterBox>
+          </FilterInner>
+        </FilterWrapper>
+      </MenuFilterWrapper>
       <StyledSearch onChange={searchOnChange} value={searchValue} onSearch={onSearch} />
       <BlankBox />
     </MenuWrapper>
@@ -66,6 +96,10 @@ function Category() {
 }
 
 export default Category;
+interface sort {
+  sortByDate?: string;
+  sortByPlayer?: string;
+}
 
 const MenuWrapper = styled.div`
   margin: 50px 0 30px 0;
@@ -85,17 +119,53 @@ const MenuWrapper = styled.div`
 `;
 
 const StyledSearch = styled(Search)`
-  margin: 0 auto;
-  width: 60%;
+  margin: auto auto;
+  width: 33.3%;
   min-width: 150px;
+  min-height: 30px;
 `;
 
 const MenuBox = styled(Menu)`
   display: flex;
   margin-right: auto;
   flex-direction: row;
-  width: 30%;
   border: none;
+  @media screen and (max-width: 850px) {
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+`;
+const Circle = styled.span`
+  font-size: 2rem;
+`;
+
+const FilterWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @media screen and (max-width: 850px) {
+    justify-content: center;
+  }
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+`;
+
+const FilterInner = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const MenuFilterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 33.3%;
   @media screen and (max-width: 850px) {
     margin: 0 auto;
     width: 80%;
@@ -106,8 +176,35 @@ const MenuBox = styled(Menu)`
 `;
 
 const BlankBox = styled.div`
-  width: 30%;
+  width: 33.3%;
   @media screen and (max-width: 850px) {
     display: none;
   }
+`;
+
+const FilterBox = styled.button<sort>`
+  + button {
+    margin-left: 20px;
+  }
+  color: #acb0b4;
+  font-weight: 600;
+  cursor: pointer;
+  ${(props) =>
+    (props.sortByDate === 'sortByDate' || props.sortByPlayer === 'sortByPlayer') &&
+    css`
+      color: #099dfe;
+    `}
+
+  :hover {
+    color: #099cfed2;
+  }
+  transition: color 0.3 ease-in;
+  background: inherit;
+  border: none;
+  display: blox;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
+  cursor: pointer;
 `;

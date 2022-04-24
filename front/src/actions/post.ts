@@ -15,6 +15,7 @@ interface IloadPosts {
   pageNum: string;
   category: string;
   keyword: string;
+  sort?: string;
 }
 
 export const addPost = createAsyncThunk('post/add', async (data: AddPost, thunkAPI) => {
@@ -113,6 +114,7 @@ export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts,
         keyword: data.keyword ? data.keyword : '',
         size: 8,
         page: data.pageNum ? Number(data.pageNum) - 1 : 0,
+        sort: data.sort ? data.sort : '',
       },
     });
     thunkAPI.dispatch(getTotalPage(res.data.totalPages));
