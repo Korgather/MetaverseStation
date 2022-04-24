@@ -163,8 +163,8 @@ const ImgWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin: 0 auto;
   margin-bottom: 10px;
-  @media screen and (max-width: 1650px) {
-    width: 17vw;
+  @media screen and (max-width: 1700px) {
+    width: 19vw;
   }
   @media screen and (max-width: 1200px) {
     width: 22vw;
