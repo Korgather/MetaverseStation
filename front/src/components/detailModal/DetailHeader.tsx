@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Menu, Dropdown, Tooltip } from 'antd';
 import { IPost } from '@customTypes/post';
 import * as S from './style';
@@ -15,8 +15,10 @@ import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
 import { SelectOutlined } from '@ant-design/icons';
-
-const DetailHeader = () => {
+interface DetailHeader {
+  setCommentState: Dispatch<SetStateAction<boolean>>;
+}
+const DetailHeader: React.FunctionComponent<DetailHeader> = ({ setCommentState }) => {
   const router = useRouter();
   const { id: pageNum } = router.query;
   const me = useAppSelector((state) => state.userSlice.me);
@@ -83,7 +85,13 @@ const DetailHeader = () => {
   const gotoDetailPage = () => router.push(`community/post/${postData?.id}`);
   return (
     <S.HeaderWrapper>
-      <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
+      {me ? (
+        <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
+      ) : (
+        <Tooltip placement="topLeft" title="로그인이 필요합니다">
+          <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" />
+        </Tooltip>
+      )}
       <S.NickName>{postData?.postUser?.username}</S.NickName>
 
       {postData?.postUser.userId === me?.userId && (
@@ -100,6 +108,7 @@ const DetailHeader = () => {
           onClick={() => {
             dispatch(clearpostDetail());
             dispatch(ToggleDetailState(false));
+            setCommentState(false);
           }}
         >
           x

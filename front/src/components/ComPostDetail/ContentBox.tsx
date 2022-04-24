@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import parse from 'html-react-parser';
 import { heartPost, loadPost, removePost } from '@actions/post';
 import { useRouter } from 'next/router';
-import { Dropdown, Menu, message } from 'antd';
+import { Dropdown, Menu, message, Tooltip } from 'antd';
 import shortid from 'shortid';
 import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
@@ -120,7 +120,13 @@ const ContentBox = () => {
       </BackArrow>
       <Title>{postDetail.title}</Title>
       <ProfileHeader>
-        <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
+        {me ? (
+          <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
+        ) : (
+          <Tooltip placement="topLeft" title="로그인이 필요합니다">
+            <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
+          </Tooltip>
+        )}
         <Username>{postDetail.postUser.username}</Username>
         {postDetail?.postUser.userId === me?.userId && (
           <Dropdown overlay={menu} trigger={['click']}>

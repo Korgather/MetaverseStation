@@ -2,7 +2,7 @@ import CommentModal from '@components/commentModal/CommentModal';
 import parse from 'html-react-parser';
 import { clearpostDetail, ToggleDetailState } from '@slices/postSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DetailHeader from './DetailHeader';
 import HeartAndMessage from './HeartAndMessage';
 import SliderImages from './SliderImages';
@@ -30,6 +30,7 @@ const DetailModal = () => {
       transition: { duration: 0.23 },
     },
   };
+
   return (
     <>
       {postData && (
@@ -39,6 +40,7 @@ const DetailModal = () => {
               onClick={() => {
                 dispatch(ToggleDetailState(false));
                 dispatch(clearpostDetail());
+                setCommentState(false);
               }}
             />
             <S.Modal
@@ -48,7 +50,7 @@ const DetailModal = () => {
               animate="visible"
               exit="leaving"
             >
-              <DetailHeader />
+              <DetailHeader setCommentState={setCommentState} />
               <SliderImages />
               <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
               <S.ContentBox>
