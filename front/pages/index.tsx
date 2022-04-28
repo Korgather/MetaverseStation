@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import styled, { css } from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
@@ -8,7 +8,7 @@ import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
 import { Button, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
@@ -20,6 +20,7 @@ import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 import shortid from 'shortid';
+
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
@@ -28,7 +29,6 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
-  console.log(shortid);
 
   return (
     <>

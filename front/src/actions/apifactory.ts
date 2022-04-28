@@ -20,7 +20,7 @@ export const getMap = createAsyncThunk('gatherApi/getMap', async (data: IGetMap,
       const mapData = res.data;
       const fileName = `${data.mapId}.json`;
       const properties = { type: 'text/json' };
-      const file = new File([JSON.stringify(mapData)], fileName, properties);
+      const file = new File([JSON.stringify(mapData, null, 2)], fileName, properties);
       const url = URL.createObjectURL(file);
       handleSaveClick(url, fileName);
       alert('맵파일 추출 성공 !');
