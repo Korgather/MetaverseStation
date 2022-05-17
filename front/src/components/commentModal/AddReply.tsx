@@ -40,6 +40,7 @@ const AddReply: React.FC<AddReplyProrp> = ({ reply, comment, ToggleReplyInput })
   return (
     <form onSubmit={formik.handleSubmit}>
       <S.StyledTextArea
+        spellCheck="false"
         name="content"
         id="content"
         onChange={formik.handleChange}
