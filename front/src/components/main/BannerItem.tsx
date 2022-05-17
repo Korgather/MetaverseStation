@@ -1,4 +1,4 @@
-import { useIsMobile } from '@lib/isMobile';
+import { useMedia } from '@lib/useMedia';
 import React from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
@@ -31,7 +31,7 @@ const items: itemsProps[] = [
 ];
 
 function BannerItem() {
-  const isMobile = useIsMobile();
+  const { isMobile } = useMedia();
   return (
     <BannerFrame>
       {items.map((item) => (
