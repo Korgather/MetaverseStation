@@ -2,19 +2,20 @@ import { loadComPost } from '@actions/community';
 import { removeReply, updateReply } from '@actions/post';
 import { IReply } from '@customTypes/comment';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
+import { handleResizeHeight } from '@lib/textareaResizeHeight';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import modal from 'antd/lib/modal';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ReplyInput from './ReplyInput';
 import * as S from './style';
 const ReplyContainer = ({ reply }: { reply: IReply }) => {
   const dispatch = useAppDispatch();
   const me = useAppSelector((state) => state.userSlice.me);
+  const textRef = useRef<HTMLTextAreaElement>(null);
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
-
   const [updateState, setUpdateState] = useState(false);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(reply.content);
   const [addReplyState, setAddReplyState] = useState(false);
 
   const onToggleUpdateState = () => setUpdateState(!updateState);
@@ -67,7 +68,13 @@ const ReplyContainer = ({ reply }: { reply: IReply }) => {
         </S.ProfileWrapper>
         {updateState && (
           <S.UpdateWrapper>
-            <S.StyledTextArea size="small" value={content} onChange={onChange} />
+            <S.StyledTextArea
+              value={content}
+              onChange={onChange}
+              ref={textRef}
+              onInput={() => handleResizeHeight(textRef)}
+              spellCheck="false"
+            />
             <S.UpdateBox>
               <Button size="small" onClick={() => onUpdate(reply.replyId as number)}>
                 수정

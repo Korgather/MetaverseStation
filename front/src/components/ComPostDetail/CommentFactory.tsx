@@ -1,21 +1,21 @@
 import { loadComPost } from '@actions/community';
-import { loadPost, removeComment, updateComment } from '@actions/post';
+import { removeComment, updateComment } from '@actions/post';
 import { IComment, IReply } from '@customTypes/comment';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
+import { handleResizeHeight } from '@lib/textareaResizeHeight';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button } from 'antd';
-import TextArea from 'antd/lib/input/TextArea';
 import modal from 'antd/lib/modal';
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
 import ReplyContainer from './ReplyContainer';
 import ReplyInput from './ReplyInput';
 import * as S from './style';
 
 const CommentFactory = ({ comment }: { comment: IComment }) => {
   const me = useAppSelector((state) => state.userSlice.me);
+  const textRef = useRef<HTMLTextAreaElement>(null);
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(comment.content);
   const [updateState, setUpdateState] = useState(false);
   const [addReplyState, setAddReplyState] = useState(false);
   const dispatch = useAppDispatch();
@@ -48,6 +48,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
         },
       });
   };
+
   const onToggleUpdateState = () => setUpdateState(!updateState);
   const onToggleAddReplyState = () => setAddReplyState(!addReplyState);
   return (
@@ -69,7 +70,13 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
           </S.ProfileWrapper>
           {updateState ? (
             <S.UpdateWrapper>
-              <S.StyledTextArea size="small" value={content} onChange={onChange} />
+              <S.StyledTextArea
+                onInput={() => handleResizeHeight(textRef)}
+                ref={textRef}
+                value={content}
+                onChange={onChange}
+                spellCheck="false"
+              />
               <S.UpdateBox>
                 <Button size="small" onClick={() => onUpdate(comment.commentId as number)}>
                   수정

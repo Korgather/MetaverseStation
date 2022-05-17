@@ -1,5 +1,6 @@
 import { IComment, IReply } from '@customTypes/comment';
-import React from 'react';
+import { handleResizeHeight } from '@lib/textareaResizeHeight';
+import React, { useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import * as S from './style';
 
@@ -11,6 +12,9 @@ interface AddReplyProrp {
 
 const UpdateInput: React.FC<AddReplyProrp> = ({ comment, reply, updateInputState }) => {
   const { register } = useFormContext();
+  const { ref, ...rest } = register('content');
+  const textRef = useRef<HTMLElement | null>(null);
+
   return (
     <div>
       {comment &&
@@ -20,8 +24,14 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, reply, updateInputState
             <S.Content large>
               <S.UpdateTextArea
                 spellCheck="false"
-                {...register('content')}
+                {...rest}
+                ref={(e) => {
+                  ref(e);
+                  textRef.current = e;
+                }}
+                onInput={() => handleResizeHeight(textRef)}
                 defaultValue={comment.content}
+                id="content"
               />
             </S.Content>
           </S.ContentWrapper>
@@ -38,7 +48,12 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, reply, updateInputState
             <S.Content>
               <S.UpdateTextArea
                 spellCheck="false"
-                {...register('content')}
+                {...rest}
+                ref={(e) => {
+                  ref(e);
+                  textRef.current = e;
+                }}
+                onInput={() => handleResizeHeight(textRef)}
                 defaultValue={reply.content}
               />
             </S.Content>
