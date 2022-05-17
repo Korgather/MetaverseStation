@@ -81,7 +81,7 @@ const CommentFactory = ({ comment }: { comment: IComment }) => {
             </S.UpdateWrapper>
           ) : (
             <div style={{ display: 'flex', flexDirection: 'row' }}>
-              <S.Content readOnly value={comment.content} />
+              <S.Content>{comment.content}</S.Content>
               <S.ButtonWrapper reply="true">
                 <div onClick={() => onToggleAddReplyState()}>
                   {addReplyState ? '취소' : '답글쓰기'}
