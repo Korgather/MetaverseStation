@@ -19,12 +19,7 @@ const Reply = ({ comment }: { comment: IComment }) => {
             <S.PromfileImg src={comment.postCommentReplyList[0].profileImageUrl} />
             <S.ContentAndBottomWrapper>
               <S.ContentWrapper>
-                <S.Content>
-                  {comment.postCommentReplyList[0].content &&
-                  comment.postCommentReplyList[0].content.length >= 19
-                    ? `${comment.postCommentReplyList[0].content?.slice(0, 18)}...`
-                    : comment.postCommentReplyList[0].content}
-                </S.Content>
+                <S.Content press="true">{comment.postCommentReplyList[0].content}</S.Content>
               </S.ContentWrapper>
             </S.ContentAndBottomWrapper>
           </S.ReplyContainer>

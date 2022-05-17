@@ -2,7 +2,7 @@ import { Button, Dropdown, Menu, Tooltip } from 'antd';
 import React, { Dispatch, SetStateAction } from 'react';
 
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '@store/hook';
+import { useAppSelector } from '@store/hook';
 
 interface IMusicDropDown {
   selectItem: string;

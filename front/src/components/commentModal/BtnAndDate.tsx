@@ -3,14 +3,13 @@ import { loadPost, removeComment, removeReply, updateComment, updateReply } from
 import { IComment, IReply, TUpdateComment, TUpdateReply } from '@customTypes/comment';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import modal from 'antd/lib/modal';
-import { FormikValues } from 'formik';
 import * as S from './style';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
+import { useFormContext } from 'react-hook-form';
 
 interface BtnAndDate {
   reply?: IReply;
   comment?: IComment;
-  formik: FormikValues;
   ToggleUpdateInput: () => void;
   ToggleReplyInput: () => void;
   updateInputState: boolean;
@@ -22,14 +21,12 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   comment,
   ToggleUpdateInput,
   ToggleReplyInput,
-  formik,
   updateInputState,
-  setReplyInputState,
 }) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const postDetail = useAppSelector((state) => state.postSlice.postDetail);
-  const updateCommentDone = useAppSelector((state) => state.postSlice.updateCommentDone);
   const dispatch = useAppDispatch();
+  const { getValues } = useFormContext();
 
   const RemoveCommentAndReply = async () => {
     postDetail &&
@@ -45,7 +42,7 @@ const BtnAndDate: React.FC<BtnAndDate> = ({
   };
 
   const UpdateCommentAndReply = async () => {
-    const { content } = formik.values;
+    const content = getValues('content');
     const commentdata: TUpdateComment = { content, commentId: comment?.commentId };
     const replydata: TUpdateReply = {
       replyId: reply?.replyId as number,

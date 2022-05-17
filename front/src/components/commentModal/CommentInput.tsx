@@ -34,6 +34,7 @@ const CommentInput = ({ CommentRef }: { CommentRef: React.RefObject<HTMLDivEleme
     <CommentInputWrapper>
       <form onSubmit={formik.handleSubmit}>
         <TextArea
+          spellCheck="false"
           rows={4}
           onChange={formik.handleChange}
           value={formik.values.content}

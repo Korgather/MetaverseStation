@@ -51,11 +51,7 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
                 ) : (
                   <Logo src="../../images/gatherLogo.png" />
                 )}
-                <Title>
-                  {post.title && post.title?.length >= 13
-                    ? `${post.title?.slice(0, 13)}`
-                    : post.title}
-                </Title>
+                <Title>{post.title}</Title>
                 <StyledHeartTwoTone twoToneColor="#eb3f96" />
                 <Count>{Object.keys(post.likeUserList).length}</Count>
                 <CommentImg src="../../images/commentIcon.png" />
@@ -130,6 +126,10 @@ const Title = styled.h2`
   flex: 1;
   line-height: 1;
   margin: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 const StyledEyeOutlined = styled(EyeOutlined)`

@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 
 interface large {
   large?: boolean;
+  press?: 'true' | 'false';
 }
 interface IModal {
   commentState: boolean;
@@ -98,21 +99,26 @@ export const ReplyBtnWrapper = styled.div`
 export const Content = styled.div<large>`
   font-size: 0.7rem;
   min-height: 0;
-  height: 100%;
   ${(props) =>
     props.large &&
     css`
       font-size: 0.75rem;
     `};
+
+  ${(props) =>
+    props.press === 'true' &&
+    css`
+      display: -webkit-box;
+      -webkit-line-clamp: 1; // 줄수, 2일경우 2줄
+      -webkit-box-orient: vertical;
+      line-height: 1.8;
+      overflow: hidden;
+    `}
 `;
 
-export const Detail = styled.textarea<large>`
+export const Detail = styled.div<large>`
   font-size: 0.75rem;
-  background-color: inherit;
-  color: black;
-  outline: none;
-  border: none;
-  resize: none;
+  white-space: pre-wrap;
   ${(props) =>
     props.large &&
     css`
@@ -251,5 +257,19 @@ export const Goback = styled.div`
       height: 20px;
       cursor: pointer;
     }
+  }
+`;
+
+export const UpdateTextArea = styled.textarea`
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  :hover {
+    border-color: #40a9ff;
+  }
+  transition: all 0.3s;
+  width: 100%;
+  :focus {
+    outline: #40a9ff;
+    border-color: #40a9ff;
   }
 `;

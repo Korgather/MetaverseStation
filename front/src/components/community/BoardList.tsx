@@ -27,7 +27,7 @@ const BoardList = () => {
         >
           <FirstContainer>
             <Title>{post?.title}</Title>
-            <Content>{removeHtml(post?.content as string).slice(0, 100)}...</Content>
+            <Content>{removeHtml(post?.content as string)}</Content>
             <NameAndTime>
               {post.postUser.username} · {post.createdDate.slice(0, 10)}
             </NameAndTime>
@@ -95,11 +95,21 @@ const LikedBox = styled.div`
 const Title = styled.div`
   font-size: 1.3rem;
   font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 1.8;
+  overflow: hidden;
 `;
 const Content = styled.p`
   font-size: 0.9rem;
   margin-top: 10px;
   font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.8;
+  overflow: hidden;
 `;
 
 const NameAndTime = styled.div`

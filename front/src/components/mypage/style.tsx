@@ -63,6 +63,11 @@ export const Title = styled.h2`
   flex: 1;
   line-height: 1;
   margin: 2px;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 1.8;
+  overflow: hidden;
 `;
 
 export const StyledEyeOutlined = styled(EyeOutlined)`

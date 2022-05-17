@@ -32,7 +32,7 @@ const ReplyInput = ({ comment, reply }: IReplyInput) => {
   return (
     <CommentInputLayout>
       <Wrapper>
-        <StyledTextArea size="large" value={replyContent} onChange={onChange} />
+        <StyledTextArea size="large" value={replyContent} onChange={onChange} spellCheck="false" />
         {me ? (
           <StyledButton type="primary" onClick={addRelpy}>
             답글 등록

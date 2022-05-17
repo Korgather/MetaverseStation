@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import { IComment, TUpdateComment, TUpdateReply, TAddComment } from '@customTypes/comment';
 import { AddPost, IPostState } from '@customTypes/post';
 import { IUserState } from '@customTypes/user';

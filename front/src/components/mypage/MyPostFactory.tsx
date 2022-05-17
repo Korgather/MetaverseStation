@@ -50,11 +50,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
               ) : (
                 <S.Logo src="../../images/gatherLogo.png" />
               )}
-              <S.Title>
-                {post.title && post.title?.length >= 15
-                  ? `${post.title?.slice(0, 15)}...`
-                  : post.title}
-              </S.Title>
+              <S.Title>{post.title}</S.Title>
               <S.StyledHeartTwoTone twoToneColor="#eb3f96" />
               <S.Count>{Object.keys(post.likeUserList).length}</S.Count>
               <S.CommentImg src="../../images/commentIcon.png" />
