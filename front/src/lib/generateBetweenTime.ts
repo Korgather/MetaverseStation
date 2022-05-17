@@ -16,7 +16,7 @@ export const generateBetweenTime = (comment: IComment | IReply | IPost) => {
     if (betweenTime < 1) return '방금 전';
     if (betweenTime < 60) return `${betweenTime}분 전`;
     if (betweenTimeHour < 24) return `${betweenTimeHour}시간 전`;
-    if (betweenTimeDay < 365) return `${betweenTimeDay}일 전`;
-    return `${Math.floor(betweenTimeDay / 365)}년 전`;
+    if (betweenTimeDay < 7) return `${betweenTimeDay}일 전`;
+    return `${year}-${month}-${date.slice(0, 2)}`;
   }
 };
