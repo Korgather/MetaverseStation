@@ -29,7 +29,7 @@ const CommentInput = () => {
     <CommentInputLayout>
       <CommentNum>{postDetail?.postCommentList.length}개의 댓글이 있습니다.</CommentNum>
       <Wrapper>
-        <StyledTextArea size="large" value={comment} onChange={onChange} />
+        <StyledTextArea spellCheck="false" size="large" value={comment} onChange={onChange} />
         {me ? (
           <StyledButton type="primary" onClick={postComment}>
             댓글 등록

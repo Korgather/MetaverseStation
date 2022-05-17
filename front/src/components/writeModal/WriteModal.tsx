@@ -9,8 +9,6 @@ import { addPost, updatePost } from '@actions/post';
 import * as S from './style';
 import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import { useRouter } from 'next/router';
-
-const { TextArea } = Input;
 interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCommentList'> {
   images: Omit<CustomFile, 'file'>[] | void[];
   id?: string;
@@ -128,6 +126,7 @@ const WriteModal = () => {
                 onChange={formik.handleChange}
                 value={formik.values.title}
                 placeholder="제목을 입력해주세요."
+                spellCheck="false"
               />
               {formik.errors.title && formik.touched && <S.Error>{formik.errors.title}</S.Error>}
               <S.StyledLabel htmlFor="link">접속링크</S.StyledLabel>
@@ -137,6 +136,7 @@ const WriteModal = () => {
                 onChange={formik.handleChange}
                 value={formik.values.link}
                 placeholder="접속링크를 입력해주세요."
+                spellCheck="false"
               />
               {formik.errors.link && formik.touched && <S.Error>{formik.errors.link}</S.Error>}
               <UploadImages imageList={imageList} setImageList={setImageList} />
@@ -146,7 +146,6 @@ const WriteModal = () => {
                 onChange={(content) => onChangeContent(content)}
                 defaultValue={prevPostData?.content ? prevPostData?.content : ''}
               />
-
               <S.TagAndBtnWrapper>
                 <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
                   {prevPostData ? '수정하기' : '등록하기'}
