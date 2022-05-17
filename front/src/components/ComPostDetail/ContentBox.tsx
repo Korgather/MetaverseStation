@@ -17,7 +17,7 @@ import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { loadComPost } from '@actions/community';
 import SliderImages from './SliderImages';
-import { getPrevPostData, ToggleDetailState, ToggleWriteModalState } from '@slices/postSlice';
+import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import { IPost } from '@customTypes/post';
 
 const ContentBox = () => {
@@ -85,12 +85,6 @@ const ContentBox = () => {
       dispatch(ToggleCommunityWriteModalState(true));
     }
   };
-  const categoryForRouter =
-    postDetail?.category === 'COMMUNITY_QUESTION'
-      ? 'question'
-      : postDetail?.category === 'COMMUNITY_GENERAL'
-      ? 'free'
-      : postDetail?.category === 'COMMUNITY_GENERAL' && 'study';
 
   const onRemovePost = () => {
     postDetail &&

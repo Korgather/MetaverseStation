@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Reply from './Reply';
 import CommentFactory from './CommentFactory';
 import { useAppSelector } from '@store/hook';

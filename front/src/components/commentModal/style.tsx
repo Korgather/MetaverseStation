@@ -99,7 +99,6 @@ export const ReplyBtnWrapper = styled.div`
 export const Content = styled.div<large>`
   font-size: 0.7rem;
   min-height: 0;
-  height: 100%;
   ${(props) =>
     props.large &&
     css`
@@ -269,7 +268,6 @@ export const UpdateTextArea = styled.textarea`
   }
   transition: all 0.3s;
   width: 100%;
-  height: auto;
   :focus {
     outline: #40a9ff;
     border-color: #40a9ff;
