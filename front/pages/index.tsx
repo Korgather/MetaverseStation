@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import type { NextPage } from 'next';
 import styled, { css } from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
@@ -20,6 +20,7 @@ import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 import shortid from 'shortid';
+import useScroll from '@lib/useScroll';
 
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
@@ -29,6 +30,11 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
+  const { scrollSave, scrollMove } = useScroll('index');
+  useLayoutEffect(() => {
+    scrollMove();
+    return () => scrollSave();
+  }, [router.query]);
 
   return (
     <>
