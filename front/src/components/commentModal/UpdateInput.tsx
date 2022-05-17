@@ -24,6 +24,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
                 id="content"
                 onChange={formik.handleChange}
                 value={formik.values.content}
+                defaultValue={comment.content}
               />
             </S.Content>
           </S.ContentWrapper>
@@ -43,6 +44,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
                 id="content"
                 onChange={formik.handleChange}
                 value={formik.values.content}
+                defaultValue="test"
               />
             </S.Content>
           </S.ContentWrapper>

@@ -1,9 +1,9 @@
 import { getMap, setMap } from '@actions/apifactory';
 import { IGetMap } from '@customTypes/apifactory';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Button, Input, Tooltip } from 'antd';
+import { Button, Tooltip } from 'antd';
 import modal from 'antd/lib/modal';
-import { FormikProps, useFormik } from 'formik';
+import { FormikProps } from 'formik';
 import React from 'react';
 import styled, { css } from 'styled-components';
 interface IMusicAPI {

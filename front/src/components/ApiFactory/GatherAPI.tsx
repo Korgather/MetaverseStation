@@ -12,7 +12,6 @@ import MusicAPI from './MusicAPI';
 
 const GatherAPI = () => {
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const [mapState, setMapState] = useState('true');
   const [musicState, setMusicState] = useState('');
   const [selectItem, setSelectItem] = useState('modu-meta-music-01');
