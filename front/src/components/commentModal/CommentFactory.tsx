@@ -1,11 +1,11 @@
 import { IComment, IReply } from '@customTypes/comment';
 import React, { useState } from 'react';
 import { Modal } from 'antd';
-import { useFormik } from 'formik';
 import * as S from './style';
 import AddReply from './AddReply';
 import BtnAndDate from './BtnAndDate';
 import UpdateInput from './UpdateInput';
+import { useForm, FormProvider } from 'react-hook-form';
 interface CommentFactoryProps {
   reply?: IReply;
   comment?: IComment;
@@ -17,30 +17,16 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
   const [replyInputState, setReplyInputState] = useState(false);
   const ToggleReplyInput = () => setReplyInputState(!replyInputState);
   const ToggleUpdateInput = () => setUpdateInputState(!updateInputState);
-
-  const formik = useFormik({
-    initialValues: {
-      content: '',
-    },
-    onSubmit: () => {
-      console.log('구현예정');
-    },
-  });
+  const methods = useForm();
   return (
-    <div>
+    <FormProvider {...methods}>
       <S.ReplyInputWrapper>
-        <UpdateInput
-          formik={formik}
-          comment={comment}
-          reply={reply}
-          updateInputState={updateInputState}
-        />
+        <UpdateInput comment={comment} reply={reply} updateInputState={updateInputState} />
         <BtnAndDate
           reply={reply}
           comment={comment}
           ToggleReplyInput={ToggleReplyInput}
           ToggleUpdateInput={ToggleUpdateInput}
-          formik={formik}
           updateInputState={updateInputState}
           setReplyInputState={setReplyInputState}
         />
@@ -49,7 +35,7 @@ const CommentFactory: React.FC<CommentFactoryProps> = ({ reply, comment }) => {
         )}
       </S.ReplyInputWrapper>
       {contextHolder}
-    </div>
+    </FormProvider>
   );
 };
 

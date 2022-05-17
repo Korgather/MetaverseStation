@@ -1,17 +1,16 @@
 import { IComment, IReply } from '@customTypes/comment';
-import TextArea from 'antd/lib/input/TextArea';
-import { FormikValues } from 'formik';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import * as S from './style';
 
 interface AddReplyProrp {
   reply?: IReply;
   comment?: IComment;
-  formik: FormikValues;
   updateInputState: boolean;
 }
 
-const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateInputState }) => {
+const UpdateInput: React.FC<AddReplyProrp> = ({ comment, reply, updateInputState }) => {
+  const { register } = useFormContext();
   return (
     <div>
       {comment &&
@@ -19,11 +18,9 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
           <S.ContentWrapper large>
             <S.NickName large>{comment.username}</S.NickName>
             <S.Content large>
-              <TextArea
-                name="content"
-                id="content"
-                onChange={formik.handleChange}
-                value={formik.values.content}
+              <S.UpdateTextArea
+                spellCheck="false"
+                {...register('content')}
                 defaultValue={comment.content}
               />
             </S.Content>
@@ -31,7 +28,7 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
         ) : (
           <S.ContentWrapper large>
             <S.NickName large>{comment.username}</S.NickName>
-            <S.Detail large readOnly value={comment.content} />
+            <S.Detail style={{ whiteSpace: 'pre-wrap' }}>{comment.content}</S.Detail>
           </S.ContentWrapper>
         ))}
       {reply &&
@@ -39,19 +36,17 @@ const UpdateInput: React.FC<AddReplyProrp> = ({ comment, formik, reply, updateIn
           <S.ContentWrapper>
             <S.NickName>{reply.username}</S.NickName>
             <S.Content>
-              <TextArea
-                name="content"
-                id="content"
-                onChange={formik.handleChange}
-                value={formik.values.content}
-                defaultValue="test"
+              <S.UpdateTextArea
+                spellCheck="false"
+                {...register('content')}
+                defaultValue={reply.content}
               />
             </S.Content>
           </S.ContentWrapper>
         ) : (
           <S.ContentWrapper>
             <S.NickName>{reply.username}</S.NickName>
-            <S.Detail readOnly value={reply.content} />
+            <S.Detail style={{ whiteSpace: 'pre-wrap' }}>{reply.content}</S.Detail>
           </S.ContentWrapper>
         ))}
     </div>
