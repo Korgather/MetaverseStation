@@ -8,10 +8,21 @@ export const ReplyContainerLayout = styled.div`
   border-bottom: 2px solid #f2f2f2;
 `;
 
-export const StyledTextArea = styled(TextArea)`
+export const StyledTextArea = styled.textarea`
   margin-top: 10px;
   border-radius: 10px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  transition: all 0.2s;
+  width: 100%;
   resize: none;
+  :hover {
+    border-color: #40a9ff;
+  }
+  :focus {
+    outline: #40a9ff;
+    border-color: #40a9ff;
+  }
 `;
 
 export const Content = styled.div`
