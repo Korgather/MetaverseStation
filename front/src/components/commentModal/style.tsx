@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
 interface large {
@@ -14,7 +15,7 @@ interface ReplyContainer {
   small?: boolean;
 }
 
-export const CommentModal = styled.div<IModal>`
+export const CommentModal = styled(motion.div)<IModal>`
   display: flex;
   z-index: 300;
   background-color: white;
@@ -36,7 +37,9 @@ export const CommentModal = styled.div<IModal>`
   flex-direction: column;
   align-items: center;
   @media screen and (max-width: 850px) {
-    width: ${(popos) => (popos.commentState ? '85vw' : '0px')};
+    width: 90vw;
+    height: 85vh;
+    margin-left: 0;
   }
 `;
 
