@@ -14,9 +14,10 @@ import {
   searchPosts,
   deleteAlram,
   addFeedBack,
+  searchKeywords,
 } from '@actions/post';
-import { IPostState } from '@customTypes/post';
-import { createSlice } from '@reduxjs/toolkit';
+import { IPost, IPostState, SearchPayload } from '@customTypes/post';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IPostState = {
   mainPosts: [],
@@ -66,6 +67,10 @@ const initialState: IPostState = {
   searchPostsLoading: false,
   searchPostsDone: false,
   searchPostsError: null,
+
+  searchKeywordsLoading: false,
+  searchKeywordsDone: false,
+  searchKeywordsError: null,
 
   heartPostLoading: false,
   heartPostDone: false,
@@ -191,7 +196,7 @@ export const postSlice = createSlice({
       .addCase(searchPosts.pending, (state) => {
         state.searchPostsLoading = true;
       })
-      .addCase(searchPosts.fulfilled, (state, action) => {
+      .addCase(searchPosts.fulfilled, (state, action: PayloadAction<SearchPayload>) => {
         state.searchPostsLoading = false;
         state.mainPosts = action.payload.content;
       })
@@ -199,6 +204,19 @@ export const postSlice = createSlice({
         state.searchPostsLoading = false;
         state.searchPostsError = action.error;
       })
+      .addCase(searchKeywords.pending, (state) => {
+        state.searchKeywordsLoading = true;
+      })
+      .addCase(searchKeywords.fulfilled, (state) => {
+        state.searchKeywordsLoading = false;
+      })
+      .addCase(
+        searchKeywords.rejected,
+        (state, action: ReturnType<typeof searchKeywords.rejected>) => {
+          state.searchKeywordsLoading = false;
+          state.searchKeywordsError = action.error;
+        },
+      )
       .addCase(heartPost.pending, (state) => {
         state.heartPostLoading = true;
       })
