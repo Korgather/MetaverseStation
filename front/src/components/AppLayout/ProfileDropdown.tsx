@@ -38,7 +38,7 @@ const ProfileDropdown = () => {
   );
   return (
     <>
-      <DropdownWrapper overlay={menu} placement="topRight" arrow={false}>
+      <DropdownWrapper overlay={menu} placement="bottomRight" arrow={false}>
         <a
           className="ant-dropdown-link"
           onClick={(e) => e.preventDefault()}
@@ -68,6 +68,7 @@ const StyledMenuItem = styled(Menu.Item)`
 `;
 
 const DropdownWrapper = styled(Dropdown)`
+  margin-bottom: 5px;
   .anticon-down {
     display: none;
   }

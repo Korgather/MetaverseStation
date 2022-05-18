@@ -73,7 +73,7 @@ const Alram = () => {
   );
   return (
     <MessageWrapper>
-      <StyledDropdown key={shortid.generate()} overlay={menu} arrow={false} placement="topRight">
+      <StyledDropdown key={shortid.generate()} overlay={menu} arrow={false} placement="bottomRight">
         <a
           className="ant-dropdown-link"
           onClick={(e) => e.preventDefault()}
