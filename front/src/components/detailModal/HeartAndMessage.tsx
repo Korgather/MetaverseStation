@@ -3,7 +3,7 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { IPost } from '@customTypes/post';
 import { kakaoShare } from '@lib/kakaoShare';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Alert, message } from 'antd';
+import { message } from 'antd';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import * as S from './style';
 interface HeartAndMessage {
