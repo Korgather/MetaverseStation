@@ -14,6 +14,9 @@ const Nav = () => {
   const [fixedpos, setFixedPos] = useState('false');
   const { scrollY } = useViewportScroll();
   const navAnimation = useAnimation();
+  const homeMatch = router.pathname === '/';
+  const communityMatch = router.pathname.indexOf('/community') > -1;
+  const apifactoryMatch = router.pathname.indexOf('/apifactory') > -1;
   const navVariants = {
     top: {
       boxShadow: 'rgba(0, 0, 0, 0) 0px 5px 15px',
@@ -24,7 +27,7 @@ const Nav = () => {
   };
   useEffect(() => {
     scrollY.onChange(() => {
-      if (scrollY.get() > 90) {
+      if (scrollY.get() > 70) {
         setFixedPos('true');
         navAnimation.start('scroll');
       } else {
@@ -34,13 +37,13 @@ const Nav = () => {
     });
   }, [scrollY, navAnimation]);
   useEffect(() => {
-    if (router.pathname === '/') {
+    if (homeMatch) {
       setSelectedKeys(['nav_gathertown']);
     }
-    if (router.pathname.indexOf('/community') > -1) {
+    if (communityMatch) {
       setSelectedKeys(['nav_community']);
     }
-    if (router.pathname.indexOf('/apifactory') > -1) {
+    if (apifactoryMatch) {
       setSelectedKeys(['nav_api']);
     }
   }, []);
@@ -172,5 +175,4 @@ const StyledHeader = styled(motion.div)<NavProps>`
 const StyledBtn = styled(Button)`
   margin-left: auto;
   margin-right: 18px;
-  margin-top: 15px;
 `;
