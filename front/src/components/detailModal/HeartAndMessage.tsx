@@ -4,8 +4,24 @@ import { IPost } from '@customTypes/post';
 import { kakaoShare } from '@lib/kakaoShare';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { message } from 'antd';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import Heart from './Heart';
 import * as S from './style';
+
+const heartVariants = {
+  initial: {
+    scale: 1,
+  },
+  visible: {
+    scale: 1,
+    transition: { type: 'spring', stiffness: 260, damping: 20, delay: 0.4 },
+  },
+  leaving: {
+    scale: 1.3,
+    transition: { duration: 0.2 },
+  },
+};
 interface HeartAndMessage {
   setCommentState: Dispatch<SetStateAction<boolean>>;
   commentState: boolean;
@@ -50,11 +66,13 @@ const HeartAndMessage: React.FunctionComponent<HeartAndMessage> = ({
 
   return (
     <S.HeartAndMessageWrapper>
-      {likeState ? (
-        <HeartFilled onClick={onToggleLike} style={{ fontSize: '1.3rem', color: '#eb3f96' }} />
-      ) : (
-        <HeartOutlined onClick={onToggleLike} style={{ fontSize: '1.3rem', color: '#eb3f96' }} />
-      )}
+      <AnimatePresence>
+        {likeState ? (
+          <Heart onToggleLike={onToggleLike} fill="true" />
+        ) : (
+          <Heart onToggleLike={onToggleLike} fill="false" />
+        )}
+      </AnimatePresence>
       <S.StyledSpan>
         {Object.keys(postDetail?.likeUserList as object).length}명이 좋아합니다.
       </S.StyledSpan>
