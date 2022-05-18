@@ -126,7 +126,7 @@ export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts,
   }
 });
 
-export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAPI) => {
+export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAPI?) => {
   const {
     postSlice: { searchPageNum, searchKeyword },
   } = thunkAPI.getState() as { postSlice: IPostState };
@@ -137,7 +137,6 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       headers: {
         Authorization: `Bearer ${AccessToken}`,
-
         withCredentials: true,
       },
       params: {
@@ -147,14 +146,48 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
         category: 'METAVERSE',
       },
     });
-    thunkAPI.dispatch(getSearchTotalPage(res.data.totalPages));
-    return res.data;
+    const payload = res.data;
+    thunkAPI.dispatch(getSearchTotalPage(payload.totalPages));
+    return payload;
   } catch (error) {
     console.error('REQUEST ERROR --', error);
     alert((error as ServerError).response.data.error);
     return thunkAPI.rejectWithValue(error as ServerError);
   }
 });
+
+export const searchKeywords = createAsyncThunk(
+  'posts/searchkeywords',
+  async (data?: string, thunkAPI?) => {
+    const {
+      postSlice: { searchPageNum, searchKeyword },
+    } = thunkAPI.getState() as { postSlice: IPostState };
+    const {
+      userSlice: { AccessToken },
+    } = thunkAPI.getState() as { userSlice: IUserState };
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
+        headers: {
+          Authorization: `Bearer ${AccessToken}`,
+          withCredentials: true,
+        },
+        params: {
+          keyword: data ? data : searchKeyword,
+          size: 8,
+          page: searchPageNum - 1,
+          category: 'METAVERSE',
+        },
+      });
+      const payload = res.data;
+      thunkAPI.dispatch(getSearchTotalPage(payload.totalPages));
+      return payload;
+    } catch (error) {
+      console.error('REQUEST ERROR --', error);
+      alert((error as ServerError).response.data.error);
+      return thunkAPI.rejectWithValue(error as ServerError);
+    }
+  },
+);
 
 export const heartPost = createAsyncThunk('heart/post', async (postId: number, thunkAPI) => {
   const {
