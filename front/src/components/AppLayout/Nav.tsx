@@ -24,7 +24,6 @@ const Nav = () => {
   };
   useEffect(() => {
     scrollY.onChange(() => {
-      console.log(scrollY.get());
       if (scrollY.get() > 90) {
         setFixedPos('true');
         navAnimation.start('scroll');
