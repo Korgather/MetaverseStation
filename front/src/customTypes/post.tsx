@@ -18,6 +18,11 @@ export interface IImageList {
   imagePath: string;
   fileSize: number;
 }
+
+export interface SearchPayload {
+  content: IPost[];
+  keyword: string;
+}
 export interface IPost {
   title?: string;
   content?: string;
@@ -84,6 +89,9 @@ export interface IPostState {
   searchPostsLoading: boolean;
   searchPostsDone: boolean;
   searchPostsError: SerializedError | null;
+  searchKeywordsLoading: boolean;
+  searchKeywordsDone: boolean;
+  searchKeywordsError: SerializedError | null;
   heartPostLoading: boolean;
   heartPostDone: boolean;
   heartPostError: SerializedError | null;

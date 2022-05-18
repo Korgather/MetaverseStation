@@ -1,6 +1,8 @@
+import SearchInput from '@components/common/SearchInput';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';
+import { useRouter } from 'next/router';
 import React from 'react';
 import styled from 'styled-components';
 import BoardList from './BoardList';
@@ -8,10 +10,22 @@ import Category from './Category';
 import CommunitySearch from './CommunitySearch';
 
 const Board = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const openModal = () => dispatch(ToggleCommunityWriteModalState(true));
   const me = useAppSelector((state) => state.userSlice.me);
-
+  const pathname =
+    router.pathname.indexOf('question') > -1
+      ? 'question'
+      : router.pathname.indexOf('study') > -1
+      ? 'study'
+      : router.pathname.indexOf('free') > -1 && 'free';
+  const category =
+    pathname === 'question'
+      ? 'COMMUNITY_QUESTION'
+      : pathname === 'study'
+      ? 'COMMUNITY_STUDY'
+      : pathname === 'free' && 'COMMUNITY_GENERAL';
   return (
     <Layout>
       <CategoryWrapper>
@@ -19,7 +33,16 @@ const Board = () => {
       </CategoryWrapper>
       <BoardWrapper>
         <TopWrapper>
-          <CommunitySearch />
+          {/* <CommunitySearch /> */}
+          {
+            <SearchInput
+              category={category as string}
+              pathname={`/community/${pathname}`}
+              placeholder="게시글 검색하기"
+              styleConfig={{ pcWidth: '100%', mobileWidth: '100%', height: '50px' }}
+              noOptionsMessage="일치하는 게시글이 없습니다."
+            />
+          }
           {me ? (
             <StyledButton type="primary" htmlType="button" onClick={openModal}>
               글쓰기
