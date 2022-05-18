@@ -25,16 +25,30 @@ const Nav = () => {
       boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px',
     },
   };
+
+  // const { innerHeight } = window;
+
+  // const { scrollHeight } = document.body;
+  // const myScroll = e.srcElement.scrollingElement.scrollTop;
+
+  // console.log('현재 스크롤 위치 : ' + myScroll);
+
   useEffect(() => {
-    scrollY.onChange(() => {
-      if (scrollY.get() > 70) {
-        setFixedPos('true');
-        navAnimation.start('scroll');
-      } else {
-        setFixedPos('false');
-        navAnimation.start('top');
-      }
-    });
+    const bodyHeight = document.body.scrollHeight;
+    const windowHeight = window.innerHeight;
+    const scrollHeight = bodyHeight * 1 - windowHeight * 1;
+    console.log(scrollHeight);
+    if (scrollHeight > 100) {
+      scrollY.onChange(() => {
+        if (scrollY.get() > 70) {
+          setFixedPos('true');
+          navAnimation.start('scroll');
+        } else {
+          setFixedPos('false');
+          navAnimation.start('top');
+        }
+      });
+    }
   }, [scrollY, navAnimation]);
   useEffect(() => {
     if (homeMatch) {
