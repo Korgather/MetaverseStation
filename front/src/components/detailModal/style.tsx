@@ -72,7 +72,7 @@ export const Modal = styled(motion.div)<IModal>`
 
 export const Content = styled.div`
   font-size: 1rem;
-  line-height: 1.3;
+  line-height: 1.1;
 `;
 
 export const TagsWrapper = styled.div`
