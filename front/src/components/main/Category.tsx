@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Input, Menu } from 'antd';
+import { Menu } from 'antd';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
-import { useAppDispatch } from '@store/hook';
-import { getSearchKeyword } from '@slices/postSlice';
-const { Search } = Input;
+import SearchInput from './SearchInput';
+
 function Category() {
   const router = useRouter();
-  const dispatch = useAppDispatch();
-  const [searchValue, setSearchValue] = useState('');
   const [sort, setSort] = useState('');
-  const searchOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  };
   const onFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
     const name = (e.currentTarget as HTMLButtonElement).name;
     name && setSort(name);
-
     router.push({
       pathname: '/',
       query: {
@@ -30,16 +23,6 @@ function Category() {
   useEffect(() => {
     router.query.sort === 'playerCount,desc' ? setSort('sortByPlayer') : setSort('sortByDate');
   }, [router.query.sort]);
-  const onSearch = () => {
-    dispatch(getSearchKeyword(searchValue));
-    router.push({
-      pathname: '/',
-      query: {
-        search: searchValue,
-        category,
-      },
-    });
-  };
   const onSelect = ({ key }: { key: string }) => {
     if (key === 'category_all') {
       router.push({
@@ -89,7 +72,7 @@ function Category() {
           </FilterInner>
         </FilterWrapper>
       </MenuFilterWrapper>
-      <StyledSearch onChange={searchOnChange} value={searchValue} onSearch={onSearch} />
+      <SearchInput category={category as string} />
       <BlankBox />
     </MenuWrapper>
   );
@@ -102,7 +85,7 @@ interface sort {
 }
 
 const MenuWrapper = styled.div`
-  margin: 50px 0 30px 0;
+  margin: 20px 0 30px 0;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -116,13 +99,6 @@ const MenuWrapper = styled.div`
     align-items: center;
     margin: 20px 0 30px 0;
   }
-`;
-
-const StyledSearch = styled(Search)`
-  margin: auto auto;
-  width: 33.3%;
-  min-width: 150px;
-  min-height: 30px;
 `;
 
 const MenuBox = styled(Menu)`
