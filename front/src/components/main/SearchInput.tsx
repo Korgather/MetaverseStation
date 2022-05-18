@@ -34,7 +34,7 @@ const SearchInput = ({ category }: ISearchInput) => {
   };
   const search = async () => {
     if (searchValue.length >= 1) {
-      const res = await dispatch(searchKeywords(searchValue));
+      const res = await dispatch(searchKeywords({ searchValue, category }));
       const dataForSelect = res.payload.content.map((el: IPost) => ({
         value: el.title,
         label: el.title,

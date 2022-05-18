@@ -156,11 +156,17 @@ export const searchPosts = createAsyncThunk('posts/search', async (data, thunkAP
   }
 });
 
+interface searchKeywords {
+  searchValue: string;
+  category: string;
+}
+
 export const searchKeywords = createAsyncThunk(
   'posts/searchkeywords',
-  async (data?: string, thunkAPI?) => {
+  async (data: searchKeywords, thunkAPI?) => {
+    console.log(data);
     const {
-      postSlice: { searchPageNum, searchKeyword },
+      postSlice: { searchPageNum },
     } = thunkAPI.getState() as { postSlice: IPostState };
     const {
       userSlice: { AccessToken },
@@ -172,10 +178,10 @@ export const searchKeywords = createAsyncThunk(
           withCredentials: true,
         },
         params: {
-          keyword: data ? data : searchKeyword,
+          keyword: data.searchValue,
           size: 8,
           page: searchPageNum - 1,
-          category: 'METAVERSE',
+          category: data.category ? data.category : 'METAVERSE',
         },
       });
       const payload = res.data;
