@@ -63,6 +63,7 @@ const CommentInputWrapper = styled.div`
   width: 90%;
   height: 20%;
   margin-top: auto;
+  margin-bottom: 10px;
 `;
 
 const StyledButton = styled(Button)`

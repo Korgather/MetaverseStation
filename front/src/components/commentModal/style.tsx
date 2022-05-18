@@ -37,9 +37,9 @@ export const CommentModal = styled(motion.div)<IModal>`
   flex-direction: column;
   align-items: center;
   @media screen and (max-width: 850px) {
-    width: 90vw;
     height: 85vh;
     margin-left: 0;
+    min-width: 325px;
   }
 `;
 

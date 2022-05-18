@@ -8,7 +8,7 @@ import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
 import WriteModal from '@components/writeModal/WriteModal';
-import DetailModal from '@components/detailModal/DetailModal';
+import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {updateModalState && <WriteModal />}
-      {detailModalState && <DetailModal />}
+      {detailModalState && <DetailModalContainer />}
 
       <AppLayout>
         <>

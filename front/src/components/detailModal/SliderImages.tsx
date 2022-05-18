@@ -15,15 +15,13 @@ const SliderImages = () => {
       <SliderFrame>
         {postData?.imageList &&
           postData?.imageList.map((item) => (
-            <>
-              <S.StyledImages key={shortid.generate()}>
-                <Image
-                  src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
-                  alt=""
-                  style={{ display: 'block' }}
-                />
-              </S.StyledImages>
-            </>
+            <S.StyledImages key={shortid.generate()}>
+              <Image
+                src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
+                alt=""
+                style={{ display: 'block' }}
+              />
+            </S.StyledImages>
           ))}
       </SliderFrame>
       {me ? (
