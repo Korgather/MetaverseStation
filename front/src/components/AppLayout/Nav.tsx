@@ -37,7 +37,6 @@ const Nav = () => {
     const bodyHeight = document.body.scrollHeight;
     const windowHeight = window.innerHeight;
     const scrollHeight = bodyHeight * 1 - windowHeight * 1;
-    console.log(scrollHeight);
     if (scrollHeight > 100) {
       scrollY.onChange(() => {
         if (scrollY.get() > 70) {
