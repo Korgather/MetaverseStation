@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
-import SearchInput from './SearchInput';
+import SearchInput from '../common/SearchInput';
 
 function Category() {
   const router = useRouter();
@@ -72,7 +72,12 @@ function Category() {
           </FilterInner>
         </FilterWrapper>
       </MenuFilterWrapper>
-      <SearchInput category={category as string} />
+      <SearchInput
+        category={category as string}
+        pathname="/"
+        placeholder="메타버스 검색하기"
+        noOptionsMessage="일치하는 메타버스가 없습니다"
+      />
       <BlankBox />
     </MenuWrapper>
   );
