@@ -1,6 +1,6 @@
 import { loadLikedPosts, loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
-import DetailModal from '@components/detailModal/DetailModal';
+import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
@@ -32,7 +32,7 @@ const mypage = () => {
       <Head>
         <title>{`${me?.userName}님의 소개 - 모두의메타버스 | 메타버스 공유 플랫폼`}</title>
       </Head>
-      {detailModalState && <DetailModal />}
+      {detailModalState && <DetailModalContainer />}
       {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
       <AppLayout>
         <>

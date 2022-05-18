@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import ProfileDropdown from './ProfileDropdown';
 import Alram from './Alram';
 import WriteModal from '@components/writeModal/WriteModal';
-import DetailModal from '@components/detailModal/DetailModal';
+import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import FeedBack from './FeedBack';
 import Script from 'next/script';
 
@@ -48,8 +48,8 @@ const AppLayout = ({ children }: AuxProps) => {
         />
       </Script>
       {updateModalState && <WriteModal />}
-      {detailModalState && <DetailModal />}
-      {<DetailModal />}
+      {detailModalState && <DetailModalContainer />}
+      {<DetailModalContainer />}
       <LayoutWrapper className="layout">
         <StyledLayout>
           <TopWrapper>
