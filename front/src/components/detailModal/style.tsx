@@ -73,6 +73,7 @@ export const Modal = styled(motion.div)<IModal>`
 export const Content = styled.div`
   font-size: 1rem;
   line-height: 1.1;
+  word-break: break-all;
 `;
 
 export const TagsWrapper = styled.div`
@@ -212,6 +213,7 @@ export const ContentBox = styled.div`
   padding: 15px 30px;
   overflow-y: auto;
   height: 100%;
+  width: 100%;
   ${StyledScroll}
 `;
 
