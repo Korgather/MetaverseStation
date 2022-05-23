@@ -19,7 +19,7 @@ const SliderImages = () => {
                 key={item.imagePath}
                 src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
                 alt=""
-                style={{ display: 'block', height: '650px', objectFit: 'contain' }}
+                style={{ display: 'block', height: '650px', objectFit: 'cover' }}
               />
             </StyledImages>
           ))}
