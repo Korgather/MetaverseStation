@@ -15,11 +15,9 @@ const SliderImages = () => {
         {postDetail?.imageList &&
           postDetail?.imageList.map((item) => (
             <StyledImages key={shortid.generate()}>
-              <Image
+              <StyledImage
                 key={item.imagePath}
                 src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
-                alt=""
-                style={{ display: 'block', height: '650px', objectFit: 'contain' }}
               />
             </StyledImages>
           ))}
@@ -47,6 +45,15 @@ const SliderImages = () => {
 };
 
 export default SliderImages;
+
+const StyledImage = styled(Image)`
+  display: block;
+  height: 650px;
+  object-fit: contain;
+  @media screen and (max-width: 850px) {
+    height: 300px;
+  }
+`;
 
 export const StyledA = styled.a`
   display: flex;
