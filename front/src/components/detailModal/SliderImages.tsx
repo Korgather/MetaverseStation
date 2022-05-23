@@ -24,7 +24,12 @@ const SliderImages = () => {
             </S.StyledImages>
           ))}
       </SliderFrame>
-      {me ? (
+      <S.StyledA href={postData?.link} target="_blank">
+        <S.EntnerButton type="primary" htmlType="button">
+          <div>입장하기</div>
+        </S.EntnerButton>
+      </S.StyledA>
+      {/* {me ? (
         <S.StyledA href={postData?.link} target="_blank">
           <S.EntnerButton type="primary" htmlType="button">
             <div>입장하기</div>
@@ -36,7 +41,7 @@ const SliderImages = () => {
             <div>입장하기</div>
           </S.EntnerButton>
         </Link>
-      )}
+      )} */}
     </>
   );
 };
