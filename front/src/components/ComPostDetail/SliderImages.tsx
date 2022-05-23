@@ -19,12 +19,17 @@ const SliderImages = () => {
                 key={item.imagePath}
                 src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
                 alt=""
-                style={{ display: 'block' }}
+                style={{ display: 'block', height: '650px', objectFit: 'contain' }}
               />
             </StyledImages>
           ))}
       </SliderFrame>
-      {me ? (
+      <StyledA href={postDetail?.link} target="_blank">
+        <EntnerButton type="primary" htmlType="button">
+          <div>입장하기</div>
+        </EntnerButton>
+      </StyledA>
+      {/* {me ? (
         <StyledA href={postDetail?.link} target="_blank">
           <EntnerButton type="primary" htmlType="button">
             <div>입장하기</div>
@@ -36,7 +41,7 @@ const SliderImages = () => {
             <div>입장하기</div>
           </EntnerButton>
         </Link>
-      )}
+      )} */}
     </>
   );
 };
