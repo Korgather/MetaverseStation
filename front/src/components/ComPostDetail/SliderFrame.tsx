@@ -54,23 +54,12 @@ const SliderFrame = ({ loop = true, speed = 400, children, customPaging }: slide
 
 export default SliderFrame;
 
-const StyledA = styled.a`
-  display: block;
-  width: 80px;
-  height: 80px;
-  img {
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-  }
-`;
-const StyledImg = styled.img``;
-
 const SlideWrapper = styled.section`
   margin-top: 10px;
   padding: 0;
   position: relative;
   width: 100%;
+  height: auto;
   .slick-dots li {
     width: 80px;
   }
