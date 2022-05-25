@@ -22,7 +22,6 @@ const MapAPI = ({ formik }: IMusicAPI) => {
     if (mapData) {
       fr.readAsText(mapData, 'utf-8');
       fr.onload = async () => {
-        console.log(fr.result);
         modal.confirm({
           title: '맵파일을 적용하시겠습니까?',
           onOk: async function async() {

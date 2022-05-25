@@ -40,7 +40,6 @@ const GatherAPI = () => {
     },
     onSubmit: async (values: IGetMap) => {
       const submitData = { ...values, id: selectItem };
-      console.log(submitData);
       dispatch(setMusic(submitData));
     },
   });

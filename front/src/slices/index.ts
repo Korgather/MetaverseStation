@@ -8,10 +8,13 @@ import { ICommunityState } from '@customTypes/community';
 import communitySlice from './communitySlice';
 import apifactorySlice from './apifactorySlice';
 import { IApiFactory } from '@customTypes/apifactory';
+import { IGameState } from '@customTypes/game';
+import gameSlice from './gameSlice';
 
 export interface IRootState {
   postSlice: IPostState;
   userSlice: IUserState;
+  gameSlice: IGameState;
   communitySlice: ICommunityState;
   apifactorySlice: IApiFactory;
 }
@@ -30,6 +33,7 @@ const rootReducer = (state: TCombinedState, action: PayloadAction<IRootState>): 
         userSlice,
         communitySlice,
         apifactorySlice,
+        gameSlice,
       });
       return combineReducer(state, action);
     }

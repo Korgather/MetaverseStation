@@ -7,7 +7,7 @@ import { media } from '@styles/theme';
 
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
-  children: React.ReactNode;
+  children?: React.ReactNode;
   /** 커스텀 클래스 */
   className?: string;
   /** 자동재생 (속도 설정시 number 타입으로) */
@@ -17,16 +17,23 @@ interface sliderProps {
   /** 반복 여부 */
   loop?: boolean;
 }
+interface itemsProps {
+  mobile: string;
+  desktop: string;
+  name: string;
+  link?: string;
+}
 
 const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
   const settings = useMemo<Settings>(
     () => ({
       dots: true,
-      infinite: loop,
-      speed: speed,
+      infinite: true,
+      speed: 1000,
       slidesToShow: 1,
-      autoplay: Boolean(autoplay),
+      autoplay: true,
       autoplaySpeed: typeof autoplay === 'boolean' ? 5000 : autoplay,
+      loop: true,
     }),
     [autoplay, loop, speed],
   );

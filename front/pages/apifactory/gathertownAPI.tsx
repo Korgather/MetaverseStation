@@ -1,7 +1,7 @@
 import { loadMyInfo } from '@actions/user';
 import APIBoard from '@components/ApiFactory/APIBoard';
 import AppLayout from '@components/AppLayout/AppLayout';
-import BannerItem from '@components/main/BannerItem';
+import BannerView from '@components/common/Banner/BannerView';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const index = () => {
       </Head>
       <AppLayout>
         <>
-          <BannerItem />
+          <BannerView />
           <APIBoard />
         </>
       </AppLayout>

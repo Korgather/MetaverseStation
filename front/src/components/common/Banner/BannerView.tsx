@@ -12,6 +12,9 @@ interface itemsProps {
   link?: string;
 }
 
+interface BannerViewProps {
+  replacements?: string[];
+}
 const items: itemsProps[] = [
   {
     mobile: '../../images/MobileBanner01.gif',
@@ -31,26 +34,36 @@ const items: itemsProps[] = [
   },
 ];
 
-function BannerItem() {
+function BannerView({ replacements }: BannerViewProps) {
   const { isMobile } = useMedia();
+  const replacementsContainer = (replacements: string[]) =>
+    replacements.map((replacement) => (
+      <SliderItem key={shortid.generate()}>
+        <img src={replacement} alt="마피아게임이미지" />
+      </SliderItem>
+    ));
+
+  const generalContainer = (items: itemsProps[]) =>
+    items.map((item) => (
+      <SliderItem key={shortid.generate()}>
+        {item.link ? (
+          <a href={item.link} target="_blank" rel="noreferrer">
+            <img src={isMobile ? item.mobile : item.desktop} alt={item.name} />
+          </a>
+        ) : (
+          <img src={isMobile ? item.mobile : item.desktop} alt={item.name} />
+        )}
+      </SliderItem>
+    ));
+
   return (
     <BannerFrame>
-      {items.map((item) => (
-        <SliderItem key={shortid.generate()}>
-          {item.link ? (
-            <a href={item.link} target="_blank" rel="noreferrer">
-              <img src={isMobile ? item.mobile : item.desktop} alt={item.name} />
-            </a>
-          ) : (
-            <img src={isMobile ? item.mobile : item.desktop} alt={item.name} />
-          )}
-        </SliderItem>
-      ))}
+      {replacements ? replacementsContainer(replacements) : items && generalContainer(items)}
     </BannerFrame>
   );
 }
 
-export default BannerItem;
+export default BannerView;
 const SliderItem = styled.div`
   img {
     width: 1440px;

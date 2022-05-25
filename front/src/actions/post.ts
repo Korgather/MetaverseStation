@@ -164,7 +164,6 @@ interface searchKeywords {
 export const searchKeywords = createAsyncThunk(
   'posts/searchkeywords',
   async (data: searchKeywords, thunkAPI?) => {
-    console.log(data);
     const {
       postSlice: { searchPageNum },
     } = thunkAPI.getState() as { postSlice: IPostState };

@@ -2,10 +2,10 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import type { NextPage } from 'next';
 import styled, { css } from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
-import Postzone from '@components/main/Postzone';
+import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/Category';
-import BannerItem from '@components/main/BannerItem';
-import Pagination from '@components/main/Pagination';
+import BannerView from '@components/common/Banner/BannerView';
+import Pagination from '@components/common/Pagination/PaginationContainer';
 import { Button, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Router, useRouter } from 'next/router';
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
       </Head>
       <AppLayout>
         <>
-          <BannerItem />
+          <BannerView />
           <Category />
           <AnimatePresence exitBeforeEnter>
             <motion.div
