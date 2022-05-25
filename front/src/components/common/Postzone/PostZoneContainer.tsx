@@ -5,11 +5,22 @@ import { loadPost, viewPost } from '@actions/post';
 import { ToggleDetailState } from '@slices/postSlice';
 import PostZoneView from './PostZoneView';
 
+export interface GameImages {
+  src: string;
+  url: string;
+  count: undefined | number;
+}
 interface PostzoneProps {
-  mainPosts: IPost[];
+  mainPosts?: IPost[];
+  Images?: GameImages[];
+  imageHeight?: string;
 }
 
-const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
+const Postzone: React.FunctionComponent<PostzoneProps> = ({
+  mainPosts = null,
+  Images = null,
+  imageHeight = '15.625rem',
+}) => {
   const dispatch = useAppDispatch();
   const loadPostId = async (data: IPost) => {
     await Promise.all([dispatch(viewPost(data.id)), dispatch(loadPost(data.id))]);
@@ -20,6 +31,8 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({ mainPosts }) => {
       post && loadPostId(post);
       dispatch(ToggleDetailState(true));
     },
+    Images,
+    imageHeight,
   };
   return <PostZoneView {...PostzoneProps} />;
 };

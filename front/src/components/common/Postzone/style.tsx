@@ -102,15 +102,18 @@ export const ImgWrapper = styled.div`
   @media screen and (max-width: 992px) {
     width: 32vw;
   }
-  ${media.mobile} {
+  @media screen and (max-width: 768px) {
     width: 70vw;
   }
 `;
 
-export const PostImg = styled.img`
+interface imageHeight {
+  imageHeight?: string;
+}
+export const PostImg = styled.img<imageHeight>`
   border-radius: 10px;
   transform: scale(1);
-  height: 15.625rem;
+  height: ${(props) => (props.imageHeight ? props.imageHeight : '15.625rem')};
   transition: all 0.3s ease-in-out;
   width: 100%;
   object-fit: cover;
