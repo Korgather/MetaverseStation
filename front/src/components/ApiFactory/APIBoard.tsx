@@ -4,7 +4,7 @@ import GatherAPI from './GatherAPI';
 import Category from './Category';
 import { useRouter } from 'next/router';
 import ZepAPI from './ZepAPI';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 const APIBoard = () => {
   const router = useRouter();

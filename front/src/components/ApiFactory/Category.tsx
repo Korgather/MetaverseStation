@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled, { css } from 'styled-components';
 
 const Category = () => {

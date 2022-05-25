@@ -21,7 +21,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 import shortid from 'shortid';
 import useScroll from '@lib/useScroll';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);

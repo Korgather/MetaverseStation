@@ -12,7 +12,7 @@ import { HeartFilled } from '@ant-design/icons';
 import shortid from 'shortid';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 interface MyPostProps {
   myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;

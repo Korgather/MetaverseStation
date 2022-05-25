@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input } from 'antd';
 import Router from 'next/router';
 import React, { useState } from 'react';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled from 'styled-components';
 
 interface ISetNickname {

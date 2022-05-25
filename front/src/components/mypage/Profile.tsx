@@ -3,7 +3,7 @@ import { openModal } from '@lib/ModalUtil';
 import { useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import React, { Dispatch, SetStateAction } from 'react';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled from 'styled-components';
 
 interface ProfileProps {

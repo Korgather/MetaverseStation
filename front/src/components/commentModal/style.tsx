@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { motion } from 'framer-motion';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled, { css } from 'styled-components';
 
 interface large {

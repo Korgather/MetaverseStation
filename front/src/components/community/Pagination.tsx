@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
 import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 const Pagination = () => {
   const router = useRouter();

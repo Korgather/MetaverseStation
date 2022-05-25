@@ -1,7 +1,7 @@
 import { useMedia } from '@lib/useMedia';
 import React from 'react';
 import shortid from 'shortid';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled from 'styled-components';
 import BannerFrame from './BannerFrame';
 

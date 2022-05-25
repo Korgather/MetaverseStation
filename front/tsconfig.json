@@ -23,9 +23,18 @@
       "@lib/*": ["src/lib/*"],
       "@actions/*": ["src/actions/*"],
       "@customTypes/*": ["src/customTypes/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "@styles/*": ["src/styles/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/sitemap-common.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "scripts/sitemap-common.js",
+    "jest.config.js",
+    "jest.setup.js",
+    "jest.config.js"
+  ],
   "exclude": ["node_modules"]
 }

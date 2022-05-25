@@ -1,6 +1,6 @@
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { Button } from 'antd';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled, { css } from 'styled-components';
 
 interface isactive {

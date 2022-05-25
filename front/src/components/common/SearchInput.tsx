@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 const defaultStyleConfig = {
   pcWidth: '33.3%',

@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-scroll';
 import Content from './Content';
 import Category from './Category';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 const Guide01 = () => {
   return (
     <GuideLayOut>

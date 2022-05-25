@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import ProfileDropdown from './ProfileDropdown';
 import Alram from './Alram';
 import { motion, useAnimation, useViewportScroll } from 'framer-motion';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 const Nav = () => {
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);

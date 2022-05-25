@@ -7,7 +7,7 @@ import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import FeedBack from './FeedBack';
 import Script from 'next/script';
 import Nav from './Nav';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;

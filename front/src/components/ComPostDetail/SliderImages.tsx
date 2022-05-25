@@ -5,7 +5,7 @@ import SliderFrame from './SliderFrame';
 import { Button, Image } from 'antd';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 const SliderImages = () => {
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);

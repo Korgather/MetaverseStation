@@ -17,7 +17,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 const ComDetailPost = () => {
   const communityWriteModalState = useAppSelector(

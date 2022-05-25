@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled from 'styled-components';
 
 const FeedBack = () => {

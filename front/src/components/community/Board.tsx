@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 import styled from 'styled-components';
 import BoardList from './BoardList';
 import Category from './Category';

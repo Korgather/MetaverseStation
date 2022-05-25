@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { Bookmark } from 'src/svg';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 interface IModal {
   commentState: boolean;
 }

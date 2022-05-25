@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import SearchInput from '../common/SearchInput';
-import { media } from 'src/styles/theme';
+import { media } from '@styles/theme';
 
 function Category() {
   const router = useRouter();
