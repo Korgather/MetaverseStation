@@ -9,6 +9,9 @@ interface NavProps {
 
 export const NavLayout = styled.div<NavProps>`
   width: 100%;
+  .ant-space-align-center {
+    width: 100%;
+  }
 `;
 
 export const AlramProfileWrapper = styled.div`
@@ -57,7 +60,7 @@ export const BtnWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
-  width: 100%;
+  width: 30%;
   ${media.mobile} {
     flex: 1;
   }
