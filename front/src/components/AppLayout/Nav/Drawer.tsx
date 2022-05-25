@@ -46,7 +46,9 @@ const App: React.FC = () => {
         <Menu onClick={onClose}>
           <Link href="/apifactory/gathertownAPI">ApiFactory</Link>
         </Menu>
-        <CloseBtn onClick={onClose}>x</CloseBtn>
+        <CloseBtn onClick={onClose}>
+          <span>x</span>
+        </CloseBtn>
       </StyledDrawer>
     </>
   );
@@ -82,7 +84,7 @@ const Menu = styled.div`
 
 const CloseBtn = styled.div`
   position: absolute;
-  right: 10px;
+  right: 30px;
   top: 10px;
   font-size: 1.4rem;
   padding: 10px;
@@ -94,4 +96,7 @@ const CloseBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  span {
+    margin-bottom: 3px;
+  }
 `;
