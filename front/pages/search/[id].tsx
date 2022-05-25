@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import styled from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
-import Postzone from '@components/main/Postzone';
+import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';

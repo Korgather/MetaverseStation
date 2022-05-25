@@ -1,8 +1,8 @@
+import React from 'react';
 import { IUser } from '@customTypes/user';
 import { Menu } from 'antd';
 import { AnimationControls } from 'framer-motion';
 import Link from 'next/link';
-import React from 'react';
 import Alram from '../Alram';
 import ProfileDropdown from '../ProfileDropdown';
 import * as S from './style';
@@ -49,10 +49,13 @@ const NavView = ({
       >
         <S.MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
           <Menu.Item key="nav_gathertown">
-            <Link href="/">메타버스 게시판</Link>
+            <Link href="/">메타버스</Link>
           </Menu.Item>
           <Menu.Item key="nav_community">
-            <Link href="/community/free">커뮤니티 게시판</Link>
+            <Link href="/community/free">커뮤니티</Link>
+          </Menu.Item>
+          <Menu.Item key="nav_game">
+            <Link href="/game">게임</Link>
           </Menu.Item>
           <Menu.Item key="nav_api">
             <Link href="/apifactory/gathertownAPI">ApiFactory</Link>

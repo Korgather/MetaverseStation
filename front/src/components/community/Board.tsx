@@ -1,4 +1,4 @@
-import SearchInput from '@components/common/SearchInput';
+import SearchInput from '@components/common/SearchInput/SearchInput';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';

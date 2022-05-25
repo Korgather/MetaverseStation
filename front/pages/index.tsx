@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import type { NextPage } from 'next';
 import styled, { css } from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
-import Postzone from '@components/main/Postzone';
+import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/Category';
 import BannerItem from '@components/main/BannerItem';
 import Pagination from '@components/main/Pagination';
