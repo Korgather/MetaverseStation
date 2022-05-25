@@ -38,7 +38,7 @@ const Nav = () => {
     const bodyHeight = document.body.scrollHeight;
     const windowHeight = window.innerHeight;
     const scrollHeight = bodyHeight * 1 - windowHeight * 1;
-    if (scrollHeight > 100) {
+    if (scrollHeight > 120) {
       scrollY.onChange(() => {
         if (scrollY.get() > 70) {
           setFixedPos('true');
