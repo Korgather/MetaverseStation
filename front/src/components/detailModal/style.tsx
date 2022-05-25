@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import { Bookmark } from 'src/svg';
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
+import { media } from '@styles/theme';
 interface IModal {
   commentState: boolean;
 }
@@ -64,7 +65,7 @@ export const Modal = styled(motion.div)<IModal>`
   transition: right 100ms linear;
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     height: 85vh;
     transition: none;
   }
@@ -135,7 +136,7 @@ export const EntnerButton = styled(Button)`
   letter-spacing: 4px;
   padding-top: 5px;
   transition: all ease-in-out 300ms;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     font-size: 1.3rem;
     padding-top: 6px;
   }
@@ -189,7 +190,7 @@ export const StyledImages = styled.div`
   .ant-image {
     display: block !important;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     height: 250px;
   }
 `;

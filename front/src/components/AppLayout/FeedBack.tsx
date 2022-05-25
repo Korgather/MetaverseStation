@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import React, { useState } from 'react';
+import { media } from '@styles/theme';
 import styled from 'styled-components';
 
 const FeedBack = () => {
@@ -85,7 +86,7 @@ const Content = styled.p`
 const LogoImg = styled.img`
   width: 300px;
   margin: 20px 0;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 250px;
   }
 `;
@@ -110,7 +111,7 @@ const ContentWrapper = styled.div`
   background-color: white;
   border: 2px solid #4490f8;
   border-radius: 10px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 320px;
     text-align: center;
     font-size: 0.8rem;

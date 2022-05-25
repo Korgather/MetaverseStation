@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-scroll';
 import Content from './Content';
 import Category from './Category';
+import { media } from '@styles/theme';
 const Guide01 = () => {
   return (
     <GuideLayOut>
@@ -25,7 +26,7 @@ const GuideLayOut = styled.div`
   max-width: 900px;
   display: flex;
   flex-direction: row;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 80vw;
   }
 `;
@@ -35,7 +36,7 @@ const ContentBox = styled.div`
   flex-direction: column;
   margin-top: 80px;
   flex: 10;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex: 10;
   }
 `;
@@ -45,14 +46,14 @@ const CategoryBox = styled.div`
   margin-top: 225px;
   flex: 2;
   margin-right: 50px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: none;
   }
 `;
 
 const BlankBox = styled.div`
   flex: 2;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: none;
   }
 `;

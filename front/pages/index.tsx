@@ -21,6 +21,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 import shortid from 'shortid';
 import useScroll from '@lib/useScroll';
+import { media } from '@styles/theme';
 
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
@@ -76,7 +77,7 @@ export default Home;
 
 const BottomWrapper = styled.div`
   position: relative;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: flex;
     flex-direction: column;
   }
@@ -86,7 +87,7 @@ const StyledButton = styled(Button)`
   position: absolute;
   right: 10px;
   top: 45px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: flex;
     flex-direction: column;
     position: unset;

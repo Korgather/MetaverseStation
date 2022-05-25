@@ -1,6 +1,7 @@
 import { Button } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { motion } from 'framer-motion';
+import { media } from '@styles/theme';
 import styled, { css } from 'styled-components';
 
 interface large {
@@ -36,7 +37,7 @@ export const CommentModal = styled(motion.div)<IModal>`
   margin-left: 10px;
   flex-direction: column;
   align-items: center;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     height: 85vh;
     margin-left: 0;
     min-width: 325px;
@@ -55,7 +56,7 @@ export const StyledTextArea = styled(TextArea)<large>`
       width: 13.5vw;
       max-width: 260px !important;
     `}
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;
@@ -159,7 +160,7 @@ export const ContentWrapper = styled.div<large>`
       width: 14vw;
       max-width: 260px;
     `}
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;
@@ -213,7 +214,7 @@ export const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   overflow: auto;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;
@@ -238,20 +239,20 @@ export const CommentContainer = styled.div`
   + div {
     margin-top: 10px;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;
 
 export const TempContainer = styled.div`
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
   }
 `;
 
 export const Goback = styled.div`
   display: none;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: block;
     width: 100%;
     padding: 10px;

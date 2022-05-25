@@ -12,6 +12,7 @@ import { HeartFilled } from '@ant-design/icons';
 import shortid from 'shortid';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
+import { media } from '@styles/theme';
 interface MyPostProps {
   myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
@@ -178,7 +179,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 20px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: column;
   }
 `;
@@ -187,7 +188,7 @@ const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -226,7 +227,7 @@ const Menu = styled.div<isActive>`
   @media screen and (max-width: 1550px) {
     font-size: 1rem;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin: 0;
     + div {
       margin: 0;

@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import ProfileDropdown from './ProfileDropdown';
 import Alram from './Alram';
 import { motion, useAnimation, useViewportScroll } from 'framer-motion';
+import { media } from '@styles/theme';
 const Nav = () => {
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
@@ -118,7 +119,7 @@ const AlramProfileWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin-right: 20px;
     margin-top: 10px;
   }
@@ -132,7 +133,7 @@ const LogoImg = styled.img`
   width: 26rem;
   cursor: pointer;
   margin-right: auto;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 240px;
   }
 `;
@@ -141,7 +142,7 @@ const MenuWrapper = styled(Menu)`
   width: 70%;
   font-size: 1rem;
   font-weight: 700;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
     font-size: 1rem;
     display: flex;
@@ -161,7 +162,7 @@ const BtnWrapper = styled.div`
   align-items: center;
   justify-content: end;
   width: 100%;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex: 1;
   }
 `;
@@ -180,7 +181,7 @@ const StyledHeader = styled(motion.div)<NavProps>`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100vw;
   }
 `;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Pagination as AntdPagination } from 'antd';
 import { useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
+import { media } from '@styles/theme';
 
 const Pagination = () => {
   const router = useRouter();
@@ -47,7 +48,7 @@ const PaginationWrapper = styled.div`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin-top: 20px;
     width: 100vw;
   }
