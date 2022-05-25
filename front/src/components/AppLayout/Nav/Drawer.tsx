@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Drawer, Button, Radio, Space } from 'antd';
-import type { DrawerProps, RadioChangeEvent } from 'antd';
+import { Drawer, Space } from 'antd';
 import styled from 'styled-components';
 import Link from 'next/link';
 

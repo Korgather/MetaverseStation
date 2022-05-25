@@ -26,7 +26,6 @@ const MusicAPI = ({ formik, selectItem, setSelectItem }: IMusicAPI) => {
       musicState: true,
     };
     const res = await dispatch(getMap(dispatchData));
-    console.log();
     if (res.type === 'gatherApi/getMap/fulfilled') {
       const objects = res.payload.objects;
       const filterObj: IMusicObj[] = objects.filter((el: { id: string }) => el.id === selectItem);

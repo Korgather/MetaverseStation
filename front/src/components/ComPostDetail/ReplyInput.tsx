@@ -23,7 +23,6 @@ const ReplyInput = ({ comment, reply }: IReplyInput) => {
       content: replyContent,
       commentId: comment ? comment.commentId : reply && reply.commentId,
     };
-    console.log(data);
     await dispatch(addReply(data));
     await dispatch(loadComPost(postDetail?.id as number));
     setReplyContent('');
