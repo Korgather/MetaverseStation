@@ -6,6 +6,7 @@ import shortid from 'shortid';
 class MyDocument extends Document {
   static async getInitialProps(context: DocumentContext) {
     const sheet = new ServerStyleSheet();
+    // eslint-disable-next-line testing-library/render-result-naming-convention
     const originalRenderPage = context.renderPage;
 
     try {
