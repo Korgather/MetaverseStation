@@ -13,6 +13,7 @@ const Nav = () => {
   const homeMatch = router.pathname === '/';
   const communityMatch = router.pathname.indexOf('/community') > -1;
   const apifactoryMatch = router.pathname.indexOf('/apifactory') > -1;
+  const gameMatch = router.pathname.indexOf('/game') > -1;
   const navVariants = {
     top: {
       boxShadow: 'rgba(0, 0, 0, 0) 0px 5px 15px',
@@ -46,6 +47,9 @@ const Nav = () => {
     }
     if (apifactoryMatch) {
       setSelectedKeys(['nav_api']);
+    }
+    if (gameMatch) {
+      setSelectedKeys(['nav_game']);
     }
   }, []);
 
