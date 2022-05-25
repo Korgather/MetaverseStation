@@ -7,6 +7,7 @@ import { useAppDispatch } from '@store/hook';
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { loadPost, viewPost } from '@actions/post';
 import { ToggleDetailState } from '@slices/postSlice';
+import { media } from 'src/styles/theme';
 
 interface PostzoneProps {
   mainPosts: IPost[];
@@ -104,7 +105,7 @@ const CountBox = styled.div`
 `;
 const StyledCol = styled(Col)`
   position: relative;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     + div {
       margin-top: 20px;
     }
@@ -172,7 +173,7 @@ const ImgWrapper = styled.div`
   @media screen and (max-width: 992px) {
     width: 32vw;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 70vw;
   }
 `;
@@ -194,7 +195,7 @@ const Summary = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 70vw;
     justify-content: center;
     align-items: center;

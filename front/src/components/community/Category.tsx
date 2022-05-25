@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { media } from 'src/styles/theme';
 import styled, { css } from 'styled-components';
 
 const Category = () => {
@@ -36,7 +37,7 @@ const CategoryContainer = styled.div`
   margin: 0 auto;
   width: 100%;
   margin-top: 85px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: row;
     align-items: center;
     justify-content: center;
@@ -54,7 +55,7 @@ const Menu = styled.div<isacitve>`
   @media screen and (max-width: 1080px) {
     font-size: 0.9rem;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100px;
   }
   + div {
@@ -73,7 +74,7 @@ const Menu = styled.div<isacitve>`
         color: #448ef7;
       }
     `}
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
     text-align: center;
     vertical-align: middle;

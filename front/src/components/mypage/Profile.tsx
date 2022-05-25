@@ -3,6 +3,7 @@ import { openModal } from '@lib/ModalUtil';
 import { useAppSelector } from '@store/hook';
 import { Button } from 'antd';
 import React, { Dispatch, SetStateAction } from 'react';
+import { media } from 'src/styles/theme';
 import styled from 'styled-components';
 
 interface ProfileProps {
@@ -62,7 +63,7 @@ const ProfileWrapper = styled.div`
   flex-direction: row;
   width: 100%;
   padding: 10px 0 50px 0;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -80,7 +81,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 480px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100%;
     margin-top: 20px;
   }

@@ -1,6 +1,7 @@
 import { useMedia } from '@lib/useMedia';
 import React from 'react';
 import shortid from 'shortid';
+import { media } from 'src/styles/theme';
 import styled from 'styled-components';
 import BannerFrame from './BannerFrame';
 
@@ -56,7 +57,7 @@ const SliderItem = styled.div`
     @media screen and (max-width: 1650px) {
       width: 75vw;
     }
-    @media screen and (max-width: 850px) {
+    ${media.mobile} {
       width: 100vw;
     }
   }

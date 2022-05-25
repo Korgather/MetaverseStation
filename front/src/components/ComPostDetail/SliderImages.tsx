@@ -5,6 +5,7 @@ import SliderFrame from './SliderFrame';
 import { Button, Image } from 'antd';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { media } from 'src/styles/theme';
 
 const SliderImages = () => {
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
@@ -50,7 +51,7 @@ const StyledImage = styled(Image)`
   display: block;
   height: 650px;
   object-fit: contain;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     height: 300px;
   }
 `;

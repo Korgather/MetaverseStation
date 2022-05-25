@@ -4,6 +4,7 @@ import GatherAPI from './GatherAPI';
 import Category from './Category';
 import { useRouter } from 'next/router';
 import ZepAPI from './ZepAPI';
+import { media } from 'src/styles/theme';
 
 const APIBoard = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const BoardWrapper = styled.div`
 const CategoryWrapper = styled.div`
   width: 20%;
   display: flex;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: row;
     width: 100%;
     margin-bottom: auto;
@@ -51,7 +52,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100vw;
     flex-direction: column;
     align-items: center;

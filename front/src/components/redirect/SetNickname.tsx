@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input } from 'antd';
 import Router from 'next/router';
 import React, { useState } from 'react';
+import { media } from 'src/styles/theme';
 import styled from 'styled-components';
 
 interface ISetNickname {
@@ -86,7 +87,7 @@ const Container = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     min-width: 350px;
   }
 `;
@@ -123,7 +124,7 @@ const Request = styled.div`
 const StyledInput = styled(Input)`
   width: 40%;
   margin-top: 30px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 50%;
   }
 `;
@@ -133,7 +134,7 @@ const StyledButton = styled(Button)`
   + button {
     margin-left: 20px;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 30%;
   }
 `;

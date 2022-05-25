@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Select from 'react-select';
+import { media } from 'src/styles/theme';
 
 const defaultStyleConfig = {
   pcWidth: '33.3%',
@@ -100,7 +101,7 @@ const Container = styled.div<styleConfig>`
   width: ${(props) => props.pcWidth};
   min-width: 150px;
   min-height: 30px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: ${(props) => props.mobileWidth};
   }
   .css-1s2u09g-control {

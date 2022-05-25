@@ -17,6 +17,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
+import { media } from 'src/styles/theme';
 
 const ComDetailPost = () => {
   const communityWriteModalState = useAppSelector(
@@ -76,7 +77,7 @@ export default ComDetailPost;
 const ComDetailPostLayout = styled.div`
   width: 60vw;
   max-width: 700px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 80vw;
   }
 `;

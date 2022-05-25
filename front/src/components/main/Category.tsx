@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
 import SearchInput from '../common/SearchInput';
+import { media } from 'src/styles/theme';
 
 function Category() {
   const router = useRouter();
@@ -98,7 +99,7 @@ const MenuWrapper = styled.div`
   a {
     font-size: 0.8rem;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -111,7 +112,7 @@ const MenuBox = styled(Menu)`
   margin-right: auto;
   flex-direction: row;
   border: none;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin: 0 auto;
     width: 80%;
     display: flex;
@@ -128,7 +129,7 @@ const FilterWrapper = styled.div`
   flex-direction: row;
   align-items: center;
 
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     justify-content: center;
   }
   button {
@@ -147,7 +148,7 @@ const MenuFilterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 33.3%;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin: 0 auto;
     width: 80%;
     display: flex;
@@ -158,7 +159,7 @@ const MenuFilterWrapper = styled.div`
 
 const BlankBox = styled.div`
   width: 33.3%;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: none;
   }
 `;

@@ -3,6 +3,7 @@ import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
+import { media } from 'src/styles/theme';
 
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
@@ -52,7 +53,7 @@ const SlideWrapper = styled.section`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100vw;
     .slick-prev:before,
     .slick-next:before {

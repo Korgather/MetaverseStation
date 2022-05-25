@@ -1,5 +1,6 @@
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { Button } from 'antd';
+import { media } from 'src/styles/theme';
 import styled, { css } from 'styled-components';
 
 interface isactive {
@@ -14,7 +15,7 @@ export const ButtonWrapper = styled.div`
   @media screen and (max-width: 1550px) {
     margin-left: 15%;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin: 0 auto;
   }
 `;

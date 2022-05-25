@@ -3,6 +3,7 @@ import { UploadFile } from 'antd/lib/upload/interface';
 import { Upload, Input, Tag, Button } from 'antd';
 import styled from 'styled-components';
 import dynamic from 'next/dynamic';
+import { media } from 'src/styles/theme';
 const QuillNoSSRWrapper = dynamic(import('react-quill'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
@@ -53,7 +54,7 @@ export const Modal = styled.div`
     margin-top: 10px;
   }
   overflow: auto;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100vw;
   }
 `;

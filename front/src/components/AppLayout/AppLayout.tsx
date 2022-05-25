@@ -7,6 +7,7 @@ import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import FeedBack from './FeedBack';
 import Script from 'next/script';
 import Nav from './Nav';
+import { media } from 'src/styles/theme';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -80,7 +81,7 @@ const StyledLayout = styled(Layout)`
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100vw;
   }
 `;

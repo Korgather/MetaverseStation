@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { media } from 'src/styles/theme';
 import styled from 'styled-components';
 import BoardList from './BoardList';
 import Category from './Category';
@@ -65,14 +66,14 @@ export default Board;
 const StyledButton = styled(Button)`
   margin-top: auto;
   margin-left: 30px;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     margin: 15px 0 0 auto;
     width: 100px;
   }
 `;
 const TopWrapper = styled.div`
   display: flex;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     flex-direction: column;
   }
 `;
@@ -84,7 +85,7 @@ const BoardWrapper = styled.div`
 const CategoryWrapper = styled.div`
   width: 15%;
   display: flex;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 80%;
 
     margin-bottom: auto;
@@ -95,7 +96,7 @@ const CategoryWrapper = styled.div`
 
 const BlankBox = styled.div`
   width: 10%;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     display: none;
   }
 `;
@@ -109,7 +110,7 @@ const Layout = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  @media screen and (max-width: 850px) {
+  ${media.mobile} {
     width: 100vw;
     flex-direction: column;
     align-items: center;
