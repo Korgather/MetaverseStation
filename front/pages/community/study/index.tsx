@@ -4,7 +4,7 @@ import AppLayout from '@components/AppLayout/AppLayout';
 import Board from '@components/community/Board';
 import Pagination from '@components/community/Pagination';
 import CommunityWriteModal from '@components/community/writeModal/CommunityWriteModal';
-import BannerItem from '@components/main/BannerItem';
+import BannerView from '@components/common/Banner/BannerView';
 import { clearComPostDetail } from '@slices/communitySlice';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
@@ -28,7 +28,7 @@ const community = () => {
       {communityWriteModalState && <CommunityWriteModal />}
       <AppLayout>
         <FlexWrapper>
-          <BannerItem />
+          <BannerView />
           <Board />
           <Pagination />
         </FlexWrapper>

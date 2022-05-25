@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/Category';
-import BannerItem from '@components/main/BannerItem';
-import Pagination from '@components/main/Pagination';
+import BannerView from '@components/common/Banner/BannerView';
+import Pagination from '@components/common/Pagination/PaginationContainer';
 import WriteModal from '@components/writeModal/WriteModal';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import { Button } from 'antd';
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
 
       <AppLayout>
         <>
-          <BannerItem />
+          <BannerView />
           <Category />
           <Postzone mainPosts={mainPosts} />
           <BottomWrapper>
