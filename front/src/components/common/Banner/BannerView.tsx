@@ -35,7 +35,7 @@ const items: itemsProps[] = [
 ];
 
 function BannerView({ replacements }: BannerViewProps) {
-  const { isMobile, isPc } = useMedia();
+  const { isMobile, isPc, isTablet } = useMedia();
 
   const replacementsContainer = (replacements: string[]) =>
     replacements.map((replacement) => (
@@ -45,7 +45,7 @@ function BannerView({ replacements }: BannerViewProps) {
     ));
 
   const generalContainer = (items: itemsProps[]) =>
-    isPc &&
+    (isPc || isMobile || isTablet) &&
     items.map((item) => (
       <SliderItem key={shortid.generate()}>
         {item.link ? (
