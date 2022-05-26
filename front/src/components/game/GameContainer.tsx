@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch } from '@store/hook';
 import { getMapiaUserCount } from '@actions/game';
 import GameView from './GameView';
+import { useMedia } from '@lib/useMedia';
 
 const GameContainer = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +17,11 @@ const GameContainer = () => {
     '25gN3Q',
   ];
   const [userCount, setUserCount] = useState<number[]>([]);
-  const replacements = ['https://cdn.metabusstation.shop/static/mafiaGameBanner.png'];
+  const { isPc } = useMedia();
+  const imageSrc = isPc
+    ? 'https://cdn.metabusstation.shop/static/mafiaGameBanner.png'
+    : '../../images/mapiachannel/mobileBanner.png';
+  const replacements = [imageSrc];
   useEffect(() => {
     (async () => {
       const result = await Promise.all([
