@@ -19,7 +19,7 @@ const App: React.FC = () => {
       <Space>
         <ImgWrapper>
           <img
-            src="../images/burger.png"
+            src="../../images/burger.png"
             alt="menubutton"
             onClick={showDrawer}
             style={{ cursor: 'pointer' }}
