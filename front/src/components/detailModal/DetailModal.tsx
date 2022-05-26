@@ -48,26 +48,30 @@ const mobileModalVariants = {
 };
 
 const DetailModal = ({ commentState, setCommentState, postData }: DetailModalProps) => {
-  const { isMobile } = useMedia();
+  const { isMobile, isPc, isTablet } = useMedia();
 
   return (
-    <S.Modal
-      commentState={commentState}
-      variants={isMobile ? mobileModalVariants : modalVariants}
-      initial="initial"
-      animate="visible"
-      exit="leaving"
-      key="detailModal"
-    >
-      <DetailHeader setCommentState={setCommentState} />
-      <SliderImages />
-      <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
-      <S.ContentBox>
-        <S.Content>
-          {typeof postData.content === 'string' ? parse(postData.content) : postData.content}
-        </S.Content>
-      </S.ContentBox>
-    </S.Modal>
+    <>
+      {(isMobile || isPc || isTablet) && (
+        <S.Modal
+          commentState={commentState}
+          variants={isMobile ? mobileModalVariants : modalVariants}
+          initial="initial"
+          animate="visible"
+          exit="leaving"
+          key="detailModal"
+        >
+          <DetailHeader setCommentState={setCommentState} />
+          <SliderImages />
+          <HeartAndMessage commentState={commentState} setCommentState={setCommentState} />
+          <S.ContentBox>
+            <S.Content>
+              {typeof postData.content === 'string' ? parse(postData.content) : postData.content}
+            </S.Content>
+          </S.ContentBox>
+        </S.Modal>
+      )}
+    </>
   );
 };
 
