@@ -45,6 +45,7 @@ function BannerView({ replacements }: BannerViewProps) {
     ));
 
   const generalContainer = (items: itemsProps[]) =>
+    isPc &&
     items.map((item) => (
       <SliderItem key={shortid.generate()}>
         {item.link ? (
