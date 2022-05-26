@@ -35,16 +35,12 @@ const items: itemsProps[] = [
 ];
 
 function BannerView({ replacements }: BannerViewProps) {
-  const { isMobile } = useMedia();
+  const { isMobile, isPc } = useMedia();
 
   const replacementsContainer = (replacements: string[]) =>
     replacements.map((replacement) => (
       <SliderItem key={shortid.generate()}>
-        {!isMobile ? (
-          <img src={replacement} alt="마피아게임이미지" />
-        ) : (
-          <img src={replacement} alt="마피아게임이미지" height={200} />
-        )}
+        <img src={replacement} alt="마피아게임이미지" />
       </SliderItem>
     ));
 
@@ -53,10 +49,10 @@ function BannerView({ replacements }: BannerViewProps) {
       <SliderItem key={shortid.generate()}>
         {item.link ? (
           <a href={item.link} target="_blank" rel="noreferrer">
-            <img src={!isMobile ? item.desktop : item.mobile} alt={item.name} />
+            <img src={isPc ? item.desktop : item.mobile} alt={item.name} />
           </a>
         ) : (
-          <img src={!isMobile ? item.desktop : item.mobile} alt={item.name} />
+          <img src={isPc ? item.desktop : item.mobile} alt={item.name} />
         )}
       </SliderItem>
     ));
