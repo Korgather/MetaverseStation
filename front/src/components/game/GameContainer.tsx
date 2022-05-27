@@ -20,8 +20,8 @@ const GameContainer = () => {
   const { isPc, isMobile, isTablet } = useMedia();
   const imageSrc =
     (isPc || isMobile || isTablet) && isPc
-      ? '../../images/mapiachannel/pcBanner.png'
-      : '../../images/mapiachannel/mobileBanner.png';
+      ? '/images/mapiachannel/pcBanner.png'
+      : '/images/mapiachannel/mobileBanner.png';
   const replacements = [imageSrc];
   useEffect(() => {
     (async () => {
@@ -42,7 +42,7 @@ const GameContainer = () => {
     })();
   }, []);
   const mapiaChannelImages = Array.from({ length: 8 }, (v, k) => ({
-    src: `../../images/mapiachannel/00${k + 1}.png`,
+    src: `/images/mapiachannel/00${k + 1}.png`,
     url: `https://zep.us/play/${urlHashId[k]}`,
     count: userCount[k],
   }));

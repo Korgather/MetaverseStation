@@ -2,6 +2,7 @@ import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { media } from '@styles/theme';
 import { Col } from 'antd';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 export const CountCirCle = styled.div`
   width: 12px;
@@ -86,37 +87,43 @@ export const CommentImg = styled.img`
   height: 1.1rem;
   margin-top: 2px;
 `;
-export const ImgWrapper = styled.div`
+interface imageHeight {
+  imageHeight?: string;
+}
+export const ImgWrapper = styled.div<imageHeight>`
   width: 340px;
   border-radius: 10px;
+  height: ${(props) => !props.imageHeight && '15.625rem'};
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   margin: 0 auto;
   margin-bottom: 10px;
   @media screen and (max-width: 1700px) {
+    max-height: 19vw;
     width: 19vw;
   }
   @media screen and (max-width: 1200px) {
+    max-height: 22vw;
     width: 22vw;
   }
   @media screen and (max-width: 992px) {
+    max-height: 32vw;
     width: 32vw;
   }
   @media screen and (max-width: 768px) {
+    max-height: 70vw;
     width: 70vw;
   }
+  /* span {
+    height: ${(props) => (props.imageHeight ? props.imageHeight : '15.625rem')} !important;
+    border-radius: 10px;
+    transform: scale(1.1);
+  } */
 `;
 
-interface imageHeight {
-  imageHeight?: string;
-}
-export const PostImg = styled.img<imageHeight>`
+export const PostImg = styled(Image)`
   border-radius: 10px;
-  transform: scale(1);
-  height: ${(props) => (props.imageHeight ? props.imageHeight : '15.625rem')};
   transition: all 0.3s ease-in-out;
-  width: 100%;
-  object-fit: cover;
   cursor: pointer;
   :hover {
     transform: scale(1.1);

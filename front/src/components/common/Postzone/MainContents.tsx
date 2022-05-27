@@ -14,9 +14,23 @@ const MainContents = ({ mainPosts, onLoadPost }: MainContentsProps) => {
           <S.ImgWrapper>
             <div onClick={() => onLoadPost(post)}>
               {post.imageList[0]?.imagePath.length >= 20 ? (
-                <S.PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
+                <S.PostImg
+                  src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
+                  width="100%"
+                  height="100%"
+                  layout="responsive"
+                  objectFit="cover"
+                  alt={post.title}
+                  quality={10}
+                />
               ) : (
-                <S.PostImg src="../../images/defaultThumbNail.png" />
+                <S.PostImg
+                  src="/images/defaultThumbNail.png"
+                  width="100%"
+                  height="100%"
+                  layout="responsive"
+                  alt="대체이미지"
+                />
               )}
             </div>
           </S.ImgWrapper>
