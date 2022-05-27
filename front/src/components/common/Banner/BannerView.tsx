@@ -48,6 +48,7 @@ function BannerView({ replacements }: BannerViewProps) {
             layout="responsive"
             width={1440}
             height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+            quality={20}
           />
         </SliderItem>
       ))}
@@ -78,6 +79,7 @@ function BannerView({ replacements }: BannerViewProps) {
               layout="responsive"
               width={1440}
               height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+              quality={20}
             />
           </a>
         ) : (
@@ -87,6 +89,7 @@ function BannerView({ replacements }: BannerViewProps) {
             layout="responsive"
             width={1440}
             height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+            quality={20}
           />
         )}
       </SliderItem>
