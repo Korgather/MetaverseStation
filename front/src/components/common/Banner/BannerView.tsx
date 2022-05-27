@@ -2,8 +2,9 @@ import { useMedia } from '@lib/useMedia';
 import React from 'react';
 import shortid from 'shortid';
 import { media } from '@styles/theme';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import BannerFrame from './BannerFrame';
+import Image from 'next/image';
 
 interface itemsProps {
   mobile: string;
@@ -17,19 +18,19 @@ interface BannerViewProps {
 }
 const items: itemsProps[] = [
   {
-    mobile: '../../images/MobileBanner01.gif',
-    desktop: '../../images/Banner01.gif',
+    mobile: '/images/MobileBanner01.gif',
+    desktop: '/images/Banner01.gif',
     name: '이미지01',
     link: 'https://cafe.naver.com/gathertown',
   },
   {
-    mobile: '../../images/MobileBanner02.png',
-    desktop: '../../images/Banner02.png',
+    mobile: '/images/MobileBanner02.png',
+    desktop: '/images/Banner02.png',
     name: '이미지02',
   },
   {
-    mobile: '../../images/MobileBanner03.png',
-    desktop: '../../images/Banner03.png',
+    mobile: '/images/MobileBanner03.png',
+    desktop: '/images/Banner03.png',
     name: '이미지03',
   },
 ];
@@ -37,12 +38,27 @@ const items: itemsProps[] = [
 function BannerView({ replacements }: BannerViewProps) {
   const { isMobile, isPc, isTablet } = useMedia();
 
-  const replacementsContainer = (replacements: string[]) =>
-    replacements.map((replacement) => (
-      <SliderItem key={shortid.generate()}>
-        <img src={replacement} alt="마피아게임이미지" />
-      </SliderItem>
-    ));
+  const replacementsContainer = (replacements: string[]) => (
+    <Wrapper>
+      {replacements.map((replacement) => (
+        <SliderItem key={shortid.generate()}>
+          <img src={replacement} alt="마피아게임이미지" />
+        </SliderItem>
+      ))}
+      <ImageWrapper>
+        <a href="https://open.kakao.com/o/gQ9wNOhe" target="_blank" rel="noreferrer">
+          <StlyedImage src="/images/KakaoIcon2.png" alt="카카오톡아이콘" type="kakao" />
+        </a>
+        <a
+          href="https://discord.com/channels/960814143588401152/978267159446831164"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <StlyedImage src="/images/DiscordIcon.png" alt="디스코드아이콘" type="discord" />
+        </a>
+      </ImageWrapper>
+    </Wrapper>
+  );
 
   const generalContainer = (items: itemsProps[]) =>
     (isPc || isMobile || isTablet) &&
@@ -76,4 +92,40 @@ const SliderItem = styled.div`
       width: 100vw;
     }
   }
+`;
+
+const ImageWrapper = styled.div`
+  position: absolute;
+  z-index: 999;
+  bottom: 10px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  a {
+    + a {
+      margin-left: 15px;
+    }
+  }
+`;
+
+const StlyedImage = styled.img<{ type: string }>`
+  ${(props) =>
+    props.type === 'kakao' &&
+    css`
+      width: 40px;
+      height: 40px;
+    `}
+  ${(props) =>
+    props.type === 'discord' &&
+    css`
+      width: 46px;
+      height: 46px;
+    `}
+  
+  cursor: pointer;
+`;
+
+const Wrapper = styled.div`
+  position: relative;
 `;
