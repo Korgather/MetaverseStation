@@ -18,8 +18,8 @@ interface BannerViewProps {
 }
 const items: itemsProps[] = [
   {
-    mobile: '/images/MobileBanner01.gif',
-    desktop: '/images/Banner01.gif',
+    mobile: '/images/MobileBanner01.png',
+    desktop: '/images/Banner01.png',
     name: '이미지01',
     link: 'https://cafe.naver.com/gathertown',
   },
@@ -42,7 +42,13 @@ function BannerView({ replacements }: BannerViewProps) {
     <Wrapper>
       {replacements.map((replacement) => (
         <SliderItem key={shortid.generate()}>
-          <img src={replacement} alt="마피아게임이미지" />
+          <Image
+            src={replacement}
+            alt="마피아게임이미지"
+            layout="responsive"
+            width={1440}
+            height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+          />
         </SliderItem>
       ))}
       <ImageWrapper>
@@ -65,11 +71,23 @@ function BannerView({ replacements }: BannerViewProps) {
     items.map((item) => (
       <SliderItem key={shortid.generate()}>
         {item.link ? (
-          <a href={item.link} target="_blank" rel="noreferrer">
-            <img src={isPc ? item.desktop : item.mobile} alt={item.name} />
+          <a href={item.link} target="_blank" rel="noreferrer" style={{ display: 'block' }}>
+            <Image
+              src={isPc ? item.desktop : item.mobile}
+              alt={item.name}
+              layout="responsive"
+              width={1440}
+              height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+            />
           </a>
         ) : (
-          <img src={isPc ? item.desktop : item.mobile} alt={item.name} />
+          <Image
+            src={isPc ? item.desktop : item.mobile}
+            alt={item.name}
+            layout="responsive"
+            width={1440}
+            height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+          />
         )}
       </SliderItem>
     ));
