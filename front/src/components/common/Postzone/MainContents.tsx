@@ -21,6 +21,7 @@ const MainContents = ({ mainPosts, onLoadPost }: MainContentsProps) => {
                   layout="responsive"
                   objectFit="cover"
                   alt={post.title}
+                  quality={10}
                 />
               ) : (
                 <S.PostImg

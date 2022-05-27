@@ -23,6 +23,7 @@ const GameContents = ({ Images, imageHeight }: GameContentsProps) => {
                 layout="responsive"
                 objectFit="cover"
                 alt="게임채널이미지"
+                quality={10}
               />
             </S.ImgWrapper>
             <CurrentUserBox>
