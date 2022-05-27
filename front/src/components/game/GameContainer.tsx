@@ -20,7 +20,7 @@ const GameContainer = () => {
   const { isPc, isMobile, isTablet } = useMedia();
   const imageSrc =
     (isPc || isMobile || isTablet) && isPc
-      ? 'https://cdn.metabusstation.shop/static/mafiaGameBanner.png'
+      ? '../../images/mapiachannel/pcBanner.png'
       : '../../images/mapiachannel/mobileBanner.png';
   const replacements = [imageSrc];
   useEffect(() => {
