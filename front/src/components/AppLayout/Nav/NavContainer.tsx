@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useAnimation, useViewportScroll } from 'framer-motion';
 import NavView from './NavView';
+import { useRouteMatch } from '@lib/useRouteMatch';
 const Nav = () => {
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
@@ -10,10 +11,7 @@ const Nav = () => {
   const [fixedpos, setFixedPos] = useState('false');
   const { scrollY } = useViewportScroll();
   const navAnimation = useAnimation();
-  const homeMatch = router.pathname === '/';
-  const communityMatch = router.pathname.indexOf('/community') > -1;
-  const apifactoryMatch = router.pathname.indexOf('/apifactory') > -1;
-  const gameMatch = router.pathname.indexOf('/game') > -1;
+  const { homeMatch, communityMatch, apifactoryMatch, gameMatch } = useRouteMatch();
   const navVariants = {
     top: {
       boxShadow: 'rgba(0, 0, 0, 0) 0px 5px 15px',
