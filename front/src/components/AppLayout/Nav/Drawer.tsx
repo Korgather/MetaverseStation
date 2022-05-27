@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Drawer, Space } from 'antd';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useRouteMatch } from '@lib/useRouteMatch';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
-
+  const { homeMatch, communityMatch, apifactoryMatch, gameMatch } = useRouteMatch();
   const showDrawer = () => {
     setVisible(true);
   };
-
   const onClose = () => {
     setVisible(false);
   };
@@ -34,16 +34,16 @@ const App: React.FC = () => {
         visible={visible}
         key={'left'}
       >
-        <Menu onClick={onClose}>
+        <Menu onClick={onClose} useRouteMatch={homeMatch}>
           <Link href="/">메타버스</Link>
         </Menu>
-        <Menu onClick={onClose}>
+        <Menu onClick={onClose} useRouteMatch={communityMatch}>
           <Link href="/community/free">커뮤니티</Link>
         </Menu>
-        <Menu onClick={onClose}>
+        <Menu onClick={onClose} useRouteMatch={gameMatch}>
           <Link href="/game">게임</Link>
         </Menu>
-        <Menu onClick={onClose}>
+        <Menu onClick={onClose} useRouteMatch={apifactoryMatch}>
           <Link href="/apifactory/gathertownAPI">ApiFactory</Link>
         </Menu>
         <CloseBtn onClick={onClose}>
@@ -70,7 +70,7 @@ const StyledDrawer = styled(Drawer)`
   font-weight: 700;
 `;
 
-const Menu = styled.div`
+const Menu = styled.div<{ useRouteMatch: boolean }>`
   :hover {
     background-color: #f0f0f0;
   }
@@ -78,7 +78,7 @@ const Menu = styled.div`
   padding: 10px 5px;
   cursor: pointer;
   a {
-    color: black;
+    color: ${(props) => (props.useRouteMatch ? '#4490f8' : 'black')};
   }
 `;
 
