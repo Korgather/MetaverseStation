@@ -25,12 +25,13 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({
   const loadPostId = async (data: IPost) => {
     await Promise.all([dispatch(viewPost(data.id)), dispatch(loadPost(data.id))]);
   };
+  const onLoadPost = (post: IPost) => {
+    post && loadPostId(post);
+    dispatch(ToggleDetailState(true));
+  };
   const PostzoneProps = {
     mainPosts,
-    onLoadPost: (post: IPost) => {
-      post && loadPostId(post);
-      dispatch(ToggleDetailState(true));
-    },
+    onLoadPost,
     Images,
     imageHeight,
   };
