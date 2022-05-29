@@ -12,7 +12,6 @@ const zepmapia = () => {
   const onToggleChannel = useCallback(() => {
     setChannelState((state) => !state);
   }, [setChannelState]);
-  console.log(id);
   return (
     <>
       <Head>
