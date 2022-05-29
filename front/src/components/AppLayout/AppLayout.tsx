@@ -8,6 +8,7 @@ import FeedBack from './FeedBack';
 import Script from 'next/script';
 import Nav from './Nav/NavContainer';
 import { media } from '@styles/theme';
+import { useRouter } from 'next/router';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
@@ -16,9 +17,10 @@ interface AuxProps {
 const { Content, Footer } = Layout;
 
 const AppLayout = ({ children }: AuxProps) => {
+  const router = useRouter();
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
-
+  const isChannelIframe = router.pathname === '/game/channelIframe';
   return (
     <>
       <Script>
@@ -44,7 +46,7 @@ const AppLayout = ({ children }: AuxProps) => {
         </StyledLayout>
         <StyledFooter>ⓒ KORGATHER All Rights Reserved.</StyledFooter>
       </LayoutWrapper>
-      <FeedBack />
+      {!isChannelIframe && <FeedBack />}
     </>
   );
 };

@@ -3,9 +3,13 @@ import { useAppDispatch } from '@store/hook';
 import { getMapiaUserCount } from '@actions/game';
 import GameView from './GameView';
 import { useMedia } from '@lib/useMedia';
+import { useRouter } from 'next/router';
+import GameChannelIframe from './GameChannelIframe';
 
 const GameContainer = () => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const isChannelIframe = router.pathname === '/game/channelIframe';
   const urlHashId = [
     'yV9AA9',
     'y1nXbO',
@@ -52,7 +56,15 @@ const GameContainer = () => {
     mapiaChannelImages,
   };
 
-  return <GameView {...GameContainerProps} />;
+  return (
+    <>
+      {isChannelIframe ? (
+        <GameChannelIframe {...GameContainerProps} />
+      ) : (
+        <GameView {...GameContainerProps} />
+      )}
+    </>
+  );
 };
 
 export default GameContainer;
