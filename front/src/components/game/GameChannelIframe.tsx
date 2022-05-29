@@ -78,4 +78,5 @@ const StyledLayout = styled(Layout)`
   ${media.mobile} {
     width: 100vw;
   }
+  background-color: rgba(165, 165, 165, 0.55);
 `;
