@@ -19,7 +19,7 @@ const GameChannel = ({ mapiaChannelImages }: GameView) => {
     <Wrapper>
       {mapiaChannelImages.map((image) => (
         <Link href={image.url} key={image.src}>
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: 'relative', cursor: 'pointer' }}>
             <Image
               src={image.src}
               width="100%"
