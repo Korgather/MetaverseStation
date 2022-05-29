@@ -19,7 +19,6 @@ declare global {
 }
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const isChannelIframe = router.pathname === '/game/channelIframe';
   useEffect(() => {
     async function loadCrate() {
       const result = await import('@widgetbot/crate');
@@ -30,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       });
       crate.notify('모두메타 채팅방');
     }
-    !isChannelIframe && loadCrate();
+    loadCrate();
     window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
   }, []);
   return (

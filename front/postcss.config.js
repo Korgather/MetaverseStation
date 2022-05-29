@@ -1,8 +1,7 @@
 module.exports = {
   plugins: [
-    'antd',
     'postcss-flexbugs-fixes',
-
+    'autoprefixer',
     [
       'postcss-preset-env',
       {

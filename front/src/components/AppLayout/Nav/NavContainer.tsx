@@ -24,7 +24,6 @@ const Nav = () => {
   const throttledScroll = useMemo(
     () =>
       throttle(() => {
-        console.log(window.scrollY);
         if (window.scrollY > 50 && !isTabnavOn) {
           setFixedPos('true');
           navAnimation.start('scroll');
