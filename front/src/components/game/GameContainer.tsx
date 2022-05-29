@@ -4,12 +4,12 @@ import { getMapiaUserCount } from '@actions/game';
 import GameView from './GameView';
 import { useMedia } from '@lib/useMedia';
 import { useRouter } from 'next/router';
-import GameChannelIframe from './GameChannelIframe';
+import GameChannel from './GameChannelView';
 
 const GameContainer = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const isChannelIframe = router.pathname === '/game/channelIframe';
+  const isChannel = router.pathname === '/game/zepmapia/[id]';
   const urlHashId = [
     'yV9AA9',
     'y1nXbO',
@@ -47,7 +47,7 @@ const GameContainer = () => {
   }, []);
   const mapiaChannelImages = Array.from({ length: 8 }, (v, k) => ({
     src: `/images/mapiachannel/00${k + 1}.png`,
-    url: `https://zep.us/play/${urlHashId[k]}`,
+    url: `/game/zepmapia/${urlHashId[k]}`,
     count: userCount[k],
   }));
 
@@ -58,11 +58,7 @@ const GameContainer = () => {
 
   return (
     <>
-      {isChannelIframe ? (
-        <GameChannelIframe {...GameContainerProps} />
-      ) : (
-        <GameView {...GameContainerProps} />
-      )}
+      {isChannel ? <GameChannel {...GameContainerProps} /> : <GameView {...GameContainerProps} />}
     </>
   );
 };
