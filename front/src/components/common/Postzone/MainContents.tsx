@@ -1,40 +1,38 @@
 import React from 'react';
 import { IPost } from '@customTypes/post';
 import * as S from './style';
-import { LoadingOutlined } from '@ant-design/icons';
-import { Spin } from 'antd';
+import Link from 'next/link';
 
 interface MainContentsProps {
   mainPosts: IPost[];
-  onLoadPost: (post: IPost) => void;
+  openDetailModal: (post: IPost) => void;
 }
-const MainContents = ({ mainPosts, onLoadPost }: MainContentsProps) => {
-  const antIcon = <LoadingOutlined style={{ fontSize: 20, marginLeft: '5px' }} spin />;
-  const loading = <Spin indicator={antIcon} />;
-
+const MainContents = ({ mainPosts, openDetailModal }: MainContentsProps) => {
   return (
     <>
-      {mainPosts.map((post) => (
+      {mainPosts.map((post, idx) => (
         <S.StyledCol key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
           <S.ImgWrapper>
-            <div onClick={() => onLoadPost(post)}>
+            <div onClick={() => openDetailModal(post)} data-testid={`open-modal${idx}`}>
               {post.imageList[0]?.imagePath.length >= 20 ? (
-                <S.PostImg
-                  src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
-                  width="100%"
-                  height="80%"
-                  layout="responsive"
-                  objectFit="cover"
-                  alt={post.title}
-                  quality={10}
-                />
+                <Link href={`community/post/${post.id}`} scroll={true}>
+                  <S.PostImg
+                    src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
+                    width="100%"
+                    height="80%"
+                    layout="responsive"
+                    objectFit="cover"
+                    alt={post.title}
+                    quality={10}
+                  />
+                </Link>
               ) : (
                 <S.PostImg
                   src="/images/defaultThumbNail.png"
                   width="100%"
                   height="50px"
                   layout="responsive"
-                  alt="대체이미지"
+                  alt={`대체이미지${idx}`}
                 />
               )}
             </div>
