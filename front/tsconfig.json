@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@pages/*": ["pages/*"],
+      "@mocks/*": ["mocks/*"],
       "@components/*": ["src/components/*"],
       "@slices/*": ["src/slices/*"],
       "@store/*": ["src/store/*"],
@@ -24,7 +25,8 @@
       "@actions/*": ["src/actions/*"],
       "@customTypes/*": ["src/customTypes/*"],
       "@assets/*": ["src/assets/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@tests/*": ["src/__tests__/*"]
     }
   },
   "include": [
