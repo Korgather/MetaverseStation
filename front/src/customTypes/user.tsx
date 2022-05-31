@@ -41,7 +41,7 @@ export interface notification {
 export interface IPostUser extends Pick<IUser, 'email' | 'roleType'> {
   username: string;
   userId: number;
-  bio: string;
+  bio: string | null;
   profileImageUrl: string;
 }
 
