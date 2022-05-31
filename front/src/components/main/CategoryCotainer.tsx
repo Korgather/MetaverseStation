@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from 'antd';
-import styled, { css } from 'styled-components';
 import { useRouter } from 'next/router';
-import SearchInput from '../common/SearchInput/SearchInput';
-import { media } from '@styles/theme';
 import CategoryView from './CategoryView';
 
 function Category() {

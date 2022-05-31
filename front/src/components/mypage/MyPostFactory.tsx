@@ -16,7 +16,7 @@ interface IMyPostFactoryProps {
 
 const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
   const dispatch = useAppDispatch();
-  const onLoadPost = (data: IPost) => {
+  const openDetailModal = (data: IPost) => {
     dispatch(loadPost(data.id));
   };
   return (
@@ -33,7 +33,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
             <S.ImgWrapper>
               <div
                 onClick={() => {
-                  post && onLoadPost(post);
+                  post && openDetailModal(post);
                   openModal(setDetailModalState);
                 }}
               >

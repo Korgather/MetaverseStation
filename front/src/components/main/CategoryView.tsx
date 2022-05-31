@@ -4,7 +4,7 @@ import { Menu } from 'antd';
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-interface CategoryView {
+export interface ICategoryView {
   selectedKeys: string[];
   onSelect: ({ key }: { key: string }) => void;
   sort: string;
@@ -12,7 +12,7 @@ interface CategoryView {
   category: string;
 }
 
-const CategoryView = ({ selectedKeys, onSelect, sort, onFilter, category }: CategoryView) => {
+const CategoryView = ({ selectedKeys, onSelect, sort, onFilter, category }: ICategoryView) => {
   return (
     <MenuWrapper>
       <MenuFilterWrapper>
