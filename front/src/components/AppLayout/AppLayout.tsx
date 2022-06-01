@@ -21,7 +21,6 @@ const AppLayout = ({ children }: AuxProps) => {
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const isChannelIframe = router.pathname === '/game/channelIframe';
-
   return (
     <>
       <Script>

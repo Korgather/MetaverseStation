@@ -44,7 +44,7 @@ const Nav = () => {
     window.addEventListener('touchmove', throttledScroll);
     console.log(window.scrollY);
     return () => {
-      // window.removeEventListener('scroll', throttledScroll);
+      window.removeEventListener('scroll', throttledScroll);
       window.removeEventListener('touchmove', throttledScroll);
     };
   }, [throttledScroll]);

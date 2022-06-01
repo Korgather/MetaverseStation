@@ -33,7 +33,7 @@ const NavView = ({
   me,
   goHome,
 }: NavViewProps) => {
-  const { isTablet, isPc } = useMedia();
+  const { isPc } = useMedia();
   return (
     <S.NavLayout fixedpos={fixedpos}>
       <S.TopWrapper>
