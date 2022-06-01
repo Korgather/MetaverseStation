@@ -107,7 +107,7 @@ const SliderItem = styled.div`
   img {
     width: 1440px;
     @media screen and (max-width: 1650px) {
-      width: 75vw;
+      width: 80vw;
     }
     ${media.mobile} {
       width: 100vw;
