@@ -21,6 +21,7 @@ const AppLayout = ({ children }: AuxProps) => {
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const isChannelIframe = router.pathname === '/game/channelIframe';
+
   return (
     <>
       <Script>
@@ -38,8 +39,8 @@ const AppLayout = ({ children }: AuxProps) => {
       {detailModalState && <DetailModalContainer />}
       {<DetailModalContainer />}
       <LayoutWrapper className="layout">
+        <Nav />
         <StyledLayout>
-          <Nav />
           <Content style={{ background: 'white', padding: '50px' }}>
             <div className="site-layout-content">{children}</div>
           </Content>
@@ -79,7 +80,6 @@ const StyledLayout = styled(Layout)`
   align-items: center;
   width: 1440px;
   background: white;
-  height: 100% !important;
   @media screen and (max-width: 1650px) {
     width: 75vw;
   }
