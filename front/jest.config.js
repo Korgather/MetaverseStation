@@ -12,6 +12,7 @@ const customJestConfig = {
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     '@pages/(.*)$': '<rootDir>/pages/$1',
+    '@mocks/(.*)$': '<rootDir>/mocks/$1',
     '@components/(.*)$': '<rootDir>/src/components/$1',
     '@slices/(.*)$': '<rootDir>/src/slices/$1',
     '@store/(.*)$': '<rootDir>/src/store/$1',

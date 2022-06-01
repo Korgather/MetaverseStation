@@ -58,7 +58,7 @@ const SlideWrapper = styled.section`
     color: black !important;
   }
   @media screen and (max-width: 1650px) {
-    width: 75vw;
+    width: 80vw;
   }
   ${media.mobile} {
     width: 100vw;

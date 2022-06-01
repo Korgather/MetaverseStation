@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import styled, { css } from 'styled-components';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/common/Postzone/PostZoneContainer';
-import Category from '@components/main/Category';
+import Category from '@components/main/CategoryCotainer';
 import BannerView from '@components/common/Banner/BannerView';
 import Pagination from '@components/common/Pagination/PaginationContainer';
 import { Button, Tooltip } from 'antd';

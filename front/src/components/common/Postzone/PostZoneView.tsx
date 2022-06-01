@@ -6,14 +6,21 @@ import MainContents from './MainContents';
 import GameContents from './GameContents';
 import { GameImages } from './PostZoneContainer';
 
-interface PostZoneViewProps {
+export interface PostZoneViewProps {
   mainPosts: IPost[] | null;
-  onLoadPost: (post: IPost) => void;
+  openDetailModal: (post: IPost) => void;
   Images: GameImages[] | null;
   imageHeight: string;
+  gotoDetail: (post: IPost) => void;
 }
 
-const PostZoneView = ({ mainPosts, onLoadPost, Images, imageHeight }: PostZoneViewProps) => {
+const PostZoneView = ({
+  mainPosts,
+  openDetailModal,
+  Images,
+  imageHeight,
+  gotoDetail,
+}: PostZoneViewProps) => {
   return (
     <S.PostZoneWrapper>
       <Row
@@ -24,7 +31,11 @@ const PostZoneView = ({ mainPosts, onLoadPost, Images, imageHeight }: PostZoneVi
         ]}
       >
         {mainPosts ? (
-          <MainContents onLoadPost={onLoadPost} mainPosts={mainPosts} />
+          <MainContents
+            openDetailModal={openDetailModal}
+            mainPosts={mainPosts}
+            gotoDetail={gotoDetail}
+          />
         ) : (
           Images && <GameContents Images={Images} imageHeight={imageHeight} />
         )}

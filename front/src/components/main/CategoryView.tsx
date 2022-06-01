@@ -1,63 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Menu } from 'antd';
-import styled, { css } from 'styled-components';
-import { useRouter } from 'next/router';
-import SearchInput from '../common/SearchInput/SearchInput';
+import SearchInput from '@components/common/SearchInput/SearchInput';
 import { media } from '@styles/theme';
+import { Menu } from 'antd';
+import React from 'react';
+import styled, { css } from 'styled-components';
 
-function Category() {
-  const router = useRouter();
-  const [sort, setSort] = useState('');
-  const onFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const name = (e.currentTarget as HTMLButtonElement).name;
-    name && setSort(name);
-    router.push({
-      pathname: '/',
-      query: {
-        category: router.query.category,
-        page: 1,
-        sort: name === 'sortByDate' ? '' : name === 'sortByPlayer' && 'playerCount,desc',
-      },
-    });
-  };
-  const category = router.query.category;
-  useEffect(() => {
-    router.query.sort === 'playerCount,desc' ? setSort('sortByPlayer') : setSort('sortByDate');
-  }, [router.query.sort]);
-  const onSelect = ({ key }: { key: string }) => {
-    if (key === 'category_all') {
-      router.push({
-        pathname: '/',
-      });
-    }
-    if (key === 'METAVERSE_GATHERTOWN') {
-      router.push({
-        pathname: '/',
-        query: {
-          category: 'METAVERSE_GATHERTOWN',
-          page: 1,
-          sort: '',
-        },
-      });
-    }
-    if (key === 'METAVERSE_ZEP') {
-      router.push({
-        pathname: '/',
-        query: {
-          category: 'METAVERSE_ZEP',
-          page: 1,
-          sort: '',
-        },
-      });
-    }
-  };
+export interface ICategoryView {
+  selectedKeys: string[];
+  onSelect: ({ key }: { key: string }) => void;
+  sort: string;
+  onFilter: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  category: string;
+}
+
+const CategoryView = ({ selectedKeys, onSelect, sort, onFilter, category }: ICategoryView) => {
   return (
     <MenuWrapper>
       <MenuFilterWrapper>
-        <MenuBox
-          onSelect={({ key }) => onSelect({ key })}
-          selectedKeys={category ? [category as string] : ['category_all']}
-        >
+        <MenuBox onSelect={onSelect} selectedKeys={selectedKeys}>
           <Menu.Item key="category_all">All</Menu.Item>
           <Menu.Item key="METAVERSE_GATHERTOWN">GatherTown</Menu.Item>
           <Menu.Item key="METAVERSE_ZEP">Zep</Menu.Item>
@@ -74,7 +33,7 @@ function Category() {
         </FilterWrapper>
       </MenuFilterWrapper>
       <SearchInput
-        category={category as string}
+        category={category}
         pathname="/"
         placeholder="메타버스 검색하기"
         noOptionsMessage="일치하는 메타버스가 없습니다"
@@ -82,9 +41,10 @@ function Category() {
       <BlankBox />
     </MenuWrapper>
   );
-}
+};
 
-export default Category;
+export default CategoryView;
+
 interface sort {
   sortByDate?: string;
   sortByPlayer?: string;

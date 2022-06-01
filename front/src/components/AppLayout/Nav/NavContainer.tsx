@@ -41,8 +41,11 @@ const Nav = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', throttledScroll);
+    window.addEventListener('touchmove', throttledScroll);
+    console.log(window.scrollY);
     return () => {
       window.removeEventListener('scroll', throttledScroll);
+      window.removeEventListener('touchmove', throttledScroll);
     };
   }, [throttledScroll]);
 
