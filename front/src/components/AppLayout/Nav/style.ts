@@ -26,8 +26,20 @@ export const AlramProfileWrapper = styled.div`
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
+  justify-content: center;
 `;
+
+export const Logo = styled.div`
+  margin: 30px 0 20px 20px;
+  width: 1440px;
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
+  ${media.mobile} {
+    width: 100vw;
+  }
+`;
+
 export const LogoImg = styled.img`
   width: 26rem;
   cursor: pointer;
@@ -71,15 +83,13 @@ export const StyledHeader = styled(motion.div)<NavProps>`
   background-color: white;
   opacity: 1;
   border-bottom: 1px solid #f0f0f0;
-  width: 1440px;
+  left: 0;
+  right: 0;
+  top: 0;
   padding: 0 10px;
   position: ${(props) => (props.fixedpos === 'true' ? 'fixed' : 'relative')};
-  top: 0;
-  margin: 0 auto;
   z-index: 10;
-  @media screen and (max-width: 1650px) {
-    width: 75vw;
-  }
+  justify-content: center;
   ${media.mobile} {
     width: 100vw;
   }
@@ -88,4 +98,15 @@ export const StyledHeader = styled(motion.div)<NavProps>`
 export const StyledBtn = styled(Button)`
   margin-left: auto;
   margin-right: 18px;
+`;
+
+export const MenuContainer = styled.div`
+  width: 1440px;
+  @media screen and (max-width: 1650px) {
+    width: 75vw;
+  }
+  ${media.mobile} {
+    width: 100vw;
+  }
+  display: flex;
 `;

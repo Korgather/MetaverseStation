@@ -37,12 +37,9 @@ const NavView = ({
   return (
     <S.NavLayout fixedpos={fixedpos}>
       <S.TopWrapper>
-        <div
-          onClick={goHome}
-          style={{ width: '100%', marginTop: '30px', marginBottom: '20px', marginLeft: '20px' }}
-        >
+        <S.Logo onClick={goHome}>
           <S.LogoImg src="/images/BetaLogo.png" />
-        </div>
+        </S.Logo>
       </S.TopWrapper>
 
       <S.StyledHeader
@@ -51,36 +48,38 @@ const NavView = ({
         animate={navAnimation}
         initial={'top'}
       >
-        {isPc ? (
-          <S.MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
-            <Menu.Item key="nav_gathertown">
-              <Link href="/">메타버스</Link>
-            </Menu.Item>
-            <Menu.Item key="nav_community">
-              <Link href="/community/free">커뮤니티</Link>
-            </Menu.Item>
-            <Menu.Item key="nav_game">
-              <Link href="/game">게임</Link>
-            </Menu.Item>
-            <Menu.Item key="nav_api">
-              <Link href="/apifactory/gathertownAPI">ApiFactory</Link>
-            </Menu.Item>
-          </S.MenuWrapper>
-        ) : (
-          <Drawer />
-        )}
-        <S.BtnWrapper>
-          {me ? (
-            <S.AlramProfileWrapper>
-              <Alram />
-              <ProfileDropdown />
-            </S.AlramProfileWrapper>
+        <S.MenuContainer>
+          {isPc ? (
+            <S.MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
+              <Menu.Item key="nav_gathertown">
+                <Link href="/">메타버스</Link>
+              </Menu.Item>
+              <Menu.Item key="nav_community">
+                <Link href="/community/free">커뮤니티</Link>
+              </Menu.Item>
+              <Menu.Item key="nav_game">
+                <Link href="/game">게임</Link>
+              </Menu.Item>
+              <Menu.Item key="nav_api">
+                <Link href="/apifactory/gathertownAPI">ApiFactory</Link>
+              </Menu.Item>
+            </S.MenuWrapper>
           ) : (
-            <Link href="/login">
-              <S.StyledBtn>로그인</S.StyledBtn>
-            </Link>
+            <Drawer />
           )}
-        </S.BtnWrapper>
+          <S.BtnWrapper>
+            {me ? (
+              <S.AlramProfileWrapper>
+                <Alram />
+                <ProfileDropdown />
+              </S.AlramProfileWrapper>
+            ) : (
+              <Link href="/login">
+                <S.StyledBtn>로그인</S.StyledBtn>
+              </Link>
+            )}
+          </S.BtnWrapper>
+        </S.MenuContainer>
       </S.StyledHeader>
     </S.NavLayout>
   );
