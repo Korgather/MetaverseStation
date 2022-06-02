@@ -2,38 +2,39 @@ import React from 'react';
 import { IPost } from '@customTypes/post';
 import * as S from './style';
 import Link from 'next/link';
+import { useMedia } from '@lib/useMedia';
 
 interface MainContentsProps {
   mainPosts: IPost[];
   openDetailModal: (post: IPost) => void;
+  handleImgError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
-const MainContents = ({ mainPosts, openDetailModal }: MainContentsProps) => {
+const MainContents = ({ mainPosts, openDetailModal, handleImgError }: MainContentsProps) => {
+  const { isMobile } = useMedia();
+  const ImgComp = (post: IPost) => (
+    <S.PostImg
+      src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
+      width="100%"
+      height="80%"
+      layout="responsive"
+      objectFit="cover"
+      alt={post.title}
+      quality={10}
+      onError={handleImgError}
+    />
+  );
   return (
     <>
       {mainPosts.map((post, idx) => (
         <S.StyledCol key={post.id} xs={24} md={12} lg={8} xl={6} style={{}}>
           <S.ImgWrapper>
             <div onClick={() => openDetailModal(post)} data-testid={`open-modal${idx}`}>
-              {post.imageList[0]?.imagePath.length >= 20 ? (
+              {isMobile ? (
                 <Link href={`community/post/${post.id}`} scroll={true}>
-                  <S.PostImg
-                    src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
-                    width="100%"
-                    height="80%"
-                    layout="responsive"
-                    objectFit="cover"
-                    alt={post.title}
-                    quality={10}
-                  />
+                  {ImgComp(post)}
                 </Link>
               ) : (
-                <S.PostImg
-                  src="/images/defaultThumbNail.png"
-                  width="100%"
-                  height="50px"
-                  layout="responsive"
-                  alt={`대체이미지${idx}`}
-                />
+                ImgComp(post)
               )}
             </div>
           </S.ImgWrapper>

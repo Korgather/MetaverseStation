@@ -17,13 +17,6 @@ interface sliderProps {
   /** 반복 여부 */
   loop?: boolean;
 }
-interface itemsProps {
-  mobile: string;
-  desktop: string;
-  name: string;
-  link?: string;
-}
-
 const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
   const settings = useMemo<Settings>(
     () => ({
@@ -34,6 +27,7 @@ const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: s
       autoplay: true,
       autoplaySpeed: typeof autoplay === 'boolean' ? 5000 : autoplay,
       loop: true,
+      arrows: false,
     }),
     [autoplay, loop, speed],
   );
@@ -62,13 +56,6 @@ const SlideWrapper = styled.section`
   }
   ${media.mobile} {
     width: 100vw;
-    .slick-prev:before,
-    .slick-next:before {
-      display: none;
-    }
-    .slick-dots {
-      display: none !important;
-    }
     .slick-list {
       border-radius: 0px;
     }
