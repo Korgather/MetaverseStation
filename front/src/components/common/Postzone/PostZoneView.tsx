@@ -12,6 +12,7 @@ export interface PostZoneViewProps {
   Images: GameImages[] | null;
   imageHeight: string;
   gotoDetail: (post: IPost) => void;
+  handleImgError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 
 const PostZoneView = ({
@@ -19,7 +20,7 @@ const PostZoneView = ({
   openDetailModal,
   Images,
   imageHeight,
-  gotoDetail,
+  handleImgError,
 }: PostZoneViewProps) => {
   return (
     <S.PostZoneWrapper>
@@ -34,7 +35,7 @@ const PostZoneView = ({
           <MainContents
             openDetailModal={openDetailModal}
             mainPosts={mainPosts}
-            gotoDetail={gotoDetail}
+            handleImgError={handleImgError}
           />
         ) : (
           Images && <GameContents Images={Images} imageHeight={imageHeight} />

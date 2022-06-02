@@ -38,12 +38,16 @@ const Postzone: React.FunctionComponent<PostzoneProps> = ({
   const gotoDetail = (post: IPost) => {
     router.push(`/community/post/${post.id}`);
   };
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = '/images/NTaabdefhillmtuu.png';
+  };
   const PostzoneProps = {
     mainPosts,
     openDetailModal,
     Images,
     imageHeight,
     gotoDetail,
+    handleImgError,
   };
   return <PostZoneView {...PostzoneProps} />;
 };
