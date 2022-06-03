@@ -14,7 +14,6 @@ const formatted = (sitemap) => prettier.format(sitemap, { parser: 'html' });
   const fetchPosts = await axios.get(fetchUrl);
 
   const postList = [];
-  console.log(fetchPosts.data);
   fetchPosts.data.content.forEach((post) => postList.push(post.id));
   const postListSitemap = `
         ${postList
