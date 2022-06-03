@@ -2,7 +2,7 @@ import React, { ReactChildren, ReactChild } from 'react';
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import { useAppSelector } from '@store/hook';
-import WriteModal from '@components/writeModal/WriteModal';
+import WriteModal from '@components/writeModal/WriteModalContainer';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import FeedBack from './FeedBack';
 import Script from 'next/script';

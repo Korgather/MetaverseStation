@@ -7,7 +7,7 @@ import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/CategoryCotainer';
 import BannerView from '@components/common/Banner/BannerView';
 import Pagination from '@components/common/Pagination/PaginationContainer';
-import WriteModal from '@components/writeModal/WriteModal';
+import WriteModal from '@components/writeModal/WriteModalContainer';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import { Button } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
