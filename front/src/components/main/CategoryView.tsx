@@ -75,7 +75,7 @@ const MenuBox = styled(Menu)`
   border: none;
   ${media.mobile} {
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -111,7 +111,7 @@ const MenuFilterWrapper = styled.div`
   width: 33.3%;
   ${media.mobile} {
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
