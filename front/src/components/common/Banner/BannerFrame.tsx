@@ -20,7 +20,7 @@ interface sliderProps {
 const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
   const settings = useMemo<Settings>(
     () => ({
-      dots: true,
+      // dots: true,
       infinite: true,
       speed: 1000,
       slidesToShow: 1,
