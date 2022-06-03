@@ -1,15 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { Input } from 'antd';
 import { useFormik } from 'formik';
-import UploadImages from './UploadImages';
 import * as Yup from 'yup';
 import { CustomFile, IPost } from '@customTypes/post';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { addPost, updatePost } from '@actions/post';
-import * as S from './style';
 import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import { useRouter } from 'next/router';
-interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCommentList'> {
+import WriteModalView from './WriteModalView';
+export interface IforFormik extends Pick<IPost, 'title' | 'content' | 'link' | 'postCommentList'> {
   images: Omit<CustomFile, 'file'>[] | void[];
   id?: string;
 }
@@ -19,6 +17,9 @@ const WriteModal = () => {
   const [content, setContent] = useState(prevPostData?.content ? prevPostData.content : '');
   const [gatherState, setGatherState] = useState(prevPostData?.category === 'METAVERSE_GATHERTOWN');
   const [zepState, setZepState] = useState(prevPostData?.category === 'METAVERSE_ZEP');
+  const [secondBlockState, setSecondBlockState] = useState(
+    prevPostData?.category === 'METAVERSE_2NDBLCOK',
+  );
   const router = useRouter();
   const [category, setCategory] = useState(prevPostData?.category ? prevPostData?.category : '');
   const [imageList, setImageList] = useState<CustomFile[]>([]);
@@ -81,82 +82,45 @@ const WriteModal = () => {
   }, [imageList]);
 
   const selectHandler = useCallback(
-    (e) => {
+    (e: React.ChangeEvent<HTMLButtonElement>) => {
       const { name } = e.target;
       if (name === 'gather') {
         setGatherState(true);
         setZepState(false);
-        setCategory('METAVERSE_GATHERTOWN');
+        setSecondBlockState(false);
+        setCategory(() => 'METAVERSE_GATHERTOWN');
       }
       if (name === 'zep') {
-        setGatherState(false);
         setZepState(true);
-        setCategory('METAVERSE_ZEP');
+        setGatherState(false);
+        setSecondBlockState(false);
+        setCategory(() => 'METAVERSE_ZEP');
       }
+      if (name === 'secondblock') {
+        setSecondBlockState(true);
+        setGatherState(false);
+        setZepState(false);
+        setCategory(() => 'METAVERSE_2NDBLOCK');
+      }
+      console.log(category);
     },
     [gatherState, zepState],
   );
+  const WriteModalProps = {
+    formik,
+    closeModal,
+    selectHandler,
+    gatherState,
+    zepState,
+    secondBlockState,
+    onChangeContent,
+    prevPostData,
+    postLoading,
+    imageList,
+    setImageList,
+  };
 
-  return (
-    <>
-      <form onSubmit={formik.handleSubmit}>
-        <S.Dim onClick={closeModal} />
-        <S.ModalWrapper>
-          <S.Modal>
-            <S.ModalContainer>
-              <S.CloseModalBtn onClick={closeModal}>x</S.CloseModalBtn>
-              <h3>카테고리</h3>
-              <S.SelectBtnWrapper>
-                <S.SelectBtn
-                  type="button"
-                  onClick={selectHandler}
-                  name="gather"
-                  state={gatherState}
-                >
-                  Gathertown
-                </S.SelectBtn>
-                <S.SelectBtn type="button" onClick={selectHandler} name="zep" state={zepState}>
-                  Zep
-                </S.SelectBtn>
-              </S.SelectBtnWrapper>
-              <S.StyledLabel htmlFor="title">제목</S.StyledLabel>
-              <Input
-                id="title"
-                name="title"
-                onChange={formik.handleChange}
-                value={formik.values.title}
-                placeholder="제목을 입력해주세요."
-                spellCheck="false"
-              />
-              {formik.errors.title && formik.touched && <S.Error>{formik.errors.title}</S.Error>}
-              <S.StyledLabel htmlFor="link">접속링크</S.StyledLabel>
-              <Input
-                id="link"
-                name="link"
-                onChange={formik.handleChange}
-                value={formik.values.link}
-                placeholder="접속링크를 입력해주세요."
-                spellCheck="false"
-              />
-              {formik.errors.link && formik.touched && <S.Error>{formik.errors.link}</S.Error>}
-              <UploadImages imageList={imageList} setImageList={setImageList} />
-              {formik.errors.images && formik.touched && <S.Error>{formik.errors.images}</S.Error>}
-              <S.StyledLabel htmlFor="content">내용</S.StyledLabel>
-              <S.StyledReactQuill
-                onChange={(content) => onChangeContent(content)}
-                defaultValue={prevPostData?.content ? prevPostData?.content : ''}
-              />
-              <S.TagAndBtnWrapper>
-                <S.SubmitBtn type="primary" htmlType="submit" loading={postLoading}>
-                  {prevPostData ? '수정하기' : '등록하기'}
-                </S.SubmitBtn>
-              </S.TagAndBtnWrapper>
-            </S.ModalContainer>
-          </S.Modal>
-        </S.ModalWrapper>
-      </form>
-    </>
-  );
+  return <WriteModalView {...WriteModalProps} />;
 };
 
 export default WriteModal;
