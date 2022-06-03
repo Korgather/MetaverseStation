@@ -20,6 +20,7 @@ const CategoryView = ({ selectedKeys, onSelect, sort, onFilter, category }: ICat
           <Menu.Item key="category_all">All</Menu.Item>
           <Menu.Item key="METAVERSE_GATHERTOWN">GatherTown</Menu.Item>
           <Menu.Item key="METAVERSE_ZEP">Zep</Menu.Item>
+          <Menu.Item key="METAVERSE_2NDBLOCK">2ndBlock</Menu.Item>
         </MenuBox>
         <FilterWrapper>
           <FilterInner>

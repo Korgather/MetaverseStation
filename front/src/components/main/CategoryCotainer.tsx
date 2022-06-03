@@ -49,6 +49,16 @@ function Category() {
         },
       });
     }
+    if (key === 'METAVERSE_2NDBLOCK') {
+      router.push({
+        pathname: '/',
+        query: {
+          category: 'METAVERSE_2NDBLOCK',
+          page: 1,
+          sort: '',
+        },
+      });
+    }
   };
   const CategoryProps = {
     selectedKeys,

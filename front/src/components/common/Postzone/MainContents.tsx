@@ -41,8 +41,10 @@ const MainContents = ({ mainPosts, openDetailModal, handleImgError }: MainConten
           <S.Summary>
             {post.category === 'METAVERSE_ZEP' ? (
               <S.Logo src="../../images/zepLogo.png" />
-            ) : (
+            ) : post.category === 'METAVERSE_GATHERTOWN' ? (
               <S.Logo src="../../images/gatherLogo.png" />
+            ) : (
+              <S.Logo src="../../images/secondblockLogo.png" style={{ borderRadius: '5px' }} />
             )}
             <S.Title>{post.title}</S.Title>
             <S.StyledHeartTwoTone twoToneColor="#eb3f96" />
