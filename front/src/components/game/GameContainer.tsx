@@ -77,6 +77,24 @@ const GameContainer = () => {
   }, []);
 
   useEffect(() => {
+    if (isMatch.mapia) {
+      setBannerImage(() => [
+        (isPc || isMobile || isTablet) && isPc
+          ? '/images/mapiachannel/pcBanner.png'
+          : '/images/mapiachannel/mobileBanner.png',
+      ]);
+    }
+
+    if (isMatch.omok) {
+      setBannerImage(() => [
+        (isPc || isMobile || isTablet) && isPc
+          ? '/images/omokchannel/pcBanner.png'
+          : '/images/omokchannel/mobileBanner.png',
+      ]);
+    }
+  }, [isPc, isMobile]);
+
+  useEffect(() => {
     if (urlHashId.length === 8) {
       (async () => {
         const result = await Promise.all([
