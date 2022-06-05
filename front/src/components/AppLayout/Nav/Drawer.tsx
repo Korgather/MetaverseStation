@@ -41,7 +41,7 @@ const App: React.FC = () => {
           <Link href="/community/free">커뮤니티</Link>
         </Menu>
         <Menu onClick={onClose} useRouteMatch={gameMatch}>
-          <Link href="/game">게임</Link>
+          <Link href="/game/zepmapia">게임</Link>
         </Menu>
         <Menu onClick={onClose} useRouteMatch={apifactoryMatch}>
           <Link href="/apifactory/gathertownAPI">ApiFactory</Link>

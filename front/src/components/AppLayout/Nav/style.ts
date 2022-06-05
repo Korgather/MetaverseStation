@@ -110,3 +110,9 @@ export const MenuContainer = styled.div`
   }
   display: flex;
 `;
+
+export const StyledMenuItem = styled(Menu.Item)`
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 20px;
+`;

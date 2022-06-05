@@ -4,20 +4,21 @@ import styled from 'styled-components';
 import GameView from './GameView';
 import CurrentUser from '@components/common/Postzone/CurrentUser';
 import Link from 'next/link';
+import { IChannelImages } from './GameContainer';
 
 interface GameChannel {
-  replacements: string[];
-  mapiaChannelImages: {
-    src: string;
-    url: string;
-    count: number;
-  }[];
+  bannerImage: string[];
+  channelImages: IChannelImages;
+  isMatch: {
+    mapia: boolean;
+    omok: boolean;
+  };
 }
 
-const GameChannel = ({ mapiaChannelImages }: GameView) => {
+const GameChannel = ({ channelImages, isMatch }: GameView) => {
   return (
     <Wrapper>
-      {mapiaChannelImages.map((image) => (
+      {(isMatch.mapia ? channelImages.mapia : channelImages.omok).map((image) => (
         <Link href={image.url} key={image.src}>
           <div style={{ position: 'relative', cursor: 'pointer' }}>
             <Image
