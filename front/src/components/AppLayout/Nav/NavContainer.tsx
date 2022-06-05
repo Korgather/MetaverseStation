@@ -38,6 +38,14 @@ const Nav = () => {
       }, 100),
     [isTabnavOn],
   );
+  const onSelect = ({ key }: { key: string }) => {
+    if (key === 'mapia') {
+      router.push('/game/zepmapia');
+    }
+    if (key === 'omok') {
+      router.push('/game/omok');
+    }
+  };
 
   useEffect(() => {
     window.addEventListener('scroll', throttledScroll);
@@ -70,6 +78,7 @@ const Nav = () => {
     navAnimation,
     selectedKeys,
     me,
+    onSelect,
     goHome: () => router.push('/'),
   };
 

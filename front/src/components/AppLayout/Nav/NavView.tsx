@@ -1,6 +1,6 @@
 import React from 'react';
 import { IUser } from '@customTypes/user';
-import { Menu } from 'antd';
+import { Dropdown, Menu } from 'antd';
 import { AnimationControls } from 'framer-motion';
 import Link from 'next/link';
 import Alram from '../Alram';
@@ -19,6 +19,7 @@ interface NavViewProps {
       boxShadow: string;
     };
   };
+  onSelect: ({ key }: { key: string }) => void;
   navAnimation: AnimationControls;
   selectedKeys: string[];
   me: IUser | null;
@@ -32,8 +33,16 @@ const NavView = ({
   selectedKeys,
   me,
   goHome,
+  onSelect,
 }: NavViewProps) => {
   const { isPc } = useMedia();
+  const menu = (
+    <Menu onClick={onSelect}>
+      <S.StyledMenuItem key="mapia">마피아</S.StyledMenuItem>
+      <Menu.Divider />
+      <S.StyledMenuItem key="omok">오목</S.StyledMenuItem>
+    </Menu>
+  );
   return (
     <S.NavLayout fixedpos={fixedpos}>
       <S.TopWrapper>
@@ -57,9 +66,13 @@ const NavView = ({
               <Menu.Item key="nav_community">
                 <Link href="/community/free">커뮤니티</Link>
               </Menu.Item>
+
               <Menu.Item key="nav_game">
-                <Link href="/game">게임</Link>
+                <Dropdown overlay={menu} arrow={false} placement="bottomRight">
+                  <a>게임</a>
+                </Dropdown>
               </Menu.Item>
+
               <Menu.Item key="nav_api">
                 <Link href="/apifactory/gathertownAPI">ApiFactory</Link>
               </Menu.Item>
