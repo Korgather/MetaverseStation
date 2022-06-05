@@ -102,7 +102,6 @@ const WriteModal = () => {
         setZepState(false);
         setCategory(() => 'METAVERSE_2NDBLOCK');
       }
-      console.log(category);
     },
     [gatherState, zepState],
   );
