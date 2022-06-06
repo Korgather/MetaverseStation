@@ -9,10 +9,12 @@ const Nav = () => {
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
   const [selectedKeys, setSelectedKeys] = useState(['']);
+  const [selectedGameKeys, setSelectedGameKeys] = useState(['']);
   const [fixedpos, setFixedPos] = useState('false');
   const [isTabnavOn, setIsTabnavOn] = useState(false);
   const navAnimation = useAnimation();
-  const { homeMatch, communityMatch, apifactoryMatch, gameMatch } = useRouteMatch();
+  const { homeMatch, communityMatch, apifactoryMatch, gameMatch, omokMatch, zepMatch } =
+    useRouteMatch();
   const navVariants = {
     top: {
       boxShadow: 'rgba(0, 0, 0, 0) 0px 5px 15px',
@@ -61,13 +63,19 @@ const Nav = () => {
       setSelectedKeys(['nav_gathertown']);
     }
     if (communityMatch) {
-      setSelectedKeys(['nav_community']);
+      setSelectedKeys(() => ['nav_community']);
     }
     if (apifactoryMatch) {
-      setSelectedKeys(['nav_api']);
+      setSelectedKeys(() => ['nav_api']);
     }
     if (gameMatch) {
-      setSelectedKeys(['nav_game']);
+      setSelectedKeys(() => ['nav_game']);
+    }
+    if (omokMatch) {
+      setSelectedGameKeys(() => ['omok']);
+    }
+    if (zepMatch) {
+      setSelectedGameKeys(() => ['mapia']);
     }
   }, []);
 
@@ -76,6 +84,7 @@ const Nav = () => {
     navVariants,
     navAnimation,
     selectedKeys,
+    selectedGameKeys,
     me,
     onSelect,
     goHome: () => router.push('/'),
