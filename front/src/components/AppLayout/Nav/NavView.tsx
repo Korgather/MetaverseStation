@@ -22,6 +22,7 @@ interface NavViewProps {
   onSelect: ({ key }: { key: string }) => void;
   navAnimation: AnimationControls;
   selectedKeys: string[];
+  selectedGameKeys: string[];
   me: IUser | null;
   goHome: () => Promise<boolean>;
 }
@@ -34,10 +35,12 @@ const NavView = ({
   me,
   goHome,
   onSelect,
+  selectedGameKeys,
 }: NavViewProps) => {
   const { isPc } = useMedia();
+  console.log(selectedGameKeys);
   const menu = (
-    <Menu onClick={onSelect}>
+    <Menu onClick={onSelect} selectedKeys={selectedGameKeys}>
       <S.StyledMenuItem key="mapia">마피아</S.StyledMenuItem>
       <Menu.Divider />
       <S.StyledMenuItem key="omok">오목</S.StyledMenuItem>

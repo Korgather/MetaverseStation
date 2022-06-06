@@ -1,5 +1,5 @@
 import { loadComPost } from '@actions/community';
-import { loadPost, viewPost } from '@actions/post';
+import { viewPost } from '@actions/post';
 import { loadMyInfo } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import CommunityWriteModal from '@components/community/writeModal/CommunityWriteModal';
