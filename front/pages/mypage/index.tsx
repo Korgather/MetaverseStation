@@ -1,18 +1,16 @@
-import { loadLikedPosts, loadMyInfo, loadMyPosts } from '@actions/user';
+import { loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
-import { IAuthorInfo } from '@customTypes/user';
-import { clearAuthorInfo, getAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
+import { clearAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import cookies from 'next-cookies';
 import Head from 'next/head';
-import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 

@@ -8,12 +8,11 @@ import BannerView from '@components/common/Banner/BannerView';
 import { clearComPostDetail } from '@slices/communitySlice';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
-import { useAppDispatch, useAppSelector } from '@store/hook';
+import { useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 
 const community = () => {
   const communityWriteModalState = useAppSelector(
