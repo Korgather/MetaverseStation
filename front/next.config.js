@@ -1,8 +1,12 @@
 /** @type {import('next').NextConfig} */
 // eslint-disable-next-line @typescript-eslint/no-var-requires
+const withPlugins = require('next-compose-plugins');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withPWA = require('next-pwa');
 const nextConfig = {
   compress: true,
   reactStrictMode: true,
@@ -13,6 +17,9 @@ const nextConfig = {
   compiler: {
     // ssr and displayName are configured by default
     styledComponents: true,
+  },
+  pwa: {
+    dest: 'public',
   },
   webpack(config, { webpack }) {
     const prod = process.env.NODE_ENV === 'production';
@@ -29,4 +36,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+module.exports = withPlugins([withPWA, withBundleAnalyzer], nextConfig);
