@@ -14,7 +14,7 @@ describe('Login', () => {
     const kakaoButton = screen.getByRole('link', { name: '카카오 로그인하기' });
     expect(kakaoButton).toHaveAttribute(
       'href',
-      'undefined/oauth2/authorization/kakao?redirect_uri=https://www.modumeta.com/oauth/redirect',
+      'https://api.metabusstation.shop/oauth2/authorization/kakao?redirect_uri=https://www.modumeta.com/oauth/redirect',
     );
   });
   it('login with google', () => {
@@ -26,7 +26,7 @@ describe('Login', () => {
     const googleButton = screen.getByRole('link', { name: '구글로 로그인하기' });
     expect(googleButton).toHaveAttribute(
       'href',
-      'undefined/oauth2/authorization/google?redirect_uri=https://www.modumeta.com/oauth/redirect',
+      'https://api.metabusstation.shop/oauth2/authorization/google?redirect_uri=https://www.modumeta.com/oauth/redirect',
     );
   });
   it('login with naver', () => {
@@ -38,7 +38,7 @@ describe('Login', () => {
     const naverButton = screen.getByRole('link', { name: '네이버 로그인하기' });
     expect(naverButton).toHaveAttribute(
       'href',
-      'undefined/oauth2/authorization/naver?redirect_uri=https://www.modumeta.com/oauth/redirect',
+      'https://api.metabusstation.shop/oauth2/authorization/naver?redirect_uri=https://www.modumeta.com/oauth/redirect',
     );
   });
 });

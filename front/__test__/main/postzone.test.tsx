@@ -20,6 +20,7 @@ Object.defineProperty(window, 'matchMedia', {
 describe('mainPostzone', () => {
   const openDetailModal = jest.fn();
   const gotoDetail = jest.fn();
+  const handleImgError = jest.fn();
   const imageHeight = '15.625rem';
   const mainPosts = mockPosts;
   const Images = null;
@@ -29,6 +30,7 @@ describe('mainPostzone', () => {
     imageHeight,
     gotoDetail,
     Images,
+    handleImgError,
   };
   const renderPostZone = (props: PostZoneViewProps): RenderResult => {
     return render(<PostZoneView {...props} />);

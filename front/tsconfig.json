@@ -26,7 +26,7 @@
       "@customTypes/*": ["src/customTypes/*"],
       "@assets/*": ["src/assets/*"],
       "@styles/*": ["src/styles/*"],
-      "@tests/*": ["src/__tests__/*"]
+      "@tests/*": ["__tests__/*"]
     }
   },
   "include": [
