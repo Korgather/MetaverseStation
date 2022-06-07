@@ -20,17 +20,17 @@ export const mockPosts: IPost[] = [
     imageList: [
       {
         origFileName: '화면 캡처 2022-04-24 174824.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 289794,
       },
       {
         origFileName: '화면 캡처 2022-04-24 174915.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 121542,
       },
       {
         origFileName: '화면 캡처 2022-04-24 174952.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 116616,
       },
     ],
@@ -61,12 +61,12 @@ export const mockPosts: IPost[] = [
     imageList: [
       {
         origFileName: '20220414000259.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 1044177,
       },
       {
         origFileName: '234.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 567317,
       },
     ],
@@ -113,22 +113,22 @@ export const mockPosts: IPost[] = [
     imageList: [
       {
         origFileName: '20220415144805.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 237053,
       },
       {
         origFileName: '20220415144613.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 210976,
       },
       {
         origFileName: '20220415144733.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 360853,
       },
       {
         origFileName: '20220415144704.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 213942,
       },
     ],
@@ -174,22 +174,22 @@ export const mockPosts: IPost[] = [
     imageList: [
       {
         origFileName: 'KakaoTalk_20220524_001119619.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 669313,
       },
       {
         origFileName: '화면 캡처 2022-05-23 170424.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 166490,
       },
       {
         origFileName: 'KakaoTalk_20220523_170526424.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 96692,
       },
       {
         origFileName: 'KakaoTalk_20220523_170526053.png',
-        imagePath: '',
+        imagePath: '6a9a0073-aa99-43e0-8e15-9d2c52ac12c9야밤 라운지.png',
         fileSize: 210402,
       },
     ],
