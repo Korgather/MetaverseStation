@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { loadPost, removeComment, removeReply, updateComment, updateReply } from '@actions/post';
 import { IComment, IReply, TUpdateComment, TUpdateReply } from '@customTypes/comment';
 import { useAppDispatch, useAppSelector } from '@store/hook';

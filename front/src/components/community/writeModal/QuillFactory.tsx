@@ -4,7 +4,7 @@ import { useAppSelector } from '@store/hook';
 import axios from 'axios';
 import { useQuill } from 'react-quilljs';
 import { RangeStatic } from 'quill';
-import { AddPost, IImageList } from '@customTypes/post';
+import { IImageList } from '@customTypes/post';
 const formats = [
   'header',
   'font',

@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
-import { heartPost, loadPost, removePost } from '@actions/post';
+import { heartPost, removePost } from '@actions/post';
 import { useRouter } from 'next/router';
 import { Dropdown, Menu, message, Tooltip } from 'antd';
 import shortid from 'shortid';

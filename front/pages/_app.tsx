@@ -3,12 +3,10 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
 import wrapper, { store } from '@store/configureStore';
-/* purgecss start ignore */
 import 'antd/dist/antd.css';
 import 'slick-carousel/slick/slick.css';
 import 'react-quill/dist/quill.snow.css';
 import 'slick-carousel/slick/slick-theme.css';
-/* purgecss end ignore */
 import AppInner from '@components/AppInner';
 import { CookiesProvider } from 'react-cookie';
 import { useRouter } from 'next/router';

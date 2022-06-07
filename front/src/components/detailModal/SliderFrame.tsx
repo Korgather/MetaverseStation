@@ -1,4 +1,3 @@
-import { useAppSelector } from '@store/hook';
 import React, { useMemo } from 'react';
 import Slider, { Settings } from 'react-slick';
 import styled from 'styled-components';

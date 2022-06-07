@@ -1,5 +1,5 @@
 import { loadComPost } from '@actions/community';
-import { addComment, loadPost } from '@actions/post';
+import { addComment } from '@actions/post';
 import { scrollToBottom } from '@lib/scroll';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Tooltip } from 'antd';

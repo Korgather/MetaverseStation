@@ -16,7 +16,7 @@ import {
   addFeedBack,
   searchKeywords,
 } from '@actions/post';
-import { IPost, IPostState, SearchPayload } from '@customTypes/post';
+import { IPostState, SearchPayload } from '@customTypes/post';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IPostState = {
@@ -255,7 +255,7 @@ export const postSlice = createSlice({
       .addCase(updateComment.pending, (state) => {
         state.updateCommentLoading = true;
       })
-      .addCase(updateComment.fulfilled, (state, action) => {
+      .addCase(updateComment.fulfilled, (state) => {
         state.updateCommentDone = true;
         state.updateCommentLoading = false;
       })
@@ -269,7 +269,7 @@ export const postSlice = createSlice({
       .addCase(addReply.pending, (state) => {
         state.addReplyLoading = true;
       })
-      .addCase(addReply.fulfilled, (state, action) => {
+      .addCase(addReply.fulfilled, (state) => {
         state.addReplyDone = true;
         state.addReplyLoading = false;
       })
@@ -280,7 +280,7 @@ export const postSlice = createSlice({
       .addCase(removeReply.pending, (state) => {
         state.removeReplyLoading = true;
       })
-      .addCase(removeReply.fulfilled, (state, action) => {
+      .addCase(removeReply.fulfilled, (state) => {
         state.removeReplyDone = true;
         state.removeReplyLoading = false;
       })
@@ -291,7 +291,7 @@ export const postSlice = createSlice({
       .addCase(updateReply.pending, (state) => {
         state.updateReplyLoading = true;
       })
-      .addCase(updateReply.fulfilled, (state, action) => {
+      .addCase(updateReply.fulfilled, (state) => {
         state.updateReplyDone = true;
         state.updateReplyLoading = false;
       })
@@ -302,7 +302,7 @@ export const postSlice = createSlice({
       .addCase(deleteAlram.pending, (state) => {
         state.deleteAlramLoading = true;
       })
-      .addCase(deleteAlram.fulfilled, (state, action) => {
+      .addCase(deleteAlram.fulfilled, (state) => {
         state.deleteAlramDone = true;
         state.deleteAlramLoading = false;
       })
@@ -313,7 +313,7 @@ export const postSlice = createSlice({
       .addCase(addFeedBack.pending, (state) => {
         state.addFeedBackLoading = true;
       })
-      .addCase(addFeedBack.fulfilled, (state, action) => {
+      .addCase(addFeedBack.fulfilled, (state) => {
         state.addFeedBackDone = true;
         state.addFeedBackLoading = false;
       })

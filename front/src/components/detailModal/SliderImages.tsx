@@ -4,11 +4,9 @@ import shortid from 'shortid';
 import SliderFrame from './SliderFrame';
 import * as S from './style';
 import { Image } from 'antd';
-import Link from 'next/link';
 
 const SliderImages = () => {
   const postData = useAppSelector((state) => state.postSlice.postDetail);
-  const me = useAppSelector((state) => state.userSlice.me);
 
   return (
     <>

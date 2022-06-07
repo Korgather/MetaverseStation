@@ -1,7 +1,5 @@
-import Script from 'next/script';
 import React from 'react';
-import styled, { css } from 'styled-components';
-import { Link } from 'react-scroll';
+import styled from 'styled-components';
 import Content from './Content';
 import Category from './Category';
 import { media } from '@styles/theme';

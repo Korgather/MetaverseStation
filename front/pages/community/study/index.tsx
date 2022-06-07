@@ -1,3 +1,4 @@
+import React from 'react';
 import { loadComPosts } from '@actions/community';
 import { loadMyInfo } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
@@ -12,8 +13,6 @@ import { useAppSelector } from '@store/hook';
 import axios from 'axios';
 import cookies from 'next-cookies';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import React from 'react';
 import styled from 'styled-components';
 
 const community = () => {

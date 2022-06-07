@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { removeHtml } from '@lib/removeHtml';
 import { HeartFilled } from '@ant-design/icons';
 import shortid from 'shortid';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 import { media } from '@styles/theme';
 interface MyPostProps {

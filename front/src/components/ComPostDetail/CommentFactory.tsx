@@ -1,6 +1,6 @@
 import { loadComPost } from '@actions/community';
 import { removeComment, updateComment } from '@actions/post';
-import { IComment, IReply } from '@customTypes/comment';
+import { IComment } from '@customTypes/comment';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
 import { handleResizeHeight } from '@lib/textareaResizeHeight';
 import { useAppDispatch, useAppSelector } from '@store/hook';

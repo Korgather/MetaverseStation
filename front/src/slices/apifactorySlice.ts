@@ -23,7 +23,7 @@ export const apifactorySlice = createSlice({
       .addCase(getMap.pending, (state) => {
         state.getMapLoading = true;
       })
-      .addCase(getMap.fulfilled, (state, action) => {
+      .addCase(getMap.fulfilled, (state) => {
         state.getMapDone = true;
         state.getMapLoading = false;
       })
@@ -34,7 +34,7 @@ export const apifactorySlice = createSlice({
       .addCase(setMusic.pending, (state) => {
         state.setMusicLoading = true;
       })
-      .addCase(setMusic.fulfilled, (state, action) => {
+      .addCase(setMusic.fulfilled, (state) => {
         state.setMusicDone = true;
         state.setMusicLoading = false;
       })
@@ -45,7 +45,7 @@ export const apifactorySlice = createSlice({
       .addCase(setMap.pending, (state) => {
         state.setMapLoading = true;
       })
-      .addCase(setMap.fulfilled, (state, action) => {
+      .addCase(setMap.fulfilled, (state) => {
         state.setMapDone = true;
         state.setMapLoading = false;
       })
@@ -55,5 +55,4 @@ export const apifactorySlice = createSlice({
       }),
 });
 
-// export const {} = apifactorySlice.actions;
 export default apifactorySlice.reducer;

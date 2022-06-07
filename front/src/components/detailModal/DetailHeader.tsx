@@ -14,7 +14,6 @@ import modal from 'antd/lib/modal';
 import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
-import { SelectOutlined } from '@ant-design/icons';
 interface DetailHeader {
   setCommentState: Dispatch<SetStateAction<boolean>>;
 }
