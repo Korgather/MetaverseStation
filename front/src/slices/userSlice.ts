@@ -83,7 +83,7 @@ export const userSlice = createSlice({
       .addCase(changeNickName.pending, (state) => {
         state.changeNickNameLoading = true;
       })
-      .addCase(changeNickName.fulfilled, (state, action) => {
+      .addCase(changeNickName.fulfilled, (state) => {
         state.changeNickNameLoading = false;
       })
       .addCase(
@@ -96,7 +96,7 @@ export const userSlice = createSlice({
       .addCase(updateProfile.pending, (state) => {
         state.updateProfileLoading = true;
       })
-      .addCase(updateProfile.fulfilled, (state, action) => {
+      .addCase(updateProfile.fulfilled, (state) => {
         state.updateProfileLoading = false;
       })
       .addCase(

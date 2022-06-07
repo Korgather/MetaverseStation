@@ -1,5 +1,4 @@
 import React from 'react';
-
 import LoginContainer from '@components/login/LoginContainer';
 import wrapper from '@store/configureStore';
 import { logOut, saveAccessToken } from '@slices/userSlice';

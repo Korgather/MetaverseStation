@@ -1,5 +1,4 @@
 import React from 'react';
-
 import GameContainer from '@components/game/GameContainer';
 import Head from 'next/head';
 import axios from 'axios';

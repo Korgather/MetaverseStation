@@ -49,9 +49,11 @@ const NavView = ({
   return (
     <S.NavLayout fixedpos={fixedpos}>
       <S.TopWrapper>
-        <S.Logo onClick={goHome}>
-          <S.LogoImg src="/images/BetaLogo.png" />
-        </S.Logo>
+        <S.LogoContainer onClick={goHome}>
+          <S.LogoWrapper>
+            <S.LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
+          </S.LogoWrapper>
+        </S.LogoContainer>
       </S.TopWrapper>
 
       <S.StyledHeader

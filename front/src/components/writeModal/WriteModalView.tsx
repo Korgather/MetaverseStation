@@ -59,7 +59,7 @@ const WriteModalView = ({
                   name="secondblock"
                   state={secondBlockState}
                 >
-                  2ndBlock
+                  2ndblock
                 </S.SelectBtn>
               </S.SelectBtnWrapper>
               <S.StyledLabel htmlFor="title">제목</S.StyledLabel>

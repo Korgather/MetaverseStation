@@ -8,7 +8,6 @@ import { media } from '@styles/theme';
 import styled from 'styled-components';
 import BoardList from './BoardList';
 import Category from './Category';
-import CommunitySearch from './CommunitySearch';
 
 const Board = () => {
   const router = useRouter();

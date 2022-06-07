@@ -6,7 +6,7 @@ import { openModal } from '@lib/ModalUtil';
 import { useAppDispatch } from '@store/hook';
 import { loadPost } from '@actions/post';
 import shortid from 'shortid';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 
 interface IMyPostFactoryProps {

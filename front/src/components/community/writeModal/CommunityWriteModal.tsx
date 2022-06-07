@@ -8,7 +8,7 @@ import { useFormik } from 'formik';
 import { addComPost, IAddComPost, updateComPost } from '@actions/community';
 import { useRouter } from 'next/router';
 import QuillFactory from './QuillFactory';
-import { AddPost, IImageList } from '@customTypes/post';
+import { IImageList } from '@customTypes/post';
 
 const WriteModal = () => {
   const router = useRouter();

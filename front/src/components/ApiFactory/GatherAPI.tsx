@@ -4,7 +4,6 @@ import { useAppDispatch } from '@store/hook';
 import { Input } from 'antd';
 import { Button } from 'antd';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import MapAPI from './MapAPI';
