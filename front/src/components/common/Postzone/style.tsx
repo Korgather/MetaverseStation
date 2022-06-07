@@ -19,7 +19,11 @@ export const CountUser = styled.div`
   text-align: center;
   margin-right: 6px;
 `;
-
+export const LogoWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+`;
 export const CountBox = styled.div`
   position: absolute;
   width: 50px;
@@ -44,11 +48,6 @@ export const StyledCol = styled(Col)`
 export const PostZoneWrapper = styled.div`
   max-width: 1440px;
   width: 80vw;
-`;
-
-export const Logo = styled.img`
-  margin-right: 10px;
-  height: 2rem;
 `;
 
 export const Title = styled.h2`

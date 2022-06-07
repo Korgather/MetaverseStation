@@ -2,6 +2,7 @@ import { media } from '@styles/theme';
 import { Button, Menu } from 'antd';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
+import Image from 'next/image';
 
 interface NavProps {
   fixedpos: string;
@@ -29,7 +30,7 @@ export const TopWrapper = styled.div`
   justify-content: center;
 `;
 
-export const Logo = styled.div`
+export const LogoContainer = styled.div`
   margin: 30px 0 20px 20px;
   width: 1440px;
   @media screen and (max-width: 1650px) {
@@ -40,13 +41,17 @@ export const Logo = styled.div`
   }
 `;
 
-export const LogoImg = styled.img`
-  width: 26rem;
+export const LogoWrapper = styled.div`
+  max-width: 450px;
+`;
+
+export const LogoImg = styled(Image)`
+  max-width: 26rem;
   cursor: pointer;
   margin-right: auto;
-  ${media.mobile} {
+  /* ${media.mobile} {
     width: 240px;
-  }
+  } */
 `;
 
 export const MenuWrapper = styled(Menu)`
