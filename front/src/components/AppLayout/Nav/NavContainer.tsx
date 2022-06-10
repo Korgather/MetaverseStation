@@ -5,6 +5,7 @@ import { useAnimation } from 'framer-motion';
 import NavView from './NavView';
 import { useRouteMatch } from '@lib/useRouteMatch';
 import { throttle } from 'lodash';
+import { useMedia } from '@lib/useMedia';
 const Nav = () => {
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
@@ -15,6 +16,7 @@ const Nav = () => {
   const navAnimation = useAnimation();
   const { homeMatch, communityMatch, apifactoryMatch, gameMatch, omokMatch, zepMatch } =
     useRouteMatch();
+  const { isPc } = useMedia();
   const navVariants = {
     top: {
       boxShadow: 'rgba(0, 0, 0, 0) 0px 5px 15px',
@@ -50,12 +52,14 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', throttledScroll);
-    window.addEventListener('touchmove', throttledScroll);
-    return () => {
-      window.removeEventListener('scroll', throttledScroll);
-      window.removeEventListener('touchmove', throttledScroll);
-    };
+    if (isPc) {
+      window.addEventListener('scroll', throttledScroll);
+      window.addEventListener('touchmove', throttledScroll);
+      return () => {
+        window.removeEventListener('scroll', throttledScroll);
+        window.removeEventListener('touchmove', throttledScroll);
+      };
+    }
   }, [throttledScroll]);
 
   useEffect(() => {

@@ -73,6 +73,9 @@ const LayoutWrapper = styled.div`
 
     align-items: center;
   }
+  ${media.mobile} {
+    margin-top: 70px;
+  }
 `;
 
 const StyledLayout = styled(Layout)`
