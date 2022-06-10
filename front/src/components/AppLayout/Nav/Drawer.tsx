@@ -66,10 +66,8 @@ const App: React.FC = () => {
 export default App;
 
 const SpaceWrapper = styled(Space)`
-  ${media.mobile} {
-    flex: 0.5;
-    margin-right: auto;
-  }
+  flex: 0.5;
+  margin-right: auto;
 `;
 
 const ImgWrapper = styled.div`
@@ -84,6 +82,9 @@ const ImgWrapper = styled.div`
 const StyledDrawer = styled(Drawer)`
   font-size: 1rem;
   font-weight: 700;
+  .ant-drawer-content-wrapper {
+    width: 80% !important;
+  }
   .login {
     :hover {
       background-color: none !important;
@@ -119,7 +120,7 @@ const Menu = styled.div<{ useRouteMatch?: boolean }>`
 
 const CloseBtn = styled.div`
   position: absolute;
-  right: 30px;
+  right: 10px;
   top: 10px;
   font-size: 1.4rem;
   padding: 10px;
