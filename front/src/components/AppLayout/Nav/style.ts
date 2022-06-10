@@ -47,7 +47,7 @@ export const LogoContainer = styled.div`
 export const LogoWrapper = styled.div`
   max-width: 450px;
   ${media.mobile} {
-    max-width: 300px;
+    width: 90%;
   }
 `;
 
@@ -127,6 +127,7 @@ export const MenuContainer = styled.div`
   }
   ${media.mobile} {
     width: 100vw;
+    justify-content: flex-start;
   }
   display: flex;
 `;

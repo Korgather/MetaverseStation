@@ -35,14 +35,14 @@ const App: React.FC = () => {
         visible={visible}
         key={'left'}
       >
-        <Menu onClick={onClose} className="login">
+        <div onClick={onClose} className="login">
           <LogoWrapper>
             <LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
           </LogoWrapper>
           <Link href="/login">
             <Button>로그인</Button>
           </Link>
-        </Menu>
+        </div>
         <Menu onClick={onClose} useRouteMatch={homeMatch}>
           <Link href="/">메타버스</Link>
         </Menu>
@@ -67,16 +67,17 @@ export default App;
 
 const SpaceWrapper = styled(Space)`
   ${media.mobile} {
-    flex: 1;
+    flex: 0.5;
+    margin-right: auto;
   }
 `;
 
 const ImgWrapper = styled.div`
-  margin-left: 20px;
   margin-top: 10px;
   img {
     width: 30px;
     height: 30px;
+    margin-right: auto;
   }
 `;
 
@@ -84,6 +85,9 @@ const StyledDrawer = styled(Drawer)`
   font-size: 1rem;
   font-weight: 700;
   .login {
+    :hover {
+      background-color: none !important;
+    }
     margin-top: 30px;
     display: flex;
     flex-direction: column;
