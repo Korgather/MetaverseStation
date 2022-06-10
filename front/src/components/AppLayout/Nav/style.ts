@@ -28,6 +28,9 @@ export const TopWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  ${media.mobile} {
+    display: none;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -37,12 +40,15 @@ export const LogoContainer = styled.div`
     width: 75vw;
   }
   ${media.mobile} {
-    width: 100vw;
+    width: 100%;
   }
 `;
 
 export const LogoWrapper = styled.div`
   max-width: 450px;
+  ${media.mobile} {
+    max-width: 300px;
+  }
 `;
 
 export const LogoImg = styled(Image)`
@@ -52,6 +58,13 @@ export const LogoImg = styled(Image)`
   /* ${media.mobile} {
     width: 240px;
   } */
+`;
+export const MobileLogoWrapper = styled.div`
+  display: none;
+  ${media.mobile} {
+    display: block;
+    flex: 5;
+  }
 `;
 
 export const MenuWrapper = styled(Menu)`
@@ -79,7 +92,7 @@ export const BtnWrapper = styled.div`
   justify-content: end;
   width: 30%;
   ${media.mobile} {
-    flex: 1;
+    display: none;
   }
 `;
 
@@ -97,6 +110,8 @@ export const StyledHeader = styled(motion.div)<NavProps>`
   justify-content: center;
   ${media.mobile} {
     width: 100vw;
+    position: fixed;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 `;
 

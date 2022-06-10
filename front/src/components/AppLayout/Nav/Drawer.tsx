@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Drawer, Space } from 'antd';
+import { Button, Drawer, Space } from 'antd';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { useRouteMatch } from '@lib/useRouteMatch';
+import { media } from '@styles/theme';
+import Image from 'next/image';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -16,7 +18,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      <Space>
+      <SpaceWrapper>
         <ImgWrapper>
           <img
             src="../../images/burger.png"
@@ -25,15 +27,22 @@ const App: React.FC = () => {
             style={{ cursor: 'pointer' }}
           />
         </ImgWrapper>
-      </Space>
+      </SpaceWrapper>
       <StyledDrawer
-        title="메뉴"
         placement="left"
         closable={false}
         onClose={onClose}
         visible={visible}
         key={'left'}
       >
+        <Menu onClick={onClose} className="login">
+          <LogoWrapper>
+            <LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
+          </LogoWrapper>
+          <Link href="/login">
+            <Button>로그인</Button>
+          </Link>
+        </Menu>
         <Menu onClick={onClose} useRouteMatch={homeMatch}>
           <Link href="/">메타버스</Link>
         </Menu>
@@ -56,6 +65,12 @@ const App: React.FC = () => {
 
 export default App;
 
+const SpaceWrapper = styled(Space)`
+  ${media.mobile} {
+    flex: 1;
+  }
+`;
+
 const ImgWrapper = styled.div`
   margin-left: 20px;
   margin-top: 10px;
@@ -68,15 +83,31 @@ const ImgWrapper = styled.div`
 const StyledDrawer = styled(Drawer)`
   font-size: 1rem;
   font-weight: 700;
+  .login {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-bottom: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #c4c4c4;
+    Button {
+      width: 100%;
+      height: 50px;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+  }
 `;
 
-const Menu = styled.div<{ useRouteMatch: boolean }>`
+const Menu = styled.div<{ useRouteMatch?: boolean }>`
   :hover {
     background-color: #f0f0f0;
   }
   transition: all 0.2s ease-out;
   padding: 10px 5px;
   cursor: pointer;
+  font-size: 1.2rem;
   a {
     color: ${(props) => (props.useRouteMatch ? '#4490f8' : 'black')};
   }
@@ -99,4 +130,20 @@ const CloseBtn = styled.div`
   span {
     margin-bottom: 3px;
   }
+`;
+
+const LogoWrapper = styled.div`
+  max-width: 450px;
+  ${media.mobile} {
+    max-width: 300px;
+  }
+`;
+
+const LogoImg = styled(Image)`
+  max-width: 26rem;
+  cursor: pointer;
+  margin-right: auto;
+  /* ${media.mobile} {
+    width: 240px;
+  } */
 `;

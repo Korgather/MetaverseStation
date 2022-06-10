@@ -38,7 +38,6 @@ const NavView = ({
   selectedGameKeys,
 }: NavViewProps) => {
   const { isPc } = useMedia();
-  console.log(selectedGameKeys);
   const menu = (
     <Menu onClick={onSelect} selectedKeys={selectedGameKeys}>
       <S.StyledMenuItem key="mapia">마피아</S.StyledMenuItem>
@@ -85,6 +84,13 @@ const NavView = ({
           ) : (
             <Drawer />
           )}
+          <S.MobileLogoWrapper>
+            <S.LogoContainer onClick={goHome}>
+              <S.LogoWrapper>
+                <S.LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
+              </S.LogoWrapper>
+            </S.LogoContainer>
+          </S.MobileLogoWrapper>
           <S.BtnWrapper>
             {me ? (
               <S.AlramProfileWrapper>
