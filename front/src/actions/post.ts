@@ -99,16 +99,8 @@ export const loadPost = createAsyncThunk('post/load', async (postId: number, thu
 });
 
 export const loadPosts = createAsyncThunk('posts/load', async (data: IloadPosts, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-
-        withCredentials: true,
-      },
       params: {
         category: data.category,
         keyword: data.keyword ? data.keyword : '',
