@@ -1,13 +1,91 @@
 import { StyledScroll } from '@components/detailModal/style';
 import GameContainer from '@components/game/GameContainer';
+import { useAppSelector } from '@store/hook';
 import Head from 'next/head';
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useCallback, useState } from 'react';
+import React, { RefObject, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const zepmapia = () => {
   const [channelState, setChannelState] = useState(false);
   const router = useRouter();
+  const me = useAppSelector((state) => state.userSlice.me);
+  const [isLoading, setLoader] = useState(true);
+  const [frame, setFrame] = useState<HTMLIFrameElement | null>(null);
+  // const [testNode, setTestNode] = useState<HTMLIFrameElement | null>(null);
+  // const mountNode = frame?.contentWindow?.document;
+  // const zzz = testNode?.contentWindow?.document;
+  const startPolling = () => {
+    console.log('startPolling');
+    if (document.getElementById('embedIframe') !== null) {
+      console.log('react is ready');
+      return;
+    }
+    setTimeout(startPolling, 1000);
+  };
+  useEffect(() => {
+    // setTestNode(() => document.querySelector('iframe'));
+    const test = document.querySelector('#zepiframe');
+    (test as HTMLIFrameElement).onload = () => {
+      const test2 = test?.querySelector('#embedIframe');
+      console.log(test2);
+    };
+    window.addEventListener('message', (e: any) => {
+      console.log(e.data);
+      if (e.data.name) {
+        console.log(document.querySelector('iframe'));
+
+        if (document.querySelector('iframe')) {
+          document.querySelector('iframe')?.addEventListener('message', (e: any) => {
+            console.log(e);
+          });
+        }
+      }
+    });
+  }, []);
+  // useEffect(() => {
+  //   // setFrame(() => document.querySelector('#zepiframe'));
+  //   // setLoader(document.readyState == 'complete');
+  //   // if (frame !== null) {
+  //   //   (frame as HTMLIFrameElement).onload = () => {
+  //   //     startPolling();
+  //   //   };
+  //   // }
+  //   // if (frame !== null) {
+  //   //   (frame as HTMLIFrameElement).onload = () => {
+  //   //     startPolling();
+  //   //   };
+  //   // }
+  //   frame?.addEventListener('load', () => {
+  //     console.log('asdasdas');
+  //   });
+  //   frame?.addEventListener('message', handler);
+  //   function handler(e: any) {
+  //     console.log('hi');
+  //     console.log(e.data);
+  //   }
+  //   // startPolling();
+  //   // console.log(frame);
+  //   // console.log(frame?.contentWindow?.document.body);
+  // }, [mountNode, frame]);
+
+  // $('#iframe').load(function () {
+  //   $(this)
+  //     .contents()
+  //     .find('body')
+  //     .append(
+  //       '<scr' +
+  //         'ipt type="text/javascript">alert(1)</scr' +
+  //         'ipt>',
+  //     );
+  // });
+
+  // $('#iframe').contents().find('body').append(scriptTag);
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
   const id = router.query.id;
   const onToggleChannel = useCallback(() => {
     setChannelState((state) => !state);
@@ -19,8 +97,11 @@ const zepmapia = () => {
       </Head>
       {id && (
         <StyledIframe
+          ref={(data) => setFrame(data)}
+          id="zepiframe"
           src={`https://zep.us/play/${id}`}
           allow="camera *;microphone *"
+          sandbox="allow-scripts allow-same-origin allow-storage-access-by-user-activation"
         ></StyledIframe>
       )}
       <StyledButton onClick={onToggleChannel} type="button">

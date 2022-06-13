@@ -5,15 +5,25 @@ import Link from 'next/link';
 import { useRouteMatch } from '@lib/useRouteMatch';
 import { media } from '@styles/theme';
 import Image from 'next/image';
+import { useAppDispatch, useAppSelector } from '@store/hook';
+import { logOut } from '@slices/userSlice';
+import { useCookies } from 'react-cookie';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
   const { homeMatch, communityMatch, apifactoryMatch, gameMatch } = useRouteMatch();
+  const me = useAppSelector((state) => state.userSlice.me);
+  const removeCookie = useCookies(['Token'])[2];
+  const dispatch = useAppDispatch();
   const showDrawer = () => {
     setVisible(true);
   };
   const onClose = () => {
     setVisible(false);
+  };
+  const onLogout = () => {
+    removeCookie('Token', { path: '/' });
+    dispatch(logOut());
   };
 
   return (
@@ -39,9 +49,23 @@ const App: React.FC = () => {
           <LogoWrapper>
             <LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
           </LogoWrapper>
-          <Link href="/login">
-            <Button>로그인</Button>
-          </Link>
+          {me ? (
+            <ProfileWrapper>
+              <Link href="/mypage">
+                <ProfileImage
+                  src={me?.profileImageUrl as string}
+                  width={40}
+                  height={40}
+                  layout={'intrinsic'}
+                />
+              </Link>
+              <span>{me.userName}</span>
+            </ProfileWrapper>
+          ) : (
+            <Link href="/login">
+              <Button>로그인</Button>
+            </Link>
+          )}
         </div>
         <Menu onClick={onClose} useRouteMatch={homeMatch}>
           <Link href="/">메타버스</Link>
@@ -58,6 +82,11 @@ const App: React.FC = () => {
         <CloseBtn onClick={onClose}>
           <span>x</span>
         </CloseBtn>
+        {me && (
+          <LogoutWrapper>
+            <Button onClick={onLogout}>로그아웃</Button>
+          </LogoutWrapper>
+        )}
       </StyledDrawer>
     </>
   );
@@ -98,7 +127,7 @@ const StyledDrawer = styled(Drawer)`
     border-bottom: 1px solid #c4c4c4;
     Button {
       width: 100%;
-      height: 50px;
+      height: 40px;
       font-size: 1.3rem;
       font-weight: 600;
     }
@@ -148,7 +177,31 @@ const LogoImg = styled(Image)`
   max-width: 26rem;
   cursor: pointer;
   margin-right: auto;
-  /* ${media.mobile} {
-    width: 240px;
-  } */
+`;
+
+const ProfileWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  span {
+    margin-left: 15px;
+    font-size: 1.2rem;
+  }
+`;
+
+const LogoutWrapper = styled.div`
+  margin-top: 10px;
+  padding: 20px 0;
+  border-top: 1px solid #c4c4c4;
+  Button {
+    width: 100%;
+    height: 40px;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+`;
+
+const ProfileImage = styled(Image)`
+  border-radius: 50%;
 `;
