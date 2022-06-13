@@ -24,6 +24,11 @@ function redirect() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         const res = await dispatch(loadMyInfo());
         if (res.payload.userNameModifiedYn === 'Y') {
+          if (router.query.aspath?.includes('omok')) {
+            const path = router.query.aspath;
+            router.push(path as string);
+            return;
+          }
           router.push('/');
         }
       }
