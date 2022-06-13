@@ -10,40 +10,40 @@ import styled from 'styled-components';
 const zepmapia = () => {
   const [channelState, setChannelState] = useState(false);
   const router = useRouter();
-  const me = useAppSelector((state) => state.userSlice.me);
+  // const me = useAppSelector((state) => state.userSlice.me);
   const [isLoading, setLoader] = useState(true);
-  const [frame, setFrame] = useState<HTMLIFrameElement | null>(null);
+  // const [frame, setFrame] = useState<HTMLIFrameElement | null>(null);
   // const [testNode, setTestNode] = useState<HTMLIFrameElement | null>(null);
   // const mountNode = frame?.contentWindow?.document;
   // const zzz = testNode?.contentWindow?.document;
-  const startPolling = () => {
-    console.log('startPolling');
-    if (document.getElementById('embedIframe') !== null) {
-      console.log('react is ready');
-      return;
-    }
-    setTimeout(startPolling, 1000);
-  };
-  useEffect(() => {
-    // setTestNode(() => document.querySelector('iframe'));
-    const test = document.querySelector('#zepiframe');
-    (test as HTMLIFrameElement).onload = () => {
-      const test2 = test?.querySelector('#embedIframe');
-      console.log(test2);
-    };
-    window.addEventListener('message', (e: any) => {
-      console.log(e.data);
-      if (e.data.name) {
-        console.log(document.querySelector('iframe'));
+  // const startPolling = () => {
+  //   console.log('startPolling');
+  //   if (document.getElementById('embedIframe') !== null) {
+  //     console.log('react is ready');
+  //     return;
+  //   }
+  //   setTimeout(startPolling, 1000);
+  // };
+  // useEffect(() => {
+  //   // setTestNode(() => document.querySelector('iframe'));
+  //   const test = document.querySelector('#zepiframe');
+  //   (test as HTMLIFrameElement).onload = () => {
+  //     const test2 = test?.querySelector('#embedIframe');
+  //     console.log(test2);
+  //   };
+  //   window.addEventListener('message', (e: any) => {
+  //     console.log(e.data);
+  //     if (e.data.name) {
+  //       console.log(document.querySelector('iframe'));
 
-        if (document.querySelector('iframe')) {
-          document.querySelector('iframe')?.addEventListener('message', (e: any) => {
-            console.log(e);
-          });
-        }
-      }
-    });
-  }, []);
+  //       if (document.querySelector('iframe')) {
+  //         document.querySelector('iframe')?.addEventListener('message', (e: any) => {
+  //           console.log(e);
+  //         });
+  //       }
+  //     }
+  //   });
+  // }, []);
   // useEffect(() => {
   //   // setFrame(() => document.querySelector('#zepiframe'));
   //   // setLoader(document.readyState == 'complete');
@@ -97,7 +97,7 @@ const zepmapia = () => {
       </Head>
       {id && (
         <StyledIframe
-          ref={(data) => setFrame(data)}
+          // ref={(data) => setFrame(data)}
           id="zepiframe"
           src={`https://zep.us/play/${id}`}
           allow="camera *;microphone *"
