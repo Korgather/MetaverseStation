@@ -1,6 +1,10 @@
 import React, { useLayoutEffect } from 'react';
 import type { NextPage } from 'next';
 import styled from 'styled-components';
+import Head from 'next/head';
+import axios from 'axios';
+import cookies from 'next-cookies';
+import shortid from 'shortid';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/CategoryCotainer';
@@ -11,15 +15,11 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
-import axios from 'axios';
 import { loadMyInfo } from '@actions/user';
-import cookies from 'next-cookies';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
-import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
-import shortid from 'shortid';
 import useScroll from '@lib/useScroll';
 import { media } from '@styles/theme';
 
@@ -35,8 +35,8 @@ const Home: NextPage = () => {
   useLayoutEffect(() => {
     scrollMove();
     return () => scrollSave();
-  }, [router.query]);
-
+  }, [router.query.category]);
+  const isInitialPage = JSON.stringify(router.query) === '{}';
   return (
     <>
       <Head>
@@ -46,17 +46,21 @@ const Home: NextPage = () => {
         <>
           <BannerView />
           <Category />
-          <AnimatePresence exitBeforeEnter>
-            <motion.div
-              key={shortid.generate()}
-              variants={pageVariants}
-              initial="initial"
-              animate="visible"
-              exit="leaving"
-            >
-              <Postzone mainPosts={mainPosts} />
-            </motion.div>
-          </AnimatePresence>
+          {isInitialPage ? (
+            <Postzone mainPosts={mainPosts} />
+          ) : (
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={shortid.generate()}
+                variants={pageVariants}
+                initial="initial"
+                animate="visible"
+                exit="leaving"
+              >
+                <Postzone mainPosts={mainPosts} />
+              </motion.div>
+            </AnimatePresence>
+          )}
           <BottomWrapper>
             <Pagination />
             {me ? (
