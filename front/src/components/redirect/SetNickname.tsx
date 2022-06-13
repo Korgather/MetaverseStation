@@ -1,7 +1,7 @@
 import { changeNickName } from '@actions/user';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input } from 'antd';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { media } from '@styles/theme';
 import styled from 'styled-components';
@@ -15,6 +15,7 @@ function SetNickname({ token }: ISetNickname) {
   const [nickname, setNickName] = useState('');
   const [inValid, setInValid] = useState(false);
   const changeNickNameLoading = useAppSelector((state) => state.userSlice.changeNickNameLoading);
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const goback = () => setSecondStep(false);
   const goNext = async () => {
@@ -22,7 +23,12 @@ function SetNickname({ token }: ISetNickname) {
     res.type === 'user/changeNickName/fulfilled' && setSecondStep(true);
   };
   const goMain = async () => {
-    token && Router.push('/');
+    if (token && router.query.aspath?.includes('omok')) {
+      const path = router.query.aspath;
+      router.push(path as string);
+      return;
+    }
+    router.push('/');
   };
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
