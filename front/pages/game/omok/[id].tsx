@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useAppSelector } from '@store/hook';
+import { useAppDispatch, useAppSelector } from '@store/hook';
 import Head from 'next/head';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -12,29 +12,35 @@ import LoginModalView from '@components/game/loginModal/LoginModalView';
 import GameNav from '@components/game/gameNav';
 import ProfileCard from '@components/game/gameNav/ProfileCard';
 import GameChannelChange from '@components/game/GameChannelChange';
+import { signInOmok } from '@actions/game';
 
 const zepmapia = () => {
   const [channelState, setChannelState] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const me = useAppSelector((state) => state.userSlice.me);
   const [startCondition, setStartCondition] = useState(true);
   const [profileCardState, setProfileCardState] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('message', (e: MessageEvent) => {
-      console.log(e.data);
+    window.addEventListener('message', async (e: MessageEvent) => {
       if (e.data.event === 'JOINED_MAP') {
         if (me) {
           const iframe = document.querySelector('iframe');
-          (iframe as HTMLIFrameElement).contentWindow?.postMessage(
-            {
-              type: 'signin',
-
-              name: me?.userName,
-              zepMessage: true,
-            },
-            '*',
-          );
+          await dispatch(signInOmok('')).then((data) => {
+            const { id, nickname, win, lose } = data.payload;
+            (iframe as HTMLIFrameElement).contentWindow?.postMessage(
+              {
+                type: 'login',
+                id,
+                nickname,
+                win,
+                lose,
+                zepMessage: true,
+              },
+              '*',
+            );
+          });
           return;
         }
         setStartCondition(() => false);
