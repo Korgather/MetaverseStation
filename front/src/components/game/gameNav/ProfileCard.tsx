@@ -59,6 +59,9 @@ const ProfileCard = ({
   const onCancleChangeNickname = () => {
     setChangeNicknameState(() => false);
   };
+  const handleImgError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = '/images/ModuMetaIcon.png';
+  };
   const info = {
     total: meInOmok !== null ? meInOmok.win * 1 + meInOmok.lose * 1 : 0,
     win: meInOmok?.win || 0,
@@ -77,6 +80,7 @@ const ProfileCard = ({
                   width={50}
                   height={50}
                   layout={'intrinsic'}
+                  onError={handleImgError}
                 />
               )}
               {changeNicknameState ? (
