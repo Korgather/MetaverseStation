@@ -1,11 +1,15 @@
-import { getMapiaUserCount } from '@actions/game';
-import { IGameState } from '@customTypes/game';
-import { createSlice } from '@reduxjs/toolkit';
+import { getMapiaUserCount, signInOmok } from '@actions/game';
+import { IGameState, IMeInOmok } from '@customTypes/game';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: IGameState = {
   getMapiaUserCountLoading: false,
   getMapiaUserCountDone: false,
   getMapiaUserCountError: null,
+  signInOmokLoading: false,
+  signInOmokDone: false,
+  signInOmokError: null,
+  meInOmok: null,
 };
 
 export const gameSlice = createSlice({
@@ -27,7 +31,19 @@ export const gameSlice = createSlice({
           state.getMapiaUserCountLoading = false;
           state.getMapiaUserCountError = action.error;
         },
-      ),
+      )
+      .addCase(signInOmok.pending, (state) => {
+        state.signInOmokLoading = true;
+      })
+      .addCase(signInOmok.fulfilled, (state, action: PayloadAction<IMeInOmok>) => {
+        state.signInOmokDone = true;
+        state.signInOmokLoading = false;
+        state.meInOmok = action.payload;
+      })
+      .addCase(signInOmok.rejected, (state, action: ReturnType<typeof signInOmok.rejected>) => {
+        state.signInOmokLoading = false;
+        state.signInOmokError = action.error;
+      }),
 });
 
 export default gameSlice.reducer;
