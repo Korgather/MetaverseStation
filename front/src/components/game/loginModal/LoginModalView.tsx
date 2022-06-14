@@ -14,6 +14,17 @@ const LoginModalView = ({ setStartCondition, startCondition }: ILoginModalViewPr
   const GoogleUrl = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/google?redirect_uri=${redirectUrl}/oauth/redirect?aspath=${router.asPath}`;
   const NaverUrl = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/naver?redirect_uri=${redirectUrl}/oauth/redirect?aspath=${router.asPath}`;
   const KakaoUrl = `${process.env.NEXT_PUBLIC_LOGIN_URL}/oauth2/authorization/kakao?redirect_uri=${redirectUrl}/oauth/redirect?aspath=${router.asPath}`;
+  const onGuestLogin = () => {
+    const iframe = document.querySelector('iframe');
+    (iframe as HTMLIFrameElement).contentWindow?.postMessage(
+      {
+        type: 'guest',
+        zepMessage: true,
+      },
+      '*',
+    );
+    setStartCondition(() => true);
+  };
   return (
     <>
       <Modal modalState={!startCondition}>
@@ -36,7 +47,7 @@ const LoginModalView = ({ setStartCondition, startCondition }: ILoginModalViewPr
             <StyledP>구글로 로그인하기</StyledP>
           </StyledButton>
         </StyledA>
-        <StyledButton type="primary" onClick={() => setStartCondition(() => true)}>
+        <StyledButton type="primary" onClick={onGuestLogin}>
           비회원으로 시작하기
         </StyledButton>
       </Modal>
