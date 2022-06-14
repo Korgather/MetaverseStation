@@ -15,7 +15,13 @@ const initialState: IGameState = {
 export const gameSlice = createSlice({
   name: 'game',
   initialState,
-  reducers: {},
+  reducers: {
+    changeOmokNickname: (state, action) => {
+      if (state.meInOmok !== null) {
+        state.meInOmok = { ...state.meInOmok, nickname: action.payload };
+      }
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(getMapiaUserCount.pending, (state) => {
@@ -45,5 +51,5 @@ export const gameSlice = createSlice({
         state.signInOmokError = action.error;
       }),
 });
-
+export const { changeOmokNickname } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -1,9 +1,10 @@
 import CloseButton from '@components/common/CloseButton';
+import { changeOmokNickname } from '@slices/gameSlice';
 import { logOut } from '@slices/userSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import { Button } from 'antd';
+import { Button, Input } from 'antd';
 import Image from 'next/image';
-import React, { SetStateAction } from 'react';
+import React, { ChangeEvent, SetStateAction, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 export interface IProfileCard {
@@ -18,6 +19,11 @@ const ProfileCard = ({
 }: IProfileCard) => {
   const me = useAppSelector((state) => state.userSlice.me);
   const meInOmok = useAppSelector((state) => state.gameSlice.meInOmok);
+  const [changeNicknameState, setChangeNicknameState] = useState(false);
+  const [input, setInput] = useState('');
+  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setInput(() => e.target.value);
+  };
   const dispatch = useAppDispatch();
   const removeCookie = useCookies(['Token'])[2];
   const onLogout = () => {
@@ -31,6 +37,27 @@ const ProfileCard = ({
   const onClose = () => {
     setProfileCardState(() => false);
   };
+  const onToggleChangeNickname = () => {
+    if (changeNicknameState) {
+      if (input.length < 2) {
+        alert('닉네임을 2글자 이상 입력해주세요.');
+        return;
+      }
+      const iframe = document.querySelector('iframe');
+      iframe?.contentWindow?.postMessage(
+        { type: 'nicknameChange', nickname: input, zepMessage: true },
+        '*',
+      );
+      dispatch(changeOmokNickname(input));
+      setChangeNicknameState((state) => !state);
+    } else {
+      setChangeNicknameState((state) => !state);
+    }
+    setInput('');
+  };
+  const onCancleChangeNickname = () => {
+    setChangeNicknameState(() => false);
+  };
   const info = {
     total: meInOmok !== null ? meInOmok.win * 1 + meInOmok.lose * 1 : 0,
     win: meInOmok?.win || 0,
@@ -43,19 +70,43 @@ const ProfileCard = ({
           <CardWrapper>
             <h3>내 프로필</h3>
             <ContentWrapper>
-              <StyledImage
-                src={(me?.profileImageUrl as string) || '/images/ModuMetaIcon.png'}
-                width={50}
-                height={50}
-                layout={'intrinsic'}
-              />
-              <UserName>{meInOmok?.nickname || 'Guest'}</UserName>
-              <Record>{`${info.total}전 ${info.win}승 ${info.lose}패`}</Record>
+              {!changeNicknameState && (
+                <StyledImage
+                  src={(me?.profileImageUrl as string) || '/images/ModuMetaIcon.png'}
+                  width={50}
+                  height={50}
+                  layout={'intrinsic'}
+                />
+              )}
+              {changeNicknameState ? (
+                <Input onChange={onChangeInput} value={input} />
+              ) : (
+                <UserName>{meInOmok?.nickname || 'Guest'}</UserName>
+              )}
+              {me && (
+                <>
+                  <ChangeNickname type="dashed" onClick={onToggleChangeNickname}>
+                    닉네임 변경
+                  </ChangeNickname>
+                  {changeNicknameState && (
+                    <ChangeNickname type="dashed" onClick={onCancleChangeNickname}>
+                      취소
+                    </ChangeNickname>
+                  )}
+                </>
+              )}
+              {!changeNicknameState && (
+                <Record>{`${info.total}전 ${info.win}승 ${info.lose}패`}</Record>
+              )}
             </ContentWrapper>
-            {me ? (
-              <StyledButton onClick={onLogout}>로그아웃</StyledButton>
-            ) : (
-              <StyledButton onClick={onLogin}>로그인</StyledButton>
+            {!changeNicknameState && (
+              <>
+                {me ? (
+                  <StyledButton onClick={onLogout}>로그아웃</StyledButton>
+                ) : (
+                  <StyledButton onClick={onLogin}>로그인</StyledButton>
+                )}
+              </>
             )}
             <CloseButton onClose={onClose} />
           </CardWrapper>
@@ -115,4 +166,9 @@ const Record = styled.div`
   font-size: 0.9rem;
   font-weight: 600;
   margin-left: auto;
+`;
+
+const ChangeNickname = styled(Button)`
+  font-size: 0.8rem;
+  margin-left: 10px;
 `;
