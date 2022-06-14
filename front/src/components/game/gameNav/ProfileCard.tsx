@@ -29,6 +29,7 @@ const ProfileCard = ({
   const onLogout = () => {
     dispatch(logOut());
     removeCookie('Token', { path: '/' });
+    window.location.reload();
   };
   const onLogin = () => {
     setStartCondition(() => false);
