@@ -2,6 +2,7 @@ import Card from '@components/common/Card';
 import CloseButton from '@components/common/CloseButton';
 import { Button } from 'antd';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { SetStateAction, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
@@ -36,7 +37,11 @@ const GameNav = ({
     <GameNavLayout>
       <ul>
         <StyledLi>
-          <Image src={'/images/ModuMetaIcon.png'} width={60} height={60} layout={'intrinsic'} />
+          <Link href={'/'}>
+            <div style={{ cursor: 'pointer' }}>
+              <Image src={'/images/ModuMetaIcon.png'} width={60} height={60} layout={'intrinsic'} />
+            </div>
+          </Link>
         </StyledLi>
         <StyledLi onClick={onToggleChannel}>
           <StyledSpan selected={channelState}>채널</StyledSpan>
@@ -85,7 +90,7 @@ const GameNavLayout = styled.div`
   left: 0;
   top: 0;
   bottom: 0;
-  background-color: #3333;
+  background-color: #333333;
   color: #fff;
   padding: 10px;
 
