@@ -17,6 +17,7 @@ const ProfileCard = ({
   setStartCondition,
 }: IProfileCard) => {
   const me = useAppSelector((state) => state.userSlice.me);
+  const meInOmok = useAppSelector((state) => state.gameSlice.meInOmok);
   const dispatch = useAppDispatch();
   const removeCookie = useCookies(['Token'])[2];
   const onLogout = () => {
@@ -29,6 +30,11 @@ const ProfileCard = ({
   };
   const onClose = () => {
     setProfileCardState(() => false);
+  };
+  const info = {
+    total: meInOmok !== null ? meInOmok.win * 1 + meInOmok.lose * 1 : 0,
+    win: meInOmok?.win || 0,
+    lose: meInOmok?.lose || 0,
   };
   return (
     <>
@@ -43,8 +49,8 @@ const ProfileCard = ({
                 height={50}
                 layout={'intrinsic'}
               />
-              <UserName>{me?.userName || 'Guest'}</UserName>
-              <Record>0전 0승 0패 (업데이트 예정)</Record>
+              <UserName>{meInOmok?.nickname || 'Guest'}</UserName>
+              <Record>{`${info.total}전 ${info.win}승 ${info.lose}패`}</Record>
             </ContentWrapper>
             {me ? (
               <StyledButton onClick={onLogout}>로그아웃</StyledButton>
