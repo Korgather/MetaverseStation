@@ -60,7 +60,7 @@ const zepmapia = () => {
         <StyledIframe
           // ref={(data) => setFrame(data)}
           id="zepiframe"
-          src={`https://zep.us/play/${id}`}
+          src={`https://zep.us/play/${id}?lang=ko&loadingImageURL=https://i.imgur.com/hVtwFXg.gif`}
           allow="camera *;microphone *"
           sandbox="allow-scripts allow-same-origin allow-storage-access-by-user-activation"
         ></StyledIframe>
