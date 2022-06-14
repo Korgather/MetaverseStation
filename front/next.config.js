@@ -11,7 +11,7 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   images: {
-    domains: ['cdn.metabusstation.shop', 'lh3.googleusercontent.com', 'phinf.pstatic.net'],
+    domains: ['cdn.metabusstation.shop', 'lh3.googleusercontent.com', 'phinf.pstatic.net','ssl.pstatic.net'],
   },
   swcMinify: true,
   compiler: {
