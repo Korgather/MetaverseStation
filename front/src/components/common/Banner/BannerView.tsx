@@ -5,6 +5,7 @@ import { media } from '@styles/theme';
 import styled, { css } from 'styled-components';
 import BannerFrame from './BannerFrame';
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface itemsProps {
   mobile: string;
@@ -24,13 +25,15 @@ const items: itemsProps[] = [
     link: 'https://cafe.naver.com/gathertown',
   },
   {
-    mobile: '/images/MobileBanner02.png',
-    desktop: '/images/Banner02.png',
+    mobile: '/images/omokchannel/mobileBanner.png',
+    desktop: '/images/omokchannel/pcBanner.png',
+    link: '/game/omok',
     name: '이미지02',
   },
   {
-    mobile: '/images/MobileBanner03.png',
-    desktop: '/images/Banner03.png',
+    mobile: '/images/mapiachannel/mobileBanner.png',
+    desktop: '/images/mapiachannel/pcBanner.png',
+    link: '/game/zepmapia',
     name: '이미지03',
   },
 ];
@@ -70,7 +73,7 @@ function BannerView({ replacements }: BannerViewProps) {
     (isPc || isMobile || isTablet) &&
     items.map((item) => (
       <SliderItem key={shortid.generate()}>
-        {item.link ? (
+        {item.link?.includes('https') ? (
           <a href={item.link} target="_blank" rel="noreferrer" style={{ display: 'block' }}>
             <Image
               src={isPc ? item.desktop : item.mobile}
@@ -81,13 +84,17 @@ function BannerView({ replacements }: BannerViewProps) {
             />
           </a>
         ) : (
-          <Image
-            src={isPc ? item.desktop : item.mobile}
-            alt={item.name}
-            layout="responsive"
-            width={1440}
-            height={isPc ? 1440 / 4.91 : 1440 / 2.7}
-          />
+          <Link href={item.link as string}>
+            <div style={{ cursor: 'pointer' }}>
+              <Image
+                src={isPc ? item.desktop : item.mobile}
+                alt={item.name}
+                layout="responsive"
+                width={1440}
+                height={isPc ? 1440 / 4.91 : 1440 / 2.7}
+              />
+            </div>
+          </Link>
         )}
       </SliderItem>
     ));

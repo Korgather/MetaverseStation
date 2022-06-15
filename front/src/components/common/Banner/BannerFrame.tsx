@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
 import { media } from '@styles/theme';
+import { useMedia } from '@lib/useMedia';
 
 interface sliderProps {
   /** 슬라이더 아이템 요소 */
@@ -16,8 +17,16 @@ interface sliderProps {
   speed?: number;
   /** 반복 여부 */
   loop?: boolean;
+  arrows?: boolean;
 }
-const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: sliderProps) => {
+const BannerFrame = ({
+  children,
+  autoplay = true,
+  speed = 1000,
+  loop = true,
+  arrows = true,
+}: sliderProps) => {
+  const { isMobile } = useMedia();
   const settings = useMemo<Settings>(
     () => ({
       // dots: true,
@@ -27,9 +36,9 @@ const BannerFrame = ({ children, autoplay = true, speed = 1000, loop = true }: s
       autoplay: true,
       autoplaySpeed: typeof autoplay === 'boolean' ? 5000 : autoplay,
       loop: true,
-      arrows: false,
+      arrows: isMobile ? false : true,
     }),
-    [autoplay, loop, speed],
+    [autoplay, loop, speed, arrows, isMobile],
   );
 
   return (
