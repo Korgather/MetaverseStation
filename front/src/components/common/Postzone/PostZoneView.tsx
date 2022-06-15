@@ -24,11 +24,11 @@ const PostZoneView = ({
 }: PostZoneViewProps) => {
   return (
     <S.PostZoneWrapper>
-      <Row
+      <S.StyledRow
         justify="start"
         gutter={[
           { xs: 4, sm: 18, md: 16, lg: 24 },
-          { xs: 4, sm: 8, md: 16, lg: 24 },
+          { xs: 24, sm: 8, md: 16, lg: 24 },
         ]}
       >
         {mainPosts ? (
@@ -40,7 +40,7 @@ const PostZoneView = ({
         ) : (
           Images && <GameContents Images={Images} imageHeight={imageHeight} />
         )}
-      </Row>
+      </S.StyledRow>
     </S.PostZoneWrapper>
   );
 };
