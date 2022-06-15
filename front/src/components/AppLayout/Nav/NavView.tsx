@@ -1,7 +1,6 @@
 import React from 'react';
 import { IUser } from '@customTypes/user';
 import { Dropdown, Menu } from 'antd';
-import { AnimationControls } from 'framer-motion';
 import Link from 'next/link';
 import Alram from '../Alram';
 import ProfileDropdown from '../ProfileDropdown';
@@ -10,33 +9,14 @@ import { useMedia } from '@lib/useMedia';
 import Drawer from './Drawer';
 
 interface NavViewProps {
-  fixedpos: string;
-  navVariants: {
-    top: {
-      boxShadow: string;
-    };
-    scroll: {
-      boxShadow: string;
-    };
-  };
   onSelect: ({ key }: { key: string }) => void;
-  navAnimation: AnimationControls;
   selectedKeys: string[];
   selectedGameKeys: string[];
   me: IUser | null;
   goHome: () => Promise<boolean>;
 }
 
-const NavView = ({
-  fixedpos,
-  navVariants,
-  navAnimation,
-  selectedKeys,
-  me,
-  goHome,
-  onSelect,
-  selectedGameKeys,
-}: NavViewProps) => {
+const NavView = ({ selectedKeys, me, goHome, onSelect, selectedGameKeys }: NavViewProps) => {
   const { isPc } = useMedia();
   const menu = (
     <Menu onClick={onSelect} selectedKeys={selectedGameKeys}>
@@ -46,21 +26,17 @@ const NavView = ({
     </Menu>
   );
   return (
-    <S.NavLayout fixedpos={fixedpos}>
-      <S.TopWrapper>
-        <S.LogoContainer onClick={goHome}>
-          <S.LogoWrapper>
-            <S.LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
-          </S.LogoWrapper>
-        </S.LogoContainer>
-      </S.TopWrapper>
-
-      <S.StyledHeader
-        fixedpos={fixedpos}
-        variants={navVariants}
-        animate={navAnimation}
-        initial={'top'}
-      >
+    <>
+      <S.NavLayout>
+        <S.TopWrapper>
+          <S.LogoContainer onClick={goHome}>
+            <S.LogoWrapper>
+              <S.LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
+            </S.LogoWrapper>
+          </S.LogoContainer>
+        </S.TopWrapper>
+      </S.NavLayout>
+      <S.StyledHeader>
         <S.MenuContainer>
           {isPc ? (
             <S.MenuWrapper selectedKeys={selectedKeys} mode="horizontal" style={{ border: 'none' }}>
@@ -105,7 +81,7 @@ const NavView = ({
           </S.BtnWrapper>
         </S.MenuContainer>
       </S.StyledHeader>
-    </S.NavLayout>
+    </>
   );
 };
 

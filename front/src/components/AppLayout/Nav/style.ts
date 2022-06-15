@@ -1,17 +1,15 @@
 import { media } from '@styles/theme';
 import { Button, Menu } from 'antd';
-import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import Image from 'next/image';
 
-interface NavProps {
-  fixedpos: string;
-}
-
-export const NavLayout = styled.div<NavProps>`
+export const NavLayout = styled.div`
   width: 100%;
   .ant-space-align-center {
     width: 100%;
+  }
+  ${media.mobile} {
+    display: none;
   }
 `;
 
@@ -55,9 +53,6 @@ export const LogoImg = styled(Image)`
   max-width: 26rem;
   cursor: pointer;
   margin-right: auto;
-  /* ${media.mobile} {
-    width: 240px;
-  } */
 `;
 export const MobileLogoWrapper = styled.div`
   display: none;
@@ -96,22 +91,22 @@ export const BtnWrapper = styled.div`
   }
 `;
 
-export const StyledHeader = styled(motion.div)<NavProps>`
+export const StyledHeader = styled.div`
   display: flex;
   background-color: white;
   opacity: 1;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
   left: 0;
   right: 0;
   top: 0;
   padding: 0 10px;
-  position: ${(props) => (props.fixedpos === 'true' ? 'fixed' : 'relative')};
   z-index: 10;
   justify-content: center;
+  width: 100%;
+  position: sticky;
   ${media.mobile} {
     width: 100vw;
     position: fixed;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   }
 `;
 
