@@ -1,6 +1,6 @@
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { media } from '@styles/theme';
-import { Col } from 'antd';
+import { Col, Row } from 'antd';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 
@@ -34,17 +34,12 @@ export const CountBox = styled.div`
   left: 20px;
   display: flex;
   flex-direction: row;
-
   align-items: center;
 `;
 export const StyledCol = styled(Col)`
   position: relative;
-  ${media.mobile} {
-    + div {
-      margin-top: 20px;
-    }
-  }
 `;
+export const StyledRow = styled(Row)``;
 export const PostZoneWrapper = styled.div`
   max-width: 1440px;
   width: 80vw;
@@ -148,7 +143,7 @@ export const Summary = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  ${media.mobile} {
+  @media screen and (max-width: 768px) {
     width: 70vw;
     justify-content: center;
     align-items: center;
