@@ -1,4 +1,4 @@
-# ModuMeta - Beta 
+# ModuMeta
 
 ## 1. 프로젝트 소개
 - 기술 스택 
@@ -11,6 +11,7 @@
 
 
 ## 2. 주요 기능
+- PWA 적용
 - OAUTH로그인 (카카오,네이버,구글)
 - 글쓰기, 수정, 삭제 
 - 댓글, 대댓글 쓰기, 수정, 삭제
@@ -19,9 +20,14 @@
 - 페이지네이션
 - 검색기능
 - 이미지 슬라이더
+- iframe을 이용해, 메타버스게임과 로그인연동
+  - 메타버스 젭으로 자체제작한 마피아, 오목 게임을 모두메타 홈페이지에 Iframe형태로 삽입
+  - Iframe 과의 통신을 통해 모두메타 홈페이지와 로그인 연동
+  - 전적 기록 및 게임내 닉네임 설정 가능.
 - 게더타운 ApiFactory
   - 게더타운에서 제공해주는 api를 가공해서,<br/>
     기존 게더타운에 없는 기능 (배경음악 넣기, 맵파일 추출 및 적용)을 가능하게 해줍니다.
+  
 
 ## 3. 프로젝트 구성도
 https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
@@ -49,5 +55,5 @@ https://www.figma.com/file/xqD6AJfmvc4PEx4kwuPf9h/MetaverseStation?node-id=0%3A1
 | GathertownApiFactory - 배경음악 넣기 |
 
 
-## 5. 배포링크
+## 5. 서비스 링크
 https://www.modumeta.com/
