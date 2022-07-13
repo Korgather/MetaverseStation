@@ -30,7 +30,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       crate.notify('모두메타 채팅방');
     }
     !isGame && loadCrate();
-    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
   }, []);
   return (
     <CookiesProvider>
