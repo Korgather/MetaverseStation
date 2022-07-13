@@ -2,13 +2,13 @@ import React from 'react';
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import shortid from 'shortid';
+import Script from 'next/script';
 
 class MyDocument extends Document {
   static async getInitialProps(context: DocumentContext) {
     const sheet = new ServerStyleSheet();
     // eslint-disable-next-line testing-library/render-result-naming-convention
     const originalRenderPage = context.renderPage;
-
     try {
       context.renderPage = () =>
         originalRenderPage({
@@ -35,7 +35,7 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-          <script
+          <Script
             dangerouslySetInnerHTML={{
               __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -43,15 +43,16 @@ class MyDocument extends Document {
                   'https://www.googletagmanager.com/gtm.js?id=%27+i+dl;f.parentNode.insertBefore(j,f);
                   })(window,document,'script','dataLayer','GTM-N4NRZP8');`,
             }}
+            strategy="afterInteractive"
           />
-          <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-          <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
-          <meta
-            name="description"
-            content="메타버스 공유 플랫폼 모두메타입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
+          <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
+          <Script
+            strategy="afterInteractive"
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"
           />
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"></script>
-          <script
+          <Script
+            strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -63,6 +64,12 @@ class MyDocument extends Document {
             `,
             }}
           />
+          <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
+          <meta
+            name="description"
+            content="메타버스 공유 플랫폼 모두메타입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
+          />
+
           <meta
             name="keyword"
             content="메타버스, 게더타운, 젭,zep,gathertown,개더타운, 매타버스, metaverse, 게더타운맵, 젭맵 , 코게더, 모두의메타버스, 모두메타,메타버스체험 "
