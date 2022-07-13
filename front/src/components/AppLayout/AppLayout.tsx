@@ -20,11 +20,6 @@ const AppLayout = ({ children }: AuxProps) => {
   const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
   const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
   const isChannelIframe = router.pathname === '/game/channelIframe';
-  useEffect(() => {
-    if (typeof window !== undefined && window.Kakao) {
-      window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
-    }
-  }, []);
   return (
     <>
       {updateModalState && <WriteModal />}
