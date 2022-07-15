@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Head from 'next/head';
 import axios from 'axios';
 import cookies from 'next-cookies';
-import shortid from 'shortid';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/CategoryCotainer';
@@ -18,9 +17,6 @@ import wrapper from '@store/configureStore';
 import { loadMyInfo } from '@actions/user';
 import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
-import { motion, AnimatePresence } from 'framer-motion';
-import { pageVariants } from '@assets/motionVarints';
-import useScroll from '@lib/useScroll';
 import { media } from '@styles/theme';
 
 const Home: NextPage = () => {
