@@ -31,12 +31,7 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
-  const { scrollSave, scrollMove } = useScroll('index');
-  useLayoutEffect(() => {
-    scrollMove();
-    return () => scrollSave();
-  }, [router.query.category]);
-  const isInitialPage = JSON.stringify(router.query) === '{}';
+  // const isInitialPage = JSON.stringify(router.query) === '{}';
   return (
     <>
       <Head>
@@ -46,7 +41,8 @@ const Home: NextPage = () => {
         <>
           <BannerView />
           <Category />
-          {isInitialPage ? (
+          <Postzone mainPosts={mainPosts} />
+          {/* {isInitialPage ? (
             <Postzone mainPosts={mainPosts} />
           ) : (
             <AnimatePresence exitBeforeEnter>
@@ -60,7 +56,7 @@ const Home: NextPage = () => {
                 <Postzone mainPosts={mainPosts} />
               </motion.div>
             </AnimatePresence>
-          )}
+          )} */}
           <BottomWrapper>
             <Pagination />
             {me ? (
