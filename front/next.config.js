@@ -11,7 +11,12 @@ const nextConfig = {
   compress: true,
   reactStrictMode: true,
   images: {
-    domains: ['cdn.metabusstation.shop', 'lh3.googleusercontent.com', 'phinf.pstatic.net','ssl.pstatic.net'],
+    domains: [
+      'cdn.metabusstation.shop',
+      'lh3.googleusercontent.com',
+      'phinf.pstatic.net',
+      'ssl.pstatic.net',
+    ],
   },
   swcMinify: true,
   compiler: {
@@ -20,6 +25,11 @@ const nextConfig = {
   },
   pwa: {
     dest: 'public',
+  },
+  experimental: {
+    antd: {
+      transform: 'antd/lib/{{member}}',
+    },
   },
   webpack(config, { webpack }) {
     const prod = process.env.NODE_ENV === 'production';
