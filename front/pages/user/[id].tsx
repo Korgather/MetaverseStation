@@ -52,10 +52,8 @@ const StyledLayout = styled(Layout)`
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   store.dispatch(logOut());
-  axios.defaults.headers.common['Authorization'] = '';
   const token = cookies(ctx).Token;
   if (ctx.req && token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     store.dispatch(saveAccessToken(token));
     await store.dispatch(loadMyInfo());
   }
