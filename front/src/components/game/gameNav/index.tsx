@@ -1,4 +1,4 @@
-import Card from '@components/common/Card';
+import GameCard from '@components/common/Card/GameCard';
 import CloseButton from '@components/common/CloseButton';
 import { Button } from 'antd';
 import Image from 'next/image';
@@ -54,7 +54,7 @@ const GameNav = ({
           >
             초대
           </StyledSpan>
-          <Card modalState={inviteCardState} style={{ right: '-380px', top: '10px' }}>
+          <GameCard modalState={inviteCardState} style={{ right: '-380px', top: '10px' }}>
             <InviteWrapper>
               <CloseButton onClose={onToggleInviteButton} />
               <h3>친구 초대하기</h3>
@@ -63,7 +63,7 @@ const GameNav = ({
                 초대링크 복사하기
               </InviteButton>
             </InviteWrapper>
-          </Card>
+          </GameCard>
         </StyledLi>
         <StyledLi>
           <StyledSpan selected={profileCardState} onClick={onToggleProfileCard}>
