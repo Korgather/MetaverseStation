@@ -83,6 +83,7 @@ interface MetaCardStyleProps {
 const MetaCardContainer = styled(Col)<MetaCardStyleProps>`
   position: relative;
   .metacard-img-wrapper {
+    cursor: pointer;
     width: 340px;
     border-radius: 10px;
     overflow: hidden;
