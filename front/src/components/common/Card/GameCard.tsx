@@ -5,7 +5,7 @@ export interface ICardProps {
   modalState: boolean;
   style?: React.CSSProperties;
 }
-const Card = (props: ICardProps) => {
+const GameCard = (props: ICardProps) => {
   const { children, modalState, style } = props;
   return (
     <>
@@ -20,7 +20,7 @@ const Card = (props: ICardProps) => {
   );
 };
 
-export default Card;
+export default GameCard;
 
 const CardLayout = styled.div`
   position: absolute;
