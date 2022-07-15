@@ -40,6 +40,12 @@ const WriteModal = () => {
     setContent(content);
   };
 
+  useEffect(() => {
+    return () => {
+      dispatch(ToggleWriteModalState(false));
+    };
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       title: `${prevPostData ? prevPostData.title : ''}`,

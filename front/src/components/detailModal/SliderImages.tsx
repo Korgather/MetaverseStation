@@ -16,7 +16,7 @@ const SliderImages = () => {
             <S.StyledImages key={shortid.generate()}>
               <Image
                 src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
-                alt=""
+                alt={item.origFileName}
                 style={{ display: 'block' }}
               />
             </S.StyledImages>
@@ -27,19 +27,6 @@ const SliderImages = () => {
           <div>입장하기</div>
         </S.EntnerButton>
       </S.StyledA>
-      {/* {me ? (
-        <S.StyledA href={postData?.link} target="_blank">
-          <S.EntnerButton type="primary" htmlType="button">
-            <div>입장하기</div>
-          </S.EntnerButton>
-        </S.StyledA>
-      ) : (
-        <Link href={'/login'}>
-          <S.EntnerButton type="primary" htmlType="button">
-            <div>입장하기</div>
-          </S.EntnerButton>
-        </Link>
-      )} */}
     </>
   );
 };

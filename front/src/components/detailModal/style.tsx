@@ -26,8 +26,7 @@ export const StyledScroll = css`
 export const Dim = styled.div`
   width: 100vw;
   height: 200vh;
-  background-color: black;
-  opacity: 0.3;
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 100;
   position: fixed;
 `;
@@ -182,16 +181,13 @@ export const SlideWrapper = styled.section`
 
 export const StyledImages = styled.div`
   position: relative;
+  display: block;
   img {
-    width: 100%;
-    height: 300px;
+    aspect-ratio: 3/1.8;
     object-fit: cover;
   }
   .ant-image {
     display: block !important;
-  }
-  ${media.mobile} {
-    height: 250px;
   }
 `;
 

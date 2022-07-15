@@ -1,7 +1,7 @@
 import CommentModal from '@components/commentModal/CommentModal';
 import { clearpostDetail, ToggleDetailState } from '@slices/postSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { AnimatePresence } from 'framer-motion';
 import { useMedia } from '@lib/useMedia';
@@ -12,7 +12,11 @@ const DetailModalContainer = () => {
   const postData = useAppSelector((state) => state.postSlice.postDetail);
   const { isMobile } = useMedia();
   const dispatch = useAppDispatch();
-
+  useEffect(() => {
+    return () => {
+      dispatch(ToggleDetailState(false));
+    };
+  }, []);
   return (
     <>
       {postData && (

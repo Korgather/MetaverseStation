@@ -6,7 +6,7 @@ import {
   HeartOutlined,
 } from '@ant-design/icons';
 import { useAppDispatch, useAppSelector } from '@store/hook';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
 import { heartPost, removePost } from '@actions/post';
@@ -15,7 +15,6 @@ import { Dropdown, Menu, message, Tooltip } from 'antd';
 import shortid from 'shortid';
 import modal from 'antd/lib/modal';
 import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
-import { loadComPost } from '@actions/community';
 import SliderImages from './SliderImages';
 import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import { IPost } from '@customTypes/post';
@@ -27,6 +26,7 @@ const ContentBox = () => {
   const me = useAppSelector((state) => state.userSlice.me);
   const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
   const isMeta = postDetail?.category && postDetail?.category?.indexOf('METAVERSE') > -1;
+  const heartCountRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     me && Object.keys(postDetail?.likeUserList as object).indexOf(me?.userId.toString()) > -1
       ? setLikeState(true)
@@ -36,7 +36,13 @@ const ContentBox = () => {
     if (me) {
       if (postDetail?.id) {
         await dispatch(heartPost(postDetail.id));
-        await dispatch(loadComPost(postDetail.id));
+        if (heartCountRef.current) {
+          if (!likeState) {
+            heartCountRef.current.innerText = String(Number(heartCountRef.current?.innerText) + 1);
+          } else {
+            heartCountRef.current.innerText = String(Number(heartCountRef.current?.innerText) + -1);
+          }
+        }
       }
       setLikeState(!likeState);
     } else {
@@ -141,7 +147,7 @@ const ContentBox = () => {
               style={{ fontSize: '1.3rem', color: '#eb3f96' }}
             />
           )}
-          <span>{Object.keys(postDetail.likeUserList).length}</span>
+          <span ref={heartCountRef}>{Object.keys(postDetail.likeUserList).length}</span>
         </HeartWrapper>
         <EyeWrpper>
           <StyledEye />
