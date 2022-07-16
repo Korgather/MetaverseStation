@@ -5,6 +5,30 @@ import shortid from 'shortid';
 import Script from 'next/script';
 
 class MyDocument extends Document {
+  static async getInitialProps(context: DocumentContext) {
+    const sheet = new ServerStyleSheet();
+    // eslint-disable-next-line testing-library/render-result-naming-convention
+    const originalRenderPage = context.renderPage;
+    try {
+      context.renderPage = () =>
+        originalRenderPage({
+          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+        });
+
+      const initialProps = await Document.getInitialProps(context);
+      return {
+        ...initialProps,
+        styles: (
+          <>
+            {initialProps.styles}
+            {sheet.getStyleElement()}
+          </>
+        ),
+      };
+    } finally {
+      sheet.seal();
+    }
+  }
   render() {
     const url = 'https://www.modumeta.com/';
     return (
