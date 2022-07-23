@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import styled from 'styled-components';
 import Head from 'next/head';
@@ -11,9 +11,9 @@ import { Button, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
-import wrapper from '@store/configureStore';
 import { ToggleWriteModalState } from '@slices/postSlice';
 import { media } from '@styles/theme';
+import wrapper from '@store/configureStore';
 
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
@@ -23,7 +23,17 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
-  // const isInitialPage = JSON.stringify(router.query) === '{}';
+  useEffect(() => {
+    if (Object.keys(router.query).length >= 1)
+      dispatch(
+        loadPosts({
+          pageNum: router.query.page as string,
+          category: router.query.category ? (router.query.category as string) : 'METAVERSE',
+          keyword: router.query.search as string,
+          sort: router.query.sort as string,
+        }),
+      );
+  }, [router.query.page, router.query.category, router.query.search, router.query.sort]);
   return (
     <>
       <Head>

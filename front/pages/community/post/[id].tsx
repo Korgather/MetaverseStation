@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 import { pageVariants } from '@assets/motionVarints';
 import { media } from '@styles/theme';
+import axios from 'axios';
 
 const ComDetailPost = () => {
   const communityWriteModalState = useAppSelector(

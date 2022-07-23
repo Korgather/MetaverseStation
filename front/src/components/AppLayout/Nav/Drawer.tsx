@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { logOut } from '@slices/userSlice';
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -23,6 +24,8 @@ const App: React.FC = () => {
   };
   const onLogout = () => {
     removeCookie('Token', { path: '/' });
+    axios.defaults.headers.common['Authorization'] = '';
+    window.location.reload();
     dispatch(logOut());
   };
 

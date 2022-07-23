@@ -6,16 +6,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getMap = createAsyncThunk('gatherApi/getMap', async (data: IGetMap, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/gathertown/getmap`, data, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-        withCredentials: true,
-      },
-    });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/gathertown/getmap`, data);
     if (!data.musicState) {
       const mapData = res.data;
       const fileName = `${data.mapId}.json`;
@@ -38,20 +30,10 @@ export const getMap = createAsyncThunk('gatherApi/getMap', async (data: IGetMap,
 });
 
 export const setMusic = createAsyncThunk('gatherApi/setMusic', async (data: IGetMap, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/gathertown/setmap/music`,
       data,
-      {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-
-          withCredentials: true,
-        },
-      },
     );
     alert('배경음악 넣기 성공 !');
     return res.data;
@@ -67,17 +49,8 @@ export const setMusic = createAsyncThunk('gatherApi/setMusic', async (data: IGet
 });
 
 export const setMap = createAsyncThunk('gatherApi/setMap', async (data: ISetMap, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/gathertown/setmap`, data, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-
-        withCredentials: true,
-      },
-    });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/gathertown/setmap`, data);
     alert('맵파일 적용 성공 !');
     return res.data;
   } catch (error) {
