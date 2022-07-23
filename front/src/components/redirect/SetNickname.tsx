@@ -41,7 +41,7 @@ function SetNickname({ token }: ISetNickname) {
   return (
     <Container>
       <Header>
-        <img src="../../images/ModuMetaLogo2.png" alt="" />
+        <img src="../../images/ModuMetaLogo2.png" alt="logo" />
       </Header>
       {!secondStep ? (
         <Content>

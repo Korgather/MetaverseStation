@@ -10,8 +10,8 @@ interface MainContentsProps {
   handleImgError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
 }
 const MainContents = ({ mainPosts, openDetailModal, handleImgError }: MainContentsProps) => {
-  const loading = useAppSelector((state) => state.postSlice.loadPostDone);
-  if (!mainPosts || loading) {
+  const loading = useAppSelector((state) => state.postSlice.loadPostsLoading);
+  if (loading) {
     return (
       <>
         {Array.from({ length: 8 }, (v, i) => i).map((v, i) => (
@@ -22,15 +22,17 @@ const MainContents = ({ mainPosts, openDetailModal, handleImgError }: MainConten
   }
   return (
     <>
-      {mainPosts.map((post, idx) => (
-        <MetaCard
-          key={post.id}
-          post={post}
-          openDetailModal={openDetailModal}
-          handleImgError={handleImgError}
-          idx={idx}
-        />
-      ))}
+      {mainPosts.map((post, idx) => {
+        return (
+          <MetaCard
+            key={post.id}
+            post={post}
+            openDetailModal={openDetailModal}
+            handleImgError={handleImgError}
+            idx={idx}
+          />
+        );
+      })}
     </>
   );
 };

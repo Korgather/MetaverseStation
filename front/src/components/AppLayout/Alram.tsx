@@ -74,7 +74,7 @@ const Alram = () => {
   return (
     <MessageWrapper>
       <StyledDropdown key={shortid.generate()} overlay={menu} arrow={false} placement="bottomRight">
-        <a
+        <span
           className="ant-dropdown-link"
           onClick={(e) => e.preventDefault()}
           style={{
@@ -86,7 +86,7 @@ const Alram = () => {
           <StyledBellOutlined />
           {alram && alram.length >= 1 && <MessageAlarm>●</MessageAlarm>}
           <DownOutlined />
-        </a>
+        </span>
       </StyledDropdown>
     </MessageWrapper>
   );

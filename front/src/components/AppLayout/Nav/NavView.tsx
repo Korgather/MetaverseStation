@@ -32,7 +32,13 @@ const NavView = ({ selectedKeys, goHome, onSelect, selectedGameKeys }: NavViewPr
         <S.TopWrapper>
           <S.LogoContainer onClick={goHome}>
             <S.LogoWrapper>
-              <S.LogoImg src="/images/BetaLogo.png" layout="responsive" width={400} height={40} />
+              <S.LogoImg
+                src="/images/BetaLogo.png"
+                layout="responsive"
+                width={400}
+                height={40}
+                alt="mainLogoImage"
+              />
             </S.LogoWrapper>
           </S.LogoContainer>
         </S.TopWrapper>
@@ -50,7 +56,7 @@ const NavView = ({ selectedKeys, goHome, onSelect, selectedGameKeys }: NavViewPr
 
               <Menu.Item key="nav_game">
                 <Dropdown overlay={menu} arrow={false} placement="bottomRight">
-                  <a>게임</a>
+                  <span>게임</span>
                 </Dropdown>
               </Menu.Item>
 
