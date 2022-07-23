@@ -19,7 +19,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
   const [currentImageUrl, setCurrentImageUrl] = useState('');
-  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
   const prevPostData = useAppSelector((state) => state.postSlice.prevPostData);
 
   useEffect(() => {
@@ -30,12 +29,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({ setImageList, imageList }) 
     const fd = new FormData();
     fd.append('data', file);
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-          withCredentials: true,
-        },
-      });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd);
       setCurrentImageUrl(process.env.NEXT_PUBLIC_IMG_URL + res.data[0]);
       setImageList([
         ...imageList,

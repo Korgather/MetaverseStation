@@ -22,6 +22,7 @@ function Category() {
       {},
       {
         scroll: false,
+        shallow: true,
       },
     );
   };
@@ -34,9 +35,12 @@ function Category() {
       router.push(
         {
           pathname: '/',
+          query: {
+            sort: '',
+          },
         },
         {},
-        { scroll: false },
+        { scroll: false, shallow: true },
       );
     }
     if (key === 'METAVERSE_GATHERTOWN') {
@@ -50,7 +54,7 @@ function Category() {
           },
         },
         {},
-        { scroll: false },
+        { scroll: false, shallow: true },
       );
     }
     if (key === 'METAVERSE_ZEP') {
@@ -64,7 +68,7 @@ function Category() {
           },
         },
         {},
-        { scroll: false },
+        { scroll: false, shallow: true },
       );
     }
     if (key === 'METAVERSE_2NDBLOCK') {
@@ -78,7 +82,7 @@ function Category() {
           },
         },
         {},
-        { scroll: false },
+        { scroll: false, shallow: true },
       );
     }
   };

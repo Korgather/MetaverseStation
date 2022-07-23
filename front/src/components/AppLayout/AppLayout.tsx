@@ -5,15 +5,19 @@ import { useAppSelector } from '@store/hook';
 import WriteModal from '@components/writeModal/WriteModalContainer';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import FeedBack from './FeedBack';
-import Nav from './Nav/NavContainer';
+// import Nav from './Nav/NavContainer';
 import { media } from '@styles/theme';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 
 interface AuxProps {
   children: ReactChild | ReactChildren;
 }
 
 const { Content, Footer } = Layout;
+const Nav = dynamic(import('./Nav/NavContainer'), {
+  ssr: false,
+});
 
 const AppLayout = ({ children }: AuxProps) => {
   const router = useRouter();

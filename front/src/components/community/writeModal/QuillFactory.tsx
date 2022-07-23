@@ -35,7 +35,6 @@ interface IQuill {
 }
 
 export default function QuillFactory({ onChangeContent, prevData, images, setImages }: IQuill) {
-  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -69,12 +68,7 @@ export default function QuillFactory({ onChangeContent, prevData, images, setIma
   const saveToServer = async (file: File) => {
     const fd = new FormData();
     fd.append('data', file);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd, {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-        withCredentials: true,
-      },
-    });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd);
     const imageURL = process.env.NEXT_PUBLIC_IMG_URL + res.data[0];
     insertToEditor(imageURL);
     return imageURL;

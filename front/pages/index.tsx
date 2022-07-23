@@ -1,9 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import type { NextPage } from 'next';
 import styled from 'styled-components';
 import Head from 'next/head';
-import axios from 'axios';
-import cookies from 'next-cookies';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/CategoryCotainer';
@@ -13,11 +11,9 @@ import { Button, Tooltip } from 'antd';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
-import wrapper from '@store/configureStore';
-import { loadMyInfo } from '@actions/user';
-import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
 import { media } from '@styles/theme';
+import wrapper from '@store/configureStore';
 
 const Home: NextPage = () => {
   const me = useAppSelector((state) => state.userSlice.me);
@@ -27,7 +23,17 @@ const Home: NextPage = () => {
   const openModal = () => {
     me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
-  // const isInitialPage = JSON.stringify(router.query) === '{}';
+  useEffect(() => {
+    if (Object.keys(router.query).length >= 1)
+      dispatch(
+        loadPosts({
+          pageNum: router.query.page as string,
+          category: router.query.category ? (router.query.category as string) : 'METAVERSE',
+          keyword: router.query.search as string,
+          sort: router.query.sort as string,
+        }),
+      );
+  }, [router.query.page, router.query.category, router.query.search, router.query.sort]);
   return (
     <>
       <Head>
@@ -80,13 +86,6 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  store.dispatch(logOut());
-  const token = cookies(ctx).Token;
-  if (ctx.req && token) {
-    store.dispatch(saveAccessToken(token));
-    await store.dispatch(loadMyInfo());
-  }
-
   await store.dispatch(
     loadPosts({
       pageNum: ctx.query.page as string,

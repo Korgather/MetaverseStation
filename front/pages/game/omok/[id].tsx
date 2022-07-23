@@ -1,13 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import Head from 'next/head';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import wrapper from '@store/configureStore';
-import { logOut, saveAccessToken } from '@slices/userSlice';
-import { loadMyInfo } from '@actions/user';
-import cookies from 'next-cookies';
 import LoginModalView from '@components/game/loginModal/LoginModalView';
 import GameNav from '@components/game/gameNav';
 import ProfileCard from '@components/game/gameNav/ProfileCard';
@@ -94,14 +89,3 @@ const StyledIframe = styled.iframe`
   width: 100vw;
   position: relative;
 `;
-
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  store.dispatch(logOut());
-  const token = cookies(ctx).Token;
-  if (ctx.req && token) {
-    store.dispatch(saveAccessToken(token));
-    await store.dispatch(loadMyInfo());
-  }
-
-  return { props: {} };
-});

@@ -7,16 +7,17 @@ import ProfileDropdown from '../ProfileDropdown';
 import * as S from './style';
 import { useMedia } from '@lib/useMedia';
 import Drawer from './Drawer';
+import { useAppSelector } from '@store/hook';
 
 interface NavViewProps {
   onSelect: ({ key }: { key: string }) => void;
   selectedKeys: string[];
   selectedGameKeys: string[];
-  me: IUser | null;
   goHome: () => Promise<boolean>;
 }
 
-const NavView = ({ selectedKeys, me, goHome, onSelect, selectedGameKeys }: NavViewProps) => {
+const NavView = ({ selectedKeys, goHome, onSelect, selectedGameKeys }: NavViewProps) => {
+  const me = useAppSelector((state) => state.userSlice.me);
   const { isPc } = useMedia();
   const menu = (
     <Menu onClick={onSelect} selectedKeys={selectedGameKeys}>

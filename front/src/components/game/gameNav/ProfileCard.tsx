@@ -3,6 +3,7 @@ import { changeOmokNickname } from '@slices/gameSlice';
 import { logOut } from '@slices/userSlice';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Button, Input } from 'antd';
+import axios from 'axios';
 import Image from 'next/image';
 import React, { ChangeEvent, SetStateAction, useState } from 'react';
 import { useCookies } from 'react-cookie';
@@ -29,6 +30,7 @@ const ProfileCard = ({
   const onLogout = () => {
     dispatch(logOut());
     removeCookie('Token', { path: '/' });
+    axios.defaults.headers.common['Authorization'] = '';
     window.location.reload();
   };
   const onLogin = () => {
