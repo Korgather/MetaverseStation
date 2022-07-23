@@ -20,17 +20,8 @@ export const getMapiaUserCount = createAsyncThunk(
 );
 
 export const signInOmok = createAsyncThunk('omok/signIn', async (data: any, thunkAPI) => {
-  const {
-    userSlice: { AccessToken },
-  } = thunkAPI.getState() as { userSlice: IUserState };
   try {
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/game/omok/user`, '_', {
-      headers: {
-        Authorization: `Bearer ${AccessToken}`,
-
-        withCredentials: true,
-      },
-    });
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/game/omok/user`, '_');
     return res.data;
   } catch (error) {
     console.error('REQUEST ERROR --', error);

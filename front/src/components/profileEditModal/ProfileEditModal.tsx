@@ -17,7 +17,6 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
   setEditModalState,
 }) => {
   const dispatch = useAppDispatch();
-  const AccessToken = useAppSelector((state) => state.userSlice.AccessToken);
   const me = useAppSelector((state) => state.userSlice.me);
   const [uploadSuccess, setUploadSuccess] = useState('');
   const [currentImg, setCurrentImg] = useState(me?.profileImageUrl);
@@ -29,12 +28,7 @@ const ProfileEditModal: React.FunctionComponent<ProfileEditModalProps> = ({
     const fd = new FormData();
     fd.append('data', file);
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/profileimage`, fd, {
-        headers: {
-          Authorization: `Bearer ${AccessToken}`,
-          withCredentials: true,
-        },
-      });
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users/profileimage`, fd);
       setCurrentImg(process.env.NEXT_PUBLIC_PROFILE_IMG_URL + res.data[0]);
       setUploadSuccess('ok');
     } catch (e) {
