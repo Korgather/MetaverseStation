@@ -38,17 +38,20 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
                 }}
               >
                 {post.imageList[0]?.imagePath.length >= 20 ? (
-                  <S.PostImg src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath} />
+                  <S.PostImg
+                    src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
+                    alt={post.imageList[0].origFileName}
+                  />
                 ) : (
-                  <S.PostImg src="../../images/thumbnail02.png" />
+                  <S.PostImg src="../../images/thumbnail02.png" alt="defaultImage" />
                 )}
               </div>
             </S.ImgWrapper>
             <S.Summary>
               {post.category === 'METAVERSE_ZEP' ? (
-                <S.Logo src="../../images/zepLogo.png" />
+                <S.Logo src="../../images/zepLogo.png" alt="zepLogo" />
               ) : (
-                <S.Logo src="../../images/gatherLogo.png" />
+                <S.Logo src="../../images/gatherLogo.png" alt="gathertownLogo" />
               )}
               <S.Title>{post.title}</S.Title>
               <S.StyledHeartTwoTone twoToneColor="#eb3f96" />

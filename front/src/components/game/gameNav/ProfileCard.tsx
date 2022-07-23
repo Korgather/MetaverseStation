@@ -83,6 +83,7 @@ const ProfileCard = ({
                   height={50}
                   layout={'intrinsic'}
                   onError={handleImgError}
+                  alt="profileImage"
                 />
               )}
               {changeNicknameState ? (

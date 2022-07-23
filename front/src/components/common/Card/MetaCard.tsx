@@ -49,17 +49,35 @@ const MetaCard: React.FC<MetaCardProps> = ({ post, openDetailModal, handleImgErr
       <div className="metacard-content-wrapper">
         <div className="metacard-logo-wrapper">
           {post.category === 'METAVERSE_ZEP' ? (
-            <Image src="/images/zepLogo.png" width={30} height={30} layout="responsive" />
+            <Image
+              src="/images/zepLogo.png"
+              width={30}
+              height={30}
+              layout="responsive"
+              alt="zepLogo"
+            />
           ) : post.category === 'METAVERSE_GATHERTOWN' ? (
-            <Image src="/images/gatherLogo.png" width={30} height={30} layout="responsive" />
+            <Image
+              src="/images/gatherLogo.png"
+              width={30}
+              height={30}
+              layout="responsive"
+              alt="gathertownLogo"
+            />
           ) : (
-            <Image src="/images/secondblockLogo.png" width={30} height={30} layout="responsive" />
+            <Image
+              src="/images/secondblockLogo.png"
+              width={30}
+              height={30}
+              layout="responsive"
+              alt="secondblockLogo"
+            />
           )}
         </div>
         <div className="metacard-content-title">{post.title}</div>
         <HeartTwoTone className="metacard-icon-heart" twoToneColor="#eb3f96" />
         <div className="metacard-icon-count">{Object.keys(post.likeUserList).length}</div>
-        <img className="metacard-icon-comment" src="../../images/commentIcon.png" />
+        <img className="metacard-icon-comment" src="../../images/commentIcon.png" alt="comment" />
         <div className="metacard-icon-count">{post.postCommentList.length}</div>
         <EyeOutlined className="metacard-icon-eye" />
         <div className="metacard-icon-count">{post.view}</div>

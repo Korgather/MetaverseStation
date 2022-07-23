@@ -39,7 +39,13 @@ const GameNav = ({
         <StyledLi>
           <Link href={'/'}>
             <div style={{ cursor: 'pointer' }}>
-              <Image src={'/images/ModuMetaIcon.png'} width={60} height={60} layout={'intrinsic'} />
+              <Image
+                src={'/images/ModuMetaIcon.png'}
+                width={60}
+                height={60}
+                layout={'intrinsic'}
+                alt="modometaLogo"
+              />
             </div>
           </Link>
         </StyledLi>

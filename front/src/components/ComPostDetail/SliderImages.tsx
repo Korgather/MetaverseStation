@@ -17,6 +17,7 @@ const SliderImages = () => {
               <StyledImage
                 key={item.imagePath}
                 src={process.env.NEXT_PUBLIC_IMG_URL + item.imagePath}
+                alt={item.origFileName}
               />
             </StyledImages>
           ))}

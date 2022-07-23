@@ -26,7 +26,7 @@ const ProfileDropdown = () => {
     <Menu onClick={({ key }) => onSelect({ key })}>
       <StyledMenuItem key="pro_profile">
         <ProfileWrapper>
-          <img src={me?.profileImageUrl} alt="" />
+          <img src={me?.profileImageUrl} alt="profileImage" />
           <div>{me?.userName}</div>
         </ProfileWrapper>
       </StyledMenuItem>
@@ -39,7 +39,7 @@ const ProfileDropdown = () => {
   return (
     <>
       <DropdownWrapper overlay={menu} placement="bottomRight" arrow={false}>
-        <a
+        <span
           className="ant-dropdown-link"
           onClick={(e) => e.preventDefault()}
           style={{
@@ -51,9 +51,10 @@ const ProfileDropdown = () => {
           <img
             src={me?.profileImageUrl}
             style={{ width: '2.5rem', borderRadius: '100%', height: '2.5rem' }}
+            alt="profileImage"
           />
           <DownOutlined />
-        </a>
+        </span>
       </DropdownWrapper>
     </>
   );
