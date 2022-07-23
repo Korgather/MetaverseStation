@@ -1,9 +1,7 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import type { NextPage } from 'next';
 import styled from 'styled-components';
 import Head from 'next/head';
-import axios from 'axios';
-import cookies from 'next-cookies';
 import AppLayout from '@components/AppLayout/AppLayout';
 import Postzone from '@components/common/Postzone/PostZoneContainer';
 import Category from '@components/main/CategoryCotainer';
@@ -14,8 +12,6 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import { useRouter } from 'next/router';
 import { loadPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
-import { loadMyInfo } from '@actions/user';
-import { logOut, saveAccessToken } from '@slices/userSlice';
 import { ToggleWriteModalState } from '@slices/postSlice';
 import { media } from '@styles/theme';
 
@@ -80,13 +76,6 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  store.dispatch(logOut());
-  const token = cookies(ctx).Token;
-  if (ctx.req && token) {
-    store.dispatch(saveAccessToken(token));
-    await store.dispatch(loadMyInfo());
-  }
-
   await store.dispatch(
     loadPosts({
       pageNum: ctx.query.page as string,

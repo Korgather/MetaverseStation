@@ -1,4 +1,4 @@
-import { loadMyInfo, loadMyPosts } from '@actions/user';
+import { loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import MyPost from '@components/mypage/MyPost';
@@ -9,8 +9,6 @@ import { getAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
-import axios from 'axios';
-import cookies from 'next-cookies';
 import Head from 'next/head';
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -51,12 +49,6 @@ const StyledLayout = styled(Layout)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  store.dispatch(logOut());
-  const token = cookies(ctx).Token;
-  if (ctx.req && token) {
-    store.dispatch(saveAccessToken(token));
-    await store.dispatch(loadMyInfo());
-  }
   store.dispatch(getAuthorInfo(ctx.query as unknown as IAuthorInfo));
   await store.dispatch(
     loadMyPosts({

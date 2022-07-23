@@ -14,10 +14,6 @@ import { useAppDispatch, useAppSelector } from '@store/hook';
 import Router from 'next/router';
 import { searchPosts } from '@actions/post';
 import wrapper from '@store/configureStore';
-import axios from 'axios';
-import { loadMyInfo } from '@actions/user';
-import cookies from 'next-cookies';
-import { logOut, saveAccessToken } from '@slices/userSlice';
 import { getSearchKeyword, ToggleWriteModalState } from '@slices/postSlice';
 const Home: NextPage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
@@ -67,15 +63,7 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  store.dispatch(logOut());
-  const token = cookies(ctx).Token;
-  if (ctx.req && token) {
-    store.dispatch(saveAccessToken(token));
-    await store.dispatch(loadMyInfo());
-  }
-
   await store.dispatch(getSearchKeyword(ctx.params?.id as string));
   await store.dispatch(searchPosts());
-
   return { props: {} };
 });

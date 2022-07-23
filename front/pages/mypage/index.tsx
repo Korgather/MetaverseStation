@@ -1,4 +1,4 @@
-import { loadMyInfo, loadMyPosts } from '@actions/user';
+import { loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import MyPost from '@components/mypage/MyPost';
@@ -8,8 +8,6 @@ import { clearAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
-import axios from 'axios';
-import cookies from 'next-cookies';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -59,23 +57,15 @@ const StyledLayout = styled(Layout)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  store.dispatch(logOut());
-  store.dispatch(clearAuthorInfo());
-  axios.defaults.headers.common['Authorization'] = '';
-  const token = cookies(ctx).Token;
-  if (ctx.req && token) {
-    store.dispatch(saveAccessToken(token));
-    await store.dispatch(loadMyInfo());
-    await store.dispatch(
-      loadMyPosts({
-        userId: store.getState().userSlice.me?.userId as number,
-        pageNum: ctx.query.page as string,
-        category: ctx.query.category as string,
-        keyword: ctx.query.search as string,
-        filter: ctx.query.filter as string,
-      }),
-    );
-  }
+  await store.dispatch(
+    loadMyPosts({
+      userId: store.getState().userSlice.me?.userId as number,
+      pageNum: ctx.query.page as string,
+      category: ctx.query.category as string,
+      keyword: ctx.query.search as string,
+      filter: ctx.query.filter as string,
+    }),
+  );
 
   return { props: {} };
 });
