@@ -57,7 +57,8 @@ const zepmapia = () => {
           id="zepiframe"
           src={`https://zep.us/play/${id}?lang=ko&loadingImageURL=https://i.imgur.com/hVtwFXg.gif`}
           allow="camera *;microphone *"
-          sandbox="allow-scripts allow-same-origin allow-storage-access-by-user-activation"
+          sandbox="allow-scripts allow-same-origin
+      allow-storage-access-by-user-activation allow-forms"
         ></StyledIframe>
       )}
       <GameNav
