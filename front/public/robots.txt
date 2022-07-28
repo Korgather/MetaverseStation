@@ -1,1 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.modumeta.com/sitemap.xml
+
+User-agent: ia_archiver
+Disallow: /
+
+User-Agent: *
+Disallow: /user/
+
 #DaumWebMasterTool:027cff7bfdc98e5c451fe04bed64d67849c4901e474ed95584e48cf2d6808ab8:NH15sc8Ku8O+7UT8vaD60g==
