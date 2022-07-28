@@ -6,86 +6,86 @@
 >
   <url>
     <loc>https://modumeta.com/</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/login</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/apifactory/gathertownAPI</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/apifactory/guide01</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/apifactory/zepAPI</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/mypage</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/oauth/redirect</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/search/[id]</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/user/[id]</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/community/free</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
-  </url>
-
-  <url>
-    <loc>https://modumeta.com/community/post/[id]</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/community/question</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
-    <loc>https://modumeta.com/community/study</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <loc>https://modumeta.com/community/post/[id]</loc>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/game/omok/[id]</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/game/omok</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/game/zepmapia/[id]</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 
   <url>
     <loc>https://modumeta.com/game/zepmapia</loc>
-    <lastmod>2022-07-16T00:40:06.659Z</lastmod>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
+  </url>
+
+  <url>
+    <loc>https://modumeta.com/community/study</loc>
+    <lastmod>2022-07-28T03:46:21.980Z</lastmod>
   </url>
 </urlset>
