@@ -86,6 +86,8 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  console.log('eungwangTest', ctx.res.getHeaders());
+  console.log('eungwangTest', ctx.req.cookies.Token);
   await store.dispatch(
     loadPosts({
       pageNum: ctx.query.page as string,

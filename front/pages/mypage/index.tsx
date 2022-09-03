@@ -1,4 +1,4 @@
-import { loadMyPosts } from '@actions/user';
+import { loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
 import MyPost from '@components/mypage/MyPost';
@@ -8,6 +8,7 @@ import { clearAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
 import { useAppDispatch, useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
+import axios from 'axios';
 import Head from 'next/head';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -57,6 +58,10 @@ const StyledLayout = styled(Layout)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
+  const AccessToken = ctx.req.cookies.Token;
+  console.log('eungwang123', ctx.req.cookies.Token);
+  axios.defaults.headers.common['Authorization'] = `Bearer ${AccessToken}` || '';
+  await store.dispatch(loadMyInfo());
   await store.dispatch(
     loadMyPosts({
       userId: store.getState().userSlice.me?.userId as number,
@@ -66,6 +71,5 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
       filter: ctx.query.filter as string,
     }),
   );
-
   return { props: {} };
 });
