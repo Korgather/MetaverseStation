@@ -55,15 +55,6 @@ const ContentBox = () => {
       });
     }
   };
-  const gotoUserPage = () => {
-    if (postDetail) {
-      const { username, userId, bio, profileImageUrl } = postDetail.postUser;
-      router.push({
-        pathname: `/user/${userId}`,
-        query: { userId, username, bio, profileImageUrl },
-      });
-    }
-  };
 
   const openUpdateModal = () => {
     if (isMeta) {
@@ -121,10 +112,10 @@ const ContentBox = () => {
       <Title>{postDetail.title}</Title>
       <ProfileHeader>
         {me ? (
-          <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
+          <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" />
         ) : (
           <Tooltip placement="topLeft" title="로그인이 필요합니다">
-            <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" onClick={gotoUserPage} />
+            <ProfileImg src={postDetail.postUser.profileImageUrl} alt="" />
           </Tooltip>
         )}
         <Username>{postDetail.postUser.username}</Username>

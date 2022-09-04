@@ -14,6 +14,7 @@ import modal from 'antd/lib/modal';
 import { removePost } from '@actions/post';
 import { useRouter } from 'next/router';
 import { generateBetweenTime } from '@lib/generateBetweenTime';
+import { getAuthorInfo } from '@slices/userSlice';
 interface DetailHeader {
   setCommentState: Dispatch<SetStateAction<boolean>>;
 }
@@ -70,22 +71,11 @@ const DetailHeader: React.FunctionComponent<DetailHeader> = ({ setCommentState }
     </Menu>
   );
 
-  const gotoUserPage = () => {
-    const isMe = postData?.postUser.userId === me?.userId;
-    const pathname = isMe ? '/mypage' : `/user/${postData?.postUser.userId}`;
-    if (postData) {
-      const { username, userId, bio, profileImageUrl } = postData.postUser;
-      router.push({
-        pathname: pathname,
-        query: !isMe ? { userId, username, bio, profileImageUrl } : '',
-      });
-    }
-  };
   const gotoDetailPage = () => router.push(`community/post/${postData?.id}`);
   return (
     <S.HeaderWrapper>
       {me ? (
-        <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" onClick={gotoUserPage} />
+        <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" />
       ) : (
         <Tooltip placement="topLeft" title="로그인이 필요합니다">
           <S.ProfileImg src={postData?.postUser?.profileImageUrl} alt="" />
