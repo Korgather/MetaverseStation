@@ -23,13 +23,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
     <>
       {Posts?.map((post) => (
         <Col key={post.id} xs={24} md={12} lg={8} xl={8} style={{}}>
-          <motion.div
-            key={`mypage/${shortid.generate()}`}
-            variants={pageVariants}
-            initial="initial"
-            animate="visible"
-            exit="leaving"
-          >
+          <div key={`mypage/${shortid.generate()}`}>
             <S.ImgWrapper>
               <div
                 onClick={() => {
@@ -61,7 +55,7 @@ const MyPostFactory = ({ Posts, setDetailModalState }: IMyPostFactoryProps) => {
               <S.StyledEyeOutlined />
               <S.Count>{post.view}</S.Count>
             </S.Summary>
-          </motion.div>
+          </div>
         </Col>
       ))}
     </>

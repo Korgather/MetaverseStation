@@ -1,29 +1,21 @@
 import { loadMyInfo, loadMyPosts } from '@actions/user';
 import AppLayout from '@components/AppLayout/AppLayout';
 import DetailModalContainer from '@components/detailModal/DetailModalContainer';
-import MyPost from '@components/mypage/MyPost';
 import Profile from '@components/mypage/Profile';
+import MyPagePostsComponent from '@components/mypage/MyPagePostsComponent';
 import ProfileEditModal from '@components/profileEditModal/ProfileEditModal';
-import { clearAuthorInfo, logOut, saveAccessToken } from '@slices/userSlice';
 import wrapper from '@store/configureStore';
-import { useAppDispatch, useAppSelector } from '@store/hook';
+import { useAppSelector } from '@store/hook';
 import { Layout } from 'antd';
 import axios from 'axios';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [editModalState, setEditModalState] = useState(false);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearAuthorInfo());
-    };
-  }, []);
   return (
     <>
       <Head>
@@ -36,7 +28,7 @@ const mypage = () => {
           {me && (
             <StyledLayout>
               <Profile setEditModalState={setEditModalState} />
-              <MyPost setDetailModalState={setDetailModalState} />
+              <MyPagePostsComponent setDetailModalState={setDetailModalState} pathname="mypage" />
             </StyledLayout>
           )}
         </>
@@ -59,12 +51,11 @@ const StyledLayout = styled(Layout)`
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
   const AccessToken = ctx.req.cookies.Token;
-  console.log('eungwang123', ctx.req.cookies.Token);
   axios.defaults.headers.common['Authorization'] = `Bearer ${AccessToken}` || '';
   await store.dispatch(loadMyInfo());
   await store.dispatch(
     loadMyPosts({
-      userId: store.getState().userSlice.me?.userId as number,
+      userId: Number(store.getState().userSlice.me?.userId),
       pageNum: ctx.query.page as string,
       category: ctx.query.category as string,
       keyword: ctx.query.search as string,

@@ -24,15 +24,14 @@ const Home: NextPage = () => {
     me ? dispatch(ToggleWriteModalState(true)) : router.push('/login');
   };
   useEffect(() => {
-    if (Object.keys(router.query).length >= 1)
-      dispatch(
-        loadPosts({
-          pageNum: router.query.page as string,
-          category: router.query.category ? (router.query.category as string) : 'METAVERSE',
-          keyword: router.query.search as string,
-          sort: router.query.sort as string,
-        }),
-      );
+    dispatch(
+      loadPosts({
+        pageNum: router.query.page as string,
+        category: router.query.category ? (router.query.category as string) : 'METAVERSE',
+        keyword: router.query.search as string,
+        sort: router.query.sort as string,
+      }),
+    );
   }, [router.query.page, router.query.category, router.query.search, router.query.sort]);
   return (
     <>
@@ -86,8 +85,6 @@ const StyledButton = styled(Button)`
 `;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  console.log('eungwangTest', ctx.res.getHeaders());
-  console.log('eungwangTest', ctx.req.cookies.Token);
   await store.dispatch(
     loadPosts({
       pageNum: ctx.query.page as string,
@@ -96,6 +93,5 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async (c
       sort: ctx.query.sort as string,
     }),
   );
-
   return { props: {} };
 });
