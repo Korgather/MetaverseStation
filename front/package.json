@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "build": "sh sitemap.sh && cross-env ANALYZE=true NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
