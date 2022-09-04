@@ -34,9 +34,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <CookiesProvider>
-      <Provider store={store}>
-        <AppInner pageProps={pageProps} Component={Component} />
-      </Provider>
+      <AppInner pageProps={pageProps} Component={Component} />
     </CookiesProvider>
   );
 }
