@@ -1,6 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { Row } from 'antd';
-import { IPost } from '@customTypes/post';
 import { useAppSelector } from '@store/hook';
 import MyPagination from './MyPagination';
 import * as S from './style';
@@ -11,72 +10,48 @@ import { removeHtml } from '@lib/removeHtml';
 import { HeartFilled } from '@ant-design/icons';
 import shortid from 'shortid';
 import { motion } from 'framer-motion';
-import { pageVariants } from '@assets/motionVarints';
 import { media } from '@styles/theme';
 interface MyPostProps {
-  myPosts?: IPost[];
   setDetailModalState: Dispatch<SetStateAction<boolean>>;
+  pathname: string;
 }
 
-const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) => {
-  const me = useAppSelector((state) => state.userSlice.me);
+const MyPagePostsComponent: React.FC<MyPostProps> = ({ setDetailModalState, pathname }) => {
   const router = useRouter();
   const myPosts = useAppSelector((state) => state.userSlice.myPosts);
-  const mainComPosts = useAppSelector((state) => state.userSlice.myPosts);
-  const author = useAppSelector((state) => state.userSlice.authorInfo);
-  const pathname = author ? `/user/${author.userId}` : '/mypage';
-  const myLikedPostsState = router.query.filter === 'liked';
-  const myPostsState = router.query.filter !== 'liked';
-  const MetaverseState = router.query.category !== 'COMMUNITY';
-  const CommunityState = router.query.category === 'COMMUNITY';
-  const category = router.query.category ? router.query.category : 'METAVERSE';
+  const FilterIsLiked = router.query.filter === 'liked';
+  const CategoryIsMetaverse = router.query.category !== 'COMMUNITY';
+  const CategoryIsCommunity = router.query.category === 'COMMUNITY';
+  const category = router.query.category || 'METAVERSE';
   const showMyPosts = () => {
+    if (!FilterIsLiked) return;
     router.push({
-      pathname: pathname,
+      pathname,
       query: {
-        userId: author ? author.userId : me?.userId,
         category,
-        username: author && author?.username,
-        profileImageUrl: author && author.profileImageUrl,
-        bio: author ? author.bio : me?.bio,
       },
     });
   };
   const showLikedPosts = () => {
+    if (FilterIsLiked) return;
     router.push({
-      pathname: pathname,
+      pathname,
       query: {
-        userId: author ? author.userId : me?.userId,
         category,
-        username: author && author?.username,
-        profileImageUrl: author && author.profileImageUrl,
-        bio: author ? author.bio : me?.bio,
         filter: 'liked',
       },
     });
   };
-  const gotoMeta = () => {
+  const gotoMyMetaversePosts = () => {
     router.push({
       pathname: pathname,
-      query: {
-        userId: author ? author.userId : me?.userId,
-        username: author && author?.username,
-        profileImageUrl: author && author.profileImageUrl,
-        bio: author ? author.bio : me?.bio,
-        category: 'METAVERSE',
-      },
+      query: { category: 'METAVERSE' },
     });
   };
-  const gotoCom = () => {
+  const gotoMyCommunityPosts = () => {
     router.push({
       pathname: pathname,
-      query: {
-        userId: author ? author.userId : me?.userId,
-        username: author && author?.username,
-        profileImageUrl: author && author.profileImageUrl,
-        bio: author ? author.bio : me?.bio,
-        category: 'COMMUNITY',
-      },
+      query: { category: 'COMMUNITY' },
     });
   };
   const gotoDetail = (id: number) => {
@@ -87,31 +62,23 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
     <>
       <S.MyPostWrapper>
         <S.ButtonWrapper>
-          <S.StyledBtn
-            onClick={() => showMyPosts()}
-            htmlType="button"
-            isactive={myPostsState.toString()}
-          >
+          <S.StyledBtn onClick={showMyPosts} htmlType="button" isactive={String(!FilterIsLiked)}>
             내가 쓴 글
           </S.StyledBtn>
-          <S.StyledBtn
-            onClick={() => showLikedPosts()}
-            htmlType="button"
-            isactive={myLikedPostsState.toString()}
-          >
+          <S.StyledBtn onClick={showLikedPosts} htmlType="button" isactive={String(FilterIsLiked)}>
             좋아요 누른 글
           </S.StyledBtn>
         </S.ButtonWrapper>
         <ContentWrapper>
           <MenuWrapper>
-            <Menu isActive={MetaverseState} onClick={() => gotoMeta()}>
+            <Menu isActive={CategoryIsMetaverse} onClick={gotoMyMetaversePosts}>
               메타버스
             </Menu>
-            <Menu isActive={CommunityState} onClick={() => gotoCom()}>
+            <Menu isActive={CategoryIsCommunity} onClick={gotoMyCommunityPosts}>
               커뮤니티
             </Menu>
           </MenuWrapper>
-          {MetaverseState ? (
+          {CategoryIsMetaverse ? (
             <StyledRow
               justify="start"
               gutter={[
@@ -123,15 +90,8 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
             </StyledRow>
           ) : (
             <ComWrapper>
-              {mainComPosts?.map((post) => (
-                <BoardListContainer
-                  key={shortid.generate()}
-                  onClick={() => gotoDetail(post.id)}
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="visible"
-                  exit="leaving"
-                >
+              {myPosts?.map((post) => (
+                <BoardListContainer key={shortid.generate()} onClick={() => gotoDetail(post.id)}>
                   <FirstContainer>
                     <Title>{post?.title}</Title>
                     <Content>{removeHtml(post?.content as string)}</Content>
@@ -161,7 +121,7 @@ const MyPost: React.FunctionComponent<MyPostProps> = ({ setDetailModalState }) =
   );
 };
 
-export default MyPost;
+export default MyPagePostsComponent;
 
 interface isActive {
   isActive: boolean;
