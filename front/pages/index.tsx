@@ -16,6 +16,15 @@ import { media } from '@styles/theme';
 import wrapper from '@store/configureStore';
 
 const Home: NextPage = () => {
+  const initOptimize = () => {
+    const script = document.createElement('script');
+    script.src = `https://www.googleoptimize.com/optimize.js?id=OPT-TRTBJP3`;
+    script.id = 'google-optimize';
+    document.body.appendChild(script);
+  };
+  useEffect(() => {
+    initOptimize();
+  }, []);
   const me = useAppSelector((state) => state.userSlice.me);
   const dispatch = useAppDispatch();
   const router = useRouter();
