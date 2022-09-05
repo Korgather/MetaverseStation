@@ -29,6 +29,7 @@ class MyDocument extends Document {
       sheet.seal();
     }
   }
+
   render() {
     const url = 'https://www.modumeta.com/';
     return (
@@ -45,8 +46,11 @@ class MyDocument extends Document {
             strategy="afterInteractive"
           />
           <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
-          <script src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP" />
-          <script src="https://www.googleoptimize.com/optimize.js?id=OPT-TRTBJP3" />
+          <Script
+            strategy="afterInteractive"
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"
+          />
           <Script
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
