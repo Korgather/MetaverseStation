@@ -29,7 +29,6 @@ class MyDocument extends Document {
       sheet.seal();
     }
   }
-
   render() {
     const url = 'https://www.modumeta.com/';
     return (
@@ -63,6 +62,10 @@ class MyDocument extends Document {
               });
             `,
             }}
+          />
+          <Script
+            strategy="afterInteractive"
+            src="https://www.googleoptimize.com/optimize.js?id=OPT-TRTBJP3"
           />
           <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
           <meta
