@@ -45,11 +45,7 @@ class MyDocument extends Document {
             strategy="afterInteractive"
           />
           <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
-          <Script
-            strategy="afterInteractive"
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"
-          />
+          <script src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP" />
           <Script
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
