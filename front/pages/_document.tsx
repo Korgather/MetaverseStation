@@ -46,6 +46,7 @@ class MyDocument extends Document {
           />
           <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
           <script src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP" />
+          <script src="https://www.googleoptimize.com/optimize.js?id=OPT-TRTBJP3" />
           <Script
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
@@ -58,10 +59,6 @@ class MyDocument extends Document {
               });
             `,
             }}
-          />
-          <Script
-            strategy="afterInteractive"
-            src="https://www.googleoptimize.com/optimize.js?id=OPT-TRTBJP3"
           />
           <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
           <meta
