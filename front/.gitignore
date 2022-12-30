@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+**/public/robots.txt
+**/public/sitemap*.xml
+
 # next.js
 /.next
 /out/
@@ -37,7 +40,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-**/public/workbox-*.js
-**/public/sw.js
-**/public/sw.js.map
-**/public/worker-*.js

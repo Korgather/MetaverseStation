@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "sh sitemap.sh && cross-env ANALYZE=true NODE_ENV=production next build",
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watch",
@@ -35,6 +36,7 @@
     "next-cookies": "^2.0.3",
     "next-pwa": "^5.5.4",
     "next-redux-wrapper": "^7.0.5",
+    "next-sitemap": "^3.1.43",
     "node-fetch": "^3.2.3",
     "patch-package": "^6.4.7",
     "postcss-flexbugs-fixes": "^5.0.2",
