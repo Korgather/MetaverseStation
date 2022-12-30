@@ -12,7 +12,7 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const mypage = () => {
+const Mypage = () => {
   const [detailModalState, setDetailModalState] = useState(false);
   const me = useAppSelector((state) => state.userSlice.me);
   const [editModalState, setEditModalState] = useState(false);
@@ -22,13 +22,18 @@ const mypage = () => {
         <title>{`${me?.userName}님의 소개 - 모두의메타버스 | 메타버스 공유 플랫폼`}</title>
       </Head>
       {detailModalState && <DetailModalContainer />}
-      {editModalState && <ProfileEditModal setEditModalState={setEditModalState} />}
+      {editModalState && (
+        <ProfileEditModal setEditModalState={setEditModalState} />
+      )}
       <AppLayout>
         <>
           {me && (
             <StyledLayout>
               <Profile setEditModalState={setEditModalState} />
-              <MyPagePostsComponent setDetailModalState={setDetailModalState} pathname="mypage" />
+              <MyPagePostsComponent
+                setDetailModalState={setDetailModalState}
+                pathname="mypage"
+              />
             </StyledLayout>
           )}
         </>
@@ -37,7 +42,7 @@ const mypage = () => {
   );
 };
 
-export default mypage;
+export default Mypage;
 
 const StyledLayout = styled(Layout)`
   align-items: center;
@@ -49,18 +54,21 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  const AccessToken = ctx.req.cookies.Token;
-  axios.defaults.headers.common['Authorization'] = `Bearer ${AccessToken}` || '';
-  await store.dispatch(loadMyInfo());
-  await store.dispatch(
-    loadMyPosts({
-      userId: Number(store.getState().userSlice.me?.userId),
-      pageNum: ctx.query.page as string,
-      category: ctx.query.category as string,
-      keyword: ctx.query.search as string,
-      filter: ctx.query.filter as string,
-    }),
-  );
-  return { props: {} };
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    const AccessToken = ctx.req.cookies.Token;
+    axios.defaults.headers.common['Authorization'] =
+      `Bearer ${AccessToken}` || '';
+    await store.dispatch(loadMyInfo());
+    await store.dispatch(
+      loadMyPosts({
+        userId: Number(store.getState().userSlice.me?.userId),
+        pageNum: ctx.query.page as string,
+        category: ctx.query.category as string,
+        keyword: ctx.query.search as string,
+        filter: ctx.query.filter as string,
+      })
+    );
+    return { props: {} };
+  }
+);

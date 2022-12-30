@@ -11,9 +11,9 @@ import { useAppSelector } from '@store/hook';
 import Head from 'next/head';
 import styled from 'styled-components';
 
-const community = () => {
+const Community = () => {
   const communityWriteModalState = useAppSelector(
-    (state) => state.communitySlice.communityWriteModalState,
+    (state) => state.communitySlice.communityWriteModalState
   );
   return (
     <>
@@ -32,22 +32,24 @@ const community = () => {
   );
 };
 
-export default community;
+export default Community;
 
 const FlexWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  await store.dispatch(
-    loadComPosts({
-      pageNum: ctx.query.page as string,
-      category: 'COMMUNITY_STUDY',
-      keyword: ctx.query.search as string,
-    }),
-  );
-  store.dispatch(clearComPostDetail());
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    await store.dispatch(
+      loadComPosts({
+        pageNum: ctx.query.page as string,
+        category: 'COMMUNITY_STUDY',
+        keyword: ctx.query.search as string,
+      })
+    );
+    store.dispatch(clearComPostDetail());
 
-  return { props: {} };
-});
+    return { props: {} };
+  }
+);

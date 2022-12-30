@@ -10,9 +10,9 @@ import { useAppSelector } from '@store/hook';
 import Head from 'next/head';
 import React from 'react';
 
-const community = () => {
+const Community = () => {
   const communityWriteModalState = useAppSelector(
-    (state) => state.communitySlice.communityWriteModalState,
+    (state) => state.communitySlice.communityWriteModalState
   );
   return (
     <>
@@ -31,17 +31,19 @@ const community = () => {
   );
 };
 
-export default community;
+export default Community;
 
-export const getServerSideProps = wrapper.getServerSideProps((store) => async (ctx) => {
-  await store.dispatch(
-    loadComPosts({
-      pageNum: ctx.query.page as string,
-      category: 'COMMUNITY_QUESTION',
-      keyword: ctx.query.search as string,
-    }),
-  );
-  store.dispatch(clearComPostDetail());
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    await store.dispatch(
+      loadComPosts({
+        pageNum: ctx.query.page as string,
+        category: 'COMMUNITY_QUESTION',
+        keyword: ctx.query.search as string,
+      })
+    );
+    store.dispatch(clearComPostDetail());
 
-  return { props: {} };
-});
+    return { props: {} };
+  }
+);
