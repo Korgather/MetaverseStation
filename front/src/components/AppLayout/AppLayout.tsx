@@ -55,9 +55,13 @@ const LayoutWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   .ant-layout-content {
     width: 100%;
+    min-height: calc(100vh - 212px);
     display: flex;
     flex-direction: column;
     align-items: center;
+    ${media.mobile} {
+      min-height: calc(100vh - 165px);
+    }
   }
   .site-layout-content {
     display: flex;
