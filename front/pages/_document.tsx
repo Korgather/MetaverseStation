@@ -1,5 +1,11 @@
 import React from 'react';
-import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 import shortid from 'shortid';
 import Script from 'next/script';
@@ -7,12 +13,12 @@ import Script from 'next/script';
 class MyDocument extends Document {
   static async getInitialProps(context: DocumentContext) {
     const sheet = new ServerStyleSheet();
-    // eslint-disable-next-line testing-library/render-result-naming-convention
     const originalRenderPage = context.renderPage;
     try {
       context.renderPage = () =>
         originalRenderPage({
-          enhanceApp: (App) => (props) => sheet.collectStyles(<App {...props} />),
+          enhanceApp: (App) => (props) =>
+            sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(context);
@@ -35,36 +41,15 @@ class MyDocument extends Document {
     return (
       <Html lang="ko">
         <Head>
-          <Script
-            dangerouslySetInnerHTML={{
-              __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                  'https://www.googletagmanager.com/gtm.js?id=%27+i+dl;f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','GTM-N4NRZP8');`,
-            }}
-            strategy="afterInteractive"
+          <script
+            defer
+            src="https://developers.kakao.com/sdk/js/kakao.min.js"
           />
-          <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
-          <Script
-            strategy="afterInteractive"
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-JJJK75PQJP"
+
+          <meta
+            name="naver-site-verification"
+            content="29cc22706719a244d8ecb5f0236f31a87d58d9c1"
           />
-          <Script
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', 'G-JJJK75PQJP', {
-                  page_path: window.location.pathname,
-              });
-            `,
-            }}
-          />
-          <meta name="naver-site-verification" content="29cc22706719a244d8ecb5f0236f31a87d58d9c1" />
           <meta
             name="description"
             content="메타버스 공유 플랫폼 모두메타입니다. 여러분의 메타버스(게더타운, 젭)을 공유해보세요. "
@@ -76,7 +61,11 @@ class MyDocument extends Document {
           />
           <meta key={shortid.generate()} property="og:type" content="website" />
           <meta key={shortid.generate()} property="og:url" content={url} />
-          <meta key={shortid.generate()} property="og:title" content="모두메타 - 모두의 메타버스" />
+          <meta
+            key={shortid.generate()}
+            property="og:title"
+            content="모두메타 - 모두의 메타버스"
+          />
           <meta
             key={shortid.generate()}
             property="og:image"
@@ -135,18 +124,55 @@ class MyDocument extends Document {
             sizes="152x152"
             href="apple-touch-icon-152x152.png"
           />
-          <link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
-          <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-          <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
-          <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
-          <link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+          <link
+            rel="icon"
+            type="image/png"
+            href="favicon-196x196.png"
+            sizes="196x196"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="favicon-96x96.png"
+            sizes="96x96"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="favicon-32x32.png"
+            sizes="32x32"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="favicon-16x16.png"
+            sizes="16x16"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            href="favicon-128.png"
+            sizes="128x128"
+          />
           <meta name="application-name" content="&nbsp;" />
           <meta name="msapplication-TileColor" content="#FFFFFF" />
           <meta name="msapplication-TileImage" content="mstile-144x144.png" />
-          <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
-          <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
-          <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
-          <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+          <meta
+            name="msapplication-square70x70logo"
+            content="mstile-70x70.png"
+          />
+          <meta
+            name="msapplication-square150x150logo"
+            content="mstile-150x150.png"
+          />
+          <meta
+            name="msapplication-wide310x150logo"
+            content="mstile-310x150.png"
+          />
+          <meta
+            name="msapplication-square310x310logo"
+            content="mstile-310x310.png"
+          />
         </Head>
         <body>
           <Main />

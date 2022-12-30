@@ -9,7 +9,7 @@ import ProfileCard from '@components/game/gameNav/ProfileCard';
 import GameChannelChange from '@components/game/GameChannelChange';
 import { signInOmok } from '@actions/game';
 
-const zepmapia = () => {
+const Zepmapia = () => {
   const [channelState, setChannelState] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ const zepmapia = () => {
                 lose,
                 zepMessage: true,
               },
-              '*',
+              '*'
             );
           });
           return;
@@ -67,7 +67,10 @@ const zepmapia = () => {
         setProfileCardState={setProfileCardState}
         profileCardState={profileCardState}
       />
-      <LoginModalView setStartCondition={setStartCondition} startCondition={startCondition} />
+      <LoginModalView
+        setStartCondition={setStartCondition}
+        startCondition={startCondition}
+      />
       <ProfileCard
         profileCardState={profileCardState}
         setProfileCardState={setProfileCardState}
@@ -75,13 +78,16 @@ const zepmapia = () => {
       />
 
       {channelState && (
-        <GameChannelChange channelState={channelState} setChannelState={setChannelState} />
+        <GameChannelChange
+          channelState={channelState}
+          setChannelState={setChannelState}
+        />
       )}
     </>
   );
 };
 
-export default zepmapia;
+export default Zepmapia;
 
 const StyledIframe = styled.iframe`
   display: block;

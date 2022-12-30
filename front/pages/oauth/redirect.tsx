@@ -10,12 +10,14 @@ import { Triangle } from 'react-loader-spinner';
 import axios from 'axios';
 import Head from 'next/head';
 
-function redirect() {
+function Redirect() {
   const router = useRouter();
   const setCookie = useCookies(['Token'])[1];
   const dispatch = useAppDispatch();
   const token = router.query.token;
-  const userNameModifiedYn = useAppSelector((state) => state.userSlice.me?.userNameModifiedYn);
+  const userNameModifiedYn = useAppSelector(
+    (state) => state.userSlice.me?.userNameModifiedYn
+  );
   useEffect(() => {
     (async () => {
       if (token) {
@@ -57,7 +59,7 @@ function redirect() {
   );
 }
 
-export default redirect;
+export default Redirect;
 const Layout = styled.div`
   width: 100vw;
   height: 100vh;

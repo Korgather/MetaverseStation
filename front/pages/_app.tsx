@@ -10,6 +10,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import AppInner from '@components/AppInner';
 import { CookiesProvider } from 'react-cookie';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 declare global {
   interface Window {
     Kakao: any;
@@ -34,6 +35,25 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <CookiesProvider>
+      <Script
+        strategy="afterInteractive"
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_TRACKING_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_TRACKING_ID}', {
+            page_path: window.location.pathname,
+        });
+      `,
+        }}
+      />
       <AppInner pageProps={pageProps} Component={Component} />
     </CookiesProvider>
   );

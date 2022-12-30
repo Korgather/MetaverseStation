@@ -1,6 +1,5 @@
 import React, { SetStateAction, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from '@store/hook';
 import axios from 'axios';
 import { useQuill } from 'react-quilljs';
 import { RangeStatic } from 'quill';
@@ -34,14 +33,24 @@ interface IQuill {
   setImages: React.Dispatch<SetStateAction<IImageList[]>>;
 }
 
-export default function QuillFactory({ onChangeContent, prevData, images, setImages }: IQuill) {
+export default function QuillFactory({
+  onChangeContent,
+  prevData,
+  images,
+  setImages,
+}: IQuill) {
   const modules = useMemo(
     () => ({
       toolbar: {
         container: [
           [{ header: [1, 2, false] }],
           ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-          [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+          [
+            { list: 'ordered' },
+            { list: 'bullet' },
+            { indent: '-1' },
+            { indent: '+1' },
+          ],
           ['link', 'image'],
           ['clean'],
         ],
@@ -52,11 +61,10 @@ export default function QuillFactory({ onChangeContent, prevData, images, setIma
         },
       },
     }),
-    [],
+    []
   );
   const { quill, quillRef, Quill } = useQuill({ theme, modules, formats });
   if (Quill && !quill) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const imageDropAndPaste = require('quill-image-drop-and-paste').default;
     Quill.register('modules/imageDropAndPaste', imageDropAndPaste);
   }
@@ -68,7 +76,10 @@ export default function QuillFactory({ onChangeContent, prevData, images, setIma
   const saveToServer = async (file: File) => {
     const fd = new FormData();
     fd.append('data', file);
-    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`, fd);
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/upload`,
+      fd
+    );
     const imageURL = process.env.NEXT_PUBLIC_IMG_URL + res.data[0];
     insertToEditor(imageURL);
     return imageURL;
@@ -97,7 +108,8 @@ export default function QuillFactory({ onChangeContent, prevData, images, setIma
           return quill.insertEmbed(10, 'image', Url);
         }
       };
-      prevData.content && quill.clipboard.dangerouslyPasteHTML(`${prevData.content}`);
+      prevData.content &&
+        quill.clipboard.dangerouslyPasteHTML(`${prevData.content}`);
       quill.on('text-change', () => {
         onChangeContent(quill.root.innerHTML);
         const imgNode = Array.from(document.querySelectorAll('.ql-editor img'));
