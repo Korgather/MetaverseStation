@@ -97,20 +97,20 @@ const GameContainer = () => {
   useEffect(() => {
     if (urlHashId.length === 8) {
       (async () => {
-        const result = await Promise.all([
-          await dispatch(getMapiaUserCount(urlHashId[0])),
-          await dispatch(getMapiaUserCount(urlHashId[1])),
-          await dispatch(getMapiaUserCount(urlHashId[2])),
-          await dispatch(getMapiaUserCount(urlHashId[3])),
-          await dispatch(getMapiaUserCount(urlHashId[4])),
-          await dispatch(getMapiaUserCount(urlHashId[5])),
-          await dispatch(getMapiaUserCount(urlHashId[6])),
-          await dispatch(getMapiaUserCount(urlHashId[7])),
-        ]);
-        setUserCount((el) => {
-          const data = result.map((el) => el.payload);
-          return data;
-        });
+        // const result = await Promise.all([
+        //   await dispatch(getMapiaUserCount(urlHashId[0])),
+        //   await dispatch(getMapiaUserCount(urlHashId[1])),
+        //   await dispatch(getMapiaUserCount(urlHashId[2])),
+        //   await dispatch(getMapiaUserCount(urlHashId[3])),
+        //   await dispatch(getMapiaUserCount(urlHashId[4])),
+        //   await dispatch(getMapiaUserCount(urlHashId[5])),
+        //   await dispatch(getMapiaUserCount(urlHashId[6])),
+        //   await dispatch(getMapiaUserCount(urlHashId[7])),
+        // ]);
+        // setUserCount((el) => {
+        //   const data = result.map((el) => el.payload);
+        //   return data;
+        // });
       })();
     }
   }, [urlHashId]);
@@ -118,14 +118,14 @@ const GameContainer = () => {
   useEffect(() => {
     if (router.pathname.includes('mapia')) {
       setIsMatch((prev) => ({ ...prev, mapia: true }));
-      setChannelImages((prev) => {
-        const ImagesArray = Array.from({ length: 8 }, (v, k) => ({
-          src: `/images/mapiachannel/00${k + 1}.png`,
-          url: `/game/zepmapia/${urlHashId[k]}`,
-          count: userCount[k],
-        }));
-        return { ...prev, mapia: ImagesArray };
-      });
+      // setChannelImages((prev) => {
+      //   const ImagesArray = Array.from({ length: 8 }, (v, k) => ({
+      //     src: `/images/mapiachannel/00${k + 1}.png`,
+      //     url: `/game/zepmapia/${urlHashId[k]}`,
+      //     count: userCount[k],
+      //   }));
+      //   return { ...prev, mapia: ImagesArray };
+      // });
     }
 
     if (router.pathname.includes('omok')) {
