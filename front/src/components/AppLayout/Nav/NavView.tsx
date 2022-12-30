@@ -55,9 +55,9 @@ const NavView = ({ selectedKeys, goHome, onSelect, selectedGameKeys }: NavViewPr
               </Menu.Item>
 
               <Menu.Item key="nav_game">
-                <Dropdown overlay={menu} arrow={false} placement="bottomRight">
+                <Link href="/game">
                   <span>게임</span>
-                </Dropdown>
+                </Link>
               </Menu.Item>
 
               <Menu.Item key="nav_api">

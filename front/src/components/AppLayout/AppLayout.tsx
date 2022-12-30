@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
 interface AuxProps {
-  children: ReactChild | ReactChildren;
+  children: React.ReactNode;
 }
 
 const { Content, Footer } = Layout;
