@@ -21,8 +21,12 @@ const Nav = dynamic(import('./Nav/NavContainer'), {
 
 const AppLayout = ({ children }: AuxProps) => {
   const router = useRouter();
-  const updateModalState = useAppSelector((state) => state.postSlice.updateModalState);
-  const detailModalState = useAppSelector((state) => state.postSlice.detailModalState);
+  const updateModalState = useAppSelector(
+    (state) => state.postSlice.updateModalState
+  );
+  const detailModalState = useAppSelector(
+    (state) => state.postSlice.detailModalState
+  );
   const isChannelIframe = router.pathname === '/game/channelIframe';
   return (
     <>
@@ -55,7 +59,7 @@ const LayoutWrapper = styled.div`
   font-family: 'Roboto', sans-serif;
   .ant-layout-content {
     width: 100%;
-    min-height: calc(100vh - 212px);
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

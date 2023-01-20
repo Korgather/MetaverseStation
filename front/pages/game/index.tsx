@@ -16,13 +16,13 @@ export interface GameCardOption {
 const GamePage: React.FC = () => {
   const gameCardOptions: GameCardOption[] = [
     {
-      url: 'https://zep.us/play/y1ebBW',
+      url: 'https://zep.us/play/yBZAkk',
       title: '오목 게임',
       author: 'modumeta',
       img: '/images/omokgame_thumnail.png',
     },
     {
-      url: 'https://zep.us/play/yV9AA9',
+      url: 'https://zep.us/play/yaPodR',
       title: '마피아 게임',
       author: 'modumeta',
       img: '/images/mapiagame_thumnail.png',
