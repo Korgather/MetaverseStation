@@ -9,12 +9,12 @@ export interface IReply {
   userId: number;
   username: string;
   profileImageUrl?: string;
-  createdDate?: string;
+  createdDate?: number[];
   modifiedDate?: string;
 }
 
 export interface IComment {
-  createdDate?: string | Date;
+  createdDate?: number[];
   content?: string;
   id?: number;
   postCommentReplyList: IReply[];

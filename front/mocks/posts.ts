@@ -40,7 +40,7 @@ export const mockPosts: IPost[] = [
       '1': 'Gwang',
     },
     playerCount: 20,
-    createdDate: '2022-04-24T17:51:47.986562',
+    createdDate: [2022, 4, 12, 31, 41, 2],
   },
   {
     id: 164,
@@ -80,7 +80,7 @@ export const mockPosts: IPost[] = [
         profileImageUrl:
           'https://cdn.metabusstation.shop/profileImage/38788d96-d20a-480a-9062-97417731db31Logo01.png',
         postCommentReplyList: [],
-        createdDate: '2022-04-14T01:44:51.785689',
+        createdDate: [2022, 4, 12, 31, 41, 2],
       },
     ],
     likeUserList: {
@@ -92,7 +92,7 @@ export const mockPosts: IPost[] = [
       '40': 'won',
     },
     playerCount: 1,
-    createdDate: '2022-04-14T00:05:55.403239',
+    createdDate: [2022, 4, 12, 31, 41, 2],
   },
   {
     id: 176,
@@ -142,7 +142,7 @@ export const mockPosts: IPost[] = [
         profileImageUrl:
           'http://k.kakaocdn.net/dn/dwl9T8/btrsJLikpZW/uU1vqbytCzBPNZWFj7g1F1/img_110x110.jpg',
         postCommentReplyList: [],
-        createdDate: '2022-04-17T23:46:20.215011',
+        createdDate: [2022, 4, 12, 31, 41, 2],
       },
     ],
     likeUserList: {
@@ -153,7 +153,7 @@ export const mockPosts: IPost[] = [
       '70': '얼웨이즈',
     },
     playerCount: 1,
-    createdDate: '2022-04-15T14:51:50.917542',
+    createdDate: [2022, 4, 12, 31, 41, 2],
   },
   {
     id: 208,
@@ -201,6 +201,6 @@ export const mockPosts: IPost[] = [
       '8': '디코',
     },
     playerCount: 1,
-    createdDate: '2022-05-23T17:18:28.266546',
+    createdDate: [2022, 4, 12, 31, 41, 2],
   },
 ];

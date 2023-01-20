@@ -35,7 +35,7 @@ export interface IPost {
   postCommentList: IComment[];
   likeUserList: object;
   view: number;
-  createdDate: string;
+  createdDate: number[];
   playerCount?: number;
 }
 
@@ -45,7 +45,8 @@ export interface AddPost extends Pick<IPost, 'title' | 'link' | 'content'> {
   category?: string;
 }
 
-export interface IPostDataForUpdate extends Pick<IPost, 'title' | 'link' | 'content'> {
+export interface IPostDataForUpdate
+  extends Pick<IPost, 'title' | 'link' | 'content'> {
   images: CustomFile[];
   id?: string;
   category: string;
