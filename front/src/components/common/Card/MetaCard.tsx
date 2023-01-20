@@ -6,23 +6,38 @@ import Image from 'next/image';
 import { EyeOutlined, HeartTwoTone } from '@ant-design/icons';
 import { useMedia } from '@lib/useMedia';
 import { IPost } from '@customTypes/post';
+import { useRouter } from 'next/router';
 interface MetaCardProps {
   post: IPost;
   openDetailModal: (post: IPost) => void;
   handleImgError: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   idx?: number;
 }
-const MetaCard: React.FC<MetaCardProps> = ({ post, openDetailModal, handleImgError, idx }) => {
+const MetaCard: React.FC<MetaCardProps> = ({
+  post,
+  openDetailModal,
+  handleImgError,
+  idx,
+}) => {
   const { isMobile } = useMedia();
+  const router = useRouter();
   return (
     <MetaCardContainer xs={24} md={12} lg={8} xl={6} style={{}}>
       <div className="metacard-img-wrapper">
-        <div onClick={() => openDetailModal(post)} data-testid={`open-modal${idx}`}>
+        {/* <div onClick={() => openDetailModal(post)} data-testid={`open-modal${idx}`}> */}
+        <div
+          onClick={() => {
+            router.push(`community/post/${post.id}`);
+          }}
+          data-testid={`open-modal${idx}`}
+        >
           {isMobile ? (
             <Link href={`community/post/${post.id}`} scroll={true}>
               <Image
                 className="metacard-thumnail-img"
-                src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
+                src={
+                  process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath
+                }
                 width="100%"
                 height="80%"
                 layout="responsive"
@@ -34,7 +49,9 @@ const MetaCard: React.FC<MetaCardProps> = ({ post, openDetailModal, handleImgErr
             </Link>
           ) : (
             <Image
-              src={process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath}
+              src={
+                process.env.NEXT_PUBLIC_IMG_URL + post.imageList[0].imagePath
+              }
               width="100%"
               height="80%"
               layout="responsive"
@@ -76,8 +93,14 @@ const MetaCard: React.FC<MetaCardProps> = ({ post, openDetailModal, handleImgErr
         </div>
         <div className="metacard-content-title">{post.title}</div>
         <HeartTwoTone className="metacard-icon-heart" twoToneColor="#eb3f96" />
-        <div className="metacard-icon-count">{Object.keys(post.likeUserList).length}</div>
-        <img className="metacard-icon-comment" src="../../images/commentIcon.png" alt="comment" />
+        <div className="metacard-icon-count">
+          {Object.keys(post.likeUserList).length}
+        </div>
+        <img
+          className="metacard-icon-comment"
+          src="../../images/commentIcon.png"
+          alt="comment"
+        />
         <div className="metacard-icon-count">{post.postCommentList.length}</div>
         <EyeOutlined className="metacard-icon-eye" />
         <div className="metacard-icon-count">{post.view}</div>

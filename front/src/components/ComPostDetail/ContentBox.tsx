@@ -18,17 +18,24 @@ import { ToggleCommunityWriteModalState } from '@slices/communitySlice';
 import SliderImages from './SliderImages';
 import { getPrevPostData, ToggleWriteModalState } from '@slices/postSlice';
 import { IPost } from '@customTypes/post';
+import { generateBetweenTime } from '@lib/generateBetweenTime';
 
 const ContentBox = () => {
   const [likeState, setLikeState] = useState(false);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const me = useAppSelector((state) => state.userSlice.me);
-  const postDetail = useAppSelector((state) => state.communitySlice.comPostDetail);
-  const isMeta = postDetail?.category && postDetail?.category?.indexOf('METAVERSE') > -1;
+  const postDetail = useAppSelector(
+    (state) => state.communitySlice.comPostDetail
+  );
+  const isMeta =
+    postDetail?.category && postDetail?.category?.indexOf('METAVERSE') > -1;
   const heartCountRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    me && Object.keys(postDetail?.likeUserList as object).indexOf(me?.userId.toString()) > -1
+    me &&
+    Object.keys(postDetail?.likeUserList as object).indexOf(
+      me?.userId.toString()
+    ) > -1
       ? setLikeState(true)
       : setLikeState(false);
   }, []);
@@ -38,9 +45,13 @@ const ContentBox = () => {
         await dispatch(heartPost(postDetail.id));
         if (heartCountRef.current) {
           if (!likeState) {
-            heartCountRef.current.innerText = String(Number(heartCountRef.current?.innerText) + 1);
+            heartCountRef.current.innerText = String(
+              Number(heartCountRef.current?.innerText) + 1
+            );
           } else {
-            heartCountRef.current.innerText = String(Number(heartCountRef.current?.innerText) + -1);
+            heartCountRef.current.innerText = String(
+              Number(heartCountRef.current?.innerText) + -1
+            );
           }
         }
       }
@@ -61,7 +72,9 @@ const ContentBox = () => {
       const dataForUpdate = {
         images: (postDetail as IPost).imageList.map((image) => ({
           imagePath:
-            image.imagePath.indexOf('https://cdn.metabusstation.shop/static') === -1
+            image.imagePath.indexOf(
+              'https://cdn.metabusstation.shop/static'
+            ) === -1
               ? image.imagePath
               : process.env.NEXT_PUBLIC_IMG_URL + image.imagePath,
           origFileName: image.origFileName,
@@ -124,21 +137,26 @@ const ContentBox = () => {
             <StyledDownOutlined />
           </Dropdown>
         )}
-        <Date>{postDetail.createdDate.slice(0, 10)}</Date>
+        <Date>{generateBetweenTime(postDetail)}</Date>
       </ProfileHeader>
       {isMeta && <SliderImages />}
       <Content>{parse(postDetail.content as string)}</Content>
       <Icons>
         <HeartWrapper>
           {likeState ? (
-            <HeartFilled onClick={onToggleLike} style={{ fontSize: '1.3rem', color: '#eb3f96' }} />
+            <HeartFilled
+              onClick={onToggleLike}
+              style={{ fontSize: '1.3rem', color: '#eb3f96' }}
+            />
           ) : (
             <HeartOutlined
               onClick={onToggleLike}
               style={{ fontSize: '1.3rem', color: '#eb3f96' }}
             />
           )}
-          <span ref={heartCountRef}>{Object.keys(postDetail.likeUserList).length}</span>
+          <span ref={heartCountRef}>
+            {Object.keys(postDetail.likeUserList).length}
+          </span>
         </HeartWrapper>
         <EyeWrpper>
           <StyledEye />
