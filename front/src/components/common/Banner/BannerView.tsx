@@ -27,13 +27,13 @@ const items: itemsProps[] = [
   {
     mobile: '/images/omokchannel/mobileBanner.png',
     desktop: '/images/omokchannel/pcBanner.png',
-    link: '/game/omok',
+    link: 'https://zep.us/play/yBZAkk',
     name: '이미지02',
   },
   {
     mobile: '/images/mapiachannel/mobileBanner.png',
     desktop: '/images/mapiachannel/pcBanner.png',
-    link: '/game/zepmapia',
+    link: 'https://zep.us/play/yaPodR',
     name: '이미지03',
   },
 ];
@@ -55,15 +55,27 @@ function BannerView({ replacements }: BannerViewProps) {
         </SliderItem>
       ))}
       <ImageWrapper>
-        <a href="https://open.kakao.com/o/gQ9wNOhe" target="_blank" rel="noreferrer">
-          <StlyedImage src="/images/KakaoIcon2.png" alt="카카오톡아이콘" type="kakao" />
+        <a
+          href="https://open.kakao.com/o/gQ9wNOhe"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <StlyedImage
+            src="/images/KakaoIcon2.png"
+            alt="카카오톡아이콘"
+            type="kakao"
+          />
         </a>
         <a
           href="https://discord.com/channels/960814143588401152/978267159446831164"
           target="_blank"
           rel="noreferrer"
         >
-          <StlyedImage src="/images/DiscordIcon.png" alt="디스코드아이콘" type="discord" />
+          <StlyedImage
+            src="/images/DiscordIcon.png"
+            alt="디스코드아이콘"
+            type="discord"
+          />
         </a>
       </ImageWrapper>
     </Wrapper>
@@ -74,7 +86,12 @@ function BannerView({ replacements }: BannerViewProps) {
     items.map((item) => (
       <SliderItem key={shortid.generate()}>
         {item.link?.includes('https') ? (
-          <a href={item.link} target="_blank" rel="noreferrer" style={{ display: 'block' }}>
+          <a
+            href={item.link}
+            target="_blank"
+            rel="noreferrer"
+            style={{ display: 'block' }}
+          >
             <Image
               src={isPc ? item.desktop : item.mobile}
               alt={item.name}
@@ -101,7 +118,9 @@ function BannerView({ replacements }: BannerViewProps) {
 
   return (
     <BannerFrame>
-      {replacements ? replacementsContainer(replacements) : items && generalContainer(items)}
+      {replacements
+        ? replacementsContainer(replacements)
+        : items && generalContainer(items)}
     </BannerFrame>
   );
 }
