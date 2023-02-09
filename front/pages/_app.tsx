@@ -11,6 +11,7 @@ import AppInner from '@components/AppInner';
 import { CookiesProvider } from 'react-cookie';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import axios from 'axios';
 declare global {
   interface Window {
     Kakao: any;
@@ -21,6 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const gamePathArr = ['/game/zepmapia/[id]', '/game/omok/[id]'];
   const isGame = gamePathArr.includes(router.pathname);
   useEffect(() => {
+    setInterval(() => {
+      axios.get('/api/wakeup');
+    }, 60000);
     async function loadCrate() {
       const result = await import('@widgetbot/crate');
       const Crate = await result.cdn();
